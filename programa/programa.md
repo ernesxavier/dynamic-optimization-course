@@ -25,12 +25,18 @@ plantea primero como un problema estático con Lagrange y Kuhn-Tucker
 de Rahman, Intriligator y Takayama (sesión 14) y lo vuelve a resolver en
 tiempo discreto con programación dinámica (sesión 17, extensión opcional).
 
+**Datos de México**: tres sesiones trabajan con datos reales del INEGI por
+entidad federativa: la convergencia entre estados (sesión 5), la calibración
+del modelo de Ramsey (sesión 12) y la del caso de las dos regiones
+(sesión 14). El proyecto final también se contrasta o se calibra con datos.
+
 ## Metodología
 
-Cada sesión sigue el orden **problema económico → planteamiento →
-condiciones de optimalidad → solución analítica → verificación numérica**. La
-solución numérica no sustituye a la analítica: sirve para comprobarla y para
-llegar a donde la analítica no alcanza.
+Cada bloque abre con una **pregunta regional**, y cada sesión sigue el orden
+**problema económico → planteamiento → condiciones de optimalidad → solución
+analítica → verificación numérica → interpretación**. La solución numérica no
+sustituye a la analítica: sirve para comprobarla y para llegar a donde la
+analítica no alcanza.
 
 **Contenido y [Avanzado].** Todo el contenido sin marca se ve en clase y se
 evalúa. Los puntos marcados **[Avanzado]** son demostraciones completas y
@@ -44,6 +50,9 @@ tiempo lo permite.
   diagramas de fase y las políticas óptimas.
 - **Tareas**: una por bloque, cada una con una parte analítica y una parte en
   código.
+- **Proyecto ligado a la tesis**: desde la sesión 1, cada estudiante
+  identifica un problema de su tesis con dimensión temporal; la propuesta
+  (sesión 12) lo formaliza y el proyecto final lo resuelve.
 
 > **Abreviaturas de lecturas.** CW: Chiang & Wainwright (2006) ·
 > CH: Chiang (1992) · SS: Sargent & Stachurski · ST: Strogatz (2015) ·
@@ -55,6 +64,9 @@ tiempo lo permite.
 
 ## Bloque I: Repaso de optimización estática (sesiones 1–4, semanas 1–2)
 
+**Pregunta regional**: ¿cómo repartir un fondo de inversión entre dos
+regiones?
+
 **Objetivo específico**: Recuperar las condiciones de optimalidad estática y
 la interpretación del multiplicador como precio sombra, que el control óptimo
 generaliza al tiempo.
@@ -62,7 +74,8 @@ generaliza al tiempo.
 - **Sesión 1: Diagnóstico y por qué optimizar en el tiempo**
 	- *Diagnóstico*: cálculo multivariable, álgebra lineal, ecuaciones
 	  diferenciales y experiencia en programación (cuestionario en clase, no
-	  cuenta para la calificación).
+	  cuenta para la calificación). Incluye una pregunta abierta: un problema
+	  de la tesis de cada estudiante que tenga dimensión temporal.
 	- Por qué optimizar en el tiempo: decisiones de hoy que cambian lo que se
 	  puede hacer mañana. Variables de estado y de control.
 	- Presentación del hilo conductor: invertir en una región o en otra.
@@ -97,6 +110,8 @@ generaliza al tiempo.
 
 ## Bloque II: Sistemas dinámicos (sesiones 5–9, semanas 3–5)
 
+**Pregunta regional**: ¿convergen los estados de México? ¿A qué velocidad?
+
 **Objetivo específico**: Resolver y analizar cualitativamente ecuaciones
 diferenciales y en diferencias, porque las condiciones del control óptimo son
 un sistema dinámico y su solución se lee en un diagrama de fase.
@@ -107,8 +122,10 @@ un sistema dinámico y su solución se lee en un diagrama de fase.
 	- Segundo orden: raíces características reales, repetidas y complejas.
 	- Ecuaciones en diferencias: yₜ₊₁ = ayₜ + b; estabilidad (|a| < 1) y
 	  oscilación (a < 0).
-	- *Práctica*: convergencia en crecimiento regional.
-	- Lecturas: CW 15–18.
+	- *Práctica con datos*: convergencia β con el PIB per cápita de las
+	  entidades federativas (INEGI). Velocidad de convergencia y vida media de
+	  la brecha, interpretadas como la solución de ẏ = −β(y − y*).
+	- Lecturas: CW 15–18; Barro & Sala-i-Martin (1992).
 - **Sesión 6: Equilibrio, convergencia y diagramas de fase**
 	- Puntos fijos y su estabilidad en una dimensión: el signo de f′(x*).
 	- Diagrama de fase en la recta.
@@ -133,12 +150,15 @@ un sistema dinámico y su solución se lee en un diagrama de fase.
 	- **Entrega**: Tarea 2.
 - **Sesión 9: Laboratorio 1**
 	- Trayectorias y diagramas de fase con DifferentialEquations.jl.
-	- *Laboratorio*: isoclinas, campo de direcciones y trayectorias de un
-	  sistema 2×2, con deslizadores para los parámetros; convergencia entre
-	  regiones.
+	- *Laboratorio*: modelo de Solow con dos regiones y movilidad de capital:
+	  isoclinas, campo de direcciones y trayectorias, con deslizadores para los
+	  parámetros. ¿Converge la región rezagada? ¿Qué parámetros lo deciden?
 	- Lecturas: cuaderno del curso.
 
 ## Bloque III: Control óptimo (sesiones 10–14, semanas 5–7)
+
+**Pregunta regional**: ¿conviene invertir primero donde se ahorra más o donde
+se produce más?
 
 **Objetivo específico**: Plantear y resolver problemas de optimización en
 tiempo continuo con el principio del máximo, e interpretar el coestado como
@@ -167,9 +187,12 @@ precio sombra del estado.
 	  estable.
 	- **[Avanzado]** Cuándo la transversalidad en horizonte infinito es
 	  necesaria.
-	- *Práctica*: Ramsey (Accinelli y Brida).
+	- *Práctica con datos*: Ramsey calibrado para México (tasa de ahorro,
+	  depreciación, participación del capital); comparación del estado
+	  estacionario con los datos. Lectura complementaria: Accinelli y Brida.
 	- Lecturas: CH 8.2, 9.
-	- **Entrega**: propuesta de proyecto (1 página).
+	- **Entrega**: propuesta de proyecto (1 página): el problema de la tesis
+	  planteado con estado, control, objetivo y restricciones.
 - **Sesión 13: Varias variables de estado y de control**
 	- Sistemas de estado y coestado con varias variables.
 	- Control acotado. Hamiltoniano lineal en el control: soluciones bang-bang
@@ -188,12 +211,18 @@ precio sombra del estado.
 	- Discusión: equidad frente a eficiencia en la política regional.
 	- **[Avanzado]** Derivación del tiempo de cambio y su estática
 	  comparativa.
-	- *Cuaderno*: tiempo de cambio analítico, simulación de K₁ y K₂,
+	- *Cuaderno con datos*: tiempo de cambio analítico, simulación de K₁ y K₂,
 	  comparación con repartos fijos y deslizadores para los parámetros.
+	  Calibración con dos regiones de México (tasas de ahorro sᵢ y
+	  productividades vᵢ aproximadas con datos del INEGI): ¿cuál es su tiempo
+	  de cambio?
 	- Lecturas: AL 2. Consulta: AL 3; Rahman (1963); Intriligator (1964);
 	  Takayama (1967).
 
 ## Bloque IV: Programación dinámica (sesiones 15–19, semanas 8–10)
+
+**Pregunta regional**: ¿cómo debe crecer una región que decide cada año
+cuánto invertir?
 
 **Objetivo específico**: Formular problemas de decisión de forma recursiva con
 la ecuación de Bellman, resolverlos numéricamente y relacionarlos con el
@@ -216,9 +245,11 @@ control óptimo. La incertidumbre queda como lectura opcional (SE 12).
 	- *Práctica*: convergencia numérica.
 	- Lecturas: SS 1.2–1.3; QuantEcon, *Cake Eating II*.
 - **Sesión 17: Laboratorio 2**
-	- *Laboratorio*: iteración de función valor con un estado (torta o
-	  crecimiento óptimo) sobre una malla; error contra la solución exacta y
-	  contra el número de iteraciones.
+	- *Laboratorio*: iteración de función valor con un estado sobre una malla.
+	  Primero el problema de la torta, que tiene solución exacta y sirve para
+	  verificar el código (error contra la solución y contra el número de
+	  iteraciones). Después, crecimiento óptimo de una región con los
+	  parámetros calibrados en la sesión 12.
 	- Extensión opcional: el modelo de la sesión 14 en tiempo discreto.
 	- Lecturas: SS 5.2.2.
 - **Sesión 18: Control óptimo frente a programación dinámica (flexible)**
@@ -253,8 +284,14 @@ control óptimo. La incertidumbre queda como lectura opcional (SE 12).
 | Proyecto aplicado: reporte y presentación | 30% |
 
 La propuesta de proyecto (sesión 12) es requisito, sin calificación. El
-proyecto resuelve un caso del listado o de la tesis, de forma analítica y
-numérica.
+proyecto resuelve, de forma analítica y numérica, el problema de la tesis
+planteado en la propuesta o, si no hay uno adecuado, un caso del listado.
+Además:
+- **Se contrasta o se calibra con datos**, aunque sea de forma simple: por
+  ejemplo, fijar los parámetros con datos del INEGI o comparar una
+  predicción del modelo con una serie observada.
+- **Se entrega reproducible**: un cuaderno de Pluto (o de Jupyter, si se
+  trabaja en Python) que genere todos los resultados del reporte.
 
 **Las tareas piden resolver e interpretar.** Ejemplos de preguntas:
 - "Encuentra el reparto óptimo del presupuesto entre las dos regiones y el
@@ -263,12 +300,15 @@ numérica.
   Comprueba tu dibujo con una simulación."
 - "¿Cómo cambia el tiempo de cambio si la región 1 ahorra más? Justifica con
   la fórmula y con el cuaderno."
+- "Con la velocidad de convergencia estimada para los estados de México,
+  ¿cuántos años tarda en cerrarse la mitad de la brecha?"
 
 **Ideas para proyecto final**: el modelo de dos regiones con más regiones o
 con producción no lineal; los casos de Pražák (2012), Ukhin & Achituev (2008),
 Surkov (2013) o Desmet & Rossi-Hansberg (2010); manejo de un recurso natural
 renovable en una región (Conrad & Rondeau, 2020); políticas basadas en el
-lugar (Neumark & Simpson, 2015); un problema de la tesis de cada estudiante.
+lugar (Neumark & Simpson, 2015). La opción preferida es un problema de la
+tesis de cada estudiante.
 
 ---
 
@@ -307,6 +347,8 @@ lugar (Neumark & Simpson, 2015); un problema de la tesis de cada estudiante.
   (2011); Léonard & Van Long (1992).
 
 ### Artículos y capítulos
+- Barro, R. J., & Sala-i-Martin, X. (1992). Convergence. *Journal of
+  Political Economy*, 100(2), 223–251. https://doi.org/10.1086/261816
 - Desmet, K., & Henderson, J. V. (2015). The geography of development within
   countries. En *Handbook of Regional and Urban Economics* (Vol. 5B,
   pp. 1457–1517). Elsevier.
@@ -338,6 +380,11 @@ lugar (Neumark & Simpson, 2015); un problema de la tesis de cada estudiante.
 ### Complementaria aplicada (del plan original)
 Accinelli y Brida; Espinosa y Ruiz; Sierra y Gualajara; Figueiredo y Pereira;
 Wang. Fichas por completar.
+
+### Datos
+- INEGI. *Producto Interno Bruto por Entidad Federativa*. Sistema de Cuentas
+  Nacionales de México. Se usa en las sesiones 5, 12 y 14; las series
+  concretas se documentan en el script que descarga los datos.
 
 ### Recursos naturales
 Conrad & Rondeau (2020); Karp & Traeger (2013, ficha por verificar).

@@ -97,6 +97,10 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [ ] Piloto: notas y cuaderno de la sesión 2 (Lagrange y Kuhn-Tucker).
 - [ ] Notas formales y cuadernos del resto de las sesiones (tabla de arriba).
 - [x] Notas de repaso por áreas (C, L, D, A, N) con autodiagnósticos; tabla de claves por sesión.
+- [x] Orientación aplicada en el programa: preguntas regionales, datos del INEGI en las sesiones 5, 12 y 14, proyecto ligado a la tesis.
+- [ ] Script `Code/descargar_inegi.jl` y CSV en `Data/`: PIB por entidad federativa y población, para convergencia y calibraciones.
+- [ ] Definir con qué datos se aproximan las tasas de ahorro sᵢ y las productividades vᵢ de dos regiones (sesión 14), y los parámetros de Ramsey para México (sesión 12).
+- [ ] Agregar una referencia sobre convergencia regional en México para la sesión 5 (verificar la ficha).
 - [ ] Armar el calendario sesión por sesión (requiere las fechas del trimestre y los días sin clase).
 - [ ] Redactar el cuestionario diagnóstico y el material de repaso de la semana previa.
 - [ ] Preparar el syllabus en el formato institucional de la UAdeC.
