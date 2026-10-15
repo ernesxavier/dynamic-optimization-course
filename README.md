@@ -13,11 +13,12 @@ CISE, UAdeC), con cuadernos en Julia.
 │   └── guia-de-repaso.md      → Repaso del profesor antes del curso
 ├── Class_notes/
 │   ├── sNN_tema.md            → Notas formales por sesión (ver tabla abajo)
-│   └── repaso/                → Repaso de matemáticas por niveles (índice por bloque)
-│       └── figuras/           → Figuras de las notas
+│   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
+│       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── Data/                      → Datos de los casos aplicados, en CSV
 ├── Code/                      → Todo el código Julia, un solo entorno
 │   ├── sNN_tema.jl            → Cuadernos de Pluto (ver tabla abajo)
+│   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   ├── Project.toml
 │   └── Manifest.toml
 └── README.md
@@ -74,6 +75,12 @@ julia --project=Code -e 'using Pluto; Pluto.run()'
 y en el navegador abrir el cuaderno de la sesión, por ejemplo
 `Code/s02_lagrange_kuhn_tucker.jl`.
 
+**Regenerar las figuras del repaso:**
+
+```
+julia --project=Code Code/figuras_repaso.jl
+```
+
 **Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):
 
 ```
@@ -89,7 +96,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [ ] Repaso del profesor en 5 semanas (14 oct a 17 nov): ver `docs/guia-de-repaso.md`.
 - [ ] Piloto: notas y cuaderno de la sesión 2 (Lagrange y Kuhn-Tucker).
 - [ ] Notas formales y cuadernos del resto de las sesiones (tabla de arriba).
-- [ ] Notas de repaso por áreas (C, L, D, A, N) con autodiagnósticos; tabla de claves por sesión.
+- [x] Notas de repaso por áreas (C, L, D, A, N) con autodiagnósticos; tabla de claves por sesión.
 - [ ] Armar el calendario sesión por sesión (requiere las fechas del trimestre y los días sin clase).
 - [ ] Redactar el cuestionario diagnóstico y el material de repaso de la semana previa.
 - [ ] Preparar el syllabus en el formato institucional de la UAdeC.
