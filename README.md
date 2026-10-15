@@ -21,6 +21,9 @@ CISE, UAdeC), con cuadernos en Julia.
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   ├── Project.toml
 │   └── Manifest.toml
+├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
+│   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
+│   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl
 └── README.md
 ```
 
@@ -75,6 +78,20 @@ julia --project=Code -e 'using Pluto; Pluto.run()'
 y en el navegador abrir el cuaderno de la sesión, por ejemplo
 `Code/s02_lagrange_kuhn_tucker.jl`.
 
+**Construir un cuaderno desde su fuente.** Cada cuaderno de Pluto tiene una
+fuente en `src/` con marcadores `#%%` (celda visible) y `#%% hide` (código
+oculto), más fácil de editar como texto. Este comando genera el cuaderno, lo
+ejecuta sin interfaz, reporta las celdas con error y guarda las gráficas en
+la carpeta de salidas para revisarlas:
+
+```
+julia --project=Code src/construir_cuaderno.jl src/s02_lagrange_kuhn_tucker.jl Code/s02_lagrange_kuhn_tucker.jl /tmp/salidas
+```
+
+La fuente y el cuaderno deben coincidir. Los cambios grandes se hacen en la
+fuente y se regenera el cuaderno; si se edita el cuaderno en Pluto, hay que
+pasar el cambio a la fuente antes de volver a generarlo.
+
 **Regenerar las figuras del repaso:**
 
 ```
@@ -94,7 +111,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [x] Programa con el formato del curso de Econofísica.
 - [x] Estructura del repositorio y entorno de Julia (`Code/Project.toml`).
 - [ ] Repaso del profesor en 5 semanas (14 oct a 17 nov): ver `docs/guia-de-repaso.md`.
-- [ ] Piloto: notas y cuaderno de la sesión 2 (Lagrange y Kuhn-Tucker).
+- [x] Piloto: notas y cuaderno de la sesión 2 (Lagrange y Kuhn-Tucker).
 - [ ] Notas formales y cuadernos del resto de las sesiones (tabla de arriba).
 - [x] Notas de repaso por áreas (C, L, D, A, N) con autodiagnósticos; tabla de claves por sesión.
 - [x] Orientación aplicada en el programa: preguntas regionales, datos del INEGI en las sesiones 5, 12 y 14, proyecto ligado a la tesis.
