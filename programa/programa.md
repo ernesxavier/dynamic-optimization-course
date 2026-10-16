@@ -8,8 +8,7 @@ diferenciales básicas. Las primeras cuatro sesiones repasan lo necesario.
 **Duración**: 44 horas en 22 sesiones de 2 h (11 semanas, 2 sesiones por
 semana). Se planea para 20 sesiones efectivas: las sesiones 4 y 18 son
 flexibles.
-**Lenguaje**: Julia, con cuadernos de Pluto.jl. Se aceptan entregas en Python.
-**Plan original**: Dra. Hada M. Sáenz Vela.
+**Lenguaje**: Julia, con cuadernos de `Pluto.jl`. Se aceptan entregas en Python.
 
 **Objetivo**: Que las y los estudiantes planteen y resuelvan problemas
 económicos de decisión en el tiempo con las tres herramientas centrales de la
@@ -32,7 +31,7 @@ del modelo de Ramsey (sesión 12) y la del caso de las dos regiones
 
 ## Metodología
 
-Cada bloque abre con una **pregunta regional**, y cada sesión sigue el orden
+Cada bloque abre con una **pregunta de economía regional**, y cada sesión sigue el orden:
 **problema económico → planteamiento → condiciones de optimalidad → solución
 analítica → verificación numérica → interpretación**. La solución numérica no
 sustituye a la analítica: sirve para comprobarla y para llegar a donde la
@@ -84,17 +83,17 @@ generaliza al tiempo.
 	- *Repaso*: gradiente y matriz hessiana.
 	- Condiciones de primer y segundo orden; hessiana orlada. Concavidad y
 	  cuasiconcavidad como condiciones suficientes.
-	- Lagrange: en el óptimo, ∇f = λ∇g. El multiplicador como precio sombra
+	- Lagrange: en el óptimo, $\nabla f = \lambda \nabla g$. El multiplicador como precio sombra
 	  de la restricción.
 	- Kuhn-Tucker: holgura complementaria y soluciones de esquina.
 	- **[Avanzado]** Calificación de las restricciones y por qué hace falta.
 	- *Práctica*: inversión pública entre dos regiones, con producto
-	  aᵢ ln(1 + xᵢ): reparto óptimo, multiplicador y caso de esquina.
+	  $a_i \ln(1 + x_i)$: reparto óptimo, multiplicador y caso de esquina.
 	- Lecturas: CW 11–13.
 - **Sesión 3: Envolvente y estática comparativa**
 	- Diferencial total, teorema de la función implícita y regla de Cramer.
-	- Teorema de la envolvente: dV/dα = ∂ℒ/∂α en el óptimo. Caso particular:
-	  dV/dB = λ.
+	- Teorema de la envolvente: $dV/d\alpha = \partial \mathcal{L}/\partial \alpha$ en el óptimo. Caso particular:
+	  $dV/dB = \lambda$.
 	- **[Avanzado]** Demostración del teorema de la envolvente.
 	- *Práctica*: estática comparativa del reparto entre regiones; ejercicios
 	  en clase.
@@ -103,7 +102,7 @@ generaliza al tiempo.
 	- Julia con Pluto.jl: celdas reactivas, deslizadores, gráficas.
 	  Symbolics.jl para derivar y resolver condiciones de primer orden.
 	- *Laboratorio*: el problema de las dos regiones con Symbolics.jl; gráficas
-	  de V(B) y λ(B).
+	  de $V(B)$ y $\lambda(B)$.
 	- Instalación previa en casa.
 	- Lecturas: cuaderno del curso.
 	- **Entrega**: Tarea 1.
@@ -117,23 +116,23 @@ diferenciales y en diferencias, porque las condiciones del control óptimo son
 un sistema dinámico y su solución se lee en un diagrama de fase.
 
 - **Sesión 5: Ecuaciones diferenciales y en diferencias lineales**
-	- *Repaso*: la exponencial como solución de ẏ = ay.
-	- Primer orden: ẏ + ay = b; solución y estabilidad (a > 0).
+	- *Repaso*: la exponencial como solución de $\dot{y} = ay$.
+	- Primer orden: $\dot{y} + ay = b$; solución y estabilidad ($a > 0$).
 	- Segundo orden: raíces características reales, repetidas y complejas.
-	- Ecuaciones en diferencias: yₜ₊₁ = ayₜ + b; estabilidad (|a| < 1) y
-	  oscilación (a < 0).
-	- *Práctica con datos*: convergencia β con el PIB per cápita de las
+	- Ecuaciones en diferencias: $y_{t+1} = a y_t + b$; estabilidad ($|a| < 1$) y
+	  oscilación ($a < 0$).
+	- *Práctica con datos*: convergencia $\beta$ con el PIB per cápita de las
 	  entidades federativas (INEGI). Velocidad de convergencia y vida media de
-	  la brecha, interpretadas como la solución de ẏ = −β(y − y*).
+	  la brecha, interpretadas como la solución de $\dot{y} = -\beta (y - y^*)$.
 	- Lecturas: CW 15–18; Barro & Sala-i-Martin (1992).
 - **Sesión 6: Equilibrio, convergencia y diagramas de fase**
-	- Puntos fijos y su estabilidad en una dimensión: el signo de f′(x*).
+	- Puntos fijos y su estabilidad en una dimensión: el signo de $f'(x^*)$.
 	- Diagrama de fase en la recta.
 	- *Práctica*: tipos de equilibrio.
 	- Lecturas: ST 2.
 - **Sesión 7: Sistemas de ecuaciones diferenciales y linealización**
 	- *Repaso*: eigenvalores, traza y determinante.
-	- Sistema lineal ẋ = Ax: nodo, punto de silla, foco y centro según la
+	- Sistema lineal $\dot{x} = Ax$: nodo, punto de silla, foco y centro según la
 	  traza y el determinante. En tiempo discreto, estabilidad si los
 	  eigenvalores tienen módulo menor que 1.
 	- Linealización con el jacobiano en el equilibrio.
@@ -143,7 +142,7 @@ un sistema dinámico y su solución se lee en un diagrama de fase.
 - **Sesión 8: Estabilidad de sistemas no lineales**
 	- Diagramas de fase en el plano: isoclinas, dirección del flujo y rama
 	  estable del punto de silla.
-	- Puente con el control óptimo: el diagrama de fase de Ramsey en (k, c).
+	- Puente con el control óptimo: el diagrama de fase de Ramsey en $(k, c)$.
 	- **[Avanzado]** Variedad estable del punto de silla.
 	- *Práctica*: diagramas de fase.
 	- Lecturas: ST 6.
@@ -165,22 +164,22 @@ tiempo continuo con el principio del máximo, e interpretar el coestado como
 precio sombra del estado.
 
 - **Sesión 10: Cálculo de variaciones**
-	- El problema básico: maximizar ∫F(t, y, y′) dt.
-	- Ecuación de Euler: F_y − (d/dt)F_y′ = 0. Condiciones terminales.
+	- El problema básico: maximizar $\int_0^T F(t, y, y')\, dt$.
+	- Ecuación de Euler: $F_y - \frac{d}{dt} F_{y'} = 0$. Condiciones terminales.
 	- **[Avanzado]** Derivación de la ecuación de Euler.
 	- *Práctica*: ahorro o consumo en el tiempo.
 	- Lecturas: CH 1–2.
 - **Sesión 11: Principio del máximo**
-	- Hamiltoniano H = F + λf. Condiciones: u* maximiza H,
-	  ẏ = ∂H/∂λ, λ̇ = −∂H/∂y.
-	- Transversalidad: y(T) libre, y(T) ≥ 0, T libre.
-	- El coestado λ(t) como precio sombra del estado.
+	- Hamiltoniano $H = F + \lambda f$. Condiciones: $u^*$ maximiza $H$,
+	  $\dot{y} = \partial H/\partial \lambda$, $\dot{\lambda} = -\partial H/\partial y$.
+	- Transversalidad: $y(T)$ libre, $y(T) \geq 0$, $T$ libre.
+	- El coestado $\lambda(t)$ como precio sombra del estado.
 	- **[Avanzado]** Derivación del principio del máximo; equivalencia con la
 	  ecuación de Euler.
 	- *Práctica*: precio sombra de un recurso.
 	- Lecturas: CH 7, 8.1; CW 20.
 - **Sesión 12: Horizonte infinito y descuento**
-	- Hamiltoniano a valor presente: μ̇ = ρμ − ∂H_c/∂y.
+	- Hamiltoniano a valor presente: $\dot{\mu} = \rho \mu - \partial H_c/\partial y$.
 	- Transversalidad en horizonte infinito.
 	- Modelo de Ramsey: regla de Keynes-Ramsey con utilidad CRRA, estado
 	  estacionario, punto de silla. La transversalidad selecciona la rama
@@ -196,25 +195,25 @@ precio sombra del estado.
 - **Sesión 13: Varias variables de estado y de control**
 	- Sistemas de estado y coestado con varias variables.
 	- Control acotado. Hamiltoniano lineal en el control: soluciones bang-bang
-	  y singulares; la función de cambio ∂H/∂u.
+	  y singulares; la función de cambio $\partial H/\partial u$.
 	- Condiciones suficientes de Mangasarian y de Arrow.
 	- **[Avanzado]** Demostración de la suficiencia de Mangasarian.
 	- Lecturas: CH 8.3–8.4; SE.
 	- **Entrega**: Tarea 3.
 - **Sesión 14: Caso completo: inversión entre dos regiones**
-	- Modelo de Rahman, Intriligator y Takayama: producto Yᵢ = vᵢKᵢ, ahorro
-	  sᵢYᵢ; el control δ ∈ [0, 1] reparte la inversión total.
-	- Hamiltoniano lineal en δ: solución bang-bang guiada por los precios
+	- Modelo de Rahman, Intriligator y Takayama: producto $Y_i = v_i K_i$, ahorro
+	  $s_i Y_i$; el control $\delta \in [0, 1]$ reparte la inversión total.
+	- Hamiltoniano lineal en $\delta$: solución bang-bang guiada por los precios
 	  sombra de cada región.
 	- Tiempo de cambio: primero se crece donde se ahorra más; al final se
 	  produce donde rinde más.
 	- Discusión: equidad frente a eficiencia en la política regional.
 	- **[Avanzado]** Derivación del tiempo de cambio y su estática
 	  comparativa.
-	- *Cuaderno con datos*: tiempo de cambio analítico, simulación de K₁ y K₂,
+	- *Cuaderno con datos*: tiempo de cambio analítico, simulación de $K_1$ y $K_2$,
 	  comparación con repartos fijos y deslizadores para los parámetros.
-	  Calibración con dos regiones de México (tasas de ahorro sᵢ y
-	  productividades vᵢ aproximadas con datos del INEGI): ¿cuál es su tiempo
+	  Calibración con dos regiones de México (tasas de ahorro $s_i$ y
+	  productividades $v_i$ aproximadas con datos del INEGI): ¿cuál es su tiempo
 	  de cambio?
 	- Lecturas: AL 2. Consulta: AL 3; Rahman (1963); Intriligator (1964);
 	  Takayama (1967).
@@ -253,7 +252,7 @@ control óptimo. La incertidumbre queda como lectura opcional (SE 12).
 	- Extensión opcional: el modelo de la sesión 14 en tiempo discreto.
 	- Lecturas: SS 5.2.2.
 - **Sesión 18: Control óptimo frente a programación dinámica (flexible)**
-	- La ecuación de Euler en tiempo discreto, u′(cₜ) = βRu′(cₜ₊₁), y su
+	- La ecuación de Euler en tiempo discreto, $u'(c_t) = \beta R\, u'(c_{t+1})$, y su
 	  relación con el principio del máximo.
 	- Segundo caso breve: recurso natural renovable en una región.
 	- Lecturas: CR.
