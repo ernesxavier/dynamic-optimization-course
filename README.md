@@ -123,7 +123,6 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [ ] Preparar el syllabus en el formato institucional de la UAdeC.
 - [ ] Redactar las cuatro tareas.
 - [ ] Probar la instalación del entorno en una computadora limpia.
-- [ ] Completar las fichas de la bibliografía: Pražák (2012), Surkov (2013), Karp y Traeger (2013), la complementaria aplicada del plan original.
 - [ ] Corregir en Zotero: la ficha GZK24M8N es el Vol. 5B del Handbook (ISBN 978-0-444-59531-7); agregar a Henderson y Strange como coeditores; indicar 4.ª ed. en Sethi.
 - [ ] Agregar a Zotero los artículos de Rahman, Intriligator y Takayama, y la bibliografía del plan que falta. El título correcto de Rahman (1963) dice "An Aggregative Study".
 - [ ] En Zotero, el PDF de Chiang y Wainwright (ZL6E3WVS) está como archivo suelto, sin ficha: crear la ficha del libro.

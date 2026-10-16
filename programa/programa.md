@@ -188,7 +188,7 @@ precio sombra del estado.
 	  necesaria.
 	- *Práctica con datos*: Ramsey calibrado para México (tasa de ahorro,
 	  depreciación, participación del capital); comparación del estado
-	  estacionario con los datos. Lectura complementaria: Accinelli y Brida.
+	  estacionario con los datos.
 	- Lecturas: CH 8.2, 9.
 	- **Entrega**: propuesta de proyecto (1 página): el problema de la tesis
 	  planteado con estado, control, objetivo y restricciones.
@@ -338,12 +338,12 @@ tesis de cada estudiante.
   https://doi.org/10.1017/9781108588928
 - Duranton, G., Henderson, J. V., & Strange, W. C. (Eds.) (2015). *Handbook of
   Regional and Urban Economics* (Vol. 5B). Elsevier.
+- Karp, L. S., & Traeger, C. P. (2013). *Dynamic Methods in Environmental and
+  Resource Economics* [Manuscrito inédito]. University of California,
+  Berkeley. Hay un borrador más reciente con el título *Dynamic Environmental
+  and Resource Economics* (2024).
 - QuantEcon. Lecciones *Cake Eating I* y *Cake Eating II* (versión en
   Python). https://quantecon.org
-- Del plan original: Intriligator (1971); Lomelí & Rumbos (2001); Simon &
-  Blume (1994).
-- Pendientes de revisar: Kamien & Schwartz, *Dynamic Optimization*; Weber
-  (2011); Léonard & Van Long (1992).
 
 ### Artículos y capítulos
 - Barro, R. J., & Sala-i-Martin, X. (1992). Convergence. *Journal of
@@ -361,6 +361,11 @@ tesis de cada estudiante.
 - Neumark, D., & Simpson, H. (2015). Place-based policies. En *Handbook of
   Regional and Urban Economics* (Vol. 5B, pp. 1197–1287). Elsevier.
   https://doi.org/10.1016/B978-0-444-59531-7.00018-1
+- Pražák, P. (2012). Modely vzniku a eliminace ekonomických regionálních
+  disparit jako úlohy optimálního řízení [Modelos de surgimiento y
+  eliminación de disparidades económicas regionales como problemas de control
+  óptimo]. *E+M Ekonomie a Management*, 15(2), 15–25.
+  http://hdl.handle.net/11025/17437
 - Rahman, M. A. (1963). Regional allocation of investment: An aggregative
   study in the theory of development programming. *Quarterly Journal of
   Economics*, 77(1), 26–39. https://doi.org/10.2307/1879370
@@ -368,22 +373,17 @@ tesis de cada estudiante.
   organization of economic activity. En *Handbook of Regional and Urban
   Economics* (Vol. 5B, pp. 1339–1398). Elsevier.
   https://doi.org/10.1016/B978-0-444-59531-7.00020-X
+- Surkov, P. G. (2013). On an optimal control problem for a nonlinear system
+  [en ruso]. *Trudy Instituta Matematiki i Mekhaniki UrO RAN*, 19(4),
+  241–249. https://www.mathnet.ru/eng/timm1018
 - Takayama, A. (1967). Regional allocation of investment: A further analysis.
   *Quarterly Journal of Economics*, 81(2), 330–336.
   https://doi.org/10.2307/1879591
 - Ukhin, M. Yu., & Achituev, S. A. (2008). Multicomponent model-based
   optimization of the regional development strategies. *Automation and Remote
   Control*, 69(3), 514–524. https://doi.org/10.1134/S0005117908030168
-- Fichas por completar: Pražák (2012); Surkov (2013).
-
-### Complementaria aplicada (del plan original)
-Accinelli y Brida; Espinosa y Ruiz; Sierra y Gualajara; Figueiredo y Pereira;
-Wang. Fichas por completar.
 
 ### Datos
 - INEGI. *Producto Interno Bruto por Entidad Federativa*. Sistema de Cuentas
   Nacionales de México. Se usa en las sesiones 5, 12 y 14; las series
   concretas se documentan en el script que descarga los datos.
-
-### Recursos naturales
-Conrad & Rondeau (2020); Karp & Traeger (2013, ficha por verificar).
