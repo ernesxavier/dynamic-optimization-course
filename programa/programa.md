@@ -5,7 +5,7 @@ Socioeconómicas (CISE), Universidad Autónoma de Coahuila. Segundo trimestre,
 generación 2024-2028.
 **Requisitos**: Cálculo multivariable, álgebra lineal y ecuaciones
 diferenciales básicas. Las primeras cuatro sesiones repasan lo necesario.
-**Duración**: 44 horas en 22 sesiones de 2 h (11 semanas, 2 sesiones por
+**Duración**: 48 horas en 22 sesiones de 2 h (12 semanas, 2 sesiones por
 semana). Se planea para 20 sesiones efectivas: las sesiones 4 y 18 son
 flexibles.
 **Lenguaje**: Julia, con cuadernos de `Pluto.jl`. Se aceptan entregas en Python.
