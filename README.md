@@ -14,6 +14,7 @@ CISE, UAdeC), con cuadernos en Julia.
 ├── Class_notes/
 │   ├── sNN_tema.md            → Notas formales por sesión (ver tabla abajo)
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
+│       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── Data/                      → Datos de los casos aplicados, en CSV
 ├── Code/                      → Todo el código Julia, un solo entorno
@@ -113,13 +114,14 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [ ] Repaso del profesor en 5 semanas (14 oct a 17 nov): ver `docs/guia-de-repaso.md`.
 - [x] Piloto: notas y cuaderno de la sesión 2 (Lagrange y Kuhn-Tucker).
 - [ ] Notas formales y cuadernos del resto de las sesiones (tabla de arriba).
-- [x] Notas de repaso por áreas (C, L, D, A, N) con autodiagnósticos; tabla de claves por sesión.
+- [x] Notas de repaso por áreas (C, L, D, A, N, E) con autodiagnósticos; tabla de claves por sesión.
 - [x] Orientación aplicada en el programa: preguntas regionales, datos del INEGI en las sesiones 5, 12 y 14, proyecto ligado a la tesis.
 - [ ] Script `Code/descargar_inegi.jl` y CSV en `Data/`: PIB por entidad federativa y población, para convergencia y calibraciones.
-- [ ] Definir con qué datos se aproximan las tasas de ahorro sᵢ y las productividades vᵢ de dos regiones (sesión 14), y los parámetros de Ramsey para México (sesión 12).
+- [x] Definir con qué datos se aproximan las tasas de ahorro sᵢ y las productividades vᵢ de dos regiones (sesión 14), y los parámetros de Ramsey para México (sesión 12): PIB por trabajador (INEGI y ENOE), supuestos explícitos para sᵢ y Penn World Table.
 - [ ] Agregar una referencia sobre convergencia regional en México para la sesión 5 (verificar la ficha).
 - [ ] Armar el calendario sesión por sesión (requiere las fechas del trimestre y los días sin clase).
-- [ ] Redactar el cuestionario diagnóstico y el material de repaso de la semana previa.
+- [x] Redactar el cuestionario diagnóstico (`Class_notes/repaso/diagnostico_inicial.md`).
+- [ ] Material de repaso de la semana previa para estudiantes (ver `docs/guia-de-repaso.md`).
 - [ ] Preparar el syllabus en el formato institucional de la UAdeC.
 - [ ] Redactar las cuatro tareas.
 - [ ] Probar la instalación del entorno en una computadora limpia.

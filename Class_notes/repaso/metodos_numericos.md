@@ -382,6 +382,48 @@ log2(error_en_1(rk4, 0.1) / error_en_1(rk4, 0.05))    # ≈ (1, 4): los órdenes
 
 *Error en t = 1 al resolver ẋ = −x. En escala log-log, Euler es una recta de pendiente 1 y RK4 una de pendiente 4: dividir el paso entre 10 reduce el error 10 y 10 000 veces, respectivamente.*
 
+<a id="ni7"></a>
+
+### N.I7 Datos en Julia: CSV.jl y DataFrames.jl
+*Sesiones 5, 12, 14, proyecto.*
+
+Un `DataFrame` es una tabla: cada columna es un vector con nombre. Los datos
+del curso se guardan en `Data/` como archivos CSV y se leen con
+`CSV.read("Data/archivo.csv", DataFrame)`.
+
+| Operación | Ejemplo |
+|---|---|
+| Leer y guardar | `df = CSV.read("Data/pib.csv", DataFrame)`; `CSV.write("Data/pib.csv", df)` |
+| Columna nueva | `df.pibpc = df.pib ./ df.pob` |
+| Filtrar filas | `filter(:año => ==(2023), df)` |
+| Ordenar | `sort!(df, [:región, :año])` |
+| Por grupos | `combine(groupby(df, :región), …)` |
+| De largo a ancho | `unstack(df, :año, :región, :pibpc)` |
+| Datos faltantes | `dropmissing(df)`; `mean(skipmissing(df.x))` |
+
+Con dos regiones ficticias (los números son ilustrativos, no datos reales):
+
+```julia
+using CSV, DataFrames
+df = DataFrame(región = ["A", "A", "B", "B"], año = [2005, 2023, 2005, 2023],
+               pib = [400.0, 620.0, 150.0, 210.0], pob = [2.5, 3.2, 3.5, 4.1])
+df.pibpc = df.pib ./ df.pob                      # PIB per cápita
+sort!(df, [:región, :año])                       # el cálculo de abajo usa el orden
+combine(groupby(df, :región),
+        [:año, :pibpc] => ((t, y) -> log(y[end] / y[1]) / (t[end] - t[1])) => :g)
+# región A: g ≈ 0.0106; región B: g ≈ 0.0099 (tasa logarítmica, E.B2)
+```
+
+`combine(groupby(...), columnas => función => nombre)` aplica la función a
+cada grupo y junta los resultados en una tabla nueva. Así se calcula el
+crecimiento de cada entidad para la regresión de convergencia
+([E.B3](estadistica.md#eb3)).
+
+En los datos reales hay **faltantes** (`missing`): `mean` de un vector con
+`missing` da `missing`, así que hay que decidir qué hacer con ellos
+(descartarlos con `skipmissing` o `dropmissing`, o completarlos) y decirlo en
+el reporte.
+
 ---
 
 ## Nivel avanzado
