@@ -33,7 +33,7 @@ claves son enlaces: llevan directamente al concepto. Cada área termina con un
 ## Qué repasar antes de cada sesión
 
 Basta con las claves B e I para seguir la clase y hacer las tareas. Para los
-puntos [Avanzado], añade las A. Las sesiones 20 a 22 (proyecto) no tienen
+puntos [Avanzado], añade las A. Las sesiones 20 a 24 (proyecto) no tienen
 repaso propio.
 
 | Ses. | Tema | Básico | Intermedio | Avanzado |

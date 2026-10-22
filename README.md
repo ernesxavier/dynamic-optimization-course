@@ -7,7 +7,7 @@ CISE, UAdeC), con cuadernos en Julia.
 
 ```
 ├── programa/
-│   └── programa.md            → Programa del curso (22 sesiones)
+│   └── programa.md            → Programa del curso (24 sesiones)
 ├── docs/
 │   ├── planeacion.md          → Decisiones de diseño y plan B
 │   └── guia-de-repaso.md      → Repaso del profesor antes del curso

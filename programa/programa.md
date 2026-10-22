@@ -5,9 +5,9 @@ Socioeconómicas (CISE), Universidad Autónoma de Coahuila. Segundo trimestre,
 generación 2024-2028.
 **Requisitos**: Cálculo multivariable, álgebra lineal y ecuaciones
 diferenciales básicas. Las primeras cuatro sesiones repasan lo necesario.
-**Duración**: 48 horas en 22 sesiones de 2 h (12 semanas, 2 sesiones por
-semana). Se planea para 20 sesiones efectivas: las sesiones 4 y 18 son
-flexibles.
+**Duración**: 48 horas en 24 sesiones de 2 h (12 semanas, 2 sesiones por
+semana). Las sesiones 4 y 18 son flexibles, y las sesiones 21 y 22 son de
+colchón: se dedican al proyecto o a recuperar un bloque atrasado.
 **Lenguaje**: Julia, con cuadernos de `Pluto.jl`. Se aceptan entregas en Python.
 
 **Objetivo**: Que las y los estudiantes planteen y resuelvan problemas
@@ -263,12 +263,17 @@ control óptimo. La incertidumbre queda como lectura opcional (SE 12).
 	- Lecturas: cuaderno del curso.
 	- **Entrega**: Tarea 4 (corta; su código alimenta el proyecto).
 
-## Bloque V: Proyecto (sesiones 20–22, semanas 10–11)
+## Bloque V: Proyecto (sesiones 20–24, semanas 10–12)
 
 - **Sesión 20: Taller de avances**
 	- Revisión por pares.
 	- **Entrega**: avance del proyecto.
-- **Sesiones 21 y 22: Presentaciones y cierre**
+- **Sesiones 21 y 22: Taller de proyecto (colchón)**
+	- Si el curso va al día: asesoría por proyecto, calibración con datos del
+	  INEGI y revisión de que el cuaderno reproduzca todos los resultados.
+	- Si hay atraso: se recupera primero el bloque pendiente y el resto del
+	  tiempo se dedica al proyecto.
+- **Sesiones 23 y 24: Presentaciones y cierre**
 	- Presentaciones finales.
 
 ---
