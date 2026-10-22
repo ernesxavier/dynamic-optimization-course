@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 0979cb64-ce4c-11f1-9c15-812a2a64ab7b
+# ╔═╡ 55f10892-ce4d-11f1-bde6-752cccdb194a
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 0979ca68-ce4c-11f1-b2dd-3df28aab369d
+# ╔═╡ 55f10784-ce4d-11f1-b907-2396e541cb81
 md"""
 # Sesión 9: Laboratorio 1. Diagramas de fase con DifferentialEquations.jl
 
@@ -61,10 +61,10 @@ N.I6 (error y orden de un método). Para los puntos [Avanzado]: N.A3
 (problemas rígidos).
 """
 
-# ╔═╡ 0979ca9a-ce4c-11f1-9fce-5962c64a6945
+# ╔═╡ 55f107ac-ce4d-11f1-8e38-7b0e750a1a90
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 0979caa4-ce4c-11f1-9597-a14996e3ec55
+# ╔═╡ 55f107b6-ce4d-11f1-bfb0-092880920ff5
 md"""
 ## 0. ¿Funciona DifferentialEquations.jl?
 
@@ -72,10 +72,10 @@ La primera vez que se carga, el paquete tarda varios minutos en compilarse.
 Si ves la versión, está listo.
 """
 
-# ╔═╡ 0979caa4-ce4c-11f1-86ab-37d28880deb3
+# ╔═╡ 55f107c0-ce4d-11f1-bedc-2baff2ab0cd4
 md"DifferentialEquations.jl, versión $(string(pkgversion(DifferentialEquations)))."
 
-# ╔═╡ 0979caae-ce4c-11f1-b131-53e68fd7e6c5
+# ╔═╡ 55f107c0-ce4d-11f1-a3e9-a528b913e2cf
 md"""
 ## 1. Una región: Solow con DifferentialEquations.jl
 
@@ -98,19 +98,19 @@ Resolverlo con DifferentialEquations.jl toma cuatro pasos (N.I3):
 leen como `p.s`, `p.A`, `p.α` y `p.nδ` (este último es ``n + \delta``).
 """
 
-# ╔═╡ 0979caae-ce4c-11f1-9e56-976356be7ab3
+# ╔═╡ 55f107ca-ce4d-11f1-912f-556b89972032
 solow(k, p, t) = missing  # reemplaza missing
 
-# ╔═╡ 0979cab8-ce4c-11f1-b63e-b5ba857c38f5
+# ╔═╡ 55f107d4-ce4d-11f1-aff3-011f3203b004
 md"""
 Con tu función, las celdas siguientes definen y resuelven el problema. Los
 parámetros son ``s = 0.2``, ``A = 1``, ``\alpha = 0.3`` y ``n + \delta = 0.06``.
 """
 
-# ╔═╡ 0979cac0-ce4c-11f1-835e-8f44970140a9
+# ╔═╡ 55f107de-ce4d-11f1-a48a-cd40587119ec
 P1 = (s = 0.2, A = 1.0, α = 0.3, nδ = 0.06)
 
-# ╔═╡ 0979cad6-ce4c-11f1-a46b-356153db8659
+# ╔═╡ 55f107f2-ce4d-11f1-bcce-29e8a6e9af86
 md"""
 Mientras el ejercicio 1 está pendiente, las celdas usan la función de
 referencia. `solucion(50.0)` evalúa la solución en un tiempo que el método
@@ -127,7 +127,7 @@ k(t)^{1-\alpha} = \frac{sA}{n + \delta} + \left(k_0^{1-\alpha} - \frac{sA}{n + \
 Eso permite medir el error de cualquier método.
 """
 
-# ╔═╡ 0979cae0-ce4c-11f1-bd72-359260063d43
+# ╔═╡ 55f10808-ce4d-11f1-9841-cd14558f6d50
 md"""
 ### El error del método de Euler
 
@@ -136,19 +136,19 @@ método de Euler (D.B3) y paso ``h``: ``k_{j+1} = k_j + h\,f(k_j)``, durante
 ``T/h`` pasos. Puedes usar tu función `solow`.
 """
 
-# ╔═╡ 0979caea-ce4c-11f1-890b-07eef4a72ecc
+# ╔═╡ 55f10808-ce4d-11f1-85d5-15253cf99c71
 function euler_solow(p, k0, h, T)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0979caf4-ce4c-11f1-9cd3-596922209967
+# ╔═╡ 55f10810-ce4d-11f1-a824-a172e8339ba7
 md"""
 La gráfica compara el error de Euler en ``T = 50`` con el tamaño del paso,
 en escala log-log. Si el error es proporcional a ``h^p``, la gráfica es una
 recta de pendiente ``p``: el **orden** del método (N.I6).
 """
 
-# ╔═╡ 0979cafe-ce4c-11f1-ae99-259693e90e97
+# ╔═╡ 55f10824-ce4d-11f1-b19f-ff057e3616c6
 md"""
 Partir el paso a la mitad parte el error a la mitad: Euler es de **orden
 1**. Su error en ``T = 50`` es de unos ``0.022\,h``. `Tsit5()` es de orden 5 y
@@ -157,7 +157,7 @@ pasos, su error es de unos ``3 \times 10^{-5}``. Para igualarlo, Euler
 necesitaría ``h \approx 0.001``: 50 000 pasos.
 """
 
-# ╔═╡ 0979cb08-ce4c-11f1-95c7-df7d91e48680
+# ╔═╡ 55f1082e-ce4d-11f1-bb53-2f9bb3ec4b87
 md"""
 ## 2. Dos regiones con movilidad de capital
 
@@ -173,7 +173,8 @@ proporcional a la diferencia de rendimientos, ``r_i = \alpha A_i k_i^{\alpha - 1
 
 ``m \ge 0`` mide la **movilidad del capital**: con ``m = 0``, cada región
 es una economía de Solow cerrada. Lo que sale de una región entra a la
-otra, así que el flujo no crea ni destruye capital.
+otra, así que el flujo no crea ni destruye capital. Es un modelo
+ilustrativo, construido para este laboratorio.
 
 **3.** Escribe `dos_regiones!(du, u, p, t)`, en la forma "en el lugar":
 `u = [k1, k2]`, y la función debe escribir ``\dot k_1`` en `du[1]` y
@@ -181,12 +182,12 @@ otra, así que el flujo no crea ni destruye capital.
 `p.α`, `p.nδ` y `p.m`.
 """
 
-# ╔═╡ 0979cb08-ce4c-11f1-bade-095852a98cb1
+# ╔═╡ 55f1082e-ce4d-11f1-a7c6-99556f534070
 function dos_regiones!(du, u, p, t)
     du .= missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0979cb12-ce4c-11f1-b045-852f585aae6e
+# ╔═╡ 55f1083a-ce4d-11f1-83a9-253baa961074
 md"""
 ### El diagrama de fase
 
@@ -204,10 +205,10 @@ Productividad del sur ``A_2``: $(@bind A2 Slider(0.5:0.05:1.5, default = 0.8, sh
 Movilidad del capital ``m``: $(@bind m Slider([0.0, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0], default = 1.0, show_value = true))
 """
 
-# ╔═╡ 0979cb1c-ce4c-11f1-af0d-6f72e7ab5e7a
+# ╔═╡ 55f10842-ce4d-11f1-8340-15189538f233
 P2 = (s1 = s1, s2 = s2, A1 = A1, A2 = A2, α = 0.3, nδ = 0.06, m = m)
 
-# ╔═╡ 0979cb26-ce4c-11f1-a3a6-d90a90ec763a
+# ╔═╡ 55f1084c-ce4d-11f1-903e-592834b6aa83
 md"""
 ### ¿Converge el sur?
 
@@ -216,7 +217,7 @@ poco capital, y compara el ingreso por trabajador ``y_i = A_i k_i^\alpha``
 del norte y del sur con y sin movilidad.
 """
 
-# ╔═╡ 0979cb32-ce4c-11f1-ae08-45bec99bb71b
+# ╔═╡ 55f10856-ce4d-11f1-8ea6-31fe1770e6b3
 md"""
 ## 3. ¿Qué parámetros lo deciden?
 
@@ -227,19 +228,19 @@ devuelva la razón de ingresos ``y_1/y_2`` al final. Usa `ODEProblem`,
 ``(y_1, y_2)``.
 """
 
-# ╔═╡ 0979cb3a-ce4c-11f1-8fbc-b551036ac217
+# ╔═╡ 55f10860-ce4d-11f1-a083-5953ff04a259
 function razon_largo_plazo(p)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0979cb44-ce4c-11f1-8f37-616dd9033f9b
+# ╔═╡ 55f1086c-ce4d-11f1-8c6a-01893ffb767f
 md"""
 Con tu función (o la de referencia, si el ejercicio 4 está pendiente), la
 tabla compara tres situaciones: las regiones difieren sólo en el ahorro,
 sólo en la productividad, o en las dos cosas.
 """
 
-# ╔═╡ 0979cb4e-ce4c-11f1-92c6-07b5f63560b9
+# ╔═╡ 55f10874-ce4d-11f1-a23f-4755b9980806
 md"""
 **Lectura.**
 - Si las regiones difieren **sólo en el ahorro**, la movilidad cierra la
@@ -257,10 +258,12 @@ rezago viene de que ahorra poco y el capital es móvil; no converge si viene
 de que es menos productiva.** Según este modelo, y si el capital se mueve
 entre los estados de México, la falta de convergencia de la sesión 5 apunta
 más a diferencias de productividad persistentes que a diferencias de
-ahorro.
+ahorro. Es lo que sugieren Barceinas y Raymond (2005), que atribuyen casi
+el 40% de la desigualdad regional de 2002 a la distribución del capital
+humano (notas de la sesión 5, sección 4).
 """
 
-# ╔═╡ 0979cb4e-ce4c-11f1-813a-c7d1baf61492
+# ╔═╡ 55f10874-ce4d-11f1-8cb6-5d8010c7a104
 md"""
 ## 4. [Avanzado] Movilidad muy alta: un problema rígido
 
@@ -273,7 +276,7 @@ como `Rodas5P()`, no.
 Movilidad ``m``: $(@bind m_rigido Slider([1.0, 10.0, 100.0, 1000.0, 10000.0], default = 1000.0, show_value = true))
 """
 
-# ╔═╡ 0979cb58-ce4c-11f1-9ef1-fdd83a9add80
+# ╔═╡ 55f10888-ce4d-11f1-943d-15e78100fd1a
 md"""
 ## Preguntas
 
@@ -299,7 +302,7 @@ md"""
   [Avanzado]: C.A3 (funcionales y primera variación).
 """
 
-# ╔═╡ 0979cb64-ce4c-11f1-ae31-3d4d334635de
+# ╔═╡ 55f10888-ce4d-11f1-8c35-8341b68722ac
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -308,7 +311,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir el laboratorio.
 """
 
-# ╔═╡ 0979cb64-ce4c-11f1-b2c1-39b953b0f0c0
+# ╔═╡ 55f10892-ce4d-11f1-a445-19d5aad2b997
 begin
     const AZUL    = "#2a78d6"   # serie principal, isoclina k̇₁ = 0
     const NARANJA = "#eb6834"   # isoclina k̇₂ = 0, límite
@@ -316,18 +319,18 @@ begin
     const TINTA   = "#0b0b0b"   # estado estacionario
 end;
 
-# ╔═╡ 0979cb6c-ce4c-11f1-92fc-ff5728ec6193
+# ╔═╡ 55f1089a-ce4d-11f1-9c81-239157b12bc9
 "Solow de una región: k̇ = sAk^α − (n + δ)k."
 solow_ref(k, p, t) = p.s * p.A * max(k, 0.0)^p.α - p.nδ * k
 
-# ╔═╡ 0979cb6c-ce4c-11f1-a597-e79c518975f2
+# ╔═╡ 55f1089a-ce4d-11f1-a815-1514646eb5ed
 "Solución exacta de Solow de una región desde k0 (vía z = k^(1−α))."
 function solow_exacta(t, p, k0)
     zstar = p.s * p.A / p.nδ
     (zstar + (k0^(1 - p.α) - zstar) * exp(-(1 - p.α) * p.nδ * t))^(1 / (1 - p.α))
 end
 
-# ╔═╡ 0979cb76-ce4c-11f1-920f-69f1e5c4cefe
+# ╔═╡ 55f1089a-ce4d-11f1-a002-89999e0c3bdd
 "k(T) con el método de Euler y paso h."
 function euler_solow_ref(p, k0, h, T)
     k = k0
@@ -337,7 +340,7 @@ function euler_solow_ref(p, k0, h, T)
     k
 end
 
-# ╔═╡ 0979cb76-ce4c-11f1-bc1f-79a3780bdf26
+# ╔═╡ 55f108a6-ce4d-11f1-88cd-c95befb2df34
 "Solow con dos regiones y movilidad de capital, en el lugar."
 function dos_regiones_ref!(du, u, p, t)
     k1, k2 = max(u[1], 1e-9), max(u[2], 1e-9)
@@ -348,17 +351,17 @@ function dos_regiones_ref!(du, u, p, t)
     du
 end
 
-# ╔═╡ 0979cb76-ce4c-11f1-ad38-998b762384c0
+# ╔═╡ 55f108a6-ce4d-11f1-a72b-ed5e97845341
 "Ingresos por trabajador (y₁, y₂) con el capital k = (k₁, k₂)."
 ingresos(p, k) = (p.A1 * max(k[1], 0.0)^p.α, p.A2 * max(k[2], 0.0)^p.α)
 
-# ╔═╡ 0979cb80-ce4c-11f1-a37d-77f67d2dfd49
+# ╔═╡ 55f108b0-ce4d-11f1-a868-b9654e60a4d4
 "Estado estacionario del sistema f!, como el final de una simulación larga."
 function estado_estacionario(f!, p)
     solve(ODEProblem(f!, [1.0, 1.0], (0.0, 2000.0), p), Rodas5P(); reltol = 1e-10, abstol = 1e-10).u[end]
 end
 
-# ╔═╡ 0979cb80-ce4c-11f1-9bc4-2fe014f52a2f
+# ╔═╡ 55f108b0-ce4d-11f1-8e1e-793725d2b368
 "Razón de ingresos y₁/y₂ de largo plazo (t = 600 desde k₁ = k₂ = 1)."
 function razon_largo_plazo_ref(p)
     sol = solve(ODEProblem(dos_regiones_ref!, [1.0, 1.0], (0.0, 600.0), p), Tsit5(); reltol = 1e-8, abstol = 1e-8)
@@ -366,7 +369,7 @@ function razon_largo_plazo_ref(p)
     y1 / y2
 end
 
-# ╔═╡ 0979cb8a-ce4c-11f1-8f75-6b07bd77d04d
+# ╔═╡ 55f108ba-ce4d-11f1-a15f-7dc774ba5a38
 "Dibuja el campo de direcciones (flechas de igual largo) del sistema f! en el rectángulo."
 function campo!(plt, f!, p, xr, yr; n = 11)
     xs, ys = range(xr..., length = n), range(yr..., length = n)
@@ -379,14 +382,14 @@ function campo!(plt, f!, p, xr, yr; n = 11)
             color = GRIS, alpha = 0.4, lw = 0.8)
 end
 
-# ╔═╡ 0979cb8a-ce4c-11f1-9f63-6d69b2ed77c7
+# ╔═╡ 55f108ba-ce4d-11f1-8f25-b318756da92f
 begin
     # Parámetros y escenarios de prueba de los ejercicios 3 y 4
     const P2_PRUEBA = (s1 = 0.25, s2 = 0.15, A1 = 1.0, A2 = 0.8, α = 0.3, nδ = 0.06, m = 1.0)
     const ESCENARIOS = [(m = 0.0,), (m = 1.0,), (s1 = 0.2, s2 = 0.2, m = 3.0), (A2 = 1.0, m = 10.0)]
 end;
 
-# ╔═╡ 0979cb4e-ce4c-11f1-9748-2b91652e9bd1
+# ╔═╡ 55f1087e-ce4d-11f1-bc94-4d117df1e621
 let
     p = merge(P2_PRUEBA, (m = m_rigido,))
     prob = ODEProblem(dos_regiones_ref!, [1.0, 1.0], (0.0, 300.0), p)
@@ -405,7 +408,7 @@ let
     """
 end
 
-# ╔═╡ 0979cb8a-ce4c-11f1-9bd0-2f86a61b45a3
+# ╔═╡ 55f108ba-ce4d-11f1-807c-07506597798a
 "¿La función ya está escrita? Verdadero si corre sin error y no devuelve missing."
 function completo(f)
     r = try
@@ -416,26 +419,26 @@ function completo(f)
     !(r === missing || (r isa AbstractArray && any(ismissing, r)))
 end
 
-# ╔═╡ 0979cac0-ce4c-11f1-9436-456801501de2
+# ╔═╡ 55f107de-ce4d-11f1-9b3c-7b6bd733ba28
 problema = ODEProblem(completo(() -> solow(1.0, P1, 0.0)) ? solow : solow_ref, 1.0, (0.0, 100.0), P1)
 
-# ╔═╡ 0979cacc-ce4c-11f1-8bcf-5b42ed6a0ffc
+# ╔═╡ 55f107e8-ce4d-11f1-95cc-61f1a7e74a3c
 solucion = solve(problema, Tsit5())
 
-# ╔═╡ 0979cacc-ce4c-11f1-863d-95a683c6413c
+# ╔═╡ 55f107e8-ce4d-11f1-a0b1-c1e58a8c6553
 plot(solucion; color = AZUL, lw = 2, xlabel = "años", ylabel = "capital k(t)",
      title = "Solow con Tsit5", label = "")
 
-# ╔═╡ 0979cacc-ce4c-11f1-835d-3bf0c13bfae7
+# ╔═╡ 55f107e8-ce4d-11f1-864b-2f4d081bf5fc
 solucion(50.0)
 
-# ╔═╡ 0979cad6-ce4c-11f1-b2d8-cb991e52b66d
+# ╔═╡ 55f107f2-ce4d-11f1-97a6-1702662bf505
 length(solucion.t)   # cuántos pasos usó el método
 
-# ╔═╡ 0979cae0-ce4c-11f1-b741-431a16f609aa
+# ╔═╡ 55f107fc-ce4d-11f1-9d69-b9ae08a65f39
 abs(solucion(50.0) - solow_exacta(50.0, P1, 1.0))
 
-# ╔═╡ 0979cafe-ce4c-11f1-95e3-ef3206c92f39
+# ╔═╡ 55f1081a-ce4d-11f1-a235-ffbf1a644c63
 let
     f = completo(() -> euler_solow(P1, 1.0, 1.0, 50.0)) ? euler_solow : euler_solow_ref
     hs = [2.0, 1.0, 0.5, 0.25, 0.125, 0.0625, 0.03125]
@@ -448,7 +451,7 @@ let
           legend = :topleft)
 end
 
-# ╔═╡ 0979cb44-ce4c-11f1-8473-9f89902f710e
+# ╔═╡ 55f1086c-ce4d-11f1-96ac-bbefa35bc655
 let
     f = completo(() -> razon_largo_plazo(P2_PRUEBA)) ? razon_largo_plazo : razon_largo_plazo_ref
     casos = [("Sólo ahorro: s = (0.25, 0.15), A = (1, 1)", (s1 = 0.25, s2 = 0.15, A1 = 1.0, A2 = 1.0)),
@@ -465,12 +468,12 @@ let
     """)
 end
 
-# ╔═╡ 0979cb96-ce4c-11f1-98e2-43c7d784577a
+# ╔═╡ 55f108c4-ce4d-11f1-b781-179568de8e42
 "¿Ya está escrito `dos_regiones!`? (Se prueba con un vector que admite missing.)"
 completo_sistema() = completo(() -> (du = zeros(Union{Missing, Float64}, 2);
                                      dos_regiones!(du, [2.0, 1.0], P2_PRUEBA, 0.0); du))
 
-# ╔═╡ 0979cb1c-ce4c-11f1-be0e-af0bf3bf063f
+# ╔═╡ 55f10842-ce4d-11f1-b5a0-bd12f92b1d60
 let
     f! = completo_sistema() ? dos_regiones! : dos_regiones_ref!
     kss = estado_estacionario(f!, P2)
@@ -491,7 +494,7 @@ let
     scatter!(p, [kss[1]], [kss[2]]; color = TINTA, ms = 7, msw = 0)
 end
 
-# ╔═╡ 0979cb26-ce4c-11f1-8778-0fdaf809a92e
+# ╔═╡ 55f1084c-ce4d-11f1-9611-b783c4811557
 let
     f! = completo_sistema() ? dos_regiones! : dos_regiones_ref!
     ts = 0:1:150
@@ -506,7 +509,7 @@ let
            label = "límite con movilidad perfecta")
 end
 
-# ╔═╡ 0979cb32-ce4c-11f1-92fa-21098f74f287
+# ╔═╡ 55f10856-ce4d-11f1-8148-8b94e2261afb
 let
     f! = completo_sistema() ? dos_regiones! : dos_regiones_ref!
     r0 = razon_largo_plazo_ref(merge(P2, (m = 0.0,)))
@@ -526,7 +529,7 @@ let
     """
 end
 
-# ╔═╡ 0979cb96-ce4c-11f1-b041-aba9cefa953e
+# ╔═╡ 55f108c4-ce4d-11f1-8346-a3dc134e19f3
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -547,80 +550,80 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 0979cab8-ce4c-11f1-8a60-01e1688d780d
+# ╔═╡ 55f107d4-ce4d-11f1-90bc-2f8e76ecd5e0
 verificar(() -> [solow(k, P1, 0.0) for k in (0.5, 2.0, 5.0, 10.0)],
           [solow_ref(k, P1, 0.0) for k in (0.5, 2.0, 5.0, 10.0)];
           pista = md"`solow(k, p, t) = p.s * p.A * k^p.α - p.nδ * k`")
 
-# ╔═╡ 0979caf4-ce4c-11f1-afdc-2bbdb31561d3
+# ╔═╡ 55f10810-ce4d-11f1-9860-d9cf6cabd0f5
 verificar(() -> [euler_solow(P1, 1.0, h, 50.0) for h in (2.0, 1.0, 0.1)],
           [euler_solow_ref(P1, 1.0, h, 50.0) for h in (2.0, 1.0, 0.1)];
           pista = md"`k = k0`; `for _ in 1:round(Int, T / h)`: `k += h * solow(k, p, 0.0)`; devuelve `k`.")
 
-# ╔═╡ 0979cb12-ce4c-11f1-b165-3f708f9e04db
+# ╔═╡ 55f1083a-ce4d-11f1-9eca-9549ebe86048
 verificar(() -> [(du = zeros(Union{Missing, Float64}, 2); dos_regiones!(du, u, P2_PRUEBA, 0.0); copy(du)) for u in ([2.0, 1.0], [5.0, 4.0], [1.0, 6.0])],
           [(du = zeros(2); dos_regiones_ref!(du, u, P2_PRUEBA, 0.0); du) for u in ([2.0, 1.0], [5.0, 4.0], [1.0, 6.0])];
           pista = md"Con `k1, k2 = u`, calcula `r1 = p.α * p.A1 * k1^(p.α - 1)`, `r2` igual, y `flujo = p.m * (r1 - r2)`. Después `du[1] = p.s1 * p.A1 * k1^p.α - p.nδ * k1 + flujo` y `du[2]` con el signo contrario del flujo.")
 
-# ╔═╡ 0979cb3a-ce4c-11f1-90ee-0d9310bc0e99
+# ╔═╡ 55f10860-ce4d-11f1-a013-71dd602dbc52
 verificar(() -> [razon_largo_plazo(merge(P2_PRUEBA, c)) for c in ESCENARIOS],
           [razon_largo_plazo_ref(merge(P2_PRUEBA, c)) for c in ESCENARIOS];
           rtol = 1e-4,
           pista = md"`sol = solve(ODEProblem(dos_regiones!, [1.0, 1.0], (0.0, 600.0), p), Tsit5(); reltol = 1e-8, abstol = 1e-8)`; después `y1, y2 = ingresos(p, sol.u[end])` y devuelve `y1 / y2`.")
 
 # ╔═╡ Cell order:
-# ╟─0979ca68-ce4c-11f1-b2dd-3df28aab369d
-# ╟─0979ca9a-ce4c-11f1-9fce-5962c64a6945
-# ╟─0979caa4-ce4c-11f1-9597-a14996e3ec55
-# ╟─0979caa4-ce4c-11f1-86ab-37d28880deb3
-# ╟─0979caae-ce4c-11f1-b131-53e68fd7e6c5
-# ╠═0979caae-ce4c-11f1-9e56-976356be7ab3
-# ╟─0979cab8-ce4c-11f1-8a60-01e1688d780d
-# ╟─0979cab8-ce4c-11f1-b63e-b5ba857c38f5
-# ╠═0979cac0-ce4c-11f1-835e-8f44970140a9
-# ╠═0979cac0-ce4c-11f1-9436-456801501de2
-# ╠═0979cacc-ce4c-11f1-8bcf-5b42ed6a0ffc
-# ╠═0979cacc-ce4c-11f1-863d-95a683c6413c
-# ╠═0979cacc-ce4c-11f1-835d-3bf0c13bfae7
-# ╠═0979cad6-ce4c-11f1-b2d8-cb991e52b66d
-# ╟─0979cad6-ce4c-11f1-a46b-356153db8659
-# ╠═0979cae0-ce4c-11f1-b741-431a16f609aa
-# ╟─0979cae0-ce4c-11f1-bd72-359260063d43
-# ╠═0979caea-ce4c-11f1-890b-07eef4a72ecc
-# ╟─0979caf4-ce4c-11f1-afdc-2bbdb31561d3
-# ╟─0979caf4-ce4c-11f1-9cd3-596922209967
-# ╟─0979cafe-ce4c-11f1-95e3-ef3206c92f39
-# ╟─0979cafe-ce4c-11f1-ae99-259693e90e97
-# ╟─0979cb08-ce4c-11f1-95c7-df7d91e48680
-# ╠═0979cb08-ce4c-11f1-bade-095852a98cb1
-# ╟─0979cb12-ce4c-11f1-b165-3f708f9e04db
-# ╟─0979cb12-ce4c-11f1-b045-852f585aae6e
-# ╠═0979cb1c-ce4c-11f1-af0d-6f72e7ab5e7a
-# ╟─0979cb1c-ce4c-11f1-be0e-af0bf3bf063f
-# ╟─0979cb26-ce4c-11f1-a3a6-d90a90ec763a
-# ╟─0979cb26-ce4c-11f1-8778-0fdaf809a92e
-# ╟─0979cb32-ce4c-11f1-92fa-21098f74f287
-# ╟─0979cb32-ce4c-11f1-ae08-45bec99bb71b
-# ╠═0979cb3a-ce4c-11f1-8fbc-b551036ac217
-# ╟─0979cb3a-ce4c-11f1-90ee-0d9310bc0e99
-# ╟─0979cb44-ce4c-11f1-8f37-616dd9033f9b
-# ╟─0979cb44-ce4c-11f1-8473-9f89902f710e
-# ╟─0979cb4e-ce4c-11f1-92c6-07b5f63560b9
-# ╟─0979cb4e-ce4c-11f1-813a-c7d1baf61492
-# ╟─0979cb4e-ce4c-11f1-9748-2b91652e9bd1
-# ╟─0979cb58-ce4c-11f1-9ef1-fdd83a9add80
-# ╟─0979cb64-ce4c-11f1-ae31-3d4d334635de
-# ╠═0979cb64-ce4c-11f1-9c15-812a2a64ab7b
-# ╠═0979cb64-ce4c-11f1-b2c1-39b953b0f0c0
-# ╠═0979cb6c-ce4c-11f1-92fc-ff5728ec6193
-# ╠═0979cb6c-ce4c-11f1-a597-e79c518975f2
-# ╠═0979cb76-ce4c-11f1-920f-69f1e5c4cefe
-# ╠═0979cb76-ce4c-11f1-bc1f-79a3780bdf26
-# ╠═0979cb76-ce4c-11f1-ad38-998b762384c0
-# ╠═0979cb80-ce4c-11f1-a37d-77f67d2dfd49
-# ╠═0979cb80-ce4c-11f1-9bc4-2fe014f52a2f
-# ╠═0979cb8a-ce4c-11f1-8f75-6b07bd77d04d
-# ╠═0979cb8a-ce4c-11f1-9f63-6d69b2ed77c7
-# ╠═0979cb8a-ce4c-11f1-9bd0-2f86a61b45a3
-# ╠═0979cb96-ce4c-11f1-98e2-43c7d784577a
-# ╠═0979cb96-ce4c-11f1-b041-aba9cefa953e
+# ╟─55f10784-ce4d-11f1-b907-2396e541cb81
+# ╟─55f107ac-ce4d-11f1-8e38-7b0e750a1a90
+# ╟─55f107b6-ce4d-11f1-bfb0-092880920ff5
+# ╟─55f107c0-ce4d-11f1-bedc-2baff2ab0cd4
+# ╟─55f107c0-ce4d-11f1-a3e9-a528b913e2cf
+# ╠═55f107ca-ce4d-11f1-912f-556b89972032
+# ╟─55f107d4-ce4d-11f1-90bc-2f8e76ecd5e0
+# ╟─55f107d4-ce4d-11f1-aff3-011f3203b004
+# ╠═55f107de-ce4d-11f1-a48a-cd40587119ec
+# ╠═55f107de-ce4d-11f1-9b3c-7b6bd733ba28
+# ╠═55f107e8-ce4d-11f1-95cc-61f1a7e74a3c
+# ╠═55f107e8-ce4d-11f1-a0b1-c1e58a8c6553
+# ╠═55f107e8-ce4d-11f1-864b-2f4d081bf5fc
+# ╠═55f107f2-ce4d-11f1-97a6-1702662bf505
+# ╟─55f107f2-ce4d-11f1-bcce-29e8a6e9af86
+# ╠═55f107fc-ce4d-11f1-9d69-b9ae08a65f39
+# ╟─55f10808-ce4d-11f1-9841-cd14558f6d50
+# ╠═55f10808-ce4d-11f1-85d5-15253cf99c71
+# ╟─55f10810-ce4d-11f1-9860-d9cf6cabd0f5
+# ╟─55f10810-ce4d-11f1-a824-a172e8339ba7
+# ╟─55f1081a-ce4d-11f1-a235-ffbf1a644c63
+# ╟─55f10824-ce4d-11f1-b19f-ff057e3616c6
+# ╟─55f1082e-ce4d-11f1-bb53-2f9bb3ec4b87
+# ╠═55f1082e-ce4d-11f1-a7c6-99556f534070
+# ╟─55f1083a-ce4d-11f1-9eca-9549ebe86048
+# ╟─55f1083a-ce4d-11f1-83a9-253baa961074
+# ╠═55f10842-ce4d-11f1-8340-15189538f233
+# ╟─55f10842-ce4d-11f1-b5a0-bd12f92b1d60
+# ╟─55f1084c-ce4d-11f1-903e-592834b6aa83
+# ╟─55f1084c-ce4d-11f1-9611-b783c4811557
+# ╟─55f10856-ce4d-11f1-8148-8b94e2261afb
+# ╟─55f10856-ce4d-11f1-8ea6-31fe1770e6b3
+# ╠═55f10860-ce4d-11f1-a083-5953ff04a259
+# ╟─55f10860-ce4d-11f1-a013-71dd602dbc52
+# ╟─55f1086c-ce4d-11f1-8c6a-01893ffb767f
+# ╟─55f1086c-ce4d-11f1-96ac-bbefa35bc655
+# ╟─55f10874-ce4d-11f1-a23f-4755b9980806
+# ╟─55f10874-ce4d-11f1-8cb6-5d8010c7a104
+# ╟─55f1087e-ce4d-11f1-bc94-4d117df1e621
+# ╟─55f10888-ce4d-11f1-943d-15e78100fd1a
+# ╟─55f10888-ce4d-11f1-8c35-8341b68722ac
+# ╠═55f10892-ce4d-11f1-bde6-752cccdb194a
+# ╠═55f10892-ce4d-11f1-a445-19d5aad2b997
+# ╠═55f1089a-ce4d-11f1-9c81-239157b12bc9
+# ╠═55f1089a-ce4d-11f1-a815-1514646eb5ed
+# ╠═55f1089a-ce4d-11f1-a002-89999e0c3bdd
+# ╠═55f108a6-ce4d-11f1-88cd-c95befb2df34
+# ╠═55f108a6-ce4d-11f1-a72b-ed5e97845341
+# ╠═55f108b0-ce4d-11f1-a868-b9654e60a4d4
+# ╠═55f108b0-ce4d-11f1-8e1e-793725d2b368
+# ╠═55f108ba-ce4d-11f1-a15f-7dc774ba5a38
+# ╠═55f108ba-ce4d-11f1-8f25-b318756da92f
+# ╠═55f108ba-ce4d-11f1-807c-07506597798a
+# ╠═55f108c4-ce4d-11f1-b781-179568de8e42
+# ╠═55f108c4-ce4d-11f1-8346-a3dc134e19f3

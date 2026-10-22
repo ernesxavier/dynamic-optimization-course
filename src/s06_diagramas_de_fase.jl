@@ -256,7 +256,7 @@ Mapa: $(@bind mapa Select(["mercado" => "Telaraña de un mercado regional", "sol
 
 Respuesta de la oferta al precio, ``D`` (mercado, con ``B = 1``): $(@bind D_oferta Slider(0.2:0.1:1.5, default = 0.8, show_value = true))
 
-Parámetro ``r`` (logístico): $(@bind r_log Slider(0.5:0.1:3.9, default = 2.8, show_value = true))
+Parámetro ``r`` (logístico): $(@bind r_log Slider(0.5:0.1:3.0, default = 2.8, show_value = true))
 
 Punto de partida (fracción del rango): $(@bind x0_frac Slider(0.05:0.05:0.95, default = 0.15, show_value = true))
 """
@@ -290,8 +290,9 @@ let
       año queda el 96.5% de la brecha. Por eso, en la sesión 1, el capital
       sólo llegó a 5.4 de 7.25 en 40 años. La curva casi coincide con la
       diagonal, y la telaraña es una escalera de peldaños diminutos.
-    - **Logístico.** ``g'(x^\ast) = 2 - r``. Prueba ``r = 2.8`` (oscila y
-      converge), ``r = 3.2`` (ciclo de periodo 2) y ``r = 3.9`` (caos).
+    - **Logístico.** ``g'(x^\ast) = 2 - r``. Prueba ``r = 1.5`` (converge
+      monótonamente), ``r = 2.8`` (oscila y converge) y ``r = 3`` (el
+      límite: ``g'(x^\ast) = -1``).
     """
 end
 
@@ -470,8 +471,9 @@ md"""
 
 ### [Avanzado]
 
-10. En el mapa logístico, encuentra el valor de ``r`` a partir del cual el
-    punto fijo deja de ser estable. ¿Qué aparece en su lugar?
+10. En el mapa logístico, ¿para qué valores de ``r`` la convergencia es
+    monótona y para cuáles oscilante? Verifícalo con ``g'(x^\ast) = 2 - r``
+    y con la telaraña.
 11. Con la sección 6, ¿cuántas iteraciones bastan para que el error sea
     menor que ``10^{-6}`` desde ``x_0 = 10``, según la cota? ¿Cuántas hacen
     falta en realidad?

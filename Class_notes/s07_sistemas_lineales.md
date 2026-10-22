@@ -92,6 +92,20 @@ $e^{\alpha t}\sin\omega t$: giran con frecuencia $\omega$ y su amplitud
 cambia como $e^{\alpha t}$ ([L.I3](repaso/algebra_lineal.md#li3)). Ver
 [Para profundizar, P.1](#pp1).
 
+Si hay un **eigenvalor repetido** $\lambda = \tau/2$ (cuando
+$\tau^2 = 4\Delta$) y $A$ no es un múltiplo de la identidad, sólo hay una
+dirección de eigenvectores $v$, y las soluciones son
+
+$$
+x(t) = e^{\lambda t}\big(c_1v + c_2(tv + w)\big),
+\qquad (A - \lambda I)w = v.
+$$
+
+El factor $t$ aparece como en la ecuación de segundo orden con raíz doble
+([D.I3](repaso/ecuaciones_diferenciales.md#di3)). El comportamiento lo
+sigue decidiendo el signo de $\lambda$: no hay giro, y es el caso frontera
+entre un nodo y un foco.
+
 ### 2.2 Clasificación por la traza y el determinante
 
 El origen es un equilibrio de $\dot x = Ax$. Su tipo depende sólo de $\tau$ y
@@ -121,6 +135,8 @@ $\Delta < 0$ son puntos de silla. La región estable es el cuadrante
 $\tau < 0$, $\Delta > 0$. El cuaderno lo dibuja.
 
 ### 2.3 Ejemplo: dos regiones con derrames (nodo estable)
+
+*Modelo ilustrativo, construido para esta sesión.*
 
 Sea $z_i$ la brecha de ingreso de la región $i$ respecto de su estado
 estacionario. Cada región converge a la tasa $\beta$ (sesión 5) y, además,
@@ -171,6 +187,9 @@ justamente así: para caer sobre la **rama estable** del punto de silla
 (sesiones 10 y 12).
 
 ### 2.5 Ejemplo: el ciclo inmobiliario regional (foco estable)
+
+*Modelo ilustrativo, construido para esta sesión con la lógica de los
+modelos de acervo y flujo del mercado de vivienda.*
 
 En el mercado de vivienda de una región, sean $p$ el precio y $H$ el
 acervo de vivienda, los dos medidos como desviaciones de su equilibrio. El
@@ -227,8 +246,16 @@ $$
 El polinomio característico de la matriz, $\lambda^2 + a_1\lambda + a_2$, es
 la **ecuación característica** de la ecuación de segundo orden
 ([D.I3](repaso/ecuaciones_diferenciales.md#di3)): las raíces características
-son los eigenvalores. Por la Proposición 2, la ecuación es estable si y sólo
-si $a_1 > 0$ y $a_2 > 0$, y oscila si $a_1^2 < 4a_2$.
+son los eigenvalores. Según el discriminante $a_1^2 - 4a_2$:
+
+| Raíces características | Solución | Comportamiento |
+|---|---|---|
+| Reales distintas ($a_1^2 > 4a_2$) | $c_1e^{r_1t} + c_2e^{r_2t}$ | Nodo o punto de silla: no oscila |
+| Repetida ($a_1^2 = 4a_2$), $r = -a_1/2$ | $(c_1 + c_2t)e^{rt}$ | Caso frontera: no oscila |
+| Complejas ($a_1^2 < 4a_2$), $\alpha \pm i\omega$ | $e^{\alpha t}(c_1\cos\omega t + c_2\sin\omega t)$ | Foco o centro: oscila |
+
+Por la Proposición 2, la ecuación es estable si y sólo si $a_1 > 0$ y
+$a_2 > 0$.
 
 Esto importa porque la ecuación de Euler del cálculo de variaciones suele
 ser de segundo orden (sesión 10). Al escribirla como sistema, se analiza con
@@ -443,7 +470,7 @@ La linealización es la misma en los dos casos y no puede distinguirlos.
 
 Sea $p(\lambda) = \lambda^2 - \tau\lambda + \Delta$. **Raíces complejas**:
 tienen módulo $\sqrt{\Delta}$, así que son estables si y sólo si
-$\Delta < 1$; además $\tau^2 < 4\Delta < (1 + \Delta)^2$, de modo que
+$\Delta < 1$; además $\tau^2 < 4\Delta \le (1 + \Delta)^2$, de modo que
 $\lvert\tau\rvert < 1 + \Delta$ se cumple sola. **Raíces reales**: las dos
 están en $(-1, 1)$ si y sólo si la parábola $p$, que abre hacia arriba, es
 positiva en $\pm 1$ y su vértice $\tau/2$ está en $(-1, 1)$:

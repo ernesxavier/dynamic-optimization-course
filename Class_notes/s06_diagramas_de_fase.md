@@ -55,10 +55,11 @@ Se grafica $f(x)$ contra $x$. Donde $f > 0$, $x$ crece: flecha a la
 derecha. Donde $f < 0$, decrece: flecha a la izquierda. Los equilibrios son
 los cruces con el eje.
 
-**Proposición 1.** Toda solución de $\dot x = f(x)$ es monótona. Si empieza
-entre dos equilibrios consecutivos, se queda entre ellos y converge al que
-señalan las flechas; si empieza más allá del último equilibrio en la
-dirección de las flechas, converge a ese equilibrio o se va a $\pm\infty$.
+**Proposición 1.** Toda solución de $\dot x = f(x)$ es monótona y converge
+al primer equilibrio que encuentra en la dirección de las flechas. Si en esa
+dirección no hay ningún equilibrio, crece (o decrece) sin límite, y puede
+incluso explotar en tiempo finito: $\dot x = x^2$ con $x_0 > 0$ tiene la
+solución $x(t) = x_0/(1 - x_0t)$, que se va a infinito en $t = 1/x_0$.
 
 Las soluciones no oscilan ni cruzan un equilibrio: en una dimensión, para
 ir de un lado a otro habría que pasar por un punto con $f = 0$, y ahí la
@@ -179,7 +180,7 @@ Con $a = -0.3$, $b = 2$ y $c = 1.5$: $L_1 \approx 0.17$ y $L_2 \approx 1.16$.
   equilibrio, pero cualquier perturbación aleja a la región de él.
 
 Es la lógica de los modelos de nueva geografía económica, en la versión más
-simple posible.
+simple posible. El modelo es ilustrativo, construido para esta sesión.
 
 ---
 
@@ -298,7 +299,7 @@ siguiente, lo que lleva a sembrar poco. El precio de equilibrio,
 $p^\ast = (A - C)/(B + D)$, es estable si $D < B$: si la oferta responde al
 precio menos que la demanda. Si la oferta es más sensible que la demanda,
 las oscilaciones crecen. Es el modelo de la telaraña de Chiang y Wainwright
-(cap. 17).
+(sec. 17.4).
 
 ### 2.6 Del tiempo continuo al discreto
 

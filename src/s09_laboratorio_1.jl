@@ -182,7 +182,8 @@ proporcional a la diferencia de rendimientos, ``r_i = \alpha A_i k_i^{\alpha - 1
 
 ``m \ge 0`` mide la **movilidad del capital**: con ``m = 0``, cada región
 es una economía de Solow cerrada. Lo que sale de una región entra a la
-otra, así que el flujo no crea ni destruye capital.
+otra, así que el flujo no crea ni destruye capital. Es un modelo
+ilustrativo, construido para este laboratorio.
 
 **3.** Escribe `dos_regiones!(du, u, p, t)`, en la forma "en el lugar":
 `u = [k1, k2]`, y la función debe escribir ``\dot k_1`` en `du[1]` y
@@ -350,7 +351,9 @@ rezago viene de que ahorra poco y el capital es móvil; no converge si viene
 de que es menos productiva.** Según este modelo, y si el capital se mueve
 entre los estados de México, la falta de convergencia de la sesión 5 apunta
 más a diferencias de productividad persistentes que a diferencias de
-ahorro.
+ahorro. Es lo que sugieren Barceinas y Raymond (2005), que atribuyen casi
+el 40% de la desigualdad regional de 2002 a la distribución del capital
+humano (notas de la sesión 5, sección 4).
 """
 
 #%% hide

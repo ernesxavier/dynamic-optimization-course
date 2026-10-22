@@ -17,7 +17,7 @@
 > [E.A1](repaso/estadistica.md#ea1).
 >
 > Lecturas: Chiang y Wainwright (2006), cap. 15; Barro y Sala-i-Martin
-> (1992).
+> (1992). Para el caso de México: Barceinas y Raymond (2005).
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -213,9 +213,9 @@ Con $T$ corto, $\beta \approx -b$; con $T$ largo, la diferencia importa,
 porque buena parte de la brecha ya se cerró y el crecimiento promedio la
 subestima.
 
-Barro y Sala-i-Martin (1992) estimaron $\beta \approx 0.02$ para los estados
-de Estados Unidos entre 1880 y 1988: la mitad de una brecha tarda unos 35
-años en cerrarse. Es la "regla del 2%" de la literatura de convergencia.
+Barro y Sala-i-Martin (1992) estimaron $\beta \approx 0.02$ para los 48
+estados contiguos de Estados Unidos, con datos de ingreso personal desde
+1840: la mitad de una brecha tarda unos 35 años en cerrarse. Es la "regla del 2%" de la literatura de convergencia.
 
 ### 3.3 Convergencia absoluta y condicional
 
@@ -276,6 +276,13 @@ convergencia regional se mide sin la minería petrolera.
   son permanentes salvo que cambie $y_i^\ast$.
 - Veinte años es poco, e incluyen dos recesiones (2009 y 2020). Los
   resultados describen el periodo, no una ley.
+- Coinciden con lo que se encontró para el periodo anterior. Barceinas y
+  Raymond (2005) documentan divergencia entre las entidades desde los años
+  ochenta hasta 2002, aunque la educación rinde más en las regiones menos
+  desarrolladas. Estiman que la desigual distribución del capital humano
+  explica casi el 40% de la desigualdad regional de 2002, y que la
+  migración no ha cumplido el papel equilibrador que predice el modelo
+  neoclásico.
 - Es el punto de partida del curso: si las brechas no se cierran solas, ¿cómo
   debe invertir un gobierno entre regiones? (sesiones 2 y 14).
 
@@ -385,9 +392,11 @@ que puede ser igual o mayor que $\sigma_0^2$. Las regiones de arriba bajan y
 las de abajo suben (**regresión a la media**), mientras los choques nuevos
 mantienen la dispersión. Es la falacia de Galton
 ([E.A1](repaso/estadistica.md#ea1)). Por eso se revisan las dos
-convergencias. En México 2003–2023 no hay ninguna de las dos, así que el
-problema no se presenta, pero sí explica por qué el caso con petróleo
-engaña.
+convergencias. En México 2003–2023, sin petróleo, no hay ninguna de las
+dos. El caso con petróleo engaña por otra razón: ahí hay convergencia β
+**y** σ, pero las dos vienen de que la entidad que empezó más rica,
+Campeche, se desplomó al agotarse su sector petrolero, no de que las
+entidades pobres alcanzaran a las ricas (sección 4).
 
 <a id="pp3"></a>
 
@@ -421,6 +430,9 @@ equilibrio es el tema de las sesiones 7 y 8.
 
 ## Referencias
 
+- Barceinas, F., & Raymond, J. L. (2005). Convergencia regional y capital
+  humano en México, de los años 80 al 2002. *Estudios Económicos*, 20(2),
+  263–304. https://www.jstor.org/stable/40311505
 - Barro, R. J., & Sala-i-Martin, X. (1992). Convergence. *Journal of
   Political Economy*, 100(2), 223–251. https://doi.org/10.1086/261816
 - Chiang, A. C., & Wainwright, K. (2006). *Métodos fundamentales de economía

@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 3c643dae-ce48-11f1-8c7d-7ffffa26f307
+# ╔═╡ f61ed908-ce4c-11f1-a152-5576bf947a3e
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 3c643caa-ce48-11f1-8002-79415eadf347
+# ╔═╡ f61ed82c-ce4c-11f1-8f15-1fb1b16e2c25
 md"""
 # Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias
 
@@ -61,10 +61,10 @@ primer orden) y D.I4 (puntos fijos y diagramas de fase). Para los puntos
 [Avanzado]: A.I5 (contracciones).
 """
 
-# ╔═╡ 3c643cdc-ce48-11f1-a04e-5b2e84f0cfc7
+# ╔═╡ f61ed854-ce4c-11f1-a8b5-8d6b08ea46f4
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 3c643ce6-ce48-11f1-90e0-93f1f3153d54
+# ╔═╡ f61ed85e-ce4c-11f1-962a-810148f24c77
 md"""
 ## 0. La pregunta: ¿a dónde va una región?
 
@@ -79,7 +79,7 @@ En las gráficas de este cuaderno, un **punto lleno** es un equilibrio estable
 y un **punto vacío**, uno inestable.
 """
 
-# ╔═╡ 3c643ce6-ce48-11f1-b2e7-bb2022405370
+# ╔═╡ f61ed85e-ce4c-11f1-8bdb-758ba879bbcd
 md"""
 ## 1. Solow: un equilibrio estable
 
@@ -96,7 +96,7 @@ Participación del capital ``\alpha``: $(@bind α Slider(0.2:0.05:0.6, default =
 Crecimiento de la población más depreciación, ``n + \delta``: $(@bind nδ Slider(0.02:0.01:0.12, default = 0.06, show_value = true))
 """
 
-# ╔═╡ 3c643cfa-ce48-11f1-9975-9110e6b2ac20
+# ╔═╡ f61ed868-ce4c-11f1-9067-c1a21784a741
 let
     kstar = (s / nδ)^(1 / (1 - α))
     fp = -(1 - α) * nδ
@@ -119,7 +119,7 @@ let
     """
 end
 
-# ╔═╡ 3c643cfa-ce48-11f1-8cc4-4df9104f7692
+# ╔═╡ f61ed872-ce4c-11f1-ac97-93dbfb6645e3
 md"""
 ## 2. Aglomeración: dos equilibrios estables y un umbral
 
@@ -137,7 +137,7 @@ nadie.
 Ventaja de partida ``a``: $(@bind a_agl Slider(-0.6:0.05:0.1, default = -0.3, show_value = true))
 """
 
-# ╔═╡ 3c643d0e-ce48-11f1-895c-7b25120a4a20
+# ╔═╡ f61ed888-ce4c-11f1-ad20-49ba5336a702
 md"""
 ### Un gran impulso
 
@@ -151,7 +151,7 @@ Subsidio ``\sigma``: $(@bind σ_sub Slider(0.0:0.05:0.6, default = 0.3, show_val
 Duración ``T_s`` (años): $(@bind T_sub Slider(0:1:20, default = 5, show_value = true))
 """
 
-# ╔═╡ 3c643d20-ce48-11f1-b0b8-f39ceab4a98d
+# ╔═╡ f61ed890-ce4c-11f1-9a8a-0b66f1155d25
 md"""
 ## 3. Ecuaciones en diferencias lineales
 
@@ -171,7 +171,7 @@ la desviación se multiplica por ``a`` cada periodo.
 ``y_0``: $(@bind y0_d Slider(0.0:0.5:10.0, default = 0.0, show_value = true))
 """
 
-# ╔═╡ 3c643d2c-ce48-11f1-8d5c-65d39ba82ba6
+# ╔═╡ f61ed89a-ce4c-11f1-b9bb-b709f9f90b3a
 let
     regimen = a_d ≈ 1 ? "crece en línea recta, porque no hay punto fijo" :
               abs(a_d) ≈ 1 ? "oscila para siempre entre dos valores" :
@@ -185,7 +185,7 @@ let
     """
 end
 
-# ╔═╡ 3c643d36-ce48-11f1-a917-edd433ddc2a4
+# ╔═╡ f61ed89a-ce4c-11f1-aa99-7da2c95253a1
 md"""
 ## 4. Ecuaciones no lineales: el diagrama de telaraña
 
@@ -198,12 +198,12 @@ Mapa: $(@bind mapa Select(["mercado" => "Telaraña de un mercado regional", "sol
 
 Respuesta de la oferta al precio, ``D`` (mercado, con ``B = 1``): $(@bind D_oferta Slider(0.2:0.1:1.5, default = 0.8, show_value = true))
 
-Parámetro ``r`` (logístico): $(@bind r_log Slider(0.5:0.1:3.9, default = 2.8, show_value = true))
+Parámetro ``r`` (logístico): $(@bind r_log Slider(0.5:0.1:3.0, default = 2.8, show_value = true))
 
 Punto de partida (fracción del rango): $(@bind x0_frac Slider(0.05:0.05:0.95, default = 0.15, show_value = true))
 """
 
-# ╔═╡ 3c643d4a-ce48-11f1-a236-c5d72ceff6b8
+# ╔═╡ f61ed8ae-ce4c-11f1-9187-b51a2bf1a1a9
 md"""
 ## 5. El método de Euler es una ecuación en diferencias
 
@@ -219,7 +219,7 @@ una ecuación lineal en diferencias con coeficiente ``1 - a\,\Delta t``.
 ``a\,\Delta t``: $(@bind aΔt Slider(0.1:0.1:2.5, default = 0.5, show_value = true))
 """
 
-# ╔═╡ 3c643d52-ce48-11f1-b586-fde429d7fdc4
+# ╔═╡ f61ed8ba-ce4c-11f1-b192-f361a8524ae3
 let
     regimen = aΔt ≈ 1 ? "exacta en el equilibrio: llega en un paso" : aΔt < 1 ? "monótona y cercana a la solución exacta" :
               aΔt ≈ 2 ? "oscilante sin converger" : aΔt < 2 ? "oscilante, aunque la ecuación no oscila" :
@@ -231,7 +231,7 @@ let
     """
 end
 
-# ╔═╡ 3c643d5e-ce48-11f1-a077-3b8a1e66ad99
+# ╔═╡ f61ed8c2-ce4c-11f1-ba66-111f40ffe15c
 md"""
 ## 6. [Avanzado] Contracciones: convergencia desde cualquier punto
 
@@ -243,7 +243,7 @@ cualquier punto del intervalo, con error ``|x_t - x^\ast| \le \rho^t |x_0 - x^\a
 Punto de partida ``x_0``: $(@bind x0_c Slider(-10.0:1.0:10.0, default = 5.0, show_value = true))
 """
 
-# ╔═╡ 3c643d68-ce48-11f1-9b61-51196b16f025
+# ╔═╡ f61ed8c2-ce4c-11f1-a22b-1341fb8d1719
 md"""
 Desde cualquier ``x_0`` el error cae al menos a la mitad en cada iteración,
 y en la práctica más rápido: cerca del punto fijo, ``|g'(x^\ast)| \approx 0.46``.
@@ -252,7 +252,7 @@ funciones en lugar de números, y con el factor de descuento ``\beta`` en el
 papel de ``\rho``.
 """
 
-# ╔═╡ 3c643d68-ce48-11f1-a671-c12c49898c1e
+# ╔═╡ f61ed8cc-ce4c-11f1-a635-91d47b86e62c
 md"""
 ## Resumen
 
@@ -272,47 +272,47 @@ md"""
 `:estable`, `:inestable` o `:no_decide`.
 """
 
-# ╔═╡ 3c643d72-ce48-11f1-a143-eb1ef9ceaffc
+# ╔═╡ f61ed8cc-ce4c-11f1-a9a0-8f0d1a452f94
 function clasificar_continuo(fp)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 3c643d7c-ce48-11f1-9b8c-25883f4e7dce
+# ╔═╡ f61ed8d6-ce4c-11f1-804b-ed5cfccf71db
 md"""
 **2.** Escribe `clasificar_discreto(gp)`, que reciba ``g'(x^\ast)`` y devuelva
 `:monotona` (estable sin oscilar), `:oscilante` (estable oscilando),
 `:inestable` o `:no_decide` (si ``|g'(x^\ast)| = 1``).
 """
 
-# ╔═╡ 3c643d7c-ce48-11f1-ac19-bd75a55cc4a7
+# ╔═╡ f61ed8e0-ce4c-11f1-818e-95955e57060b
 function clasificar_discreto(gp)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 3c643d86-ce48-11f1-8239-d7f33f64cfe6
+# ╔═╡ f61ed8e8-ce4c-11f1-b1bc-a3a4d0576eb1
 md"""
 **3.** Escribe `iterar(g, x0, n)`, que devuelva el vector
 ``[x_0, x_1, \dots, x_n]`` con ``x_{t+1} = g(x_t)``.
 """
 
-# ╔═╡ 3c643d90-ce48-11f1-908d-2715630631e6
+# ╔═╡ f61ed8e8-ce4c-11f1-964e-d9f08ab8d03d
 function iterar(g, x0, n)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 3c643d90-ce48-11f1-883a-bbc1d3427a2d
+# ╔═╡ f61ed8f4-ce4c-11f1-b39b-6fe53388f74a
 md"""
 **4.** Escribe `umbral(a, b, c)`, el umbral ``L_1`` del modelo de
 aglomeración con ``u(L) = a + bL - cL^2``: la raíz menor de ``u``. Supón
 ``a < 0`` y ``b^2 > 4|a|c``.
 """
 
-# ╔═╡ 3c643d9a-ce48-11f1-bc5d-e3d721909e52
+# ╔═╡ f61ed8f4-ce4c-11f1-bcbc-3568305fb895
 function umbral(a, b, c)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 3c643da4-ce48-11f1-a7fa-6ddce381e181
+# ╔═╡ f61ed8fe-ce4c-11f1-8f53-0f16b6075f4a
 md"""
 ### Interpretación
 
@@ -334,8 +334,9 @@ md"""
 
 ### [Avanzado]
 
-10. En el mapa logístico, encuentra el valor de ``r`` a partir del cual el
-    punto fijo deja de ser estable. ¿Qué aparece en su lugar?
+10. En el mapa logístico, ¿para qué valores de ``r`` la convergencia es
+    monótona y para cuáles oscilante? Verifícalo con ``g'(x^\ast) = 2 - r``
+    y con la telaraña.
 11. Con la sección 6, ¿cuántas iteraciones bastan para que el error sea
     menor que ``10^{-6}`` desde ``x_0 = 10``, según la cota? ¿Cuántas hacen
     falta en realidad?
@@ -349,7 +350,7 @@ md"""
   D.I5 (sistemas lineales de dos dimensiones).
 """
 
-# ╔═╡ 3c643da4-ce48-11f1-8bc8-e7e27232389f
+# ╔═╡ f61ed908-ce4c-11f1-9ce0-8d3c223339bd
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -358,7 +359,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 3c643dae-ce48-11f1-92e0-219994b80ac0
+# ╔═╡ f61ed912-ce4c-11f1-920e-c36a0634dcc7
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # flechas, telaraña, subsidio
@@ -366,7 +367,7 @@ begin
     const TINTA   = "#0b0b0b"   # equilibrios
 end;
 
-# ╔═╡ 3c643d52-ce48-11f1-b5bb-2d0080654127
+# ╔═╡ f61ed8ba-ce4c-11f1-80e5-cdfd49f8079f
 let
     t = range(0, 12, length = 300)
     k = 0:round(Int, 12 / aΔt)
@@ -377,7 +378,7 @@ let
           msw = 0, label = "Euler")
 end
 
-# ╔═╡ 3c643db8-ce48-11f1-a20f-87d2a29eeda7
+# ╔═╡ f61ed912-ce4c-11f1-889e-bd314ff79f6d
 "Simula ẋ = f(x, t) con Runge-Kutta de cuarto orden y paso dt; devuelve tiempos y valores."
 function simular(f, x0, T; dt = 0.02)
     n = round(Int, T / dt)
@@ -394,7 +395,7 @@ function simular(f, x0, T; dt = 0.02)
     (0:n) .* dt, x
 end
 
-# ╔═╡ 3c643d18-ce48-11f1-8dc8-8fe10dffdccd
+# ╔═╡ f61ed888-ce4c-11f1-92fa-133419fef9ac
 let
     u(L) = a_agl + 2L - 1.5L^2
     _, Ls = simular((L, t) -> L * (u(L) + (t < T_sub ? σ_sub : 0.0)), 0.1, 40)
@@ -403,7 +404,7 @@ let
         md"**La región se vacía**: el subsidio no bastó para cruzar el umbral, y al retirarlo la región vuelve a perder población. Lo gastado se pierde."
 end
 
-# ╔═╡ 3c643db8-ce48-11f1-a8be-196a890308a5
+# ╔═╡ f61ed91a-ce4c-11f1-ad38-e3e4963af018
 """
 Recta de fase de ẋ = f(x) en [xmin, xmax]: la curva f, flechas sobre el eje
 según el signo de f y los equilibrios (llenos si son estables, vacíos si no).
@@ -427,7 +428,7 @@ function recta_de_fase(f, eqs, estables, xmin, xmax; titulo = "", etiqueta = "x"
     p
 end
 
-# ╔═╡ 3c643cee-ce48-11f1-a4dc-2bb4be981298
+# ╔═╡ f61ed868-ce4c-11f1-b9f2-db9898853592
 let
     f(k) = s * k^α - nδ * k
     kstar = (s / nδ)^(1 / (1 - α))
@@ -443,7 +444,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (760, 320))
 end
 
-# ╔═╡ 3c643dc4-ce48-11f1-97ad-27a83cdb6667
+# ╔═╡ f61ed91a-ce4c-11f1-9212-b19cdf577060
 "Equilibrios de L̇ = L(a + 2L − 1.5L²) en L ≥ 0 y si son estables."
 function equilibrios_aglomeracion(a; b = 2.0, c = 1.5)
     disc = b^2 + 4a * c
@@ -454,7 +455,7 @@ function equilibrios_aglomeracion(a; b = 2.0, c = 1.5)
     a < 0 ? ([0.0, L1, L2], [true, false, true]) : ([0.0, L2], [false, true])
 end
 
-# ╔═╡ 3c643d04-ce48-11f1-afba-cd1588362d2d
+# ╔═╡ f61ed87c-ce4c-11f1-bf5c-0d5e05498e34
 let
     u(L) = a_agl + 2L - 1.5L^2
     f(L) = L * u(L)
@@ -469,7 +470,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (760, 320))
 end
 
-# ╔═╡ 3c643d04-ce48-11f1-b318-c9aa6b4d3bd7
+# ╔═╡ f61ed87c-ce4c-11f1-9ee1-872defcee076
 let
     eqs, estables = equilibrios_aglomeracion(a_agl)
     r(v) = round(v, digits = 3)
@@ -498,7 +499,7 @@ let
     end
 end
 
-# ╔═╡ 3c643d18-ce48-11f1-98d4-2f01f2e78d0b
+# ╔═╡ f61ed888-ce4c-11f1-9843-cba1fc865817
 let
     eqs, _ = equilibrios_aglomeracion(a_agl)
     u(L) = a_agl + 2L - 1.5L^2
@@ -510,11 +511,11 @@ let
     p
 end
 
-# ╔═╡ 3c643dc4-ce48-11f1-83ed-2159fd6cea72
+# ╔═╡ f61ed91a-ce4c-11f1-bcae-95f2450e3f00
 "Umbral de masa crítica: la raíz menor de a + bL − cL²."
 umbral_ref(a, b, c) = (b - sqrt(b^2 + 4a * c)) / (2c)
 
-# ╔═╡ 3c643dcc-ce48-11f1-86e6-b9b295ce65de
+# ╔═╡ f61ed926-ce4c-11f1-9f46-fba7f718ef52
 "Iteraciones x₀, x₁, …, xₙ de x_{t+1} = g(x_t)."
 function iterar_ref(g, x0, n)
     x = [float(x0)]
@@ -524,7 +525,7 @@ function iterar_ref(g, x0, n)
     x
 end
 
-# ╔═╡ 3c643d20-ce48-11f1-b676-d74ea43df2a0
+# ╔═╡ f61ed890-ce4c-11f1-bf93-0b6b0c10fddf
 let
     ys = iterar_ref(y -> a_d * y + b_d, y0_d, 20)
     p = scatter(0:20, ys; color = AZUL, ms = 4, msw = 0, xlabel = "t", ylabel = "yₜ",
@@ -534,7 +535,7 @@ let
     p
 end
 
-# ╔═╡ 3c643d5e-ce48-11f1-a792-df773be6106f
+# ╔═╡ f61ed8c2-ce4c-11f1-a5f7-47bfa046fb61
 let
     g(x) = 1 + 0.5cos(x)
     xstar = iterar_ref(g, 1.0, 200)[end]
@@ -547,7 +548,7 @@ let
           label = "cota ρᵗ |x₀ − x*|")
 end
 
-# ╔═╡ 3c643dcc-ce48-11f1-9d2f-2191b81905ff
+# ╔═╡ f61ed926-ce4c-11f1-b1d1-93567a8e5149
 "Los tres mapas de la sección 4: función, rango, punto fijo y g′ en el punto fijo."
 function mapa_ref(nombre, D, r)
     if nombre == "solow"
@@ -565,7 +566,7 @@ function mapa_ref(nombre, D, r)
     end
 end
 
-# ╔═╡ 3c643d40-ce48-11f1-b2d4-29b9a63806f5
+# ╔═╡ f61ed8a4-ce4c-11f1-b92b-a5f670f5901f
 let
     m = mapa_ref(mapa, D_oferta, r_log)
     gp = m.gprima
@@ -582,12 +583,13 @@ let
       año queda el 96.5% de la brecha. Por eso, en la sesión 1, el capital
       sólo llegó a 5.4 de 7.25 en 40 años. La curva casi coincide con la
       diagonal, y la telaraña es una escalera de peldaños diminutos.
-    - **Logístico.** ``g'(x^\ast) = 2 - r``. Prueba ``r = 2.8`` (oscila y
-      converge), ``r = 3.2`` (ciclo de periodo 2) y ``r = 3.9`` (caos).
+    - **Logístico.** ``g'(x^\ast) = 2 - r``. Prueba ``r = 1.5`` (converge
+      monótonamente), ``r = 2.8`` (oscila y converge) y ``r = 3`` (el
+      límite: ``g'(x^\ast) = -1``).
     """
 end
 
-# ╔═╡ 3c643dd6-ce48-11f1-965b-1119f6888fcb
+# ╔═╡ f61ed930-ce4c-11f1-9775-35aab7cb3fb0
 "Diagrama de telaraña de g para la trayectoria xs en el rango dado."
 function telarana(g, xs, rango; titulo = "")
     grid = range(rango..., length = 300)
@@ -602,7 +604,7 @@ function telarana(g, xs, rango; titulo = "")
     plot!(p, px, clamp.(py, rango...); color = NARANJA, lw = 1)
 end
 
-# ╔═╡ 3c643d40-ce48-11f1-bb5c-4beb141fcfa1
+# ╔═╡ f61ed8a4-ce4c-11f1-a60f-43cb66554035
 let
     m = mapa_ref(mapa, D_oferta, r_log)
     x0 = m.rango[1] + x0_frac * (m.rango[2] - m.rango[1])
@@ -614,7 +616,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (760, 340))
 end
 
-# ╔═╡ 3c643dd6-ce48-11f1-b5be-a7cc97984bf5
+# ╔═╡ f61ed930-ce4c-11f1-902b-6f81435dc282
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -636,72 +638,72 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 3c643d72-ce48-11f1-8e58-5313433e175b
+# ╔═╡ f61ed8d6-ce4c-11f1-bf01-81e19a24906b
 verificar(() -> clasificar_continuo.([-0.042, 0.255, 0.0, -1.72]),
           [:estable, :inestable, :no_decide, :estable];
           pista = md"Usa `fp < 0 ? :estable : fp > 0 ? :inestable : :no_decide`.")
 
-# ╔═╡ 3c643d86-ce48-11f1-aab8-87889c698fc2
+# ╔═╡ f61ed8e0-ce4c-11f1-96da-e7c825bbb30b
 verificar(() -> clasificar_discreto.([0.965, -0.8, 1.5, -1.2, 1.0, -1.0, 0.0]),
           [:monotona, :oscilante, :inestable, :inestable, :no_decide, :no_decide, :monotona];
           pista = md"Primero compara `abs(gp)` con 1; si es menor, decide por el signo de `gp` (con `gp >= 0` monótona).")
 
-# ╔═╡ 3c643d90-ce48-11f1-b6d4-b1541bdf2a91
+# ╔═╡ f61ed8f4-ce4c-11f1-9705-99271c6db2e6
 verificar(() -> [iterar(y -> -0.5y + 3, 0.0, 4); iterar(cos, 1.0, 3)],
           [iterar_ref(y -> -0.5y + 3, 0.0, 4); iterar_ref(cos, 1.0, 3)];
           pista = md"Crea `x = [x0]` y en un ciclo `for t in 1:n` agrega `push!(x, g(x[end]))`; devuelve `x`.")
 
-# ╔═╡ 3c643d9a-ce48-11f1-934a-11bf22bffd33
+# ╔═╡ f61ed8fe-ce4c-11f1-9da6-555c5080e657
 verificar(() -> [umbral(-0.3, 2.0, 1.5), umbral(-0.1, 2.0, 1.5), umbral(-0.5, 3.0, 2.0)],
           [umbral_ref(-0.3, 2.0, 1.5), umbral_ref(-0.1, 2.0, 1.5), umbral_ref(-0.5, 3.0, 2.0)];
           pista = md"Las raíces de ``-cL^2 + bL + a = 0`` son ``\big(b \mp \sqrt{b^2 + 4ac}\big)/(2c)``; la menor lleva el signo menos.")
 
 # ╔═╡ Cell order:
-# ╟─3c643caa-ce48-11f1-8002-79415eadf347
-# ╟─3c643cdc-ce48-11f1-a04e-5b2e84f0cfc7
-# ╟─3c643ce6-ce48-11f1-90e0-93f1f3153d54
-# ╟─3c643ce6-ce48-11f1-b2e7-bb2022405370
-# ╟─3c643cee-ce48-11f1-a4dc-2bb4be981298
-# ╟─3c643cfa-ce48-11f1-9975-9110e6b2ac20
-# ╟─3c643cfa-ce48-11f1-8cc4-4df9104f7692
-# ╟─3c643d04-ce48-11f1-afba-cd1588362d2d
-# ╟─3c643d04-ce48-11f1-b318-c9aa6b4d3bd7
-# ╟─3c643d0e-ce48-11f1-895c-7b25120a4a20
-# ╟─3c643d18-ce48-11f1-98d4-2f01f2e78d0b
-# ╟─3c643d18-ce48-11f1-8dc8-8fe10dffdccd
-# ╟─3c643d20-ce48-11f1-b0b8-f39ceab4a98d
-# ╟─3c643d20-ce48-11f1-b676-d74ea43df2a0
-# ╟─3c643d2c-ce48-11f1-8d5c-65d39ba82ba6
-# ╟─3c643d36-ce48-11f1-a917-edd433ddc2a4
-# ╟─3c643d40-ce48-11f1-bb5c-4beb141fcfa1
-# ╟─3c643d40-ce48-11f1-b2d4-29b9a63806f5
-# ╟─3c643d4a-ce48-11f1-a236-c5d72ceff6b8
-# ╟─3c643d52-ce48-11f1-b5bb-2d0080654127
-# ╟─3c643d52-ce48-11f1-b586-fde429d7fdc4
-# ╟─3c643d5e-ce48-11f1-a077-3b8a1e66ad99
-# ╟─3c643d5e-ce48-11f1-a792-df773be6106f
-# ╟─3c643d68-ce48-11f1-9b61-51196b16f025
-# ╟─3c643d68-ce48-11f1-a671-c12c49898c1e
-# ╠═3c643d72-ce48-11f1-a143-eb1ef9ceaffc
-# ╟─3c643d72-ce48-11f1-8e58-5313433e175b
-# ╟─3c643d7c-ce48-11f1-9b8c-25883f4e7dce
-# ╠═3c643d7c-ce48-11f1-ac19-bd75a55cc4a7
-# ╟─3c643d86-ce48-11f1-aab8-87889c698fc2
-# ╟─3c643d86-ce48-11f1-8239-d7f33f64cfe6
-# ╠═3c643d90-ce48-11f1-908d-2715630631e6
-# ╟─3c643d90-ce48-11f1-b6d4-b1541bdf2a91
-# ╟─3c643d90-ce48-11f1-883a-bbc1d3427a2d
-# ╠═3c643d9a-ce48-11f1-bc5d-e3d721909e52
-# ╟─3c643d9a-ce48-11f1-934a-11bf22bffd33
-# ╟─3c643da4-ce48-11f1-a7fa-6ddce381e181
-# ╟─3c643da4-ce48-11f1-8bc8-e7e27232389f
-# ╠═3c643dae-ce48-11f1-8c7d-7ffffa26f307
-# ╠═3c643dae-ce48-11f1-92e0-219994b80ac0
-# ╠═3c643db8-ce48-11f1-a20f-87d2a29eeda7
-# ╠═3c643db8-ce48-11f1-a8be-196a890308a5
-# ╠═3c643dc4-ce48-11f1-97ad-27a83cdb6667
-# ╠═3c643dc4-ce48-11f1-83ed-2159fd6cea72
-# ╠═3c643dcc-ce48-11f1-86e6-b9b295ce65de
-# ╠═3c643dcc-ce48-11f1-9d2f-2191b81905ff
-# ╠═3c643dd6-ce48-11f1-965b-1119f6888fcb
-# ╠═3c643dd6-ce48-11f1-b5be-a7cc97984bf5
+# ╟─f61ed82c-ce4c-11f1-8f15-1fb1b16e2c25
+# ╟─f61ed854-ce4c-11f1-a8b5-8d6b08ea46f4
+# ╟─f61ed85e-ce4c-11f1-962a-810148f24c77
+# ╟─f61ed85e-ce4c-11f1-8bdb-758ba879bbcd
+# ╟─f61ed868-ce4c-11f1-b9f2-db9898853592
+# ╟─f61ed868-ce4c-11f1-9067-c1a21784a741
+# ╟─f61ed872-ce4c-11f1-ac97-93dbfb6645e3
+# ╟─f61ed87c-ce4c-11f1-bf5c-0d5e05498e34
+# ╟─f61ed87c-ce4c-11f1-9ee1-872defcee076
+# ╟─f61ed888-ce4c-11f1-ad20-49ba5336a702
+# ╟─f61ed888-ce4c-11f1-9843-cba1fc865817
+# ╟─f61ed888-ce4c-11f1-92fa-133419fef9ac
+# ╟─f61ed890-ce4c-11f1-9a8a-0b66f1155d25
+# ╟─f61ed890-ce4c-11f1-bf93-0b6b0c10fddf
+# ╟─f61ed89a-ce4c-11f1-b9bb-b709f9f90b3a
+# ╟─f61ed89a-ce4c-11f1-aa99-7da2c95253a1
+# ╟─f61ed8a4-ce4c-11f1-a60f-43cb66554035
+# ╟─f61ed8a4-ce4c-11f1-b92b-a5f670f5901f
+# ╟─f61ed8ae-ce4c-11f1-9187-b51a2bf1a1a9
+# ╟─f61ed8ba-ce4c-11f1-80e5-cdfd49f8079f
+# ╟─f61ed8ba-ce4c-11f1-b192-f361a8524ae3
+# ╟─f61ed8c2-ce4c-11f1-ba66-111f40ffe15c
+# ╟─f61ed8c2-ce4c-11f1-a5f7-47bfa046fb61
+# ╟─f61ed8c2-ce4c-11f1-a22b-1341fb8d1719
+# ╟─f61ed8cc-ce4c-11f1-a635-91d47b86e62c
+# ╠═f61ed8cc-ce4c-11f1-a9a0-8f0d1a452f94
+# ╟─f61ed8d6-ce4c-11f1-bf01-81e19a24906b
+# ╟─f61ed8d6-ce4c-11f1-804b-ed5cfccf71db
+# ╠═f61ed8e0-ce4c-11f1-818e-95955e57060b
+# ╟─f61ed8e0-ce4c-11f1-96da-e7c825bbb30b
+# ╟─f61ed8e8-ce4c-11f1-b1bc-a3a4d0576eb1
+# ╠═f61ed8e8-ce4c-11f1-964e-d9f08ab8d03d
+# ╟─f61ed8f4-ce4c-11f1-9705-99271c6db2e6
+# ╟─f61ed8f4-ce4c-11f1-b39b-6fe53388f74a
+# ╠═f61ed8f4-ce4c-11f1-bcbc-3568305fb895
+# ╟─f61ed8fe-ce4c-11f1-9da6-555c5080e657
+# ╟─f61ed8fe-ce4c-11f1-8f53-0f16b6075f4a
+# ╟─f61ed908-ce4c-11f1-9ce0-8d3c223339bd
+# ╠═f61ed908-ce4c-11f1-a152-5576bf947a3e
+# ╠═f61ed912-ce4c-11f1-920e-c36a0634dcc7
+# ╠═f61ed912-ce4c-11f1-889e-bd314ff79f6d
+# ╠═f61ed91a-ce4c-11f1-ad38-e3e4963af018
+# ╠═f61ed91a-ce4c-11f1-9212-b19cdf577060
+# ╠═f61ed91a-ce4c-11f1-bcae-95f2450e3f00
+# ╠═f61ed926-ce4c-11f1-9f46-fba7f718ef52
+# ╠═f61ed926-ce4c-11f1-b1d1-93567a8e5149
+# ╠═f61ed930-ce4c-11f1-9775-35aab7cb3fb0
+# ╠═f61ed930-ce4c-11f1-902b-6f81435dc282

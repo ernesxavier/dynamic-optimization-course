@@ -136,7 +136,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [x] Orientación aplicada en el programa: preguntas regionales, datos del INEGI en las sesiones 5, 12 y 14, proyecto ligado a la tesis.
 - [x] Script `Code/descargar_datos.jl` y CSV en `Data/`: PIB por entidad (INEGI), población y empleo (OCDE) y Penn World Table 11.0.
 - [x] Definir con qué datos se aproximan las tasas de ahorro sᵢ y las productividades vᵢ de dos regiones (sesión 14), y los parámetros de Ramsey para México (sesión 12): PIB por trabajador (INEGI y ENOE), supuestos explícitos para sᵢ y Penn World Table.
-- [ ] Agregar una referencia sobre convergencia regional en México para la sesión 5 (verificar la ficha).
+- [x] Agregar una referencia sobre convergencia regional en México para la sesión 5: Barceinas y Raymond (2005), verificada en el PDF. En Zotero, la ficha WT2RNH4V no tiene autores, revista ni año: completarla.
 - [ ] Armar el calendario sesión por sesión (requiere las fechas del trimestre y los días sin clase).
 - [x] Redactar el cuestionario diagnóstico (`Class_notes/repaso/diagnostico_inicial.md`).
 - [ ] Material de repaso de la semana previa para estudiantes (ver `docs/guia-de-repaso.md`).

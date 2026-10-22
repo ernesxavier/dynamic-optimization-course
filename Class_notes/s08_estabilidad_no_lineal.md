@@ -87,9 +87,8 @@ trayectorias que llegan a él, y sus dos ramas inestables, las que salen de
 **Qué puede pasar en el plano.** En una dimensión, una trayectoria acotada
 siempre converge a un equilibrio (sesión 6). En el plano hay una posibilidad
 más: puede acercarse a una **órbita cerrada**, un ciclo (o a una cadena de
-equilibrios unidos por trayectorias). No hay más opciones; el caos necesita
-al menos tres dimensiones. Los ejemplos de esta
-sesión no tienen ciclos.
+equilibrios unidos por trayectorias). Los ejemplos de esta sesión no tienen
+ciclos.
 
 ---
 
