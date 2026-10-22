@@ -16,7 +16,7 @@
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 11–13.
 
-**Pregunta del bloque.** Un gobierno tiene un fondo $B$ para invertir en dos
+**Pregunta de la unidad.** Un gobierno tiene un fondo $B$ para invertir en dos
 regiones. ¿Cómo debe repartirlo? ¿Conviene siempre dar algo a cada región?
 
 ---
@@ -262,7 +262,7 @@ par, al menos una de las dos desigualdades se cumple con igualdad:
 | Se invierte en $i$: $x_i > 0$ | $\partial\mathcal L/\partial x_i = 0$ | El producto marginal de $i$ iguala el precio sombra del fondo |
 | No se invierte en $i$: $x_i = 0$ | $\partial\mathcal L/\partial x_i \le 0$ | El primer peso en $i$ rinde menos que el precio sombra |
 
-En la última fila está la respuesta a la pregunta del bloque: una región no
+En la última fila está la respuesta a la pregunta de la unidad: una región no
 recibe nada si su producto marginal en cero no alcanza el valor de un peso
 del fondo.
 

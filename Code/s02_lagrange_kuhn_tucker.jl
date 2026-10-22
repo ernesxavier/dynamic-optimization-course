@@ -35,7 +35,7 @@ end
 md"""
 # Sesión 2: Lagrange, concavidad y Kuhn-Tucker
 
-**Pregunta del bloque.** Un gobierno tiene un fondo ``B`` para invertir en
+**Pregunta de la unidad.** Un gobierno tiene un fondo ``B`` para invertir en
 dos regiones. ¿Cómo debe repartirlo? ¿Conviene siempre dar algo a cada
 región?
 

@@ -7,7 +7,7 @@ generación 2024-2028.
 diferenciales básicas. Las primeras cuatro sesiones repasan lo necesario.
 **Duración**: 48 horas en 24 sesiones de 2 h (12 semanas, 2 sesiones por
 semana). Las sesiones 4 y 18 son flexibles, y las sesiones 21 y 22 son de
-colchón: se dedican al proyecto o a recuperar un bloque atrasado.
+colchón: se dedican al proyecto o a recuperar una unidad atrasada.
 **Lenguaje**: Julia, con cuadernos de `Pluto.jl`. Se aceptan entregas en Python.
 
 **Objetivo**: Que las y los estudiantes planteen y resuelvan problemas
@@ -31,7 +31,7 @@ del modelo de Ramsey (sesión 12) y la del caso de las dos regiones
 
 ## Metodología
 
-Cada bloque abre con una **pregunta de economía regional**, y cada sesión sigue el orden:
+Cada unidad abre con una **pregunta de economía regional**, y cada sesión sigue el orden:
 **problema económico → planteamiento → condiciones de optimalidad → solución
 analítica → verificación numérica → interpretación**. La solución numérica no
 sustituye a la analítica: sirve para comprobarla y para llegar a donde la
@@ -47,7 +47,7 @@ tiempo lo permite.
 - **Cuadernos de Pluto.jl**: los laboratorios y el caso regional usan
   deslizadores para mover parámetros y ver cómo cambian las trayectorias, los
   diagramas de fase y las políticas óptimas.
-- **Tareas**: una por bloque, cada una con una parte analítica y una parte en
+- **Tareas**: una por unidad, cada una con una parte analítica y una parte en
   código.
 - **Proyecto ligado a la tesis**: desde la sesión 1, cada estudiante
   identifica un problema de su tesis con dimensión temporal; la propuesta
@@ -61,7 +61,7 @@ tiempo lo permite.
 
 ---
 
-## Bloque I: Repaso de optimización estática (sesiones 1–4, semanas 1–2)
+## Unidad I: Repaso de optimización estática (sesiones 1–4, semanas 1–2)
 
 **Pregunta regional**: ¿cómo repartir un fondo de inversión entre dos
 regiones?
@@ -107,7 +107,7 @@ generaliza al tiempo.
 	- Lecturas: cuaderno del curso.
 	- **Entrega**: Tarea 1.
 
-## Bloque II: Sistemas dinámicos (sesiones 5–9, semanas 3–5)
+## Unidad II: Sistemas dinámicos (sesiones 5–9, semanas 3–5)
 
 **Pregunta regional**: ¿convergen los estados de México? ¿A qué velocidad?
 
@@ -154,7 +154,7 @@ un sistema dinámico y su solución se lee en un diagrama de fase.
 	  parámetros. ¿Converge la región rezagada? ¿Qué parámetros lo deciden?
 	- Lecturas: cuaderno del curso.
 
-## Bloque III: Control óptimo (sesiones 10–14, semanas 5–7)
+## Unidad III: Control óptimo (sesiones 10–14, semanas 5–7)
 
 **Pregunta regional**: ¿conviene invertir primero donde se ahorra más o donde
 se produce más?
@@ -218,7 +218,7 @@ precio sombra del estado.
 	- Lecturas: AL 2. Consulta: AL 3; Rahman (1963); Intriligator (1964);
 	  Takayama (1967).
 
-## Bloque IV: Programación dinámica (sesiones 15–19, semanas 8–10)
+## Unidad IV: Programación dinámica (sesiones 15–19, semanas 8–10)
 
 **Pregunta regional**: ¿cómo debe crecer una región que decide cada año
 cuánto invertir?
@@ -274,7 +274,7 @@ opcional (SE 12).
 	- Lecturas: cuaderno del curso. Consulta: Kennan & Walker (2011).
 	- **Entrega**: Tarea 4 (corta; su código alimenta el proyecto).
 
-## Bloque V: Proyecto (sesiones 20–24, semanas 10–12)
+## Unidad V: Proyecto (sesiones 20–24, semanas 10–12)
 
 - **Sesión 20: Taller de avances**
 	- Revisión por pares.
@@ -282,7 +282,7 @@ opcional (SE 12).
 - **Sesiones 21 y 22: Taller de proyecto (colchón)**
 	- Si el curso va al día: asesoría por proyecto, calibración con datos del
 	  INEGI y revisión de que el cuaderno reproduzca todos los resultados.
-	- Si hay atraso: se recupera primero el bloque pendiente y el resto del
+	- Si hay atraso: se recupera primero la unidad pendiente y el resto del
 	  tiempo se dedica al proyecto.
 - **Sesiones 23 y 24: Presentaciones y cierre**
 	- Presentaciones finales.
@@ -293,7 +293,7 @@ opcional (SE 12).
 
 | Componente | Peso |
 |---|---|
-| Tareas (4), una por bloque, con parte analítica y parte en código | 50% |
+| Tareas (4), una por unidad, con parte analítica y parte en código | 50% |
 | Ejercicios en sesión | 10% |
 | Avance del proyecto (sesión 20; si se pierde el taller, se entrega por escrito) | 10% |
 | Proyecto aplicado: reporte y presentación | 30% |
