@@ -39,7 +39,7 @@ CISE, UAdeC), con cuadernos en Julia.
 | 2 | Lagrange y Kuhn-Tucker | `s02_lagrange_kuhn_tucker.md` | `s02_lagrange_kuhn_tucker.jl` |
 | 3 | Envolvente y estática comparativa | `s03_envolvente.md` | `s03_envolvente.jl` |
 | 4 | Laboratorio 0: Julia, Pluto.jl, Symbolics.jl | | `s04_laboratorio_0.jl` |
-| 5 | Ecuaciones lineales | `s05_ecuaciones_lineales.md` | |
+| 5 | Ecuaciones lineales | `s05_ecuaciones_lineales.md` | `s05_ecuaciones_lineales.jl` |
 | 6 | Equilibrio y diagramas de fase | `s06_diagramas_de_fase.md` | |
 | 7 | Sistemas lineales y linealización | `s07_sistemas_lineales.md` | |
 | 8 | Estabilidad no lineal | `s08_estabilidad_no_lineal.md` | `s08_estabilidad_no_lineal.jl` |
