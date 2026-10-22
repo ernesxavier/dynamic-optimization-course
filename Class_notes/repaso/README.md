@@ -44,10 +44,10 @@ qué claves B te conviene repasar.
 | Ses. | Tema | Básico | Intermedio | Avanzado |
 |---|---|---|---|---|
 | 1 | Diagnóstico | Todo el nivel B: es lo que mide el [diagnóstico](diagnostico_inicial.md) | — | — |
-| 2 | Lagrange y Kuhn-Tucker | [C.B1–B2](calculo.md#cb1), [C.B5](calculo.md#cb5), [L.B1](algebra_lineal.md#lb1), [L.B3](algebra_lineal.md#lb3) | [C.I1–I2](calculo.md#ci1), [C.I5](calculo.md#ci5), [C.I7](calculo.md#ci7), [L.I4–I5](algebra_lineal.md#li4), [A.I2–I3](analisis.md#ai2), [N.I2](metodos_numericos.md#ni2) | [C.A1](calculo.md#ca1), [L.A3](algebra_lineal.md#la3), [N.A4](metodos_numericos.md#na4) |
+| 2 | Lagrange y Kuhn-Tucker | [C.B1–B2](calculo.md#cb1), [C.B5](calculo.md#cb5), [L.B1](algebra_lineal.md#lb1), [L.B3](algebra_lineal.md#lb3) | [C.I1–I2](calculo.md#ci1), [C.I4–I5](calculo.md#ci4), [C.I7](calculo.md#ci7), [L.I4–I5](algebra_lineal.md#li4), [A.I2–I3](analisis.md#ai2), [N.I2](metodos_numericos.md#ni2) | [C.A1](calculo.md#ca1), [L.A3](algebra_lineal.md#la3), [N.A4](metodos_numericos.md#na4) |
 | 3 | Envolvente y estática comparativa | [C.B1](calculo.md#cb1), [C.B5](calculo.md#cb5), [L.B2–B4](algebra_lineal.md#lb2) | [C.I3–I6](calculo.md#ci3), [L.I6](algebra_lineal.md#li6), [N.I2](metodos_numericos.md#ni2) | [C.A2](calculo.md#ca2) |
 | 4 | Laboratorio 0 | [N.B1–B4](metodos_numericos.md#nb1) | [N.I2](metodos_numericos.md#ni2) | [N.A4](metodos_numericos.md#na4) |
-| 5 | Primer orden y convergencia | [C.B1](calculo.md#cb1), [C.B3](calculo.md#cb3), [D.B1–B4](ecuaciones_diferenciales.md#db1), [E.B2–B3](estadistica.md#eb2) | [D.I1–I2](ecuaciones_diferenciales.md#di1), [E.I2](estadistica.md#ei2), [N.I7](metodos_numericos.md#ni7) | [E.A1](estadistica.md#ea1) |
+| 5 | Primer orden y convergencia | [C.B1](calculo.md#cb1), [C.B3](calculo.md#cb3), [D.B1–B4](ecuaciones_diferenciales.md#db1), [E.B1–B3](estadistica.md#eb1) | [D.I1–I2](ecuaciones_diferenciales.md#di1), [E.I2](estadistica.md#ei2), [N.I7](metodos_numericos.md#ni7) | [E.A1](estadistica.md#ea1) |
 | 6 | Diagramas de fase y ecuaciones en diferencias | [D.B1–B2](ecuaciones_diferenciales.md#db1), [A.B2](analisis.md#ab2) | [D.I1](ecuaciones_diferenciales.md#di1), [D.I4](ecuaciones_diferenciales.md#di4), [A.I5](analisis.md#ai5) | — |
 | 7 | Sistemas lineales | [L.B1–B3](algebra_lineal.md#lb1) | [C.I7](calculo.md#ci7), [L.I1–I3](algebra_lineal.md#li1), [L.I6](algebra_lineal.md#li6), [D.I3](ecuaciones_diferenciales.md#di3), [D.I5](ecuaciones_diferenciales.md#di5) | [L.A1–A2](algebra_lineal.md#la1), [D.A1](ecuaciones_diferenciales.md#da1), [D.A5](ecuaciones_diferenciales.md#da5) |
 | 8 | Estabilidad no lineal | — | [C.I7](calculo.md#ci7), [L.I1–I2](algebra_lineal.md#li1), [L.I6](algebra_lineal.md#li6), [D.I6](ecuaciones_diferenciales.md#di6) | [D.A2](ecuaciones_diferenciales.md#da2), [D.A4](ecuaciones_diferenciales.md#da4) |
@@ -62,7 +62,7 @@ qué claves B te conviene repasar.
 | 17 | Laboratorio 2 | [N.B1–B3](metodos_numericos.md#nb1) | [A.I4](analisis.md#ai4), [N.I4–I6](metodos_numericos.md#ni4) | [A.A2](analisis.md#aa2) |
 | 18 | Control óptimo frente a PD | [C.B3](calculo.md#cb3) | — | [C.A2](calculo.md#ca2), [D.A5](ecuaciones_diferenciales.md#da5) |
 | 19 | Laboratorio 3 | [N.B1–B3](metodos_numericos.md#nb1), [E.B1](estadistica.md#eb1) | [D.I7](ecuaciones_diferenciales.md#di7), [N.I1](metodos_numericos.md#ni1), [N.I3](metodos_numericos.md#ni3), [E.I1](estadistica.md#ei1) | [N.A1](metodos_numericos.md#na1), [L.A4](algebra_lineal.md#la4) |
-| — | Proyecto final | [E.B2–B3](estadistica.md#eb2) | [E.I2–I3](estadistica.md#ei2), [N.I7](metodos_numericos.md#ni7) | [E.A2](estadistica.md#ea2) |
+| — | Proyecto final | [E.B1–B3](estadistica.md#eb1) | [E.I2–I3](estadistica.md#ei2), [N.I7](metodos_numericos.md#ni7) | [E.A2](estadistica.md#ea2) |
 
 ## Notación
 

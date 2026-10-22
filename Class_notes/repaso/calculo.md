@@ -279,7 +279,7 @@ de la trayectoria óptima** (sesión 11).
 <a id="ci4"></a>
 
 ### C.I4 Teorema de la función implícita
-*Sesión 3.*
+*Sesiones 2, 3.*
 
 Si $F(x, \alpha) = 0$ define $x$ como función del parámetro $\alpha$ y
 $F_x \ne 0$ en el punto, entonces, cerca de ese punto, existe $x(\alpha)$ y

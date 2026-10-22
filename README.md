@@ -17,9 +17,12 @@ CISE, UAdeC), con cuadernos en Julia.
 │       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── Data/                      → Datos de los casos aplicados, en CSV
+│   ├── entidades.csv          → PIB (INEGI), población y empleo (OCDE) de las 32 entidades, 2003–2023
+│   └── pwt_mexico.csv         → Penn World Table 11.0, México, 1950–2023
 ├── Code/                      → Todo el código Julia, un solo entorno
 │   ├── sNN_tema.jl            → Cuadernos de Pluto (ver tabla abajo)
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
+│   ├── descargar_datos.jl     → Regenera los CSV de Data/ (INEGI, OCDE y Penn World Table)
 │   ├── Project.toml
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
@@ -99,6 +102,20 @@ pasar el cambio a la fuente antes de volver a generarlo.
 julia --project=Code Code/figuras_repaso.jl
 ```
 
+**Volver a descargar los datos** (INEGI, OCDE y Penn World Table; tarda uno o
+dos minutos):
+
+```
+julia --project=Code Code/descargar_datos.jl
+```
+
+**Revisar la consistencia del material** (claves del repaso, enlaces y
+números de sesión) antes de cada commit:
+
+```
+julia src/revisar_material.jl
+```
+
 **Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):
 
 ```
@@ -116,7 +133,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [ ] Notas formales y cuadernos del resto de las sesiones (tabla de arriba).
 - [x] Notas de repaso por áreas (C, L, D, A, N, E) con autodiagnósticos; tabla de claves por sesión.
 - [x] Orientación aplicada en el programa: preguntas regionales, datos del INEGI en las sesiones 5, 12 y 14, proyecto ligado a la tesis.
-- [ ] Script `Code/descargar_inegi.jl` y CSV en `Data/`: PIB por entidad federativa y población, para convergencia y calibraciones.
+- [x] Script `Code/descargar_datos.jl` y CSV en `Data/`: PIB por entidad (INEGI), población y empleo (OCDE) y Penn World Table 11.0.
 - [x] Definir con qué datos se aproximan las tasas de ahorro sᵢ y las productividades vᵢ de dos regiones (sesión 14), y los parámetros de Ramsey para México (sesión 12): PIB por trabajador (INEGI y ENOE), supuestos explícitos para sᵢ y Penn World Table.
 - [ ] Agregar una referencia sobre convergencia regional en México para la sesión 5 (verificar la ficha).
 - [ ] Armar el calendario sesión por sesión (requiere las fechas del trimestre y los días sin clase).

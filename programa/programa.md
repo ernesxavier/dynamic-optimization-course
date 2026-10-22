@@ -28,7 +28,7 @@ tiempo discreto con programación dinámica (sesión 17, extensión opcional).
 convergencia entre estados con el PIB por entidad del INEGI (sesión 5), la
 calibración del modelo de Ramsey con datos nacionales de la Penn World Table
 (sesión 12) y la del caso de las dos regiones con PIB y empleo por entidad
-(sesión 14). Donde no hay datos por entidad, como el ahorro, se usan
+(INEGI y OCDE, sesión 14). Donde no hay datos por entidad, como el ahorro, se usan
 supuestos explícitos. El proyecto final también se contrasta o se calibra con datos.
 
 ## Metodología
@@ -461,10 +461,14 @@ tesis de cada estudiante.
 ### Datos
 - Feenstra, R. C., Inklaar, R., & Timmer, M. P. (2015). The next generation
   of the Penn World Table. *American Economic Review*, 105(10), 3150–3182.
-  https://doi.org/10.1257/aer.20130954. Datos nacionales de México para la
+  https://doi.org/10.1257/aer.20130954. Se usa la versión 11.0,
+  https://doi.org/10.34894/FABVLR: datos nacionales de México para la
   sesión 12.
-- INEGI. *Producto Interno Bruto por Entidad Federativa*. Sistema de Cuentas
-  Nacionales de México. Se usa en las sesiones 5 y 14.
-- INEGI. *Encuesta Nacional de Ocupación y Empleo* (ENOE). Población ocupada
-  por entidad, para el PIB por trabajador de la sesión 14.
-- Las series concretas se documentan en el script que descarga los datos.
+- INEGI. *Producto Interno Bruto por Entidad Federativa* (PIBE), año base
+  2018. Sistema de Cuentas Nacionales de México. Se usa en las sesiones 5 y
+  14.
+- OCDE. *Regional Database* (regiones TL2): población y empleo por entidad,
+  para el PIB per cápita de la sesión 5 y el PIB por trabajador de la
+  sesión 14.
+- Las series concretas se documentan en `Code/descargar_datos.jl`, que
+  descarga los datos y genera los CSV de `Data/`.
