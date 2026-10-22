@@ -98,6 +98,8 @@ for ruta in [readdir("src"; join = true); readdir("Class_notes"; join = true)]
     # Una sesión puede anunciar el repaso de la siguiente ("Para la próxima sesión")
     alcance = tarea === nothing ? union(cubre, Set(maximum(cubre) + 1)) : cubre
     permitidas = union((get(indice, s, Set{String}()) for s in alcance)...)
+    # La sesión 1 (diagnóstico) remite a todo el nivel básico
+    1 in alcance && union!(permitidas, filter(k -> occursin(".B", k), keys(etiquetas)))
     for k in unique(claves_en(read(ruta, String)))
         haskey(etiquetas, k) || (reportar("$ruta: cita la clave inexistente $k"); continue)
         k in permitidas || reportar("$ruta: cita $k, que no está en el índice de las sesiones $(sort(collect(cubre)))")
