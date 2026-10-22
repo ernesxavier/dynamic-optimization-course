@@ -40,7 +40,7 @@ CISE, UAdeC), con cuadernos en Julia.
 | 3 | Envolvente y estática comparativa | `s03_envolvente.md` | `s03_envolvente.jl` |
 | 4 | Laboratorio 0: Julia, Pluto.jl, Symbolics.jl | | `s04_laboratorio_0.jl` |
 | 5 | Ecuaciones lineales | `s05_ecuaciones_lineales.md` | `s05_ecuaciones_lineales.jl` |
-| 6 | Equilibrio y diagramas de fase | `s06_diagramas_de_fase.md` | |
+| 6 | Equilibrio y diagramas de fase | `s06_diagramas_de_fase.md` | `s06_diagramas_de_fase.jl` |
 | 7 | Sistemas lineales y linealización | `s07_sistemas_lineales.md` | |
 | 8 | Estabilidad no lineal | `s08_estabilidad_no_lineal.md` | `s08_estabilidad_no_lineal.jl` |
 | 9 | Laboratorio 1: diagramas de fase | | `s09_laboratorio_1.jl` |
