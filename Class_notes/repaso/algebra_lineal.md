@@ -18,7 +18,7 @@
 <a id="lb1"></a>
 
 ### L.B1 Vectores y matrices
-*Sesiones 2, 5, 7.*
+*Sesiones 2, 7.*
 
 Un **vector** $x \in \mathbb{R}^n$ es una lista de $n$ números; una
 **matriz** $A$ de $m \times n$ tiene $m$ filas y $n$ columnas, y $a_{ij}$ es
@@ -49,7 +49,7 @@ A * A * k ≈ A^2 * k        # true (con ≈: el redondeo puede diferir)
 <a id="lb2"></a>
 
 ### L.B2 Sistemas de ecuaciones lineales
-*Sesiones 3, 5, 7.*
+*Sesiones 3, 7.*
 
 Un sistema de $n$ ecuaciones lineales con $n$ incógnitas se escribe
 $Ax = b$. Si $A$ es **invertible**, la solución única es $x = A^{-1}b$, donde
@@ -154,7 +154,7 @@ $dx_1/d\alpha$ es el del numerador. Ésta es la técnica de la sesión 3.
 <a id="li1"></a>
 
 ### L.I1 Eigenvalores y eigenvectores
-*Sesiones 5, 7, 8, 12.*
+*Sesiones 7, 8, 12.*
 
 $v \ne 0$ es un **eigenvector** de $A$ con **eigenvalor** $\lambda$ si
 
@@ -205,7 +205,7 @@ tr(A), det(A)              # (2.0, -3.0): suma y producto de los eigenvalores
 <a id="li2"></a>
 
 ### L.I2 Diagonalización y sistemas lineales
-*Sesiones 5, 7, 8, 12.*
+*Sesiones 7, 8, 12.*
 
 Si $A$ ($n \times n$) tiene $n$ eigenvectores linealmente independientes
 $v_1, \dots, v_n$, se **diagonaliza**:
@@ -243,7 +243,7 @@ recta (sesión 12, [D.I6](ecuaciones_diferenciales.md#di6)).
 <a id="li3"></a>
 
 ### L.I3 Eigenvalores complejos y oscilaciones
-*Sesiones 5, 7.*
+*Sesión 7.*
 
 Si $\tau^2 < 4\Delta$, los eigenvalores de una matriz real $2 \times 2$ son
 complejos conjugados: $\lambda = \alpha \pm i\omega$, con $\alpha = \tau/2$.
@@ -419,7 +419,7 @@ exp(A * t) ≈ exp(-t) * [1 t; 0 1]      # true
 <a id="la2"></a>
 
 ### L.A2 Normas, radio espectral y series de Neumann
-*Sesiones 5, 7, 16.*
+*Sesiones 7, 16.*
 
 Una **norma** mide el tamaño de un vector: $\lVert x\rVert_2 = \sqrt{x^\top x}$,
 $\lVert x\rVert_\infty = \max_i\lvert x_i\rvert$. La **norma inducida** de

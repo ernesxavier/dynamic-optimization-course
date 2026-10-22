@@ -43,7 +43,7 @@ $\sigma(x)$, el segundo.
 <a id="ab2"></a>
 
 ### A.B2 Sucesiones y límites
-*Sesiones 5, 16.*
+*Sesiones 6, 16.*
 
 Una sucesión $(x_n)$ **converge** a $x$ si se acerca tanto como se quiera y
 se queda cerca: para todo $\varepsilon > 0$ existe $N$ tal que

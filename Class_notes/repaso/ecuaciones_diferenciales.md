@@ -18,7 +18,7 @@
 <a id="db1"></a>
 
 ### D.B1 Ecuaciones diferenciales y en diferencias
-*Sesión 5.*
+*Sesiones 5, 6.*
 
 Una **ecuación diferencial** relaciona una función del tiempo con sus
 derivadas: $\dot x = dx/dt = f(x, t)$. Una **ecuación en diferencias**
@@ -173,7 +173,7 @@ las dos regiones (sesión 14).
 <a id="di3"></a>
 
 ### D.I3 Lineales de segundo orden
-*Sesiones 5, 10.*
+*Sesiones 7, 10.*
 
 Para $\ddot y + a_1\dot y + a_2y = b$ con $a_2 \ne 0$: el equilibrio es
 $y^\ast = b/a_2$ y la desviación es combinación de soluciones
@@ -434,7 +434,7 @@ ecuación y funciona en los casos no hiperbólicos ([D.A1](#da1)).
 <a id="da5"></a>
 
 ### D.A5 Sistemas lineales en tiempo discreto
-*Sesiones 5, 18.*
+*Sesiones 7, 18.*
 
 Para $x_{t+1} = Ax_t$ con $A$ de $2 \times 2$, $x_t \to 0$ para toda
 condición inicial si y sólo si los dos eigenvalores tienen módulo menor que

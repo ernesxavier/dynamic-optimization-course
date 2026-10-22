@@ -115,30 +115,44 @@ generaliza al tiempo.
 diferenciales y en diferencias, porque las condiciones del control óptimo son
 un sistema dinámico y su solución se lee en un diagrama de fase.
 
-- **Sesión 5: Ecuaciones diferenciales y en diferencias lineales**
+**Alcance**: la unidad es cualitativa. No se ven métodos de solución exacta
+(transformada de Laplace, ecuaciones exactas, coeficientes indeterminados),
+teoremas de existencia y unicidad, bifurcaciones ni caos. Cada tema se vuelve
+a usar más adelante:
+- Primer orden → convergencia (sesión 5) y regla de Keynes-Ramsey
+  (sesión 12).
+- Segundo orden → ecuación de Euler del cálculo de variaciones (sesión 10).
+- Sistemas y punto de silla → modelo de Ramsey (sesión 12).
+- Ecuaciones en diferencias → ecuación de Bellman y Euler en tiempo discreto
+  (sesiones 15–18).
+
+- **Sesión 5: Ecuaciones diferenciales lineales de primer orden**
 	- *Repaso*: la exponencial como solución de $\dot{y} = ay$.
 	- Primer orden: $\dot{y} + ay = b$; solución y estabilidad ($a > 0$).
-	- Segundo orden: raíces características reales, repetidas y complejas.
-	- Ecuaciones en diferencias: $y_{t+1} = a y_t + b$; estabilidad ($|a| < 1$) y
-	  oscilación ($a < 0$).
 	- *Práctica con datos*: convergencia $\beta$ con el PIB per cápita de las
 	  entidades federativas (INEGI). Velocidad de convergencia y vida media de
 	  la brecha, interpretadas como la solución de $\dot{y} = -\beta (y - y^*)$.
-	- Lecturas: CW 15–18; Barro & Sala-i-Martin (1992).
-- **Sesión 6: Equilibrio, convergencia y diagramas de fase**
+	- Lecturas: CW 15; Barro & Sala-i-Martin (1992).
+- **Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias**
 	- Puntos fijos y su estabilidad en una dimensión: el signo de $f'(x^*)$.
 	- Diagrama de fase en la recta.
-	- *Práctica*: tipos de equilibrio.
-	- Lecturas: ST 2.
+	- Ecuaciones en diferencias: $y_{t+1} = a y_t + b$; el punto fijo es
+	  estable si $|a| < 1$ y la trayectoria oscila si $a < 0$.
+	- *Práctica*: tipos de equilibrio, en tiempo continuo y discreto.
+	- Lecturas: ST 2; CW 17.
 - **Sesión 7: Sistemas de ecuaciones diferenciales y linealización**
 	- *Repaso*: eigenvalores, traza y determinante.
 	- Sistema lineal $\dot{x} = Ax$: nodo, punto de silla, foco y centro según la
-	  traza y el determinante. En tiempo discreto, estabilidad si los
-	  eigenvalores tienen módulo menor que 1.
+	  traza y el determinante. El caso central en economía es el punto de
+	  silla; foco y centro sólo se reconocen. En tiempo discreto, estabilidad
+	  si los eigenvalores tienen módulo menor que 1.
+	- Segundo orden como sistema: $\ddot{y} + a_1 \dot{y} + a_2 y = 0$ se escribe
+	  como un sistema de $2 \times 2$, y sus raíces características (reales,
+	  repetidas o complejas) son los eigenvalores.
 	- Linealización con el jacobiano en el equilibrio.
 	- **[Avanzado]** Teorema de Hartman-Grobman y los casos no hiperbólicos.
 	- *Práctica*: ejercicios en clase.
-	- Lecturas: CW 19.5–19.6; ST 5–6.
+	- Lecturas: CW 16, 19.5–19.6; ST 5–6.
 - **Sesión 8: Estabilidad de sistemas no lineales**
 	- Diagramas de fase en el plano: isoclinas, dirección del flujo y rama
 	  estable del punto de silla.
