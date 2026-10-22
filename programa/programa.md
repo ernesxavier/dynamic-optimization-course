@@ -225,7 +225,9 @@ cuánto invertir?
 
 **Objetivo específico**: Formular problemas de decisión de forma recursiva con
 la ecuación de Bellman, resolverlos numéricamente y relacionarlos con el
-control óptimo. La incertidumbre queda como lectura opcional (SE 12).
+control óptimo. La incertidumbre se introduce con un ejemplo de migración
+entre dos regiones (sesión 19); su tratamiento general queda como lectura
+opcional (SE 12).
 
 - **Sesión 15: Ecuación de Bellman en horizonte finito**
 	- Función valor y ecuación de Bellman.
@@ -257,10 +259,19 @@ control óptimo. La incertidumbre queda como lectura opcional (SE 12).
 	- Segundo caso breve: recurso natural renovable en una región.
 	- Lecturas: CR.
 - **Sesión 19: Laboratorio 3**
-	- *Laboratorio*: comparación numérica del mismo problema resuelto con el
-	  principio del máximo (problema de valor en la frontera) y con iteración
-	  de función valor.
-	- Lecturas: cuaderno del curso.
+	- *Laboratorio, parte 1*: comparación numérica del mismo problema resuelto
+	  con el principio del máximo (problema de valor en la frontera) y con
+	  iteración de función valor.
+	- *Laboratorio, parte 2: ¿migrar o quedarse?* Una persona vive en una de
+	  dos regiones. El salario de cada región sigue una cadena de Markov de
+	  dos estados (alto y bajo), y mudarse tiene un costo fijo $c$. Cada
+	  periodo elige dónde vivir:
+	  $V(r, w) = \max_{r'} \{ u(w_{r'}) - c\,\mathbb{1}[r' \neq r] + \beta\, \mathbb{E}[V(r', w') \mid w] \}$.
+	  Se resuelve con iteración de función valor y se lee la política: ¿a
+	  partir de qué brecha salarial conviene mudarse? Deslizadores para el
+	  costo de mudanza y la persistencia de los salarios. Pregunta para la
+	  discusión: ¿por qué hay quien no migra aunque la otra región pague más?
+	- Lecturas: cuaderno del curso. Consulta: Kennan & Walker (2011).
 	- **Entrega**: Tarea 4 (corta; su código alimenta el proyecto).
 
 ## Bloque V: Proyecto (sesiones 20–24, semanas 10–12)
@@ -363,6 +374,9 @@ tesis de cada estudiante.
 - Intriligator, M. D. (1964). Regional allocation of investment: Comment.
   *Quarterly Journal of Economics*, 78(4), 659–662.
   https://doi.org/10.2307/1879665
+- Kennan, J., & Walker, J. R. (2011). The effect of expected income on
+  individual migration decisions. *Econometrica*, 79(1), 211–251.
+  https://doi.org/10.3982/ECTA4657
 - Neumark, D., & Simpson, H. (2015). Place-based policies. En *Handbook of
   Regional and Urban Economics* (Vol. 5B, pp. 1197–1287). Elsevier.
   https://doi.org/10.1016/B978-0-444-59531-7.00018-1

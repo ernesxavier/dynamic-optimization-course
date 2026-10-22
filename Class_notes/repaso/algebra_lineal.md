@@ -473,7 +473,7 @@ rank([0 1; 0 -1])          # 1: gradientes (0, 1) y (0, -1) dependientes
 <a id="la4"></a>
 
 ### L.A4 Matrices estocásticas y cadenas de Markov
-*Sesiones 15, 16 (lectura opcional sobre incertidumbre).*
+*Sesiones 15, 16 (lectura opcional sobre incertidumbre) y 19 (migración entre dos regiones).*
 
 Una matriz $P$ de $n \times n$ es **estocástica** si sus entradas son no
 negativas y cada fila suma 1. Describe una **cadena de Markov** con $n$

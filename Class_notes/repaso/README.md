@@ -56,7 +56,7 @@ repaso propio.
 | 16 | Bellman, horizonte infinito | [A.B2–B3](analisis.md#ab2), [N.B4](metodos_numericos.md#nb4) | [C.I2](calculo.md#ci2), [A.I1](analisis.md#ai1), [A.I3–I5](analisis.md#ai3), [N.I4–I6](metodos_numericos.md#ni4) | [C.A2](calculo.md#ca2), [C.A4](calculo.md#ca4), [L.A2](algebra_lineal.md#la2), [L.A4](algebra_lineal.md#la4), [A.A1–A4](analisis.md#aa1), [N.A2](metodos_numericos.md#na2) |
 | 17 | Laboratorio 2 | [N.B1–B3](metodos_numericos.md#nb1) | [A.I4](analisis.md#ai4), [N.I4–I6](metodos_numericos.md#ni4) | [A.A2](analisis.md#aa2) |
 | 18 | Control óptimo frente a PD | [C.B3](calculo.md#cb3) | — | [C.A2](calculo.md#ca2), [D.A5](ecuaciones_diferenciales.md#da5) |
-| 19 | Laboratorio 3 | [N.B1–B3](metodos_numericos.md#nb1) | [D.I7](ecuaciones_diferenciales.md#di7), [N.I1](metodos_numericos.md#ni1), [N.I3](metodos_numericos.md#ni3) | [N.A1](metodos_numericos.md#na1) |
+| 19 | Laboratorio 3 | [N.B1–B3](metodos_numericos.md#nb1) | [D.I7](ecuaciones_diferenciales.md#di7), [N.I1](metodos_numericos.md#ni1), [N.I3](metodos_numericos.md#ni3) | [N.A1](metodos_numericos.md#na1), [L.A4](algebra_lineal.md#la4) |
 
 ## Notación
 
