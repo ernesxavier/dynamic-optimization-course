@@ -189,7 +189,7 @@ precio sombra del estado.
 	  Se escribe el Hamiltoniano $H = F + \lambda u$ y se comprueba que sus
 	  condiciones dan la misma ecuación de Euler.
 	- El cálculo de variaciones no admite restricciones sobre el control
-	  (como $\delta \in [0, 1]$ en la sesión 14): por eso el resto del curso
+	  (como $\theta \in [0, 1]$ en la sesión 14): por eso el resto del curso
 	  usa el Hamiltoniano.
 	- **[Avanzado]** Derivación de la ecuación de Euler por la primera
 	  variación.
@@ -236,8 +236,8 @@ precio sombra del estado.
 	- Lecturas: CH 8.3–8.4; SE.
 - **Sesión 14: Caso completo: inversión entre dos regiones**
 	- Modelo de Rahman, Intriligator y Takayama: producto $Y_i = v_i K_i$, ahorro
-	  $s_i Y_i$; el control $\delta \in [0, 1]$ reparte la inversión total.
-	- Hamiltoniano lineal en $\delta$: solución bang-bang guiada por los precios
+	  $s_i Y_i$; el control $\theta \in [0, 1]$ reparte la inversión total.
+	- Hamiltoniano lineal en $\theta$: solución bang-bang guiada por los precios
 	  sombra de cada región.
 	- Tiempo de cambio: primero se crece donde se ahorra más; al final se
 	  produce donde rinde más.

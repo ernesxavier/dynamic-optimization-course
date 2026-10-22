@@ -53,11 +53,11 @@ let a1 = 2.0, a2 = 1.0, B = 10.0
 end
 
 # ── 2. Diagramas de fase en una dimensión: Solow y telaraña ──────────────────
-let s = 0.3, α = 0.3, κ = 0.1
+let s = 0.3, α = 0.3, δ = 0.1
     k = range(0, 8, length = 400)
-    f(k) = s * k^α - κ * k
-    kstar = (s / κ)^(1 / (1 - α))
-    p1 = plot(k, f.(k); color = AZUL, xlabel = "k", ylabel = "k̇ = sk^α − κk",
+    f(k) = s * k^α - δ * k
+    kstar = (s / δ)^(1 / (1 - α))
+    p1 = plot(k, f.(k); color = AZUL, xlabel = "k", ylabel = "k̇ = sk^α − δk",
               title = "Solow: diagrama de fase", ylims = (-0.25, 0.3))
     hline!(p1, [0]; color = GRIS, lw = 1)
     scatter!(p1, [0, kstar], [0, 0]; color = [:white, TINTA], ms = 5, msc = TINTA)
@@ -119,14 +119,14 @@ let casos = [("Nodo estable", [-1.0 0.0; 0.0 -3.0], 6.0),
 end
 
 # ── 4. Ramsey: isoclinas y rama estable ──────────────────────────────────────
-let p = (α = 0.3, κ = 0.05, ρ = 0.03, θ = 2.0)
+let p = (α = 0.3, δ = 0.05, ρ = 0.03, θ = 2.0)
     f(k) = k^p.α
-    kstar = (p.α / (p.κ + p.ρ))^(1 / (1 - p.α))
-    cstar = f(kstar) - p.κ * kstar
+    kstar = (p.α / (p.δ + p.ρ))^(1 / (1 - p.α))
+    cstar = f(kstar) - p.δ * kstar
     function ramsey!(du, u, p, t)
         k, c = max(u[1], 1e-8), u[2]          # evita k < 0 en un paso antes de detenerse
-        du[1] = k^p.α - p.κ * k - c
-        du[2] = c * (p.α * k^(p.α - 1) - p.κ - p.ρ) / p.θ
+        du[1] = k^p.α - p.δ * k - c
+        du[2] = c * (p.α * k^(p.α - 1) - p.δ - p.ρ) / p.θ
     end
     fuera(u, t, integrator) = u[1] < 0.05 || u[1] > 26 || u[2] < 0.01 || u[2] > 3.2
     alto = DiscreteCallback(fuera, terminate!)
@@ -142,7 +142,7 @@ let p = (α = 0.3, κ = 0.05, ρ = 0.03, θ = 2.0)
     end
 
     ks = range(0.01, 26, length = 400)
-    fig = plot(ks, f.(ks) .- p.κ .* ks; color = AZUL, xlims = (0, 26), ylims = (0, 3.2),
+    fig = plot(ks, f.(ks) .- p.δ .* ks; color = AZUL, xlims = (0, 26), ylims = (0, 3.2),
                xlabel = "capital k", ylabel = "consumo c", size = (720, 420),
                title = "Ramsey: sólo la rama estable llega al estado estacionario")
     vline!(fig, [kstar]; color = AQUA, lw = 2)

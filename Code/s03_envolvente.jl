@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 89c86e54-ce42-11f1-a70c-d9a44d2a1362
+# ╔═╡ 58e0a59a-ce45-11f1-b29c-7f21186e1f35
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 89c86d6e-ce42-11f1-abab-3b7b0b0e0909
+# ╔═╡ 58e0a498-ce45-11f1-9554-977e9143569c
 md"""
 # Sesión 3: Envolvente y estática comparativa
 
@@ -66,10 +66,10 @@ total), C.I4 (función implícita) y L.I6 (jacobiano). Para los puntos
 [Avanzado]: C.A2.
 """
 
-# ╔═╡ 89c86da0-ce42-11f1-a5eb-35e88940f6a9
+# ╔═╡ 58e0a4ca-ce45-11f1-909a-69acf65fb278
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 89c86da0-ce42-11f1-996f-bfadb6c122c9
+# ╔═╡ 58e0a4ca-ce45-11f1-bff5-ed02ba095ae8
 md"""
 ## 0. La pregunta: ¿qué pasa si una región mejora?
 
@@ -88,7 +88,7 @@ marca el valor del deslizador.
 Fondo ``B``: $(@bind B Slider(0.1:0.1:10.0, default = 4.0, show_value = true))
 """
 
-# ╔═╡ 89c86db4-ce42-11f1-8f3c-39cbd08d7cfd
+# ╔═╡ 58e0a4de-ce45-11f1-86c7-03fb67f8e534
 md"""
 Hay dos tramos. Mientras ``a_2`` es bajo, la región 2 no recibe nada y una
 pequeña mejora no cambia el reparto. Después, cada mejora le da más fondos,
@@ -101,7 +101,7 @@ condiciones de primer orden:
 - ¿cuánto cambia el producto total? (envolvente, secciones 3 y 4).
 """
 
-# ╔═╡ 89c86db4-ce42-11f1-a966-a972d02d9b88
+# ╔═╡ 58e0a4de-ce45-11f1-97c2-455f8ae52b7f
 md"""
 ## 1. Una región: la función implícita
 
@@ -122,7 +122,7 @@ Productividad ``a``: $(@bind a0 Slider(1.0:0.1:3.0, default = 2.0, show_value = 
 Precio ``p``: $(@bind p Slider(0.2:0.05:1.5, default = 0.5, show_value = true))
 """
 
-# ╔═╡ 89c86dbe-ce42-11f1-859a-c70c3ec264ea
+# ╔═╡ 58e0a4f2-ce45-11f1-a6a5-8b884b82139c
 md"""
 ¿Cuánto se mueve el cruce? Diferenciando ``F(x(a), a, p) = 0``, el
 **teorema de la función implícita** da
@@ -134,7 +134,7 @@ md"""
 Symbolics.jl calcula las derivadas parciales y los cocientes:
 """
 
-# ╔═╡ 89c86dbe-ce42-11f1-83f3-f3ac7bdcba19
+# ╔═╡ 58e0a4f2-ce45-11f1-aba6-8bbfacae568a
 let
     @variables x a p
     F = a / (1 + x) - p
@@ -143,7 +143,7 @@ let
      dx_dp = simplify(-Symbolics.derivative(F, p) / Fx))
 end
 
-# ╔═╡ 89c86dc8-ce42-11f1-9cd0-c954f1893e69
+# ╔═╡ 58e0a508-ce45-11f1-9ac3-1d2eadeb4507
 md"""
 ## 2. Dos regiones: un sistema y la regla de Cramer
 
@@ -167,7 +167,7 @@ donde ``D_zF`` es el **jacobiano** de las condiciones de primer orden. Las
 dos matrices, con Symbolics.jl:
 """
 
-# ╔═╡ 89c86dd2-ce42-11f1-9744-05e94c01b943
+# ╔═╡ 58e0a508-ce45-11f1-9fc0-7d4df07c2a4d
 let
     @variables x₁ x₂ λ α₁ α₂ b
     F = [α₁ / (1 + x₁) - λ, α₂ / (1 + x₂) - λ, b - x₁ - x₂]
@@ -175,7 +175,7 @@ let
      D_param = Symbolics.jacobian(F, [α₁, α₂, b]))
 end
 
-# ╔═╡ 89c86dd2-ce42-11f1-b47a-8d168e421796
+# ╔═╡ 58e0a510-ce45-11f1-8d00-933973dd3d95
 md"""
 Con ``h_i = a_i/(1 + x_i)^2``, el determinante de ``D_zF`` es
 ``h_1 + h_2 > 0``, y la **regla de Cramer** da cada derivada como un cociente
@@ -184,7 +184,7 @@ diferencias finitas de la solución exacta, para los valores de los
 deslizadores de la sección 0.
 """
 
-# ╔═╡ 89c86ddc-ce42-11f1-87d0-dfa349debced
+# ╔═╡ 58e0a51a-ce45-11f1-ae12-9b1eaa74bc0b
 md"""
 ### Cuando cambia el régimen
 
@@ -194,7 +194,7 @@ Cramer en el ``B`` elegido; la línea punteada marca el umbral
 ``\bar B = a_1/a_2 - 1``.
 """
 
-# ╔═╡ 89c86de6-ce42-11f1-ac92-5399cf65ad48
+# ╔═╡ 58e0a524-ce45-11f1-9ee6-2f8736d8091b
 md"""
 Mueve ``B`` a uno y otro lado del umbral. A la izquierda, cada peso
 adicional va completo a la región 1 (pendiente 1); a la derecha, se reparte
@@ -203,7 +203,7 @@ curva de ``x_1`` tiene un **pico**: la función implícita vale dentro de cada
 régimen, pero no en la frontera entre ellos.
 """
 
-# ╔═╡ 89c86df0-ce42-11f1-8d8c-11ec770b8e09
+# ╔═╡ 58e0a524-ce45-11f1-b8ce-53dd670c63f1
 md"""
 ## 3. El teorema de la envolvente
 
@@ -226,7 +226,7 @@ inversión fija ``\bar x``, el valor ``a\ln(1 + \bar x) - p\bar x`` es una
 contacto son tangentes, así que ``V'(p) = -x^\ast(p)``.
 """
 
-# ╔═╡ 89c86dfc-ce42-11f1-a002-19c0e126ec80
+# ╔═╡ 58e0a53a-ce45-11f1-8181-53de4defa3cc
 md"""
 La recta naranja es la de la inversión óptima con ``p`` = $(p). Mueve
 ``p``: la recta tangente cambia, y su pendiente es siempre
@@ -234,7 +234,7 @@ La recta naranja es la de la inversión óptima con ``p`` = $(p). Mueve
 ``V(p)`` lo es (notas, Para profundizar, P.2).
 """
 
-# ╔═╡ 89c86e04-ce42-11f1-8a30-e773a6d117c8
+# ╔═╡ 58e0a53a-ce45-11f1-a95c-bd3270e8339b
 md"""
 ### Con restricciones: el precio sombra
 
@@ -254,7 +254,7 @@ de un peso adicional del fondo. La tabla compara las tres fórmulas con
 diferencias finitas de ``V``.
 """
 
-# ╔═╡ 89c86e04-ce42-11f1-9375-7d2550d09e75
+# ╔═╡ 58e0a54c-ce45-11f1-9da6-5ff4a8e18375
 md"""
 ### La envolvente del reparto
 
@@ -265,14 +265,14 @@ pendiente ``\ln(1 + \bar x_2)``. ``V(a_2)`` es su envolvente superior. La
 recta naranja es la del reparto óptimo con el ``a_2`` elegido.
 """
 
-# ╔═╡ 89c86e0e-ce42-11f1-867d-3f04261161a6
+# ╔═╡ 58e0a556-ce45-11f1-b99a-f70ab23037cc
 md"""
 Reduce ``B`` hasta que la región 2 deje de recibir. La recta tangente se
 vuelve **horizontal**: si la región 2 no recibe fondos, una pequeña mejora
 de su productividad no vale nada al margen, ``\partial V/\partial a_2 = \ln 1 = 0``.
 """
 
-# ╔═╡ 89c86e18-ce42-11f1-bfa3-7f20ca1134a5
+# ╔═╡ 58e0a556-ce45-11f1-b57e-c710711da84a
 md"""
 ## 4. Comparar políticas
 
@@ -284,7 +284,7 @@ vale el programa.
 Mejora de la productividad de la región 2, ``\Delta``: $(@bind Δ Slider(0.05:0.05:0.5, default = 0.1, show_value = true))
 """
 
-# ╔═╡ 89c86e22-ce42-11f1-8efb-a130316a4d52
+# ╔═╡ 58e0a560-ce45-11f1-be7d-69b7feda7b17
 md"""
 ## Resumen
 
@@ -297,7 +297,7 @@ md"""
 | Envolvente geométrica | ``V`` es la envolvente superior de las curvas con ``x`` fija | Si la región 2 no recibe, mejorar ``a_2`` no vale nada al margen |
 """
 
-# ╔═╡ 89c86e22-ce42-11f1-86e2-5994c8284912
+# ╔═╡ 58e0a568-ce45-11f1-ba3a-eb9beb377006
 md"""
 ## Ejercicios
 
@@ -310,38 +310,38 @@ resuelve el sistema con `D \ b` (o con la regla de Cramer). Puedes usar
 `reparto_ref(a1, a2, B)` para obtener ``(x_1, x_2, \lambda)``.
 """
 
-# ╔═╡ 89c86e2e-ce42-11f1-9f20-2d18bdeca06f
+# ╔═╡ 58e0a568-ce45-11f1-bbdb-8dcbb57b83c9
 function efecto_a1(a1, a2, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 89c86e2e-ce42-11f1-86f0-e52a8921e421
+# ╔═╡ 58e0a574-ce45-11f1-94a3-87f967388d1e
 md"""
 **2.** Escribe `valor_marginal(a1, a2, B)`, que devuelva el vector
 ``[\partial V/\partial a_1,\ \partial V/\partial a_2,\ \partial V/\partial B]``
 usando el teorema de la envolvente. Debe funcionar en los dos regímenes.
 """
 
-# ╔═╡ 89c86e36-ce42-11f1-aa31-bba50dd92a09
+# ╔═╡ 58e0a57e-ce45-11f1-a9e2-7b128adf89b4
 function valor_marginal(a1, a2, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 89c86e40-ce42-11f1-b360-8d2adb3fdd85
+# ╔═╡ 58e0a57e-ce45-11f1-b3d0-076e05b93e7f
 md"""
 **3. [Avanzado]** En el modelo de Ramsey (sesión 12), el capital de estado
-estacionario cumple ``f'(k^\ast) = \rho + \kappa`` con ``f(k) = k^\theta``.
-Escribe `dk_drho(θ, ρ, κ)`, que devuelva ``dk^\ast/d\rho`` con el teorema de
+estacionario cumple ``f'(k^\ast) = \rho + \delta`` con ``f(k) = k^\theta``.
+Escribe `dk_drho(θ, ρ, δ)`, que devuelva ``dk^\ast/d\rho`` con el teorema de
 la función implícita (notas, ejercicio F3). Puedes calcular ``k^\ast`` con su
-fórmula cerrada, ``k^\ast = \big(\theta/(\rho + \kappa)\big)^{1/(1 - \theta)}``.
+fórmula cerrada, ``k^\ast = \big(\theta/(\rho + \delta)\big)^{1/(1 - \theta)}``.
 """
 
-# ╔═╡ 89c86e40-ce42-11f1-894c-471e05c8771f
-function dk_drho(θ, ρ, κ)
+# ╔═╡ 58e0a588-ce45-11f1-a961-03b282a6be8a
+function dk_drho(θ, ρ, δ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 89c86e4a-ce42-11f1-b8fb-b3041dcce53b
+# ╔═╡ 58e0a592-ce45-11f1-9874-23636e9c6fdf
 md"""
 ### Interpretación
 
@@ -375,7 +375,7 @@ md"""
   (Symbolics.jl).
 """
 
-# ╔═╡ 89c86e4a-ce42-11f1-809a-75eef892be39
+# ╔═╡ 58e0a592-ce45-11f1-8611-fb6670079a4a
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -384,7 +384,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 89c86e54-ce42-11f1-8cb8-6d8a8ebc144c
+# ╔═╡ 58e0a59a-ce45-11f1-a44c-33f78cb7ac87
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie, recta tangente
@@ -392,11 +392,11 @@ begin
     const TINTA   = "#0b0b0b"   # óptimo
 end;
 
-# ╔═╡ 89c86e60-ce42-11f1-bae0-1121b7a3ac7d
+# ╔═╡ 58e0a59a-ce45-11f1-802e-edb858a04ebd
 "Inversión óptima de una región con precio p: max a ln(1 + x) − px, con x ≥ 0."
 inversion_una(a, p) = max(a / p - 1, 0.0)
 
-# ╔═╡ 89c86dbe-ce42-11f1-9cb2-a54ed187417d
+# ╔═╡ 58e0a4e8-ce45-11f1-bd27-11dd424caef7
 let
     xs = range(0, 12, length = 300)
     x0, x20 = inversion_una(a0, p), inversion_una(1.2a0, p)
@@ -409,11 +409,11 @@ let
     annotate!(q, x0 + 0.2, p - 0.1, text("x* = $(round(x0, digits = 2))", 8, :left, TINTA))
 end
 
-# ╔═╡ 89c86e60-ce42-11f1-8b2d-cbc009703d1d
+# ╔═╡ 58e0a5a6-ce45-11f1-944e-792ba1045c1f
 "Valor óptimo de una región con precio p."
 valor_una(a, p) = (x = inversion_una(a, p); a * log1p(x) - p * x)
 
-# ╔═╡ 89c86df0-ce42-11f1-9e2d-1b8f7604063c
+# ╔═╡ 58e0a52e-ce45-11f1-9d7c-afbbb7556e7d
 let
     ps = range(0.1, 2.5, length = 400)
     q = plot(ps, valor_una.(a0, ps); color = AZUL, lw = 3, ylims = (-0.5, 3.5),
@@ -428,15 +428,15 @@ let
     scatter!(q, [p], [valor_una(a0, p)]; color = TINTA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 89c86e60-ce42-11f1-9053-79f6c7e4e75a
+# ╔═╡ 58e0a5a6-ce45-11f1-9d3e-31a8998a76e4
 "Producto total de las dos regiones: a₁ ln(1 + x₁) + a₂ ln(1 + x₂)."
 producto(x1, x2, a1, a2) = a1 * log1p(x1) + a2 * log1p(x2)
 
-# ╔═╡ 89c86e68-ce42-11f1-a246-cdf04e79a9b3
+# ╔═╡ 58e0a5b0-ce45-11f1-857f-cb50df106f56
 "Umbral del fondo a partir del cual la región menos productiva recibe inversión."
 umbral(a1, a2) = max(a1, a2) / min(a1, a2) - 1
 
-# ╔═╡ 89c86e68-ce42-11f1-b984-cfea1e618ba6
+# ╔═╡ 58e0a5b0-ce45-11f1-9be5-2165c5ea1c75
 "Reparto óptimo con Kuhn-Tucker: (x₁, x₂, λ). Funciona con cualquier orden de a₁ y a₂."
 function reparto_ref(a1, a2, B)
     if a1 < a2
@@ -448,7 +448,7 @@ function reparto_ref(a1, a2, B)
     (a1 / λ - 1, a2 / λ - 1, λ)
 end
 
-# ╔═╡ 89c86daa-ce42-11f1-a216-ff0c46b48e56
+# ╔═╡ 58e0a4d6-ce45-11f1-98bc-11fd91d38364
 let
     a2s = range(0.2, a1, length = 300)
     reps = [reparto_ref(a1, b, B) for b in a2s]
@@ -460,14 +460,14 @@ let
     scatter!(p, [a2, a2], [x1, x2]; color = TINTA, ms = 5, msw = 0, label = "")
 end
 
-# ╔═╡ 89c86e72-ce42-11f1-bde4-0d6f2dc5e8a6
+# ╔═╡ 58e0a5ba-ce45-11f1-b3c6-6748cf803934
 "Valor óptimo V(a₁, a₂, B): el producto total con el reparto óptimo."
 function valor_ref(a1, a2, B)
     x1, x2, _ = reparto_ref(a1, a2, B)
     producto(x1, x2, a1, a2)
 end
 
-# ╔═╡ 89c86e0e-ce42-11f1-a8e7-5b5d56e26075
+# ╔═╡ 58e0a54c-ce45-11f1-a588-8b6c29ee25ca
 let
     a2s = range(0.2, 2.5, length = 400)
     q = plot(a2s, [valor_ref(a1, b, B) for b in a2s]; color = AZUL, lw = 3,
@@ -481,7 +481,7 @@ let
     scatter!(q, [a2], [valor_ref(a1, a2, B)]; color = TINTA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 89c86e18-ce42-11f1-90e5-6b95edd36385
+# ╔═╡ 58e0a560-ce45-11f1-9e42-ddc6cc017018
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     aprox = Δ * log1p(x2)
@@ -504,7 +504,7 @@ let
     """
 end
 
-# ╔═╡ 89c86e72-ce42-11f1-8c9c-c14fa393eca4
+# ╔═╡ 58e0a5ba-ce45-11f1-8b2b-4febf172548e
 """
 Derivadas de (x₁, x₂, λ) (filas) respecto de (a₁, a₂, B) (columnas), por la
 función implícita aplicada a las condiciones activas del régimen.
@@ -523,7 +523,7 @@ function estatica_ref(a1, a2, B)
     -(J \ Fα)
 end
 
-# ╔═╡ 89c86de6-ce42-11f1-a760-e90f959c7ccf
+# ╔═╡ 58e0a51a-ce45-11f1-a7ff-65969a52c50e
 let
     Bs = range(0.01, 10, length = 400)
     reps = [reparto_ref(a1, a2, b) for b in Bs]
@@ -541,11 +541,11 @@ let
     q
 end
 
-# ╔═╡ 89c86e72-ce42-11f1-aba0-376d424cc7c7
+# ╔═╡ 58e0a5ba-ce45-11f1-abae-138d5ddb23f6
 "Derivada numérica de g en v, por diferencia centrada."
 derivada_numerica(g, v; h = 1e-6) = (g(v + h) - g(v - h)) / 2h
 
-# ╔═╡ 89c86dc8-ce42-11f1-8dd5-af3b92145b29
+# ╔═╡ 58e0a4fc-ce45-11f1-a774-2534e64a0d6c
 let
     x0 = inversion_una(a0, p)
     ift_a, ift_p = (1 + x0) / a0, -(1 + x0)^2 / a0
@@ -575,7 +575,7 @@ let
     """
 end
 
-# ╔═╡ 89c86ddc-ce42-11f1-b172-394ba5376156
+# ╔═╡ 58e0a510-ce45-11f1-a297-13ae7158b00d
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     D = estatica_ref(a1, a2, B)
@@ -606,7 +606,7 @@ let
     """
 end
 
-# ╔═╡ 89c86e04-ce42-11f1-b225-d704995bb3d2
+# ╔═╡ 58e0a542-ce45-11f1-865d-397d4e52be00
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     n1 = derivada_numerica(v -> valor_ref(v, a2, B), a1)
@@ -625,23 +625,23 @@ let
     """
 end
 
-# ╔═╡ 89c86e7c-ce42-11f1-9f51-71767bf0d280
+# ╔═╡ 58e0a5c4-ce45-11f1-925f-f563ca83f849
 "dk*/dρ en el estado estacionario de Ramsey con f(k) = k^θ."
-function dk_drho_ref(θ, ρ, κ)
-    k = (θ / (ρ + κ))^(1 / (1 - θ))
-    -k / ((1 - θ) * (ρ + κ))
+function dk_drho_ref(θ, ρ, δ)
+    k = (θ / (ρ + δ))^(1 / (1 - θ))
+    -k / ((1 - θ) * (ρ + δ))
 end
 
-# ╔═╡ 89c86e7c-ce42-11f1-82c9-37f7f5521279
+# ╔═╡ 58e0a5c4-ce45-11f1-9f6e-35a7997ddcd4
 begin
     # Casos de prueba (a₁, a₂, B): esquina, umbral e interior; sólo interior;
-    # y (θ, ρ, κ) de Ramsey.
+    # y (θ, ρ, δ) de Ramsey.
     const CASOS = [(2.0, 1.0, 0.5), (2.0, 1.0, 1.0), (2.0, 1.0, 4.0), (3.0, 0.5, 2.0), (1.0, 1.0, 3.0)]
     const CASOS_INTERIOR = [(2.0, 1.0, 4.0), (3.0, 0.5, 8.0), (1.0, 1.0, 3.0), (1.5, 1.2, 2.0)]
     const CASOS_RAMSEY = [(0.3, 0.03, 0.05), (0.4, 0.02, 0.06), (0.35, 0.05, 0.1)]
 end;
 
-# ╔═╡ 89c86e86-ce42-11f1-9f8b-9b06dbbc822f
+# ╔═╡ 58e0a5ce-ce45-11f1-b754-4fdc85427b09
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -662,71 +662,71 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 89c86e2e-ce42-11f1-94d1-2f8298bd379f
+# ╔═╡ 58e0a574-ce45-11f1-8134-1f3a3af63804
 verificar(() -> [efecto_a1(c...) for c in CASOS_INTERIOR],
           [estatica_ref(c...)[:, 1] for c in CASOS_INTERIOR];
           pista = md"Con `h1 = a1 / (1 + x1)^2` y `h2 = a2 / (1 + x2)^2`, la matriz es `[-h1 0 -1; 0 -h2 -1; -1 -1 0]` y el lado derecho, `[-1 / (1 + x1), 0, 0]`.")
 
-# ╔═╡ 89c86e36-ce42-11f1-836e-6131cacc4d3c
+# ╔═╡ 58e0a57e-ce45-11f1-aa82-873ae931e262
 verificar(() -> [valor_marginal(c...) for c in CASOS],
           [(r = reparto_ref(c...); [log1p(r[1]), log1p(r[2]), r[3]]) for c in CASOS];
           pista = md"Obtén `x1, x2, λ = reparto_ref(a1, a2, B)` y deriva el lagrangiano respecto de cada parámetro: `[log1p(x1), log1p(x2), λ]`.")
 
-# ╔═╡ 89c86e40-ce42-11f1-8681-e72f9743aadc
+# ╔═╡ 58e0a588-ce45-11f1-8fb2-f5f154e57642
 verificar(() -> [dk_drho(c...) for c in CASOS_RAMSEY],
           [dk_drho_ref(c...) for c in CASOS_RAMSEY];
-          pista = md"Con ``F(k, \rho) = \theta k^{\theta - 1} - \rho - \kappa``, ``dk^\ast/d\rho = -F_\rho/F_k = 1/\big(\theta(\theta - 1)k^{\theta - 2}\big)``.")
+          pista = md"Con ``F(k, \rho) = \theta k^{\theta - 1} - \rho - \delta``, ``dk^\ast/d\rho = -F_\rho/F_k = 1/\big(\theta(\theta - 1)k^{\theta - 2}\big)``.")
 
 # ╔═╡ Cell order:
-# ╟─89c86d6e-ce42-11f1-abab-3b7b0b0e0909
-# ╟─89c86da0-ce42-11f1-a5eb-35e88940f6a9
-# ╟─89c86da0-ce42-11f1-996f-bfadb6c122c9
-# ╟─89c86daa-ce42-11f1-a216-ff0c46b48e56
-# ╟─89c86db4-ce42-11f1-8f3c-39cbd08d7cfd
-# ╟─89c86db4-ce42-11f1-a966-a972d02d9b88
-# ╟─89c86dbe-ce42-11f1-9cb2-a54ed187417d
-# ╟─89c86dbe-ce42-11f1-859a-c70c3ec264ea
-# ╠═89c86dbe-ce42-11f1-83f3-f3ac7bdcba19
-# ╟─89c86dc8-ce42-11f1-8dd5-af3b92145b29
-# ╟─89c86dc8-ce42-11f1-9cd0-c954f1893e69
-# ╠═89c86dd2-ce42-11f1-9744-05e94c01b943
-# ╟─89c86dd2-ce42-11f1-b47a-8d168e421796
-# ╟─89c86ddc-ce42-11f1-b172-394ba5376156
-# ╟─89c86ddc-ce42-11f1-87d0-dfa349debced
-# ╟─89c86de6-ce42-11f1-a760-e90f959c7ccf
-# ╟─89c86de6-ce42-11f1-ac92-5399cf65ad48
-# ╟─89c86df0-ce42-11f1-8d8c-11ec770b8e09
-# ╟─89c86df0-ce42-11f1-9e2d-1b8f7604063c
-# ╟─89c86dfc-ce42-11f1-a002-19c0e126ec80
-# ╟─89c86e04-ce42-11f1-8a30-e773a6d117c8
-# ╟─89c86e04-ce42-11f1-b225-d704995bb3d2
-# ╟─89c86e04-ce42-11f1-9375-7d2550d09e75
-# ╟─89c86e0e-ce42-11f1-a8e7-5b5d56e26075
-# ╟─89c86e0e-ce42-11f1-867d-3f04261161a6
-# ╟─89c86e18-ce42-11f1-bfa3-7f20ca1134a5
-# ╟─89c86e18-ce42-11f1-90e5-6b95edd36385
-# ╟─89c86e22-ce42-11f1-8efb-a130316a4d52
-# ╟─89c86e22-ce42-11f1-86e2-5994c8284912
-# ╠═89c86e2e-ce42-11f1-9f20-2d18bdeca06f
-# ╟─89c86e2e-ce42-11f1-94d1-2f8298bd379f
-# ╟─89c86e2e-ce42-11f1-86f0-e52a8921e421
-# ╠═89c86e36-ce42-11f1-aa31-bba50dd92a09
-# ╟─89c86e36-ce42-11f1-836e-6131cacc4d3c
-# ╟─89c86e40-ce42-11f1-b360-8d2adb3fdd85
-# ╠═89c86e40-ce42-11f1-894c-471e05c8771f
-# ╟─89c86e40-ce42-11f1-8681-e72f9743aadc
-# ╟─89c86e4a-ce42-11f1-b8fb-b3041dcce53b
-# ╟─89c86e4a-ce42-11f1-809a-75eef892be39
-# ╠═89c86e54-ce42-11f1-a70c-d9a44d2a1362
-# ╠═89c86e54-ce42-11f1-8cb8-6d8a8ebc144c
-# ╠═89c86e60-ce42-11f1-bae0-1121b7a3ac7d
-# ╠═89c86e60-ce42-11f1-8b2d-cbc009703d1d
-# ╠═89c86e60-ce42-11f1-9053-79f6c7e4e75a
-# ╠═89c86e68-ce42-11f1-a246-cdf04e79a9b3
-# ╠═89c86e68-ce42-11f1-b984-cfea1e618ba6
-# ╠═89c86e72-ce42-11f1-bde4-0d6f2dc5e8a6
-# ╠═89c86e72-ce42-11f1-8c9c-c14fa393eca4
-# ╠═89c86e72-ce42-11f1-aba0-376d424cc7c7
-# ╠═89c86e7c-ce42-11f1-9f51-71767bf0d280
-# ╠═89c86e7c-ce42-11f1-82c9-37f7f5521279
-# ╠═89c86e86-ce42-11f1-9f8b-9b06dbbc822f
+# ╟─58e0a498-ce45-11f1-9554-977e9143569c
+# ╟─58e0a4ca-ce45-11f1-909a-69acf65fb278
+# ╟─58e0a4ca-ce45-11f1-bff5-ed02ba095ae8
+# ╟─58e0a4d6-ce45-11f1-98bc-11fd91d38364
+# ╟─58e0a4de-ce45-11f1-86c7-03fb67f8e534
+# ╟─58e0a4de-ce45-11f1-97c2-455f8ae52b7f
+# ╟─58e0a4e8-ce45-11f1-bd27-11dd424caef7
+# ╟─58e0a4f2-ce45-11f1-a6a5-8b884b82139c
+# ╠═58e0a4f2-ce45-11f1-aba6-8bbfacae568a
+# ╟─58e0a4fc-ce45-11f1-a774-2534e64a0d6c
+# ╟─58e0a508-ce45-11f1-9ac3-1d2eadeb4507
+# ╠═58e0a508-ce45-11f1-9fc0-7d4df07c2a4d
+# ╟─58e0a510-ce45-11f1-8d00-933973dd3d95
+# ╟─58e0a510-ce45-11f1-a297-13ae7158b00d
+# ╟─58e0a51a-ce45-11f1-ae12-9b1eaa74bc0b
+# ╟─58e0a51a-ce45-11f1-a7ff-65969a52c50e
+# ╟─58e0a524-ce45-11f1-9ee6-2f8736d8091b
+# ╟─58e0a524-ce45-11f1-b8ce-53dd670c63f1
+# ╟─58e0a52e-ce45-11f1-9d7c-afbbb7556e7d
+# ╟─58e0a53a-ce45-11f1-8181-53de4defa3cc
+# ╟─58e0a53a-ce45-11f1-a95c-bd3270e8339b
+# ╟─58e0a542-ce45-11f1-865d-397d4e52be00
+# ╟─58e0a54c-ce45-11f1-9da6-5ff4a8e18375
+# ╟─58e0a54c-ce45-11f1-a588-8b6c29ee25ca
+# ╟─58e0a556-ce45-11f1-b99a-f70ab23037cc
+# ╟─58e0a556-ce45-11f1-b57e-c710711da84a
+# ╟─58e0a560-ce45-11f1-9e42-ddc6cc017018
+# ╟─58e0a560-ce45-11f1-be7d-69b7feda7b17
+# ╟─58e0a568-ce45-11f1-ba3a-eb9beb377006
+# ╠═58e0a568-ce45-11f1-bbdb-8dcbb57b83c9
+# ╟─58e0a574-ce45-11f1-8134-1f3a3af63804
+# ╟─58e0a574-ce45-11f1-94a3-87f967388d1e
+# ╠═58e0a57e-ce45-11f1-a9e2-7b128adf89b4
+# ╟─58e0a57e-ce45-11f1-aa82-873ae931e262
+# ╟─58e0a57e-ce45-11f1-b3d0-076e05b93e7f
+# ╠═58e0a588-ce45-11f1-a961-03b282a6be8a
+# ╟─58e0a588-ce45-11f1-8fb2-f5f154e57642
+# ╟─58e0a592-ce45-11f1-9874-23636e9c6fdf
+# ╟─58e0a592-ce45-11f1-8611-fb6670079a4a
+# ╠═58e0a59a-ce45-11f1-b29c-7f21186e1f35
+# ╠═58e0a59a-ce45-11f1-a44c-33f78cb7ac87
+# ╠═58e0a59a-ce45-11f1-802e-edb858a04ebd
+# ╠═58e0a5a6-ce45-11f1-944e-792ba1045c1f
+# ╠═58e0a5a6-ce45-11f1-9d3e-31a8998a76e4
+# ╠═58e0a5b0-ce45-11f1-857f-cb50df106f56
+# ╠═58e0a5b0-ce45-11f1-9be5-2165c5ea1c75
+# ╠═58e0a5ba-ce45-11f1-b3c6-6748cf803934
+# ╠═58e0a5ba-ce45-11f1-8b2b-4febf172548e
+# ╠═58e0a5ba-ce45-11f1-abae-138d5ddb23f6
+# ╠═58e0a5c4-ce45-11f1-925f-f563ca83f849
+# ╠═58e0a5c4-ce45-11f1-9f6e-35a7997ddcd4
+# ╠═58e0a5ce-ce45-11f1-b754-4fdc85427b09

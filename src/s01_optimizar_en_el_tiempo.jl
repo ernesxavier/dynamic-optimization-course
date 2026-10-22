@@ -147,17 +147,17 @@ capital ``K_t``, invierte una fracción ``s`` del producto y gasta el resto:
 
 ```math
 c_t = (1 - s)\thinspace y_t, \qquad
-K_{t+1} = (1 - \kappa) K_t + s\thinspace y_t .
+K_{t+1} = (1 - \delta) K_t + s\thinspace y_t .
 ```
 
 | Ingrediente | Aquí | Qué es |
 |---|---|---|
 | **Estado** | ``K_t`` | Lo que se hereda del pasado; no se puede cambiar de golpe |
 | **Control** | ``s`` | Lo que se decide cada periodo |
-| **Ecuación de movimiento** | ``K_{t+1} = (1 - \kappa)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
+| **Ecuación de movimiento** | ``K_{t+1} = (1 - \delta)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
 | **Objetivo** | ``\sum_{t=0}^{T-1} \beta^t \ln c_t`` | Lo que se quiere lograr, sumado en el tiempo |
 
-Con ``\alpha = 0.3``, depreciación ``\kappa = 0.05``, ``K_0 = 1`` y
+Con ``\alpha = 0.3``, depreciación ``\delta = 0.05``, ``K_0 = 1`` y
 ``T = 40`` años, mueve la tasa de inversión. El factor de descuento ``\beta``
 es el de la sección 1.
 
@@ -220,15 +220,15 @@ El curso vuelve tres veces a la misma pregunta:
 En la versión dinámica (Rahman, 1963; Intriligator, 1964), cada región
 produce ``Y_i = v_i K_i`` y ahorra una fracción ``s_i`` de su producto. Toda
 la inversión ``I = s_1 Y_1 + s_2 Y_2`` se junta, y el planificador manda una
-fracción ``\delta`` a la región 1 y el resto a la región 2:
+fracción ``\theta`` a la región 1 y el resto a la región 2:
 
 ```math
-\dot K_1 = \delta I, \qquad \dot K_2 = (1 - \delta) I, \qquad 0 \le \delta \le 1 .
+\dot K_1 = \theta I, \qquad \dot K_2 = (1 - \theta) I, \qquad 0 \le \theta \le 1 .
 ```
 
 El objetivo es el producto total al final del horizonte,
 ``Y(T) = v_1 K_1(T) + v_2 K_2(T)``. El **estado** es ``(K_1, K_2)`` y el
-**control** es ``\delta``. Con ``\gamma_i = s_i v_i``, cada peso de capital
+**control** es ``\theta``. Con ``\gamma_i = s_i v_i``, cada peso de capital
 en la región ``i`` genera ``\gamma_i`` pesos de inversión al año.
 
 Abajo, la región 1 **ahorra más** y la región 2 **produce más** con cada
@@ -307,8 +307,8 @@ md"""
 |---|---|---|
 | Problema dinámico | Lo que se decide hoy cambia lo que se puede hacer mañana | Ahorro de dos periodos |
 | Estado | Lo que se hereda; no se puede cambiar de golpe | El capital ``K_t`` |
-| Control | Lo que se decide cada periodo | La tasa de inversión ``s``, el reparto ``\delta`` |
-| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\kappa)K_t + s y_t``; ``\dot K_1 = \delta I`` |
+| Control | Lo que se decide cada periodo | La tasa de inversión ``s``, el reparto ``\theta`` |
+| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\delta)K_t + s y_t``; ``\dot K_1 = \theta I`` |
 | Ecuación de Euler | Gastar hoy o invertir para mañana rinde lo mismo en el margen | ``1/c_0 = \beta R / c_1`` |
 | Reglas que cambian en el tiempo | Pueden ser mejores que cualquier regla fija | Cambiar de región en ``t_c`` |
 """
@@ -320,8 +320,8 @@ md"""
 ### Completa el código
 
 **1.** Escribe `siguiente_capital(K, s)`, la ecuación de movimiento de la
-sección 2: devuelve ``(1 - \kappa) K + s K^{\alpha}`` con ``\alpha = 0.3`` y
-``\kappa = 0.05``.
+sección 2: devuelve ``(1 - \delta) K + s K^{\alpha}`` con ``\alpha = 0.3`` y
+``\delta = 0.05``.
 """
 
 #%%
@@ -412,9 +412,9 @@ md"""
 
 ### [Avanzado]
 
-10. Con ``\delta`` constante, el modelo de la sección 3 es un sistema lineal
+10. Con ``\theta`` constante, el modelo de la sección 3 es un sistema lineal
     ``\dot K = MK``. Escribe la matriz ``M`` y verifica que la inversión
-    total ``I`` crece a la tasa ``\delta\gamma_1 + (1 - \delta)\gamma_2``
+    total ``I`` crece a la tasa ``\theta\gamma_1 + (1 - \theta)\gamma_2``
     (notas, sección P.2).
 
 ## Para la próxima sesión
@@ -544,10 +544,10 @@ function produccion_final_ref(tc, s1, v1, s2, v2)
 end
 
 #%%
-"Producto total en T si siempre se manda la fracción δ de la inversión a la región 1."
-function produccion_fija_ref(δ, s1, v1, s2, v2)
+"Producto total en T si siempre se manda la fracción θ de la inversión a la región 1."
+function produccion_fija_ref(θ, s1, v1, s2, v2)
     g1, g2 = s1 * v1, s2 * v2
-    M = [δ*g1 δ*g2; (1 - δ)*g1 (1 - δ)*g2]
+    M = [θ*g1 θ*g2; (1 - θ)*g1 (1 - θ)*g2]
     K = exp(M * HORIZONTE_REGIONES) * [1.0, 1.0]
     v1 * K[1] + v2 * K[2]
 end

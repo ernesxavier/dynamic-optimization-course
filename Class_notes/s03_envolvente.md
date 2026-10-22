@@ -429,7 +429,7 @@ Las dos herramientas de esta sesión se usan en todo el curso:
 |---|---|
 | $V'(B) = \lambda$: el multiplicador es la derivada de la función de valor | El coestado $\lambda(t)$ es el valor marginal del capital en $t$, $\partial V/\partial k$ (sesiones 11 y 18) |
 | Envolvente aplicada a $V(\alpha) = \max_x f(x, \alpha)$ | Envolvente aplicada a la ecuación de Bellman: fórmula de Benveniste-Scheinkman (sesión 16) |
-| Función implícita en las condiciones de primer orden | Cómo cambia el estado estacionario de Ramsey cuando cambian $\rho$ o $\kappa$ (sesión 12; ejercicio F3) |
+| Función implícita en las condiciones de primer orden | Cómo cambia el estado estacionario de Ramsey cuando cambian $\rho$ o $\delta$ (sesión 12; ejercicio F3) |
 | La solución cambia de régimen en $\bar B$ | El control bang-bang cambia de región en un tiempo de cambio (sesión 14) |
 
 ---
@@ -461,7 +461,7 @@ Las dos herramientas de esta sesión se usan en todo el curso:
   $\partial\lambda/\partial a_1$. Evalúa en $a_1 = 2$, $a_2 = 1$, $B = 4$ y
   verifica con la fórmula cerrada.
 - **F3.** En el modelo de Ramsey (sesión 12), el capital de estado
-  estacionario cumple $f'(k^\ast) = \rho + \kappa$, con $f(k) = k^\theta$ y
+  estacionario cumple $f'(k^\ast) = \rho + \delta$, con $f(k) = k^\theta$ y
   $0 < \theta < 1$. Sin despejar $k^\ast$, calcula $dk^\ast/d\rho$ y su
   signo. ¿Qué dice sobre una región más impaciente?
 - **F4.** Con $a_1 = 2$ y $a_2 = 1$, ¿cuánto estaría dispuesto a pagar el

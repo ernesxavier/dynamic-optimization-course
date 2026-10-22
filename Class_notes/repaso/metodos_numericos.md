@@ -36,7 +36,7 @@ bibliotecas.
 | Aplicar a cada elemento (*broadcasting*) | `f.(v)`, `v .^ 2`, `exp.(v)` |
 | Comprensión | `[f(x) for x in v if x > 1]` |
 | Ciclo | `for i in 1:10 … end` |
-| Tupla con nombres (parámetros) | `p = (α = 0.3, κ = 0.05)`; luego `p.α` |
+| Tupla con nombres (parámetros) | `p = (α = 0.3, δ = 0.05)`; luego `p.α` |
 
 ```julia
 f(x) = x^2 - 2
@@ -62,7 +62,7 @@ curso ya están en el entorno `Code/`; basta con `using Plots`, etc.
 using Plots
 k = range(0.01, 10, length = 200)
 plot(k, 0.3 .* k .^ 0.3; label = "inversión sk^α", xlabel = "k")
-plot!(k, 0.05 .* k; label = "depreciación κk")       # el ! agrega a la gráfica actual
+plot!(k, 0.05 .* k; label = "depreciación δk")       # el ! agrega a la gráfica actual
 ```
 
 - `plot` crea una gráfica; `plot!` agrega a la última. `scatter` dibuja
@@ -175,10 +175,10 @@ function newton(h, dh, x; tol = 1e-12, maxit = 50)
     end
     x
 end
-α, κ, ρ = 0.3, 0.05, 0.03                       # estado estacionario de Ramsey
-h(k) = α * k^(α - 1) - (κ + ρ)                  # f'(k) = κ + ρ
+α, δ, ρ = 0.3, 0.05, 0.03                       # estado estacionario de Ramsey
+h(k) = α * k^(α - 1) - (δ + ρ)                  # f'(k) = δ + ρ
 dh(k) = α * (α - 1) * k^(α - 2)
-biseccion(h, 1.0, 20.0), newton(h, dh, 5.0), (α / (κ + ρ))^(1 / (1 - α))   # los tres ≈ 6.61
+biseccion(h, 1.0, 20.0), newton(h, dh, 5.0), (α / (δ + ρ))^(1 / (1 - α))   # los tres ≈ 6.61
 ```
 
 En la práctica: bisección para encontrar un intervalo seguro y Newton
@@ -227,8 +227,8 @@ DifferentialEquations.jl los implementa con control automático del paso:
 
 ```julia
 using DifferentialEquations
-solow(k, p, t) = p.s * k^p.α - p.κ * k
-prob = ODEProblem(solow, 1.0, (0.0, 200.0), (s = 0.2, α = 0.3, κ = 0.05))
+solow(k, p, t) = p.s * k^p.α - p.δ * k
+prob = ODEProblem(solow, 1.0, (0.0, 200.0), (s = 0.2, α = 0.3, δ = 0.05))
 sol = solve(prob, Tsit5())
 sol(200.0), (0.2 / 0.05)^(1 / 0.7)       # ≈ 7.24 y 7.25: llega al estado estacionario
 ```
@@ -240,10 +240,10 @@ lugar" (`du` se modifica):
 using DifferentialEquations
 function ramsey!(du, u, p, t)
     k, c = u
-    du[1] = k^p.α - p.κ * k - c
-    du[2] = c * (p.α * k^(p.α - 1) - p.κ - p.ρ) / p.θ
+    du[1] = k^p.α - p.δ * k - c
+    du[2] = c * (p.α * k^(p.α - 1) - p.δ - p.ρ) / p.θ
 end
-p = (α = 0.3, κ = 0.05, ρ = 0.03, θ = 2.0)
+p = (α = 0.3, δ = 0.05, ρ = 0.03, θ = 2.0)
 sol = solve(ODEProblem(ramsey!, [2.0, 0.8], (0.0, 50.0), p), Tsit5())
 sol.u[end]                                # (k, c) ≈ (30.4, 0.53) en t = 50: consumo inicial
                                           # demasiado bajo, fuera de la rama estable (ver D.I6)

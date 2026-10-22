@@ -98,12 +98,12 @@ siempre decide; en caso de duda, esta tabla dice dónde aparece cada uso.
 | $\mu$ | Coestado a valor corriente, $\mu = \lambda e^{\rho t}$ | sesión 12, [A.A5](analisis.md#aa5) |
 | $\rho$ | Tasa de descuento · radio espectral $\rho(A)$ | [C.B3](calculo.md#cb3) · [L.A2](algebra_lineal.md#la2) |
 | $\beta$ | Factor de descuento · velocidad de convergencia regional | [C.B3](calculo.md#cb3), [A.B3](analisis.md#ab3) · [D.I1](ecuaciones_diferenciales.md#di1) |
-| $\delta$ | Control de reparto $\delta \in [0, 1]$ del caso de dos regiones (la depreciación es $\kappa$) | sesiones 1 y 14 |
+| $\delta$ | Depreciación | [D.I4](ecuaciones_diferenciales.md#di4), [D.I6](ecuaciones_diferenciales.md#di6) |
 | $\tau$ | Traza de una matriz · tiempo que falta para el final después del cambio, $T - t^\ast$ | [L.I1](algebra_lineal.md#li1), [D.I5](ecuaciones_diferenciales.md#di5) · sesión 14 |
 | $\Delta$ | Determinante · paso de tiempo $\Delta t$ | [L.I1](algebra_lineal.md#li1), [D.I5](ecuaciones_diferenciales.md#di5) · [D.B3](ecuaciones_diferenciales.md#db3) |
 | $T$ | Horizonte · operador de Bellman $Tv$ | sesiones 10–15 · [A.A3](analisis.md#aa3) |
 | $H$, $\bar H$ | Hamiltoniano · hessiana orlada | [C.I3](calculo.md#ci3) · [L.I5](algebra_lineal.md#li5) |
-| $\theta$ | Parámetro CRRA (inverso de la elasticidad de sustitución) · peso de una combinación convexa | [D.I6](ecuaciones_diferenciales.md#di6) · [C.I2](calculo.md#ci2) |
+| $\theta$ | Parámetro CRRA (inverso de la elasticidad de sustitución) · peso de una combinación convexa · reparto $\theta(t) \in [0, 1]$ de la inversión en el caso de dos regiones | [D.I6](ecuaciones_diferenciales.md#di6) · [C.I2](calculo.md#ci2) · sesiones 1 y 14 |
 | $\alpha$ | Participación del capital en $k^\alpha$ · parámetro genérico | [C.B5](calculo.md#cb5), [D.I4](ecuaciones_diferenciales.md#di4) · [C.I4](calculo.md#ci4), [C.A2](calculo.md#ca2) |
 | $\gamma$ | $\gamma_i = s_iv_i$ en el caso de dos regiones · tasa de una ecuación lineal | sesión 14 · [D.I2](ecuaciones_diferenciales.md#di2) |
 | $V$, $v$ | Valor óptimo o función valor · función de Liapunov · productividad $v_i$ del caso de dos regiones · valor $v_\sigma$ de una política | [C.I5](calculo.md#ci5), [A.B1](analisis.md#ab1) · [D.A4](ecuaciones_diferenciales.md#da4) · sesión 14 · [L.A2](algebra_lineal.md#la2) |

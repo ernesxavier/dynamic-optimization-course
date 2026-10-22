@@ -144,21 +144,21 @@ rápido en valor absoluto, pero tarda lo mismo en reducirse a la mitad.
 ### 2.4 Ejemplo: el capital de una región
 
 Una región recibe un flujo constante de inversión $I$ por año, y su capital
-se deprecia a la tasa $\kappa$:
+se deprecia a la tasa $\delta$:
 
 $$
-\dot K = I - \kappa K,
+\dot K = I - \delta K,
 \qquad\text{es decir}\qquad
-\dot K + \kappa K = I.
+\dot K + \delta K = I.
 $$
 
-Con $a = \kappa > 0$ y $b = I$, el capital converge a $K^\ast = I/\kappa$:
+Con $a = \delta > 0$ y $b = I$, el capital converge a $K^\ast = I/\delta$:
 
 $$
-K(t) = \frac{I}{\kappa} + \left(K_0 - \frac{I}{\kappa}\right)e^{-\kappa t}.
+K(t) = \frac{I}{\delta} + \left(K_0 - \frac{I}{\delta}\right)e^{-\delta t}.
 $$
 
-La velocidad es la tasa de depreciación: con $\kappa = 0.05$, la mitad de la
+La velocidad es la tasa de depreciación: con $\delta = 0.05$, la mitad de la
 brecha entre $K_0$ y $K^\ast$ se cierra en $\ln 2/0.05 \approx 14$ años.
 Duplicar la inversión duplica $K^\ast$, pero **no** acelera la convergencia.
 
@@ -316,7 +316,7 @@ convergencia regional se mide sin la minería petrolera.
 - **F2.** Una región invierte $I = 10$ por año en infraestructura, que se
   deprecia al 5% anual, y hoy tiene $K_0 = 100$. Encuentra $K^\ast$ y el
   tiempo en que se cierra el 90% de la brecha. ¿Qué cambia si $I = 20$? ¿Y
-  si $\kappa = 0.10$?
+  si $\delta = 0.10$?
 - **F3.** Con $\hat b = -0.012$ y $T = 20$, calcula $\beta$ y la vida media.
   ¿Qué vida media se obtendría leyendo $\hat b$ directamente como $-\beta$?
 - **F4.** En 2023, el PIB per cápita sin petróleo de la Ciudad de México era
@@ -330,7 +330,7 @@ convergencia regional se mide sin la minería petrolera.
   [P.1](#pp1), con $a > 0$ y $g \ne -a$. Muestra que, a largo plazo, $y$
   crece a la tasa $g$. ¿Qué representa en el modelo de convergencia?
 - **F6.** Con [P.3](#pp3), calcula la velocidad de convergencia del modelo
-  de Solow con $\alpha = 0.3$, $n = 0.01$ y $\kappa = 0.05$. ¿Es compatible
+  de Solow con $\alpha = 0.3$, $n = 0.01$ y $\delta = 0.05$. ¿Es compatible
   con la regla del 2%? ¿Qué $\alpha$ haría falta?
 - **F7.** Con el modelo de [P.2](#pp2), encuentra la varianza de los choques
   con la que la dispersión se mantiene constante aunque $\rho < 1$.
@@ -394,24 +394,24 @@ engaña.
 ### P.3 La velocidad de convergencia del modelo de Solow (sección 3.2)
 
 En el modelo de Solow, el capital por trabajador cumple
-$\dot k = sk^\alpha - (n + \kappa)k$, que no es lineal. En logaritmos,
+$\dot k = sk^\alpha - (n + \delta)k$, que no es lineal. En logaritmos,
 
 $$
-\frac{d\ln k}{dt} = s\thinspace e^{-(1 - \alpha)\ln k} - (n + \kappa).
+\frac{d\ln k}{dt} = s\thinspace e^{-(1 - \alpha)\ln k} - (n + \delta).
 $$
 
-Cerca del estado estacionario, donde $sk^{\ast\thinspace\alpha - 1} = n + \kappa$,
+Cerca del estado estacionario, donde $sk^{\ast\thinspace\alpha - 1} = n + \delta$,
 se aproxima el lado derecho por su recta tangente en $\ln k^\ast$. Su
-pendiente es $-(1 - \alpha)\thinspace sk^{\ast\thinspace\alpha - 1} = -(1 - \alpha)(n + \kappa)$,
+pendiente es $-(1 - \alpha)\thinspace sk^{\ast\thinspace\alpha - 1} = -(1 - \alpha)(n + \delta)$,
 así que
 
 $$
-\frac{d}{dt}(\ln k - \ln k^\ast) \approx -(1 - \alpha)(n + \kappa)\thinspace(\ln k - \ln k^\ast).
+\frac{d}{dt}(\ln k - \ln k^\ast) \approx -(1 - \alpha)(n + \delta)\thinspace(\ln k - \ln k^\ast).
 $$
 
-Es la ecuación de la sección 0 con $\beta = (1 - \alpha)(n + \kappa)$, y como
+Es la ecuación de la sección 0 con $\beta = (1 - \alpha)(n + \delta)$, y como
 $\ln y = \alpha\ln k$, el ingreso converge a la misma velocidad. Con
-$\alpha = 0.3$ y $n + \kappa = 0.06$, $\beta \approx 0.04$: el doble de la
+$\alpha = 0.3$ y $n + \delta = 0.06$, $\beta \approx 0.04$: el doble de la
 regla del 2%. Barro y Sala-i-Martin (1992) interpretan la diferencia como
 evidencia de que la participación del capital, entendido en sentido amplio
 (con capital humano), es mayor. La aproximación lineal alrededor de un

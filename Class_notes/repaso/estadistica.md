@@ -224,17 +224,17 @@ preguntar qué predice sobre otros. La calibración tiene dos pasos:
 
 1. **Parámetros medidos directamente**: la participación del capital
    $\alpha$ (uno menos la participación del trabajo en el ingreso), la
-   depreciación $\kappa$, la tasa de ahorro $s$.
+   depreciación $\delta$, la tasa de ahorro $s$.
 2. **Parámetros que se ajustan a un blanco**: los que no se miden, se fijan
    para que el modelo reproduzca un dato. En el estado estacionario de
-   Ramsey sin crecimiento, $f'(k^\ast) = \rho + \kappa$; con
+   Ramsey sin crecimiento, $f'(k^\ast) = \rho + \delta$; con
    $f(k) = k^\alpha$, $f'(k) = \alpha\thinspace y/k$, así que
 
 $$
-\rho = \frac{\alpha}{k/y} - \kappa .
+\rho = \frac{\alpha}{k/y} - \delta .
 $$
 
-Con $\alpha = 0.35$, una razón capital-producto $k/y = 3$ y $\kappa = 0.05$,
+Con $\alpha = 0.35$, una razón capital-producto $k/y = 3$ y $\delta = 0.05$,
 sale $\rho = 0.35/3 - 0.05 \approx 0.067$.
 
 **Supuestos explícitos.** Cuando un dato no existe, como la tasa de ahorro
@@ -305,7 +305,7 @@ reporta con su sensibilidad. Dos maneras:
 Con la calibración de $\rho$ de [E.I3](#ei3):
 
 ```julia
-ρ(α; ky = 3.0, κ = 0.05) = α / ky - κ
+ρ(α; ky = 3.0, δ = 0.05) = α / ky - δ
 elasticidad(f, x; Δ = 1e-6) = (f(x + Δ) - f(x - Δ)) / (2Δ) * x / f(x)
 elasticidad(ρ, 0.35)                       # ≈ 1.75
 elasticidad(ky -> ρ(0.35; ky), 3.0)        # ≈ -1.75
@@ -372,9 +372,9 @@ comparten choques, el error real puede ser mayor.
 </details>
 
 <details>
-<summary><b>8 (I).</b> Calibra la tasa de descuento ρ del modelo de Ramsey sin crecimiento con α = 0.35, <i>k</i>/<i>y</i> = 3 y κ = 0.05.</summary>
+<summary><b>8 (I).</b> Calibra la tasa de descuento ρ del modelo de Ramsey sin crecimiento con α = 0.35, <i>k</i>/<i>y</i> = 3 y δ = 0.05.</summary>
 
-$\rho = \alpha/(k/y) - \kappa = 0.35/3 - 0.05 \approx 0.067$.
+$\rho = \alpha/(k/y) - \delta = 0.35/3 - 0.05 \approx 0.067$.
 </details>
 
 <details>

@@ -37,7 +37,7 @@ completa, no un número.
   constantes; las **condiciones iniciales** (o de frontera, [D.I7](#di7))
   eligen una.
 
-**En el curso.** El capital regional ($\dot K = sY - \kappa K$), la riqueza
+**En el curso.** El capital regional ($\dot K = sY - \delta K$), la riqueza
 de un hogar ($\dot w = rw - c$) y el coestado del control óptimo
 ($\dot\lambda = -\partial H/\partial y$) son ecuaciones diferenciales. En
 programación dinámica, las trayectorias siguen ecuaciones en diferencias.
@@ -211,9 +211,9 @@ Es estable si $f'(x^\ast) < 0$ e inestable si $f'(x^\ast) > 0$. El
 **diagrama de fase** se dibuja sin resolver nada: donde $f > 0$, $x$ crece;
 donde $f < 0$, decrece.
 
-**Ejemplo: Solow.** $\dot k = sk^\alpha - \kappa k$. Además de $k = 0$, el
-punto fijo es $k^\ast = (s/\kappa)^{1/(1-\alpha)}$, con
-$f'(k^\ast) = -(1 - \alpha)\kappa < 0$: estable. Toda región con $k > 0$
+**Ejemplo: Solow.** $\dot k = sk^\alpha - \delta k$. Además de $k = 0$, el
+punto fijo es $k^\ast = (s/\delta)^{1/(1-\alpha)}$, con
+$f'(k^\ast) = -(1 - \alpha)\delta < 0$: estable. Toda región con $k > 0$
 converge a $k^\ast$.
 
 **Tiempo discreto, $x_{t+1} = g(x_t)$.** Un punto fijo cumple
@@ -231,7 +231,7 @@ diagonal).
 
 ![Diagrama de fase de Solow y telaraña de un mapa discreto](figuras/fase_1d.png)
 
-*Izquierda: en Solow, k crece donde sk^α > κk y decrece donde no; las flechas convergen a k\*. Derecha: telaraña de x_{t+1} = 2.8x_t(1 − x_t); como g′(x\*) = −0.8, la trayectoria converge oscilando.*
+*Izquierda: en Solow, k crece donde sk^α > δk y decrece donde no; las flechas convergen a k\*. Derecha: telaraña de x_{t+1} = 2.8x_t(1 − x_t); como g′(x\*) = −0.8, la trayectoria converge oscilando.*
 
 <a id="di5"></a>
 
@@ -278,21 +278,21 @@ Para $\dot x = f(x, y)$, $\dot y = g(x, y)$ no lineales:
 4. **Rama estable**: si el equilibrio es un punto de silla, se dibujan las
    dos trayectorias que llegan a él.
 
-**Ejemplo: Ramsey.** Con $f(k) = k^\alpha$, depreciación $\kappa$,
+**Ejemplo: Ramsey.** Con $f(k) = k^\alpha$, depreciación $\delta$,
 descuento $\rho$ y utilidad CRRA con parámetro $\theta$:
 
 $$
-\dot k = k^\alpha - \kappa k - c,
+\dot k = k^\alpha - \delta k - c,
 \qquad
-\frac{\dot c}{c} = \frac{\alpha k^{\alpha - 1} - \kappa - \rho}{\theta}.
+\frac{\dot c}{c} = \frac{\alpha k^{\alpha - 1} - \delta - \rho}{\theta}.
 $$
 
-- La isoclina $\dot k = 0$ es la curva $c = k^\alpha - \kappa k$. Por
+- La isoclina $\dot k = 0$ es la curva $c = k^\alpha - \delta k$. Por
   encima de ella el consumo excede la inversión neta y $k$ disminuye; por
   debajo, $k$ aumenta. Su máximo está en la **regla de oro**,
-  $\alpha k^{\alpha-1} = \kappa$.
+  $\alpha k^{\alpha-1} = \delta$.
 - La isoclina $\dot c = 0$ es la recta vertical $k = k^\ast$, con
-  $\alpha k^{\ast\thinspace\alpha-1} = \kappa + \rho$ (**regla de oro
+  $\alpha k^{\ast\thinspace\alpha-1} = \delta + \rho$ (**regla de oro
   modificada**). A su izquierda el producto marginal es alto y $c$ crece; a
   su derecha, $c$ decrece. Como $\rho > 0$, $k^\ast$ queda por debajo del
   capital de la regla de oro: la impaciencia hace que no convenga acumular
@@ -306,7 +306,7 @@ esta última trayectoria (sesión 12).
 
 ![Diagrama de fase de Ramsey con la rama estable](figuras/silla.png)
 
-*Isoclinas de Ramsey (α = 0.3, κ = 0.05, ρ = 0.03, θ = 2) y algunas trayectorias. Sólo la rama estable (en naranja) llega al estado estacionario.*
+*Isoclinas de Ramsey (α = 0.3, δ = 0.05, ρ = 0.03, θ = 2) y algunas trayectorias. Sólo la rama estable (en naranja) llega al estado estacionario.*
 
 <a id="di7"></a>
 
