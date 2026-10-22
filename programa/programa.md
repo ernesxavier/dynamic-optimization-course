@@ -177,19 +177,29 @@ se produce más?
 tiempo continuo con el principio del máximo, e interpretar el coestado como
 precio sombra del estado.
 
-- **Sesión 10: Cálculo de variaciones**
-	- El problema básico: maximizar $\int_0^T F(t, y, y')\, dt$.
-	- Ecuación de Euler: $F_y - \frac{d}{dt} F_{y'} = 0$. Condiciones terminales.
-	- **[Avanzado]** Derivación de la ecuación de Euler.
-	- *Práctica*: ahorro o consumo en el tiempo.
+- **Sesión 10: Del cálculo de variaciones al Hamiltoniano**
+	- Primera hora: el problema básico, maximizar $\int_0^T F(t, y, y')\, dt$
+	  con extremos fijos. Ecuación de Euler: $F_y - \frac{d}{dt} F_{y'} = 0$,
+	  y su lectura económica: el beneficio de consumir hoy contra el de
+	  consumir mañana.
+	- Segunda hora: el mismo problema como control óptimo, con $u = y'$.
+	  Se escribe el Hamiltoniano $H = F + \lambda u$ y se comprueba que sus
+	  condiciones dan la misma ecuación de Euler.
+	- El cálculo de variaciones no admite restricciones sobre el control
+	  (como $\delta \in [0, 1]$ en la sesión 14): por eso el resto del curso
+	  usa el Hamiltoniano.
+	- **[Avanzado]** Derivación de la ecuación de Euler por la primera
+	  variación.
+	- *Práctica*: ahorro o consumo en el tiempo, resuelto por los dos
+	  caminos.
 	- Lecturas: CH 1–2.
 - **Sesión 11: Principio del máximo**
 	- Hamiltoniano $H = F + \lambda f$. Condiciones: $u^*$ maximiza $H$,
 	  $\dot{y} = \partial H/\partial \lambda$, $\dot{\lambda} = -\partial H/\partial y$.
-	- Transversalidad: $y(T)$ libre, $y(T) \geq 0$, $T$ libre.
+	- Transversalidad: $y(T)$ libre, $y(T) \geq 0$, $T$ libre. Las
+	  condiciones terminales se ven aquí una sola vez.
 	- El coestado $\lambda(t)$ como precio sombra del estado.
-	- **[Avanzado]** Derivación del principio del máximo; equivalencia con la
-	  ecuación de Euler.
+	- **[Avanzado]** Derivación del principio del máximo.
 	- *Práctica*: precio sombra de un recurso.
 	- Lecturas: CH 7, 8.1; CW 20.
 - **Sesión 12: Horizonte infinito y descuento**

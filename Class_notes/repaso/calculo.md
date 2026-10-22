@@ -55,7 +55,7 @@ la elasticidad es constante e igual a $\alpha$.
 <a id="cb2"></a>
 
 ### C.B2 Máximos y mínimos en una variable
-*Sesiones 2, 11, 13, 14.*
+*Sesiones 2, 10, 11, 13, 14.*
 
 Para $\max_{x} f(x)$ en un intervalo $[a, b]$:
 
