@@ -6,8 +6,8 @@ generación 2024-2028.
 **Requisitos**: Cálculo multivariable, álgebra lineal y ecuaciones
 diferenciales básicas. Las primeras cuatro sesiones repasan lo necesario.
 **Duración**: 48 horas en 24 sesiones de 2 h (12 semanas, 2 sesiones por
-semana). Las sesiones 4 y 18 son flexibles, y las sesiones 21 y 22 son de
-colchón: se dedican al proyecto o a recuperar una unidad atrasada.
+semana). La sesión 18 es flexible, y las sesiones 21 y 22 son de colchón:
+se dedican al proyecto o a recuperar una unidad atrasada.
 **Lenguaje**: Julia, con cuadernos de `Pluto.jl`. Se aceptan entregas en Python.
 
 **Objetivo**: Que las y los estudiantes planteen y resuelvan problemas
@@ -24,10 +24,12 @@ plantea primero como un problema estático con Lagrange y Kuhn-Tucker
 de Rahman, Intriligator y Takayama (sesión 14) y lo vuelve a resolver en
 tiempo discreto con programación dinámica (sesión 17, extensión opcional).
 
-**Datos de México**: tres sesiones trabajan con datos reales del INEGI por
-entidad federativa: la convergencia entre estados (sesión 5), la calibración
-del modelo de Ramsey (sesión 12) y la del caso de las dos regiones
-(sesión 14). El proyecto final también se contrasta o se calibra con datos.
+**Datos de México**: tres sesiones trabajan con datos reales: la
+convergencia entre estados con el PIB por entidad del INEGI (sesión 5), la
+calibración del modelo de Ramsey con datos nacionales de la Penn World Table
+(sesión 12) y la del caso de las dos regiones con PIB y empleo por entidad
+(sesión 14). Donde no hay datos por entidad, como el ahorro, se usan
+supuestos explícitos. El proyecto final también se contrasta o se calibra con datos.
 
 ## Metodología
 
@@ -48,7 +50,8 @@ tiempo lo permite.
   deslizadores para mover parámetros y ver cómo cambian las trayectorias, los
   diagramas de fase y las políticas óptimas.
 - **Tareas**: una por unidad, cada una con una parte analítica y una parte en
-  código.
+  código. Cada tarea se entrega en la sesión siguiente al cierre de su unidad
+  (sesiones 5, 10, 15 y 21), para que cubra la unidad completa.
 - **Proyecto ligado a la tesis**: desde la sesión 1, cada estudiante
   identifica un problema de su tesis con dimensión temporal; la propuesta
   (sesión 12) lo formaliza y el proyecto final lo resuelve.
@@ -98,14 +101,14 @@ generaliza al tiempo.
 	- *Práctica*: estática comparativa del reparto entre regiones; ejercicios
 	  en clase.
 	- Lecturas: CW 8, 13.
-- **Sesión 4: Laboratorio 0 (flexible)**
+- **Sesión 4: Laboratorio 0**
 	- Julia con Pluto.jl: celdas reactivas, deslizadores, gráficas.
 	  Symbolics.jl para derivar y resolver condiciones de primer orden.
 	- *Laboratorio*: el problema de las dos regiones con Symbolics.jl; gráficas
 	  de $V(B)$ y $\lambda(B)$.
-	- Instalación previa en casa.
+	- Instalación antes de iniciar el curso, con una guía paso a paso; los
+	  problemas se resuelven en asesoría antes de esta sesión.
 	- Lecturas: cuaderno del curso.
-	- **Entrega**: Tarea 1.
 
 ## Unidad II: Sistemas dinámicos (sesiones 5–9, semanas 3–5)
 
@@ -133,6 +136,7 @@ a usar más adelante:
 	  entidades federativas (INEGI). Velocidad de convergencia y vida media de
 	  la brecha, interpretadas como la solución de $\dot{y} = -\beta (y - y^*)$.
 	- Lecturas: CW 15; Barro & Sala-i-Martin (1992).
+	- **Entrega**: Tarea 1.
 - **Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias**
 	- Puntos fijos y su estabilidad en una dimensión: el signo de $f'(x^*)$.
 	- Diagrama de fase en la recta.
@@ -160,7 +164,6 @@ a usar más adelante:
 	- **[Avanzado]** Variedad estable del punto de silla.
 	- *Práctica*: diagramas de fase.
 	- Lecturas: ST 6.
-	- **Entrega**: Tarea 2.
 - **Sesión 9: Laboratorio 1**
 	- Trayectorias y diagramas de fase con DifferentialEquations.jl.
 	- *Laboratorio*: modelo de Solow con dos regiones y movilidad de capital:
@@ -193,6 +196,7 @@ precio sombra del estado.
 	- *Práctica*: ahorro o consumo en el tiempo, resuelto por los dos
 	  caminos.
 	- Lecturas: CH 1–2.
+	- **Entrega**: Tarea 2.
 - **Sesión 11: Principio del máximo**
 	- Hamiltoniano $H = F + \lambda f$. Condiciones: $u^*$ maximiza $H$,
 	  $\dot{y} = \partial H/\partial \lambda$, $\dot{\lambda} = -\partial H/\partial y$.
@@ -210,9 +214,9 @@ precio sombra del estado.
 	  estable.
 	- **[Avanzado]** Cuándo la transversalidad en horizonte infinito es
 	  necesaria.
-	- *Práctica con datos*: Ramsey calibrado para México (tasa de ahorro,
-	  depreciación, participación del capital); comparación del estado
-	  estacionario con los datos.
+	- *Práctica con datos*: Ramsey calibrado para México con datos nacionales
+	  de la Penn World Table (tasa de ahorro, depreciación, participación del
+	  capital); comparación del estado estacionario con los datos.
 	- Lecturas: CH 8.2, 9.
 	- **Entrega**: propuesta de proyecto (1 página): el problema de la tesis
 	  planteado con estado, control, objetivo y restricciones.
@@ -223,7 +227,6 @@ precio sombra del estado.
 	- Condiciones suficientes de Mangasarian y de Arrow.
 	- **[Avanzado]** Demostración de la suficiencia de Mangasarian.
 	- Lecturas: CH 8.3–8.4; SE.
-	- **Entrega**: Tarea 3.
 - **Sesión 14: Caso completo: inversión entre dos regiones**
 	- Modelo de Rahman, Intriligator y Takayama: producto $Y_i = v_i K_i$, ahorro
 	  $s_i Y_i$; el control $\delta \in [0, 1]$ reparte la inversión total.
@@ -236,9 +239,11 @@ precio sombra del estado.
 	  comparativa.
 	- *Cuaderno con datos*: tiempo de cambio analítico, simulación de $K_1$ y $K_2$,
 	  comparación con repartos fijos y deslizadores para los parámetros.
-	  Calibración con dos regiones de México (tasas de ahorro $s_i$ y
-	  productividades $v_i$ aproximadas con datos del INEGI): ¿cuál es su tiempo
-	  de cambio?
+	  Calibración con dos regiones de México: las productividades $v_i$ se
+	  aproximan con el PIB por trabajador de cada entidad (INEGI). Las tasas de
+	  ahorro $s_i$ no se publican por entidad, así que se fijan con supuestos
+	  explícitos y se discute cuánto cambia el resultado: ¿cuál es su tiempo
+	  de cambio y qué tan sensible es a $s_i$?
 	- Lecturas: AL 2. Consulta: AL 3; Rahman (1963); Intriligator (1964);
 	  Takayama (1967).
 
@@ -259,6 +264,7 @@ opcional (SE 12).
 	- *Práctica*: crecimiento óptimo; el problema de la torta con pocos
 	  periodos.
 	- Lecturas: SS 1.1; QuantEcon, *Cake Eating I*.
+	- **Entrega**: Tarea 3.
 - **Sesión 16: Horizonte infinito**
 	- El operador de Bellman y su punto fijo.
 	- Iteración de función valor e iteración de política: costo por paso
@@ -296,7 +302,6 @@ opcional (SE 12).
 	  costo de mudanza y la persistencia de los salarios. Pregunta para la
 	  discusión: ¿por qué hay quien no migra aunque la otra región pague más?
 	- Lecturas: cuaderno del curso. Consulta: Kennan & Walker (2011).
-	- **Entrega**: Tarea 4 (corta; su código alimenta el proyecto).
 
 ## Unidad V: Proyecto (sesiones 20–24, semanas 10–12)
 
@@ -308,6 +313,8 @@ opcional (SE 12).
 	  INEGI y revisión de que el cuaderno reproduzca todos los resultados.
 	- Si hay atraso: se recupera primero la unidad pendiente y el resto del
 	  tiempo se dedica al proyecto.
+	- **Entrega** (sesión 21): Tarea 4 (corta; su código alimenta el
+	  proyecto).
 - **Sesiones 23 y 24: Presentaciones y cierre**
 	- Presentaciones finales.
 
@@ -427,6 +434,12 @@ tesis de cada estudiante.
   Control*, 69(3), 514–524. https://doi.org/10.1134/S0005117908030168
 
 ### Datos
+- Feenstra, R. C., Inklaar, R., & Timmer, M. P. (2015). The next generation
+  of the Penn World Table. *American Economic Review*, 105(10), 3150–3182.
+  https://doi.org/10.1257/aer.20130954. Datos nacionales de México para la
+  sesión 12.
 - INEGI. *Producto Interno Bruto por Entidad Federativa*. Sistema de Cuentas
-  Nacionales de México. Se usa en las sesiones 5, 12 y 14; las series
-  concretas se documentan en el script que descarga los datos.
+  Nacionales de México. Se usa en las sesiones 5 y 14.
+- INEGI. *Encuesta Nacional de Ocupación y Empleo* (ENOE). Población ocupada
+  por entidad, para el PIB por trabajador de la sesión 14.
+- Las series concretas se documentan en el script que descarga los datos.
