@@ -216,16 +216,23 @@ precio sombra del estado.
 	  necesaria.
 	- *Práctica con datos*: Ramsey calibrado para México con datos nacionales
 	  de la Penn World Table (tasa de ahorro, depreciación, participación del
-	  capital); comparación del estado estacionario con los datos.
+	  capital). El cuaderno llega con los datos cargados y la calibración
+	  hecha: en clase se interpreta el estado estacionario, se compara con
+	  los datos y se mueven los parámetros.
 	- Lecturas: CH 8.2, 9.
 	- **Entrega**: propuesta de proyecto (1 página): el problema de la tesis
 	  planteado con estado, control, objetivo y restricciones.
 - **Sesión 13: Varias variables de estado y de control**
 	- Sistemas de estado y coestado con varias variables.
-	- Control acotado. Hamiltoniano lineal en el control: soluciones bang-bang
-	  y singulares; la función de cambio $\partial H/\partial u$.
+	- Control acotado. Hamiltoniano lineal en el control: soluciones
+	  bang-bang y la función de cambio $\partial H/\partial u$.
 	- Condiciones suficientes de Mangasarian y de Arrow.
-	- **[Avanzado]** Demostración de la suficiencia de Mangasarian.
+	- **[Avanzado]** Soluciones singulares. Demostración de la suficiencia de
+	  Mangasarian.
+	- *Práctica*: una región reparte su producto entre consumo (con utilidad
+	  lineal) e inversión, con $u \in [0, 1]$ y horizonte finito: función de
+	  cambio, tiempo de cambio y trayectoria del capital. Es el ensayo de un
+	  solo estado del caso de la sesión 14.
 	- Lecturas: CH 8.3–8.4; SE.
 - **Sesión 14: Caso completo: inversión entre dos regiones**
 	- Modelo de Rahman, Intriligator y Takayama: producto $Y_i = v_i K_i$, ahorro
@@ -329,15 +336,33 @@ opcional (SE 12).
 | Avance del proyecto (sesión 20; si se pierde el taller, se entrega por escrito) | 10% |
 | Proyecto aplicado: reporte y presentación | 30% |
 
-La propuesta de proyecto (sesión 12) es requisito, sin calificación. El
-proyecto resuelve, de forma analítica y numérica, el problema de la tesis
-planteado en la propuesta o, si no hay uno adecuado, un caso del listado.
-Además:
+**Defensa oral breve.** En cada tarea se puede pedir a cualquier estudiante
+que explique en 5 minutos una parte de su solución, analítica o de código. La
+parte que no pueda explicar no cuenta. Las herramientas de IA se pueden usar,
+pero quien entrega debe entender y poder defender lo que entrega.
+
+La propuesta de proyecto (sesión 12) es requisito, sin calificación. Se puede
+reformular en la sesión 20, junto con el avance; por ejemplo, si el problema
+se plantea mejor con programación dinámica, que se ve después de la
+propuesta. El proyecto resuelve, de forma analítica y numérica, el problema
+de la tesis planteado en la propuesta o, si no hay uno adecuado, un caso del
+listado. Además:
 - **Se contrasta o se calibra con datos**, aunque sea de forma simple: por
   ejemplo, fijar los parámetros con datos del INEGI o comparar una
   predicción del modelo con una serie observada.
 - **Se entrega reproducible**: un cuaderno de Pluto (o de Jupyter, si se
   trabaja en Python) que genere todos los resultados del reporte.
+
+**Rúbrica del proyecto** (sobre el 30% del proyecto):
+
+| Criterio | Qué se evalúa | Peso |
+|---|---|---|
+| Planteamiento | Estado, control, objetivo y restricciones bien definidos y ligados a una pregunta económica | 20% |
+| Solución analítica | Condiciones de optimalidad correctas, resueltas hasta donde se pueda | 25% |
+| Solución numérica | Código correcto y verificado contra la solución analítica o un caso con solución conocida | 20% |
+| Datos | Calibración o contraste con datos; supuestos explícitos y su efecto en los resultados | 15% |
+| Interpretación | Lectura económica de los resultados: precios sombra, políticas, implicaciones regionales | 10% |
+| Reproducibilidad y presentación | El cuaderno corre de principio a fin; exposición clara y respuestas a preguntas | 10% |
 
 **Las tareas piden resolver e interpretar.** Ejemplos de preguntas:
 - "Encuentra el reparto óptimo del presupuesto entre las dos regiones y el
