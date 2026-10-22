@@ -98,7 +98,7 @@ siempre decide; en caso de duda, esta tabla dice dónde aparece cada uso.
 | $\mu$ | Coestado a valor corriente, $\mu = \lambda e^{\rho t}$ | sesión 12, [A.A5](analisis.md#aa5) |
 | $\rho$ | Tasa de descuento · radio espectral $\rho(A)$ | [C.B3](calculo.md#cb3) · [L.A2](algebra_lineal.md#la2) |
 | $\beta$ | Factor de descuento · velocidad de convergencia regional | [C.B3](calculo.md#cb3), [A.B3](analisis.md#ab3) · [D.I1](ecuaciones_diferenciales.md#di1) |
-| $\delta$ | Depreciación · control de reparto $\delta \in [0, 1]$ del caso de dos regiones | [D.I4](ecuaciones_diferenciales.md#di4), [D.I6](ecuaciones_diferenciales.md#di6) · sesión 14 |
+| $\delta$ | Control de reparto $\delta \in [0, 1]$ del caso de dos regiones (la depreciación es $\kappa$) | sesiones 1 y 14 |
 | $\tau$ | Traza de una matriz · tiempo que falta para el final después del cambio, $T - t^\ast$ | [L.I1](algebra_lineal.md#li1), [D.I5](ecuaciones_diferenciales.md#di5) · sesión 14 |
 | $\Delta$ | Determinante · paso de tiempo $\Delta t$ | [L.I1](algebra_lineal.md#li1), [D.I5](ecuaciones_diferenciales.md#di5) · [D.B3](ecuaciones_diferenciales.md#db3) |
 | $T$ | Horizonte · operador de Bellman $Tv$ | sesiones 10–15 · [A.A3](analisis.md#aa3) |

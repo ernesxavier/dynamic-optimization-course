@@ -82,8 +82,10 @@ producto_marginal.(2.0, inversiones)
 
 #%% hide
 md"""
-Sin el punto, `producto_marginal(2.0, inversiones)` da error: dividir entre
-un rango no está definido. Una **comprensión** construye un vector con una
+Sin el punto, `producto_marginal(2.0, inversiones)` da error, porque dentro
+de la función se calcula `1 + inversiones`, y sumar un número a un rango no
+está definido: hay que escribir `1 .+ inversiones`. El punto en la llamada
+aplica la función a cada elemento y evita el problema. Una **comprensión** construye un vector con una
 regla, y puede filtrar:
 """
 

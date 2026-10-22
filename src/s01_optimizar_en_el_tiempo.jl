@@ -76,8 +76,8 @@ mañana, y valora el gasto con
 U = \ln c_0 + \beta \ln c_1 ,
 ```
 
-donde ``\beta < 1`` es el **factor de descuento**: un peso de gasto mañana
-vale menos que uno hoy.
+donde ``\beta < 1`` es el **factor de descuento**: el bienestar de mañana
+pesa menos que el de hoy.
 
 Una regla sencilla es **gastar lo que entra**, ``c_0 = y_0``. Es la mejor
 respuesta del problema estático "maximizar el bienestar de hoy con el
@@ -131,8 +131,9 @@ let
     ``R`` pesos mañana, descontados con ``\beta``. Esta condición reaparece en
     todo el curso (sesiones 10, 12 y 18).
 
-    Prueba con ``\beta R = 1`` (por ejemplo, ``\beta = 0.95`` y ``R = 1.05``):
-    ¿qué pasa con ``c_0`` y ``c_1``? ¿Y si ``y_1`` es muy grande?
+    Prueba con ``\beta R`` cerca de 1 (por ejemplo, ``\beta = 0.95`` y
+    ``R = 1.05``, que dan ``\beta R \approx 0.998``): ¿qué pasa con ``c_0`` y
+    ``c_1``? ¿Y si ``y_1`` es muy grande?
     """
 end
 
@@ -146,17 +147,17 @@ capital ``K_t``, invierte una fracción ``s`` del producto y gasta el resto:
 
 ```math
 c_t = (1 - s)\thinspace y_t, \qquad
-K_{t+1} = (1 - \delta) K_t + s\thinspace y_t .
+K_{t+1} = (1 - \kappa) K_t + s\thinspace y_t .
 ```
 
 | Ingrediente | Aquí | Qué es |
 |---|---|---|
 | **Estado** | ``K_t`` | Lo que se hereda del pasado; no se puede cambiar de golpe |
 | **Control** | ``s`` | Lo que se decide cada periodo |
-| **Ecuación de movimiento** | ``K_{t+1} = (1 - \delta)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
+| **Ecuación de movimiento** | ``K_{t+1} = (1 - \kappa)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
 | **Objetivo** | ``\sum_{t=0}^{T-1} \beta^t \ln c_t`` | Lo que se quiere lograr, sumado en el tiempo |
 
-Con ``\alpha = 0.3``, depreciación ``\delta = 0.05``, ``K_0 = 1`` y
+Con ``\alpha = 0.3``, depreciación ``\kappa = 0.05``, ``K_0 = 1`` y
 ``T = 40`` años, mueve la tasa de inversión. El factor de descuento ``\beta``
 es el de la sección 1.
 
@@ -307,7 +308,7 @@ md"""
 | Problema dinámico | Lo que se decide hoy cambia lo que se puede hacer mañana | Ahorro de dos periodos |
 | Estado | Lo que se hereda; no se puede cambiar de golpe | El capital ``K_t`` |
 | Control | Lo que se decide cada periodo | La tasa de inversión ``s``, el reparto ``\delta`` |
-| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\delta)K_t + s y_t``; ``\dot K_1 = \delta I`` |
+| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\kappa)K_t + s y_t``; ``\dot K_1 = \delta I`` |
 | Ecuación de Euler | Gastar hoy o invertir para mañana rinde lo mismo en el margen | ``1/c_0 = \beta R / c_1`` |
 | Reglas que cambian en el tiempo | Pueden ser mejores que cualquier regla fija | Cambiar de región en ``t_c`` |
 """
@@ -319,8 +320,8 @@ md"""
 ### Completa el código
 
 **1.** Escribe `siguiente_capital(K, s)`, la ecuación de movimiento de la
-sección 2: devuelve ``(1 - \delta) K + s K^{\alpha}`` con ``\alpha = 0.3`` y
-``\delta = 0.05``.
+sección 2: devuelve ``(1 - \kappa) K + s K^{\alpha}`` con ``\alpha = 0.3`` y
+``\kappa = 0.05``.
 """
 
 #%%

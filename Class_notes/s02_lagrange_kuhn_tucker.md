@@ -9,11 +9,12 @@
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.B5](repaso/calculo.md#cb5) (gradiente),
 > [C.I1](repaso/calculo.md#ci1) (hessiana), [C.I2](repaso/calculo.md#ci2)
-> (concavidad), [C.I5](repaso/calculo.md#ci5) (Lagrange),
-> [L.I4](repaso/algebra_lineal.md#li4) (definitud) y
-> [L.I5](repaso/algebra_lineal.md#li5) (hessiana orlada); para Para
-> profundizar, [C.I4](repaso/calculo.md#ci4), [C.A1](repaso/calculo.md#ca1),
-> [L.A3](repaso/algebra_lineal.md#la3) y [A.I3](repaso/analisis.md#ai3).
+> (concavidad y cuasiconcavidad), [C.I5](repaso/calculo.md#ci5) (Lagrange),
+> [L.I4](repaso/algebra_lineal.md#li4) (definitud),
+> [L.I5](repaso/algebra_lineal.md#li5) (hessiana orlada) y
+> [A.I3](repaso/analisis.md#ai3) (teorema de Weierstrass); para Para
+> profundizar, [C.I4](repaso/calculo.md#ci4), [C.A1](repaso/calculo.md#ca1) y
+> [L.A3](repaso/algebra_lineal.md#la3).
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 11–13.
 
@@ -271,8 +272,40 @@ Las condiciones son **necesarias** en general (bajo calificación) y
 ser incluso un mínimo; el cuaderno lo muestra con rendimientos crecientes
 (sección 5).
 
-Con $f$ sólo cuasicóncava, la suficiencia requiere condiciones adicionales
-(Arrow y Enthoven, 1961).
+**Cuasiconcavidad.** En economía, muchas funciones objetivo no son cóncavas
+pero sí **cuasicóncavas**: sus conjuntos de nivel superior
+$\lbrace x : f(x) \ge c\rbrace$ son convexos para todo $c$
+([C.I2](repaso/calculo.md#ci2)). Equivalentemente,
+$f\big(\theta x + (1 - \theta)y\big) \ge \min\lbrace f(x), f(y)\rbrace$:
+en el segmento entre dos puntos, $f$ nunca queda por debajo del menor de sus
+dos valores. Toda cóncava es cuasicóncava, pero no al revés: la Cobb-Douglas
+$x_1^ax_2^b$ con $a + b > 1$ (rendimientos crecientes a escala) es
+cuasicóncava sin ser cóncava.
+
+Importa por dos razones. Primero, la cuasiconcavidad es **ordinal**: se
+conserva con cualquier transformación creciente, y por eso es la propiedad
+natural de una función de utilidad, que sólo ordena. Segundo, basta para la
+suficiencia con una condición adicional:
+
+**Teorema (Arrow y Enthoven, 1961).** Si $f$ es cuasicóncava, cada $g_j$ es
+cuasiconvexa (por ejemplo, lineal), $x^\ast$ cumple las condiciones de
+Kuhn-Tucker, $\nabla f(x^\ast) \ne 0$ y $f$ es dos veces diferenciable cerca
+de $x^\ast$, entonces $x^\ast$ es un máximo global.
+
+La condición $\nabla f(x^\ast) \ne 0$ no sobra: con $f$ sólo cuasicóncava, un
+punto con gradiente cero puede no ser máximo ($f(x) = x^3$ en $x = 0$).
+
+**La relación con la hessiana orlada.** Con una restricción lineal, la
+condición de Lagrange hace $\nabla g$ proporcional a $\nabla f$, y la
+hessiana del lagrangiano es la de $f$. Entonces la hessiana orlada de la
+sección 3.3 es, salvo un factor positivo, la de $f$ orlada con su propio
+gradiente. La condición $\det\bar H > 0$ dice entonces que la curva de nivel
+de $f$ es estrictamente convexa hacia el origen en el óptimo, como una curva
+de indiferencia: es la versión local de la cuasiconcavidad.
+
+En la sección 5, con $\gamma > 1$, $f = a_1x_1^\gamma + a_2x_2^\gamma$ ni
+siquiera es cuasicóncava: sus conjuntos de nivel superior son el exterior de
+un conjunto convexo. Por eso el punto de Kuhn-Tucker interior es un mínimo.
 
 ### 4.4 Solución del problema de las dos regiones
 

@@ -482,21 +482,21 @@ verificar(() -> [valor_marginal(c...) for c in CASOS],
 #%% hide
 md"""
 **3. [Avanzado]** En el modelo de Ramsey (sesión 12), el capital de estado
-estacionario cumple ``f'(k^\ast) = \rho + \delta`` con ``f(k) = k^\theta``.
-Escribe `dk_drho(θ, ρ, δ)`, que devuelva ``dk^\ast/d\rho`` con el teorema de
+estacionario cumple ``f'(k^\ast) = \rho + \kappa`` con ``f(k) = k^\theta``.
+Escribe `dk_drho(θ, ρ, κ)`, que devuelva ``dk^\ast/d\rho`` con el teorema de
 la función implícita (notas, ejercicio F3). Puedes calcular ``k^\ast`` con su
-fórmula cerrada, ``k^\ast = \big(\theta/(\rho + \delta)\big)^{1/(1 - \theta)}``.
+fórmula cerrada, ``k^\ast = \big(\theta/(\rho + \kappa)\big)^{1/(1 - \theta)}``.
 """
 
 #%%
-function dk_drho(θ, ρ, δ)
+function dk_drho(θ, ρ, κ)
     missing  # reemplaza esta línea
 end
 
 #%% hide
 verificar(() -> [dk_drho(c...) for c in CASOS_RAMSEY],
           [dk_drho_ref(c...) for c in CASOS_RAMSEY];
-          pista = md"Con ``F(k, \rho) = \theta k^{\theta - 1} - \rho - \delta``, ``dk^\ast/d\rho = -F_\rho/F_k = 1/\big(\theta(\theta - 1)k^{\theta - 2}\big)``.")
+          pista = md"Con ``F(k, \rho) = \theta k^{\theta - 1} - \rho - \kappa``, ``dk^\ast/d\rho = -F_\rho/F_k = 1/\big(\theta(\theta - 1)k^{\theta - 2}\big)``.")
 
 #%% hide
 md"""
@@ -624,15 +624,15 @@ derivada_numerica(g, v; h = 1e-6) = (g(v + h) - g(v - h)) / 2h
 
 #%%
 "dk*/dρ en el estado estacionario de Ramsey con f(k) = k^θ."
-function dk_drho_ref(θ, ρ, δ)
-    k = (θ / (ρ + δ))^(1 / (1 - θ))
-    -k / ((1 - θ) * (ρ + δ))
+function dk_drho_ref(θ, ρ, κ)
+    k = (θ / (ρ + κ))^(1 / (1 - θ))
+    -k / ((1 - θ) * (ρ + κ))
 end
 
 #%%
 begin
     # Casos de prueba (a₁, a₂, B): esquina, umbral e interior; sólo interior;
-    # y (θ, ρ, δ) de Ramsey.
+    # y (θ, ρ, κ) de Ramsey.
     const CASOS = [(2.0, 1.0, 0.5), (2.0, 1.0, 1.0), (2.0, 1.0, 4.0), (3.0, 0.5, 2.0), (1.0, 1.0, 3.0)]
     const CASOS_INTERIOR = [(2.0, 1.0, 4.0), (3.0, 0.5, 8.0), (1.0, 1.0, 3.0), (1.5, 1.2, 2.0)]
     const CASOS_RAMSEY = [(0.3, 0.03, 0.05), (0.4, 0.02, 0.06), (0.35, 0.05, 0.1)]

@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ a524ee50-cdd6-11f1-9f1d-354567336134
+# ╔═╡ 6e8ad906-ce42-11f1-af7e-df6f12b6102d
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ a524ed42-cdd6-11f1-8664-b3a9ea2edede
+# ╔═╡ 6e8ad80a-ce42-11f1-8b7e-af8d69536afc
 md"""
 # Sesión 1: Por qué optimizar en el tiempo
 
@@ -62,10 +62,10 @@ formales, `Class_notes/s01_optimizar_en_el_tiempo.md`.
 básico conviene repasar.
 """
 
-# ╔═╡ a524ed74-cdd6-11f1-bc78-53281ed210dc
+# ╔═╡ 6e8ad85c-ce42-11f1-b288-43268b016e41
 TableOfContents(title = "Contenido")
 
-# ╔═╡ a524ed7e-cdd6-11f1-bddc-5fd9fb3a2568
+# ╔═╡ 6e8ad85c-ce42-11f1-8520-77a9b76a7bac
 md"""
 ## 0. La pregunta: ¿se cierran solas las brechas entre regiones?
 
@@ -75,7 +75,7 @@ Los datos son del INEGI (PIB por entidad) y de la OCDE (población); están en
 `Data/entidades.csv`.
 """
 
-# ╔═╡ a524ed88-cdd6-11f1-97b3-a92ca419a87e
+# ╔═╡ 6e8ad86e-ce42-11f1-9ae0-27800787a36f
 md"""
 La brecha entre la Ciudad de México y Chiapas no se cerró en veinte años: se
 abrió. La Unidad II mide esto con todas las entidades (convergencia, sesión
@@ -85,7 +85,7 @@ capital mañana, y con él lo que se podrá producir e invertir después. Ésa
 es la marca de un problema **dinámico**.
 """
 
-# ╔═╡ a524ed90-cdd6-11f1-8f7a-91163859fcd2
+# ╔═╡ 6e8ad86e-ce42-11f1-8a87-9fff5543890b
 md"""
 ## 1. Estático contra dinámico: ahorrar hoy para mañana
 
@@ -98,8 +98,8 @@ mañana, y valora el gasto con
 U = \ln c_0 + \beta \ln c_1 ,
 ```
 
-donde ``\beta < 1`` es el **factor de descuento**: un peso de gasto mañana
-vale menos que uno hoy.
+donde ``\beta < 1`` es el **factor de descuento**: el bienestar de mañana
+pesa menos que el de hoy.
 
 Una regla sencilla es **gastar lo que entra**, ``c_0 = y_0``. Es la mejor
 respuesta del problema estático "maximizar el bienestar de hoy con el
@@ -113,7 +113,7 @@ Tasa bruta ``R``: $(@bind R Slider(1.00:0.01:1.20, default = 1.05, show_value = 
 Factor de descuento ``\beta``: $(@bind β Slider(0.80:0.01:0.99, default = 0.95, show_value = true))
 """
 
-# ╔═╡ a524eda6-cdd6-11f1-b409-ab87da13e0d1
+# ╔═╡ 6e8ad88e-ce42-11f1-8b59-77a6954f591f
 md"""
 ## 2. Estado, control y ecuación de movimiento
 
@@ -123,24 +123,24 @@ capital ``K_t``, invierte una fracción ``s`` del producto y gasta el resto:
 
 ```math
 c_t = (1 - s)\thinspace y_t, \qquad
-K_{t+1} = (1 - \delta) K_t + s\thinspace y_t .
+K_{t+1} = (1 - \kappa) K_t + s\thinspace y_t .
 ```
 
 | Ingrediente | Aquí | Qué es |
 |---|---|---|
 | **Estado** | ``K_t`` | Lo que se hereda del pasado; no se puede cambiar de golpe |
 | **Control** | ``s`` | Lo que se decide cada periodo |
-| **Ecuación de movimiento** | ``K_{t+1} = (1 - \delta)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
+| **Ecuación de movimiento** | ``K_{t+1} = (1 - \kappa)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
 | **Objetivo** | ``\sum_{t=0}^{T-1} \beta^t \ln c_t`` | Lo que se quiere lograr, sumado en el tiempo |
 
-Con ``\alpha = 0.3``, depreciación ``\delta = 0.05``, ``K_0 = 1`` y
+Con ``\alpha = 0.3``, depreciación ``\kappa = 0.05``, ``K_0 = 1`` y
 ``T = 40`` años, mueve la tasa de inversión. El factor de descuento ``\beta``
 es el de la sección 1.
 
 Tasa de inversión ``s``: $(@bind s Slider(0.0:0.01:0.9, default = 0.5, show_value = true))
 """
 
-# ╔═╡ a524edba-cdd6-11f1-bfa8-57cf01f91dc1
+# ╔═╡ 6e8ad898-ce42-11f1-8b3c-1f860f7fb6c9
 md"""
 Invertir poco da más gasto hoy y menos capital después; invertir mucho, lo
 contrario. La mejor tasa **constante** equilibra las dos cosas, y sube cuando
@@ -154,7 +154,7 @@ es exactamente el problema del control óptimo (Unidad III) y de la
 programación dinámica (Unidad IV).
 """
 
-# ╔═╡ a524edce-cdd6-11f1-9da6-996937dc0050
+# ╔═╡ 6e8ad8a2-ce42-11f1-a0fd-6d5cff12333f
 md"""
 ## 3. El hilo conductor: invertir en una región o en otra
 
@@ -196,7 +196,7 @@ Productividad de la región 2, ``v_2``: $(@bind v₂ Slider(0.10:0.05:0.50, defa
 Año del cambio, ``t_c``: $(@bind t_c Slider(0:1:30, default = 10, show_value = true))
 """
 
-# ╔═╡ a524edec-cdd6-11f1-b637-8df1e9020ffc
+# ╔═╡ 6e8ad8c0-ce42-11f1-bc89-1b9924e0d695
 md"""
 ## Resumen
 
@@ -205,40 +205,40 @@ md"""
 | Problema dinámico | Lo que se decide hoy cambia lo que se puede hacer mañana | Ahorro de dos periodos |
 | Estado | Lo que se hereda; no se puede cambiar de golpe | El capital ``K_t`` |
 | Control | Lo que se decide cada periodo | La tasa de inversión ``s``, el reparto ``\delta`` |
-| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\delta)K_t + s y_t``; ``\dot K_1 = \delta I`` |
+| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\kappa)K_t + s y_t``; ``\dot K_1 = \delta I`` |
 | Ecuación de Euler | Gastar hoy o invertir para mañana rinde lo mismo en el margen | ``1/c_0 = \beta R / c_1`` |
 | Reglas que cambian en el tiempo | Pueden ser mejores que cualquier regla fija | Cambiar de región en ``t_c`` |
 """
 
-# ╔═╡ a524edec-cdd6-11f1-83c3-c9ba3f06c590
+# ╔═╡ 6e8ad8c0-ce42-11f1-883b-7ba433b89b98
 md"""
 ## Ejercicios
 
 ### Completa el código
 
 **1.** Escribe `siguiente_capital(K, s)`, la ecuación de movimiento de la
-sección 2: devuelve ``(1 - \delta) K + s K^{\alpha}`` con ``\alpha = 0.3`` y
-``\delta = 0.05``.
+sección 2: devuelve ``(1 - \kappa) K + s K^{\alpha}`` con ``\alpha = 0.3`` y
+``\kappa = 0.05``.
 """
 
-# ╔═╡ a524edf6-cdd6-11f1-b38d-5f1620c5a339
+# ╔═╡ 6e8ad8ca-ce42-11f1-894f-d191ec34029a
 function siguiente_capital(K, s)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ a524ee0a-cdd6-11f1-b6e7-6d0df4e98f21
+# ╔═╡ 6e8ad8d4-ce42-11f1-a6e0-0fc18241a975
 md"""
 **2.** Escribe `gasto_hoy_optimo(y0, y1, β, R)`, el gasto óptimo de hoy en el
 problema de dos periodos de la sección 1. Despeja ``c_0`` de la ecuación de
 Euler ``1/c_0 = \beta R/c_1``, usando ``c_1 = y_1 + R(y_0 - c_0)``.
 """
 
-# ╔═╡ a524ee0a-cdd6-11f1-928f-97b099028eed
+# ╔═╡ 6e8ad8d4-ce42-11f1-a9a0-516f583eb6bb
 function gasto_hoy_optimo(y0, y1, β, R)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ a524ee1e-cdd6-11f1-b910-5b5af61e1f99
+# ╔═╡ 6e8ad8e0-ce42-11f1-8473-45017e7315cf
 md"""
 **3.** Escribe `mejor_tasa(β)`, que busque en la malla `0:0.01:0.99` la tasa
 de inversión constante con mayor bienestar. Usa la función
@@ -246,12 +246,12 @@ de inversión constante con mayor bienestar. Usa la función
 ``s``. El verificador la prueba con ``\beta = 0.9``, ``0.95`` y ``0.99``.
 """
 
-# ╔═╡ a524ee1e-cdd6-11f1-bbac-cfaa8fd5c3d1
+# ╔═╡ 6e8ad8e0-ce42-11f1-bf58-83d9a879e5a6
 function mejor_tasa(β)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ a524ee28-cdd6-11f1-99b5-638c5e637819
+# ╔═╡ 6e8ad8e8-ce42-11f1-8f94-636b50f938fc
 md"""
 **4. [Avanzado]** Escribe `mejor_cambio(s1, v1, s2, v2)`, que busque en la
 malla `0:0.01:30` el año de cambio con mayor producto final. Usa
@@ -259,12 +259,12 @@ malla `0:0.01:30` el año de cambio con mayor producto final. Usa
 valores de la sección 3 con lo que muestra la gráfica.
 """
 
-# ╔═╡ a524ee34-cdd6-11f1-9357-7db52474b109
+# ╔═╡ 6e8ad8f2-ce42-11f1-9a23-1f08951a41dd
 function mejor_cambio(s1, v1, s2, v2)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ a524ee3c-cdd6-11f1-b69b-b1e8463cec2a
+# ╔═╡ 6e8ad8fc-ce42-11f1-adde-bfd5bca96c19
 md"""
 ### Interpretación
 
@@ -303,7 +303,7 @@ md"""
 - Repaso: C.B2, C.B5, C.I1–I2 y C.I5.
 """
 
-# ╔═╡ a524ee46-cdd6-11f1-ace7-9b00a35b98c6
+# ╔═╡ 6e8ad8fc-ce42-11f1-a474-27b2dfa50aab
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -312,7 +312,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ a524ee50-cdd6-11f1-8bbb-d71252d67d19
+# ╔═╡ 6e8ad906-ce42-11f1-a522-fd6b90ad0374
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # punto destacado, segunda serie
@@ -321,7 +321,7 @@ begin
     const PALETA  = [AZUL, NARANJA, "#1a9e77", "#7b5ea7", GRIS]
 end;
 
-# ╔═╡ a524ee5a-cdd6-11f1-9627-bd571d3b1aff
+# ╔═╡ 6e8ad912-ce42-11f1-8fe1-b9579217f61f
 begin
     entidades = CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame)
     # PIB sin petróleo por persona, en miles de pesos de 2018 (el PIB está en millones)
@@ -330,11 +330,11 @@ begin
     const CLAVES_EJEMPLO = [9, 19, 5, 20, 7]
 end;
 
-# ╔═╡ a524ee5a-cdd6-11f1-8fe4-5dd30d756a63
+# ╔═╡ 6e8ad912-ce42-11f1-a2f5-a54beac6bdd8
 "Nombre corto de una entidad (sin \"de Zaragoza\", \"de Ignacio de la Llave\", etc.)."
 nombre_corto(n) = replace(n, r" de (Zaragoza|Ocampo|Ignacio de la Llave)$" => "")
 
-# ╔═╡ a524ed88-cdd6-11f1-9e92-bff79086f282
+# ╔═╡ 6e8ad866-ce42-11f1-8630-fbca34454840
 let
     p = plot(; xlabel = "año", ylabel = "miles de pesos de 2018 por persona",
              title = "PIB per cápita sin petróleo", legend = :outerright, size = (720, 340))
@@ -345,18 +345,18 @@ let
     p
 end
 
-# ╔═╡ a524ee66-cdd6-11f1-ac3b-4fea40e05c56
+# ╔═╡ 6e8ad912-ce42-11f1-90c1-33b28f52309d
 const INGRESO_HOY = 100.0
 
-# ╔═╡ a524ee6e-cdd6-11f1-8231-6b1be82c5e4e
+# ╔═╡ 6e8ad91a-ce42-11f1-b7f1-d3761dc12642
 "Bienestar del problema de dos periodos: ln c₀ + β ln c₁, con c₁ = y₁ + R(y₀ − c₀)."
 utilidad_dos_periodos(c0, y0, y1, β, R) = log(c0) + β * log(y1 + R * (y0 - c0))
 
-# ╔═╡ a524ee6e-cdd6-11f1-9ce5-3d89e449a685
+# ╔═╡ 6e8ad91a-ce42-11f1-821f-81ea8d4c5ea6
 "Gasto óptimo de hoy en el problema de dos periodos."
 consumo_hoy_ref(y0, y1, β, R) = (y0 + y1 / R) / (1 + β)
 
-# ╔═╡ a524ed9c-cdd6-11f1-8a75-9945b9ed017e
+# ╔═╡ 6e8ad884-ce42-11f1-89af-ff7fcb7e5411
 let
     c0s = range(1, INGRESO_HOY + y1 / R - 1, length = 400)
     p = plot(c0s, utilidad_dos_periodos.(c0s, INGRESO_HOY, y1, β, R); color = AZUL, lw = 2,
@@ -371,7 +371,7 @@ let
     p
 end
 
-# ╔═╡ a524eda6-cdd6-11f1-b955-ab5baecd37c2
+# ╔═╡ 6e8ad884-ce42-11f1-8cda-9ba568ce55cc
 let
     c0 = consumo_hoy_ref(INGRESO_HOY, y1, β, R)
     c1 = y1 + R * (INGRESO_HOY - c0)
@@ -396,19 +396,20 @@ let
     ``R`` pesos mañana, descontados con ``\beta``. Esta condición reaparece en
     todo el curso (sesiones 10, 12 y 18).
 
-    Prueba con ``\beta R = 1`` (por ejemplo, ``\beta = 0.95`` y ``R = 1.05``):
-    ¿qué pasa con ``c_0`` y ``c_1``? ¿Y si ``y_1`` es muy grande?
+    Prueba con ``\beta R`` cerca de 1 (por ejemplo, ``\beta = 0.95`` y
+    ``R = 1.05``, que dan ``\beta R \approx 0.998``): ¿qué pasa con ``c_0`` y
+    ``c_1``? ¿Y si ``y_1`` es muy grande?
     """
 end
 
-# ╔═╡ a524ee78-cdd6-11f1-824a-637cb3153466
+# ╔═╡ 6e8ad924-ce42-11f1-a2dc-59a881084eef
 begin
     const ALFA, DEPRECIACION, HORIZONTE = 0.3, 0.05, 40
     "Ecuación de movimiento del capital con tasa de inversión s."
     siguiente_capital_ref(K, s) = (1 - DEPRECIACION) * K + s * K^ALFA
 end
 
-# ╔═╡ a524ee78-cdd6-11f1-867e-a13b97590e77
+# ╔═╡ 6e8ad924-ce42-11f1-b739-2f402656e3d6
 "Capital (años 0 a T) y gasto (años 0 a T − 1) con una tasa de inversión constante s."
 function trayectoria_ref(s; K0 = 1.0)
     K = zeros(HORIZONTE + 1)
@@ -421,14 +422,14 @@ function trayectoria_ref(s; K0 = 1.0)
     K, c
 end
 
-# ╔═╡ a524ee82-cdd6-11f1-a2e3-e9f1881bd7ca
+# ╔═╡ 6e8ad924-ce42-11f1-94e1-1b995626e052
 "Bienestar ∑ βᵗ ln cₜ de una tasa de inversión constante s."
 function bienestar_ref(s, β)
     c = trayectoria_ref(s)[2]
     sum(β^(t - 1) * log(c[t]) for t in eachindex(c))
 end
 
-# ╔═╡ a524edb0-cdd6-11f1-958a-05a774a689c4
+# ╔═╡ 6e8ad898-ce42-11f1-8147-573cfa3d7eeb
 let
     ss = 0:0.01:0.9
     w = bienestar_ref.(ss, β)
@@ -441,14 +442,14 @@ let
     scatter!(p, [s], [bienestar_ref(s, β)]; color = TINTA, ms = 4, msw = 0)
 end
 
-# ╔═╡ a524ee8c-cdd6-11f1-8a48-39e773d736c4
+# ╔═╡ 6e8ad92e-ce42-11f1-b0e8-6db137c557c8
 "La mejor tasa de inversión constante en la malla 0:0.01:0.99."
 function mejor_tasa_ref(β)
     ss = 0:0.01:0.99
     ss[argmax([bienestar_ref(s, β) for s in ss])]
 end
 
-# ╔═╡ a524edb0-cdd6-11f1-bcf4-4f0586fc503e
+# ╔═╡ 6e8ad88e-ce42-11f1-ab4f-9339f79f0fbd
 let
     s_mejor = mejor_tasa_ref(β)
     K, c = trayectoria_ref(s)
@@ -462,10 +463,10 @@ let
     plot(pK, pc; layout = (1, 2), legend = [:topleft false], size = (720, 300))
 end
 
-# ╔═╡ a524ee8c-cdd6-11f1-9c95-e720414174e4
+# ╔═╡ 6e8ad92e-ce42-11f1-9bcc-992567cce947
 const HORIZONTE_REGIONES = 30.0
 
-# ╔═╡ a524ee98-cdd6-11f1-a4fe-af44e23d03bb
+# ╔═╡ 6e8ad938-ce42-11f1-839b-c75aaeae7aa5
 """
 Capital (K₁, K₂) en el año t si se invierte todo en la región 1 hasta t_c y
 todo en la región 2 después, con K₁(0) = K₂(0) = 1. Mientras toda la
@@ -481,7 +482,7 @@ function capital_cambio_ref(t, tc, s1, v1, s2, v2)
     (K1, K2)
 end
 
-# ╔═╡ a524edd8-cdd6-11f1-ab08-6f58867a8703
+# ╔═╡ 6e8ad8ac-ce42-11f1-9925-832cbec95187
 let
     ts = range(0, HORIZONTE_REGIONES, length = 301)
     K = [capital_cambio_ref(t, t_c, s₁, v₁, s₂, v₂) for t in ts]
@@ -492,14 +493,14 @@ let
     vline!(p, [t_c]; color = GRIS, ls = :dot, label = "")
 end
 
-# ╔═╡ a524eea0-cdd6-11f1-b993-8f1f51d58883
+# ╔═╡ 6e8ad938-ce42-11f1-8208-db8d187df92a
 "Producto total v₁K₁(T) + v₂K₂(T) con cambio de región en t_c."
 function produccion_final_ref(tc, s1, v1, s2, v2)
     K1, K2 = capital_cambio_ref(HORIZONTE_REGIONES, tc, s1, v1, s2, v2)
     v1 * K1 + v2 * K2
 end
 
-# ╔═╡ a524ede2-cdd6-11f1-8f41-2ff181573842
+# ╔═╡ 6e8ad8b6-ce42-11f1-899c-375703470277
 let
     tcs = 0:0.1:HORIZONTE_REGIONES
     YT = [produccion_final_ref(tc, s₁, v₁, s₂, v₂) for tc in tcs]
@@ -527,7 +528,7 @@ let
     """
 end
 
-# ╔═╡ a524eea0-cdd6-11f1-a596-7fcab7ef48b2
+# ╔═╡ 6e8ad938-ce42-11f1-8341-f5a0047bb074
 "Producto total en T si siempre se manda la fracción δ de la inversión a la región 1."
 function produccion_fija_ref(δ, s1, v1, s2, v2)
     g1, g2 = s1 * v1, s2 * v2
@@ -536,7 +537,7 @@ function produccion_fija_ref(δ, s1, v1, s2, v2)
     v1 * K[1] + v2 * K[2]
 end
 
-# ╔═╡ a524edd8-cdd6-11f1-b9a9-a18643feff31
+# ╔═╡ 6e8ad8ac-ce42-11f1-90ec-b1245b92bd38
 let
     tcs = 0:0.1:HORIZONTE_REGIONES
     YT = [produccion_final_ref(tc, s₁, v₁, s₂, v₂) for tc in tcs]
@@ -549,14 +550,14 @@ let
     scatter!(p, [t_c], [produccion_final_ref(t_c, s₁, v₁, s₂, v₂)]; color = TINTA, ms = 4, msw = 0, label = "")
 end
 
-# ╔═╡ a524eeaa-cdd6-11f1-80d9-3b42d02e14e3
+# ╔═╡ 6e8ad944-ce42-11f1-9d95-6592689fe229
 "El mejor año de cambio en la malla 0:0.01:30."
 function mejor_cambio_ref(s1, v1, s2, v2)
     tcs = 0:0.01:HORIZONTE_REGIONES
     tcs[argmax([produccion_final_ref(tc, s1, v1, s2, v2) for tc in tcs])]
 end
 
-# ╔═╡ a524eeaa-cdd6-11f1-8e70-3741d1d91244
+# ╔═╡ 6e8ad944-ce42-11f1-b1a3-83a3791661ec
 begin
     # Casos de prueba de los ejercicios
     const CASOS_CAPITAL = [(1.0, 0.2), (5.0, 0.3), (0.5, 0.0), (10.0, 0.9)]
@@ -564,7 +565,7 @@ begin
     const CASOS_REGIONES = [(0.30, 0.25, 0.15, 0.35), (0.40, 0.20, 0.10, 0.45), (0.20, 0.30, 0.20, 0.40)]
 end;
 
-# ╔═╡ a524eeb4-cdd6-11f1-ac98-4d6e670944f4
+# ╔═╡ 6e8ad944-ce42-11f1-a13b-1faa49395e4c
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -585,73 +586,73 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ a524ee00-cdd6-11f1-b163-af05b7681cb2
+# ╔═╡ 6e8ad8ca-ce42-11f1-a5a9-cb523d13c9c5
 verificar(() -> [siguiente_capital(K, s) for (K, s) in CASOS_CAPITAL],
           [siguiente_capital_ref(K, s) for (K, s) in CASOS_CAPITAL];
           pista = md"Devuelve `(1 - 0.05) * K + s * K^0.3`.")
 
-# ╔═╡ a524ee14-cdd6-11f1-9d93-0733d2442a0d
+# ╔═╡ 6e8ad8d4-ce42-11f1-aeaa-2fa4d6113313
 verificar(() -> [gasto_hoy_optimo(c...) for c in CASOS_DOS_PERIODOS],
           [consumo_hoy_ref(c...) for c in CASOS_DOS_PERIODOS];
           pista = md"La ecuación de Euler da ``c_1 = \beta R c_0``. Sustituye en ``c_1 = y_1 + R(y_0 - c_0)`` y despeja: ``c_0 = (y_0 + y_1/R)/(1 + \beta)``.")
 
-# ╔═╡ a524ee28-cdd6-11f1-9073-f1777bad83c6
+# ╔═╡ 6e8ad8e8-ce42-11f1-9d97-c78138f3c51b
 verificar(() -> [mejor_tasa(b) for b in (0.9, 0.95, 0.99)],
           [mejor_tasa_ref(b) for b in (0.9, 0.95, 0.99)];
           pista = md"Con `ss = 0:0.01:0.99`, calcula `w = [bienestar_ref(s, β) for s in ss]` y devuelve `ss[argmax(w)]`.")
 
-# ╔═╡ a524ee34-cdd6-11f1-ab35-9f0f5b794f14
+# ╔═╡ 6e8ad8f2-ce42-11f1-8df5-c3f15eade298
 verificar(() -> [mejor_cambio(c...) for c in CASOS_REGIONES],
           [mejor_cambio_ref(c...) for c in CASOS_REGIONES];
           pista = md"Igual que en el ejercicio 3: evalúa `produccion_final_ref` en cada `tc` de la malla y devuelve el que da el máximo.")
 
 # ╔═╡ Cell order:
-# ╟─a524ed42-cdd6-11f1-8664-b3a9ea2edede
-# ╟─a524ed74-cdd6-11f1-bc78-53281ed210dc
-# ╟─a524ed7e-cdd6-11f1-bddc-5fd9fb3a2568
-# ╟─a524ed88-cdd6-11f1-9e92-bff79086f282
-# ╟─a524ed88-cdd6-11f1-97b3-a92ca419a87e
-# ╟─a524ed90-cdd6-11f1-8f7a-91163859fcd2
-# ╟─a524ed9c-cdd6-11f1-8a75-9945b9ed017e
-# ╟─a524eda6-cdd6-11f1-b955-ab5baecd37c2
-# ╟─a524eda6-cdd6-11f1-b409-ab87da13e0d1
-# ╟─a524edb0-cdd6-11f1-bcf4-4f0586fc503e
-# ╟─a524edb0-cdd6-11f1-958a-05a774a689c4
-# ╟─a524edba-cdd6-11f1-bfa8-57cf01f91dc1
-# ╟─a524edce-cdd6-11f1-9da6-996937dc0050
-# ╟─a524edd8-cdd6-11f1-ab08-6f58867a8703
-# ╟─a524edd8-cdd6-11f1-b9a9-a18643feff31
-# ╟─a524ede2-cdd6-11f1-8f41-2ff181573842
-# ╟─a524edec-cdd6-11f1-b637-8df1e9020ffc
-# ╟─a524edec-cdd6-11f1-83c3-c9ba3f06c590
-# ╠═a524edf6-cdd6-11f1-b38d-5f1620c5a339
-# ╟─a524ee00-cdd6-11f1-b163-af05b7681cb2
-# ╟─a524ee0a-cdd6-11f1-b6e7-6d0df4e98f21
-# ╠═a524ee0a-cdd6-11f1-928f-97b099028eed
-# ╟─a524ee14-cdd6-11f1-9d93-0733d2442a0d
-# ╟─a524ee1e-cdd6-11f1-b910-5b5af61e1f99
-# ╠═a524ee1e-cdd6-11f1-bbac-cfaa8fd5c3d1
-# ╟─a524ee28-cdd6-11f1-9073-f1777bad83c6
-# ╟─a524ee28-cdd6-11f1-99b5-638c5e637819
-# ╠═a524ee34-cdd6-11f1-9357-7db52474b109
-# ╟─a524ee34-cdd6-11f1-ab35-9f0f5b794f14
-# ╟─a524ee3c-cdd6-11f1-b69b-b1e8463cec2a
-# ╟─a524ee46-cdd6-11f1-ace7-9b00a35b98c6
-# ╠═a524ee50-cdd6-11f1-9f1d-354567336134
-# ╠═a524ee50-cdd6-11f1-8bbb-d71252d67d19
-# ╠═a524ee5a-cdd6-11f1-9627-bd571d3b1aff
-# ╠═a524ee5a-cdd6-11f1-8fe4-5dd30d756a63
-# ╠═a524ee66-cdd6-11f1-ac3b-4fea40e05c56
-# ╠═a524ee6e-cdd6-11f1-8231-6b1be82c5e4e
-# ╠═a524ee6e-cdd6-11f1-9ce5-3d89e449a685
-# ╠═a524ee78-cdd6-11f1-824a-637cb3153466
-# ╠═a524ee78-cdd6-11f1-867e-a13b97590e77
-# ╠═a524ee82-cdd6-11f1-a2e3-e9f1881bd7ca
-# ╠═a524ee8c-cdd6-11f1-8a48-39e773d736c4
-# ╠═a524ee8c-cdd6-11f1-9c95-e720414174e4
-# ╠═a524ee98-cdd6-11f1-a4fe-af44e23d03bb
-# ╠═a524eea0-cdd6-11f1-b993-8f1f51d58883
-# ╠═a524eea0-cdd6-11f1-a596-7fcab7ef48b2
-# ╠═a524eeaa-cdd6-11f1-80d9-3b42d02e14e3
-# ╠═a524eeaa-cdd6-11f1-8e70-3741d1d91244
-# ╠═a524eeb4-cdd6-11f1-ac98-4d6e670944f4
+# ╟─6e8ad80a-ce42-11f1-8b7e-af8d69536afc
+# ╟─6e8ad85c-ce42-11f1-b288-43268b016e41
+# ╟─6e8ad85c-ce42-11f1-8520-77a9b76a7bac
+# ╟─6e8ad866-ce42-11f1-8630-fbca34454840
+# ╟─6e8ad86e-ce42-11f1-9ae0-27800787a36f
+# ╟─6e8ad86e-ce42-11f1-8a87-9fff5543890b
+# ╟─6e8ad884-ce42-11f1-89af-ff7fcb7e5411
+# ╟─6e8ad884-ce42-11f1-8cda-9ba568ce55cc
+# ╟─6e8ad88e-ce42-11f1-8b59-77a6954f591f
+# ╟─6e8ad88e-ce42-11f1-ab4f-9339f79f0fbd
+# ╟─6e8ad898-ce42-11f1-8147-573cfa3d7eeb
+# ╟─6e8ad898-ce42-11f1-8b3c-1f860f7fb6c9
+# ╟─6e8ad8a2-ce42-11f1-a0fd-6d5cff12333f
+# ╟─6e8ad8ac-ce42-11f1-9925-832cbec95187
+# ╟─6e8ad8ac-ce42-11f1-90ec-b1245b92bd38
+# ╟─6e8ad8b6-ce42-11f1-899c-375703470277
+# ╟─6e8ad8c0-ce42-11f1-bc89-1b9924e0d695
+# ╟─6e8ad8c0-ce42-11f1-883b-7ba433b89b98
+# ╠═6e8ad8ca-ce42-11f1-894f-d191ec34029a
+# ╟─6e8ad8ca-ce42-11f1-a5a9-cb523d13c9c5
+# ╟─6e8ad8d4-ce42-11f1-a6e0-0fc18241a975
+# ╠═6e8ad8d4-ce42-11f1-a9a0-516f583eb6bb
+# ╟─6e8ad8d4-ce42-11f1-aeaa-2fa4d6113313
+# ╟─6e8ad8e0-ce42-11f1-8473-45017e7315cf
+# ╠═6e8ad8e0-ce42-11f1-bf58-83d9a879e5a6
+# ╟─6e8ad8e8-ce42-11f1-9d97-c78138f3c51b
+# ╟─6e8ad8e8-ce42-11f1-8f94-636b50f938fc
+# ╠═6e8ad8f2-ce42-11f1-9a23-1f08951a41dd
+# ╟─6e8ad8f2-ce42-11f1-8df5-c3f15eade298
+# ╟─6e8ad8fc-ce42-11f1-adde-bfd5bca96c19
+# ╟─6e8ad8fc-ce42-11f1-a474-27b2dfa50aab
+# ╠═6e8ad906-ce42-11f1-af7e-df6f12b6102d
+# ╠═6e8ad906-ce42-11f1-a522-fd6b90ad0374
+# ╠═6e8ad912-ce42-11f1-8fe1-b9579217f61f
+# ╠═6e8ad912-ce42-11f1-a2f5-a54beac6bdd8
+# ╠═6e8ad912-ce42-11f1-90c1-33b28f52309d
+# ╠═6e8ad91a-ce42-11f1-b7f1-d3761dc12642
+# ╠═6e8ad91a-ce42-11f1-821f-81ea8d4c5ea6
+# ╠═6e8ad924-ce42-11f1-a2dc-59a881084eef
+# ╠═6e8ad924-ce42-11f1-b739-2f402656e3d6
+# ╠═6e8ad924-ce42-11f1-94e1-1b995626e052
+# ╠═6e8ad92e-ce42-11f1-b0e8-6db137c557c8
+# ╠═6e8ad92e-ce42-11f1-9bcc-992567cce947
+# ╠═6e8ad938-ce42-11f1-839b-c75aaeae7aa5
+# ╠═6e8ad938-ce42-11f1-8208-db8d187df92a
+# ╠═6e8ad938-ce42-11f1-8341-f5a0047bb074
+# ╠═6e8ad944-ce42-11f1-9d95-6592689fe229
+# ╠═6e8ad944-ce42-11f1-b1a3-83a3791661ec
+# ╠═6e8ad944-ce42-11f1-a13b-1faa49395e4c

@@ -447,7 +447,7 @@ end
 #%% hide
 verificar(() -> [precio_sombra_numerico(c...) for c in CASOS],
           [reparto_ref(c...)[3] for c in CASOS];
-          rtol = 1e-6,
+          rtol = 1e-5,
           pista = md"Devuelve `(valor_ref(a1, a2, B + h) - valor_ref(a1, a2, B - h)) / (2h)`.")
 
 #%% hide

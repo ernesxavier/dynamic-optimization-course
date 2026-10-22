@@ -64,8 +64,10 @@ $$
 \qquad\text{sujeto a}\qquad c_1 = y_1 + R\thinspace(y_0 - c_0),
 $$
 
-con **factor de descuento** $0 < \beta < 1$: un peso de gasto mañana vale
-$\beta$ pesos de gasto hoy. Si $c_0 > y_0$, el gobierno se endeuda.
+con **factor de descuento** $0 < \beta < 1$: una unidad de bienestar mañana
+vale $\beta$ unidades de bienestar hoy. No es lo mismo que un peso: lo que
+vale hoy un peso de mañana depende de cuánto se gasta en cada periodo, y en
+el óptimo es $1/R$. Si $c_0 > y_0$, el gobierno se endeuda.
 
 **Proposición 1.** El gasto óptimo es
 
@@ -189,8 +191,8 @@ Tres preguntas ayudan:
 
 | Situación regional | Estado | Control | Ecuación de movimiento |
 |---|---|---|---|
-| Infraestructura | Capital público $K_t$ | Inversión $I_t$ | $K_{t+1} = (1 - \delta)K_t + I_t$ |
-| Educación | Capital humano $h_t$ | Gasto en escuelas $e_t$ | $h_{t+1} = (1 - \delta_h)h_t + \phi(e_t)$ |
+| Infraestructura | Capital público $K_t$ | Inversión $I_t$ | $K_{t+1} = (1 - \kappa)K_t + I_t$ |
+| Educación | Capital humano $h_t$ | Gasto en escuelas $e_t$ | $h_{t+1} = (1 - \kappa_h)h_t + \phi(e_t)$ |
 | Pesquería | Biomasa $x_t$ | Captura $q_t$ | $x_{t+1} = x_t + G(x_t) - q_t$ |
 | Deuda estatal | Deuda $d_t$ | Déficit primario $f_t$ | $d_{t+1} = R\thinspace d_t + f_t$ |
 | Migración | Región donde se vive $r_t$ | Región elegida $r_{t+1}$ | $r_{t+1}$ es el control mismo |
@@ -217,12 +219,14 @@ mañana no se conoce hoy.
 ## 3. Ejemplo: una región con tasa de inversión constante
 
 Una región produce $y_t = K_t^{\alpha}$, con $0 < \alpha < 1$, invierte una
-fracción constante $s \in [0, 1)$ y gasta el resto:
+fracción constante $s \in [0, 1)$ y gasta el resto. Su capital se deprecia a
+la tasa $\kappa$ (en el curso, $\delta$ se reserva para el reparto entre
+regiones de la sección 4):
 
 $$
 c_t = (1 - s)K_t^{\alpha},
 \qquad
-K_{t+1} = (1 - \delta)K_t + sK_t^{\alpha}.
+K_{t+1} = (1 - \kappa)K_t + sK_t^{\alpha}.
 $$
 
 ### 3.1 El estado estacionario de la regla
@@ -231,12 +235,12 @@ Con $s$ fija, la ecuación de movimiento es una ecuación en diferencias no
 lineal. Un **estado estacionario** es un punto fijo, $K_{t+1} = K_t = K^\ast$:
 
 $$
-\delta K^\ast = s(K^\ast)^{\alpha}
+\kappa K^\ast = s(K^\ast)^{\alpha}
 \quad\Longrightarrow\quad
-K^\ast = \left(\frac{s}{\delta}\right)^{1/(1-\alpha)}.
+K^\ast = \left(\frac{s}{\kappa}\right)^{1/(1-\alpha)}.
 $$
 
-Con $s = 0.2$, $\delta = 0.05$ y $\alpha = 0.3$, $K^\ast = 4^{1/0.7} \approx
+Con $s = 0.2$, $\kappa = 0.05$ y $\alpha = 0.3$, $K^\ast = 4^{1/0.7} \approx
 7.25$. Si se empieza en $K_0 = 1$, el capital crece hacia $K^\ast$ sin
 llegar en 40 años (en el cuaderno llega a 5.4). Por qué converge y a qué
 velocidad es el tema de la Unidad II (sesión 6).
@@ -244,7 +248,7 @@ velocidad es el tema de la Unidad II (sesión 6).
 ### 3.2 La regla de oro
 
 En el estado estacionario, el gasto es
-$c^\ast(s) = (1 - s)(K^\ast)^{\alpha} = (1 - s)(s/\delta)^{\alpha/(1-\alpha)}$.
+$c^\ast(s) = (1 - s)(K^\ast)^{\alpha} = (1 - s)(s/\kappa)^{\alpha/(1-\alpha)}$.
 Derivando su logaritmo ([C.B2](repaso/calculo.md#cb2)),
 
 $$
@@ -325,8 +329,10 @@ $$
 K_1(t) = \left(K_1(0) + \frac{\gamma_2K_2}{\gamma_1}\right)e^{\gamma_1 t} - \frac{\gamma_2K_2}{\gamma_1}
 $$
 
-cumple la ecuación y la condición inicial: el capital de la región 1 crece a
-la tasa $\gamma_1$ ([D.B2](repaso/ecuaciones_diferenciales.md#db2)). Con
+cumple la ecuación y la condición inicial. Lo que crece exactamente a la tasa
+$\gamma_1$ es $K_1 + \gamma_2K_2/\gamma_1$
+([D.B2](repaso/ecuaciones_diferenciales.md#db2)); la tasa de crecimiento de
+$K_1$ se acerca a $\gamma_1$ a medida que $K_1$ crece. Con
 $\delta = 0$ ocurre lo mismo con los papeles de las regiones intercambiados.
 Para un reparto constante $0 < \delta < 1$, la inversión total crece a la
 tasa $\delta\gamma_1 + (1 - \delta)\gamma_2$: en [Para profundizar,
@@ -407,7 +413,7 @@ La propuesta de proyecto (sesión 12) es una página con estas respuestas.
 | Control en tiempo discreto | $\max\sum\beta^t r(x_t, u_t)$ con $x_{t+1} = g(x_t, u_t)$ | 2.1 |
 | Control en tiempo continuo | $\max\int e^{-\rho t}F(x, u)\thinspace dt$ con $\dot x = f(x, u)$ | 2.2 |
 | Estado y control | El estado se hereda y no cambia de golpe; el control se elige | 2.3 |
-| Estado estacionario | $K^\ast = (s/\delta)^{1/(1-\alpha)}$ | 3.1 |
+| Estado estacionario | $K^\ast = (s/\kappa)^{1/(1-\alpha)}$ | 3.1 |
 | Regla de oro | $s = \alpha$ maximiza el gasto de largo plazo | 3.2 |
 | Horizonte finito | Ninguna tasa constante positiva es óptima | 3.3 |
 | Dos regiones | Primero se crece donde se ahorra más; al final se produce donde rinde más | 4.4 |
@@ -426,7 +432,7 @@ La propuesta de proyecto (sesión 12) es una página con estas respuestas.
   Verifica la ecuación de Euler.
 - **F3.** Muestra que gastar lo que entra ($c_0 = y_0$) es óptimo si y sólo
   si $y_1 = \beta R\thinspace y_0$. Interpreta.
-- **F4.** Con $\alpha = 0.3$ y $\delta = 0.05$, calcula $K^\ast$ y $c^\ast$
+- **F4.** Con $\alpha = 0.3$ y $\kappa = 0.05$, calcula $K^\ast$ y $c^\ast$
   para $s = 0.2$ y para $s = 0.3$. ¿Cuál da más gasto de largo plazo?
   ¿Contradice eso que la mejor tasa constante del cuaderno sea 0.20 con
   $\beta = 0.95$?
@@ -484,8 +490,8 @@ Con $\delta$ constante, el sistema es lineal:
 $\dot K = MK$, con $K = (K_1, K_2)^\top$ y
 
 $$
-M = \begin{pmatrix} \delta\gamma_1 & \delta\gamma_2 \\ (1 - \delta)\gamma_1 & (1 - \delta)\gamma_2 \end{pmatrix}
-= \begin{pmatrix} \delta \\ 1 - \delta \end{pmatrix}
+M = \begin{pmatrix} \delta\gamma_1 & \delta\gamma_2 \cr (1 - \delta)\gamma_1 & (1 - \delta)\gamma_2 \end{pmatrix}
+= \begin{pmatrix} \delta \cr 1 - \delta \end{pmatrix}
 \begin{pmatrix} \gamma_1 & \gamma_2 \end{pmatrix}
 $$
 

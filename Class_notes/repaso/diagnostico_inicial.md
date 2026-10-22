@@ -70,11 +70,11 @@ de $K$.
 $\beta \approx e^{-\rho}$.
 </details>
 
-**5. Matrices.** Sea $A = \begin{pmatrix} 2 & 1 \\ 1 & 3 \end{pmatrix}$.
+**5. Matrices.** Sea $A = \begin{pmatrix} 2 & 1 \cr 1 & 3 \end{pmatrix}$.
 
-- (a) Calcula $A\begin{pmatrix} 1 \\ 1 \end{pmatrix}$ y el determinante de
+- (a) Calcula $A\begin{pmatrix} 1 \cr 1 \end{pmatrix}$ y el determinante de
   $A$.
-- (b) Resuelve $A\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 5 \\ 5 \end{pmatrix}$.
+- (b) Resuelve $A\begin{pmatrix} x \cr y \end{pmatrix} = \begin{pmatrix} 5 \cr 5 \end{pmatrix}$.
 
 <details>
 <summary>Respuesta</summary>

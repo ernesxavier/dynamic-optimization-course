@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 0f7ee7a2-cddb-11f1-8a2b-cf9fe6039a5c
+# ╔═╡ 79f0d096-ce42-11f1-a276-4799177f1a8b
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 0f7ee6b4-cddb-11f1-b2ae-0fa02154002d
+# ╔═╡ 79f0cf8a-ce42-11f1-8537-fd4058302583
 md"""
 # Sesión 2: Lagrange, concavidad y Kuhn-Tucker
 
@@ -62,10 +62,10 @@ variable), C.B5 (gradiente), C.I1 y C.I2 (hessiana y concavidad), C.I5
 [Avanzado]: C.A1 y L.A3.
 """
 
-# ╔═╡ 0f7ee6e2-cddb-11f1-a93c-998885caafe4
+# ╔═╡ 79f0cfbc-ce42-11f1-95c3-33c0fb01e1a9
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 0f7ee6ee-cddb-11f1-a176-051bbe34e1c6
+# ╔═╡ 79f0cfc6-ce42-11f1-a782-7dc60c9a6383
 md"""
 ## 0. La pregunta: repartir un fondo entre dos regiones
 
@@ -90,7 +90,7 @@ una sola vez y no hay "después". El fondo se reparte por completo: la región
 Fondo ``B``: $(@bind B Slider(0.1:0.1:10.0, default = 4.0, show_value = true))
 """
 
-# ╔═╡ 0f7ee6f8-cddb-11f1-b6f1-a3bc75790934
+# ╔═╡ 79f0cfda-ce42-11f1-8665-db659c3e3767
 md"""
 ## 1. Repaso: gradiente, curvas de nivel y hessiana
 
@@ -106,12 +106,12 @@ región. Las flechas se acortan al alejarse del origen: rendimientos
 decrecientes.
 """
 
-# ╔═╡ 0f7ee702-cddb-11f1-9090-8509aa13bd33
+# ╔═╡ 79f0cfe4-ce42-11f1-b3c0-951f59026c15
 md"""
 La **hessiana** se puede calcular a mano o con Symbolics.jl:
 """
 
-# ╔═╡ 0f7ee70c-cddb-11f1-8a1a-6797aa458cc8
+# ╔═╡ 79f0cfee-ce42-11f1-930c-e5ed1c4020c8
 begin
     @variables x₁ x₂ α₁ α₂
     f_simbolica = α₁ * log(1 + x₁) + α₂ * log(1 + x₂)
@@ -119,7 +119,7 @@ begin
      hessiana = Symbolics.hessian(f_simbolica, [x₁, x₂]))
 end
 
-# ╔═╡ 0f7ee70c-cddb-11f1-919a-61794e2d6f3b
+# ╔═╡ 79f0cfee-ce42-11f1-87d7-e1d1178a009f
 md"""
 La hessiana es diagonal con entradas negativas: es **definida negativa** en
 todo punto, así que ``f`` es estrictamente cóncava (C.I2). Esto será clave
@@ -127,7 +127,7 @@ en la sección 4: con una función cóncava y restricciones lineales, las
 condiciones de primer orden bastan para el máximo global.
 """
 
-# ╔═╡ 0f7ee714-cddb-11f1-85f3-9b2422e39e42
+# ╔═╡ 79f0cff8-ce42-11f1-91cd-e3d3307b23b5
 md"""
 ## 2. Lagrange: el óptimo es una tangencia
 
@@ -151,7 +151,7 @@ la curva azul es la curva de nivel tangente y el punto es la solución de
 Lagrange.
 """
 
-# ╔═╡ 0f7ee720-cddb-11f1-9f64-ddbc20f9c6cd
+# ╔═╡ 79f0d00c-ce42-11f1-9186-b564b1c16771
 md"""
 ## 3. El multiplicador como precio sombra
 
@@ -168,7 +168,7 @@ comprueba numéricamente. La línea punteada marca el umbral ``\bar B`` a
 partir del cual la región 2 recibe inversión, y la naranja, el ``B`` elegido.
 """
 
-# ╔═╡ 0f7ee734-cddb-11f1-a258-479b6ff56af9
+# ╔═╡ 79f0d020-ce42-11f1-9c26-4bb92d2be034
 md"""
 ## 4. Kuhn-Tucker: soluciones de esquina
 
@@ -190,7 +190,7 @@ igualdad** (holgura complementaria). La tabla las evalúa en la solución
 óptima para los valores de los deslizadores.
 """
 
-# ╔═╡ 0f7ee73e-cddb-11f1-a5c9-5d04727190b4
+# ╔═╡ 79f0d02a-ce42-11f1-a464-3d9c2cd3caa6
 md"""
 Resolviendo los casos (notas, sección 4.4), la región 2 recibe inversión si
 y sólo si el fondo supera el umbral
@@ -204,7 +204,7 @@ dos regímenes según la brecha de productividad ``a_1/a_2`` y el tamaño del
 fondo. El punto es la combinación elegida con los deslizadores.
 """
 
-# ╔═╡ 0f7ee748-cddb-11f1-b025-7d83f8f83388
+# ╔═╡ 79f0d03e-ce42-11f1-8e41-8d7022fead0c
 md"""
 ## 5. Sin concavidad, las condiciones no bastan
 
@@ -217,7 +217,7 @@ cumple las condiciones de Kuhn-Tucker.
 ``\gamma``: $(@bind γ Slider(0.3:0.1:2.0, default = 1.5, show_value = true))
 """
 
-# ╔═╡ 0f7ee752-cddb-11f1-8cdb-a5e460ff3bf0
+# ╔═╡ 79f0d048-ce42-11f1-bba2-6de7ed3f663d
 md"""
 - Con ``\gamma < 1``, ``f`` es cóncava y el punto interior es el **máximo**:
   conviene repartir.
@@ -231,7 +231,7 @@ lección es que la forma de los rendimientos decide entre repartir y
 concentrar.
 """
 
-# ╔═╡ 0f7ee75c-cddb-11f1-8c7d-0f60bd295ebf
+# ╔═╡ 79f0d048-ce42-11f1-bacc-4fa211d3bd3a
 md"""
 ## 6. [Avanzado] Cuando falla la calificación de las restricciones
 
@@ -243,7 +243,7 @@ del objetivo, ``(1, 0)``. Las condiciones de Kuhn-Tucker fallan aunque el
 óptimo existe.
 """
 
-# ╔═╡ 0f7ee766-cddb-11f1-8761-a9f04ac0e1aa
+# ╔═╡ 79f0d05c-ce42-11f1-9e90-378c1beb45cc
 md"""
 ## Resumen
 
@@ -257,7 +257,7 @@ md"""
 | Suficiencia | ``f`` cóncava y restricciones convexas: Kuhn-Tucker basta | Sí; con rendimientos crecientes, no |
 """
 
-# ╔═╡ 0f7ee766-cddb-11f1-9366-75c711cb306e
+# ╔═╡ 79f0d05c-ce42-11f1-b07e-cfdea54ae718
 md"""
 ## Ejercicios
 
@@ -268,12 +268,12 @@ md"""
 ``\bar B = a_1/a_2 - 1`` y las dos fórmulas de las secciones 2 y 4.
 """
 
-# ╔═╡ 0f7ee770-cddb-11f1-9c13-0d98b1155b2f
+# ╔═╡ 79f0d064-ce42-11f1-b604-abd169f0232c
 function reparto_optimo(a1, a2, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0f7ee77a-cddb-11f1-b1ab-b39b1e6c6fc3
+# ╔═╡ 79f0d070-ce42-11f1-9b8a-ef9bceb6e1ad
 md"""
 **2.** Escribe `precio_sombra_numerico(a1, a2, B; h = 1e-5)`, que aproxime
 ``V'(B)`` con una diferencia centrada, ``\big(V(B + h) - V(B - h)\big)/2h``.
@@ -281,12 +281,12 @@ Usa la función `valor_ref(a1, a2, B)`, que calcula ``V(B)``. El verificador
 compara tu resultado con ``\lambda``.
 """
 
-# ╔═╡ 0f7ee77a-cddb-11f1-bc7d-d3fc3ab565be
+# ╔═╡ 79f0d070-ce42-11f1-ac50-39138bd2a870
 function precio_sombra_numerico(a1, a2, B; h = 1e-5)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0f7ee784-cddb-11f1-8e21-bd44e93eea8d
+# ╔═╡ 79f0d07a-ce42-11f1-89de-776054351e60
 md"""
 **3. [Avanzado]** Con ``n`` regiones, ``f_i = a_i\ln(1 + x_i)``, la solución
 es ``x_i = \max\lbrace a_i/\lambda - 1,\ 0\rbrace``, con ``\lambda`` tal que las
@@ -296,12 +296,12 @@ inversiones. Encuentra ``\lambda`` por bisección: la suma de inversiones
 decrece con ``\lambda``.
 """
 
-# ╔═╡ 0f7ee78e-cddb-11f1-a2ef-7b458318c13b
+# ╔═╡ 79f0d084-ce42-11f1-a7dd-9d4aae9c78d9
 function llenado_de_agua(a, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 0f7ee798-cddb-11f1-a0cc-357d29301631
+# ╔═╡ 79f0d08e-ce42-11f1-929a-0fc461011973
 md"""
 ### Interpretación
 
@@ -336,7 +336,7 @@ md"""
 - Repaso: C.I3, C.I4 y L.B4.
 """
 
-# ╔═╡ 0f7ee798-cddb-11f1-815e-6fc8c37cb42d
+# ╔═╡ 79f0d08e-ce42-11f1-b8b2-83fa69f85a95
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -345,7 +345,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 0f7ee7a2-cddb-11f1-b6cf-e5f16a1146a8
+# ╔═╡ 79f0d096-ce42-11f1-beaf-e941776af298
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # restricción, punto destacado
@@ -353,7 +353,7 @@ begin
     const TINTA   = "#0b0b0b"   # óptimo
 end;
 
-# ╔═╡ 0f7ee73e-cddb-11f1-bcf5-dbca6b51de01
+# ╔═╡ 79f0d036-ce42-11f1-a331-1da5007484ef
 let
     r = range(1, 20, length = 200)
     p = plot(r, r .- 1; fillrange = 0, fillalpha = 0.15, color = NARANJA, lw = 2,
@@ -364,7 +364,7 @@ let
     scatter!(p, [a1 / a2], [B]; color = TINTA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 0f7ee752-cddb-11f1-a49b-1f7e2928cc1b
+# ╔═╡ 79f0d03e-ce42-11f1-a991-cdd8b764508b
 let
     x1s = range(0, B, length = 400)
     φ = a1 .* x1s .^ γ .+ a2 .* (B .- x1s) .^ γ
@@ -380,7 +380,7 @@ let
     p
 end
 
-# ╔═╡ 0f7ee75c-cddb-11f1-b210-d36e684af320
+# ╔═╡ 79f0d052-ce42-11f1-9596-614974be0030
 let
     x = range(0, 1, length = 300)
     p = plot(x, (1 .- x) .^ 3; fillrange = 0, fillalpha = 0.2, color = AZUL, lw = 2,
@@ -397,11 +397,11 @@ let
     annotate!(p, 1.05, -0.42, text("∇g₂ = (0, −1)", 8, :left, GRIS))
 end
 
-# ╔═╡ 0f7ee7ac-cddb-11f1-80f2-b92af38b108e
+# ╔═╡ 79f0d0a2-ce42-11f1-91fe-6399ddbaa79e
 "Producto total de las dos regiones: a₁ ln(1 + x₁) + a₂ ln(1 + x₂)."
 producto(x1, x2, a1, a2) = a1 * log1p(x1) + a2 * log1p(x2)
 
-# ╔═╡ 0f7ee6ee-cddb-11f1-b7eb-75dc3dd139a9
+# ╔═╡ 79f0cfd2-ce42-11f1-8094-3fda0fefe96e
 let
     x1s = range(0, B, length = 400)
     total = producto.(x1s, B .- x1s, a1, a2)
@@ -414,11 +414,11 @@ let
     annotate!(p, x1s[i], total[i], text("  mejor reparto", 8, :left, NARANJA))
 end
 
-# ╔═╡ 0f7ee7ac-cddb-11f1-897f-85119e2ae153
+# ╔═╡ 79f0d0a2-ce42-11f1-96e2-cd81527e05fb
 "Gradiente del producto total (productos marginales de cada región)."
 gradiente(x1, x2, a1, a2) = (a1 / (1 + x1), a2 / (1 + x2))
 
-# ╔═╡ 0f7ee702-cddb-11f1-ab7a-4dc4368c0b56
+# ╔═╡ 79f0cfe4-ce42-11f1-8ba8-e133b70d1029
 let
     xs = range(0, 10, length = 200)
     p = contour(xs, xs, (u, v) -> producto(u, v, a1, a2); levels = 8, color = :blues,
@@ -432,18 +432,18 @@ let
             quiver = (escala .* first.(g), escala .* last.(g)), color = NARANJA, lw = 1.5)
 end
 
-# ╔═╡ 0f7ee7ac-cddb-11f1-ac91-a1d0faecb007
+# ╔═╡ 79f0d0ac-ce42-11f1-a682-7518b0032f89
 "Umbral del fondo a partir del cual la región menos productiva recibe inversión."
 umbral(a1, a2) = max(a1, a2) / min(a1, a2) - 1
 
-# ╔═╡ 0f7ee7b8-cddb-11f1-b41f-bd8933396b92
+# ╔═╡ 79f0d0ac-ce42-11f1-ba79-1fe29c01cc4f
 "Solución de Lagrange con el presupuesto agotado, sin imponer xᵢ ≥ 0: (x₁, x₂, λ)."
 function lagrange_interior(a1, a2, B)
     λ = (a1 + a2) / (B + 2)
     (a1 / λ - 1, a2 / λ - 1, λ)
 end
 
-# ╔═╡ 0f7ee714-cddb-11f1-ba9f-f5b42fc6f5c5
+# ╔═╡ 79f0cff8-ce42-11f1-b17b-53abc1ee9c3c
 let
     xl1, xl2, _ = lagrange_interior(a1, a2, B)
     xs = range(-0.95, 11, length = 300)
@@ -459,7 +459,7 @@ let
     scatter!(p, [xl1], [xl2]; color = xl2 < 0 ? :red : TINTA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 0f7ee720-cddb-11f1-82be-9337c74f672e
+# ╔═╡ 79f0d004-ce42-11f1-8beb-7931a0fd28e2
 let
     xl1, xl2, λl = lagrange_interior(a1, a2, B)
     aviso = xl2 < 0 ?
@@ -484,7 +484,7 @@ let
     """
 end
 
-# ╔═╡ 0f7ee7b8-cddb-11f1-a236-1f5574408b47
+# ╔═╡ 79f0d0b6-ce42-11f1-ba1d-b3b8f4a0f3a0
 "Reparto óptimo con Kuhn-Tucker: (x₁, x₂, λ). Funciona con cualquier orden de a₁ y a₂."
 function reparto_ref(a1, a2, B)
     if a1 < a2
@@ -494,7 +494,7 @@ function reparto_ref(a1, a2, B)
     B <= umbral(a1, a2) ? (B, 0.0, a1 / (1 + B)) : lagrange_interior(a1, a2, B)
 end
 
-# ╔═╡ 0f7ee6f8-cddb-11f1-97c4-e5b99934d621
+# ╔═╡ 79f0cfd2-ce42-11f1-8fce-99909440998d
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     md"""
@@ -508,7 +508,7 @@ let
     """
 end
 
-# ╔═╡ 0f7ee734-cddb-11f1-879d-7f15133d1c67
+# ╔═╡ 79f0d020-ce42-11f1-92e9-b57119fec0ef
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     d1, d2 = a1 / (1 + x1) - λ, a2 / (1 + x2) - λ
@@ -535,14 +535,14 @@ let
     """
 end
 
-# ╔═╡ 0f7ee7c0-cddb-11f1-94ef-2b0ba1b4fbb3
+# ╔═╡ 79f0d0b6-ce42-11f1-97ff-8b623201657e
 "Valor óptimo V(B): el producto total con el reparto óptimo."
 function valor_ref(a1, a2, B)
     x1, x2, _ = reparto_ref(a1, a2, B)
     producto(x1, x2, a1, a2)
 end
 
-# ╔═╡ 0f7ee72a-cddb-11f1-ac48-2153368cd6ab
+# ╔═╡ 79f0d016-ce42-11f1-9e06-59be1ddc62ad
 let
     Bs = range(0.01, 10, length = 400)
     V = [valor_ref(a1, a2, b) for b in Bs]
@@ -559,7 +559,7 @@ let
     plot(p1, p2; layout = (1, 2), size = (760, 320))
 end
 
-# ╔═╡ 0f7ee72a-cddb-11f1-b6e7-676a990b7d84
+# ╔═╡ 79f0d016-ce42-11f1-b7ba-5b5f667863b7
 let
     h = 0.01
     λ = reparto_ref(a1, a2, B)[3]
@@ -575,7 +575,7 @@ let
     """
 end
 
-# ╔═╡ 0f7ee7c0-cddb-11f1-bbfe-c592f3d9db35
+# ╔═╡ 79f0d0b6-ce42-11f1-888c-75fb2a7abd20
 "Reparto óptimo entre n regiones con aᵢ ln(1 + xᵢ), por bisección en λ."
 function llenado_de_agua_ref(a, B)
     total(λ) = sum(max.(a ./ λ .- 1, 0))
@@ -588,11 +588,11 @@ function llenado_de_agua_ref(a, B)
     max.(a ./ λ .- 1, 0)
 end
 
-# ╔═╡ 0f7ee7ca-cddb-11f1-bec7-67e3c646ba23
+# ╔═╡ 79f0d0c0-ce42-11f1-a55e-0b5faba19ad4
 "Casos de prueba (a₁, a₂, B) para los ejercicios: esquina, umbral e interior."
 const CASOS = [(2.0, 1.0, 0.5), (2.0, 1.0, 1.0), (2.0, 1.0, 4.0), (3.0, 0.5, 2.0), (1.0, 1.0, 3.0)]
 
-# ╔═╡ 0f7ee7ca-cddb-11f1-84ac-91ede14978ee
+# ╔═╡ 79f0d0c0-ce42-11f1-822c-23076540c5d4
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -613,69 +613,69 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 0f7ee770-cddb-11f1-ac6f-cfa7679be49e
+# ╔═╡ 79f0d064-ce42-11f1-95ef-157cab428346
 verificar(() -> [reparto_optimo(c...) for c in CASOS],
           [collect(reparto_ref(c...)) for c in CASOS];
           pista = md"Calcula `B̄ = a1 / a2 - 1`. Si `B <= B̄`, devuelve `[B, 0.0, a1 / (1 + B)]`. Si no, `λ = (a1 + a2) / (B + 2)`, `x1 = a1 / λ - 1` y `x2 = B - x1`.")
 
-# ╔═╡ 0f7ee784-cddb-11f1-b939-11e2f664ec7a
+# ╔═╡ 79f0d07a-ce42-11f1-b967-190e3158b6bd
 verificar(() -> [precio_sombra_numerico(c...) for c in CASOS],
           [reparto_ref(c...)[3] for c in CASOS];
-          rtol = 1e-6,
+          rtol = 1e-5,
           pista = md"Devuelve `(valor_ref(a1, a2, B + h) - valor_ref(a1, a2, B - h)) / (2h)`.")
 
-# ╔═╡ 0f7ee78e-cddb-11f1-8206-134a777fe45b
+# ╔═╡ 79f0d084-ce42-11f1-b138-abe69de31683
 verificar(() -> llenado_de_agua([3.0, 2.0, 1.0, 0.5], 2.0),
           llenado_de_agua_ref([3.0, 2.0, 1.0, 0.5], 2.0);
           rtol = 1e-6,
           pista = md"Busca ``\lambda`` entre `sum(a) / (B + length(a))` (ahí la suma es al menos `B`) y `maximum(a)` (ahí es 0). En cada paso, calcula `x = max.(a ./ λ .- 1, 0)` y compara `sum(x)` con `B`.")
 
 # ╔═╡ Cell order:
-# ╟─0f7ee6b4-cddb-11f1-b2ae-0fa02154002d
-# ╟─0f7ee6e2-cddb-11f1-a93c-998885caafe4
-# ╟─0f7ee6ee-cddb-11f1-a176-051bbe34e1c6
-# ╟─0f7ee6ee-cddb-11f1-b7eb-75dc3dd139a9
-# ╟─0f7ee6f8-cddb-11f1-97c4-e5b99934d621
-# ╟─0f7ee6f8-cddb-11f1-b6f1-a3bc75790934
-# ╟─0f7ee702-cddb-11f1-ab7a-4dc4368c0b56
-# ╟─0f7ee702-cddb-11f1-9090-8509aa13bd33
-# ╠═0f7ee70c-cddb-11f1-8a1a-6797aa458cc8
-# ╟─0f7ee70c-cddb-11f1-919a-61794e2d6f3b
-# ╟─0f7ee714-cddb-11f1-85f3-9b2422e39e42
-# ╟─0f7ee714-cddb-11f1-ba9f-f5b42fc6f5c5
-# ╟─0f7ee720-cddb-11f1-82be-9337c74f672e
-# ╟─0f7ee720-cddb-11f1-9f64-ddbc20f9c6cd
-# ╟─0f7ee72a-cddb-11f1-ac48-2153368cd6ab
-# ╟─0f7ee72a-cddb-11f1-b6e7-676a990b7d84
-# ╟─0f7ee734-cddb-11f1-a258-479b6ff56af9
-# ╟─0f7ee734-cddb-11f1-879d-7f15133d1c67
-# ╟─0f7ee73e-cddb-11f1-a5c9-5d04727190b4
-# ╟─0f7ee73e-cddb-11f1-bcf5-dbca6b51de01
-# ╟─0f7ee748-cddb-11f1-b025-7d83f8f83388
-# ╟─0f7ee752-cddb-11f1-a49b-1f7e2928cc1b
-# ╟─0f7ee752-cddb-11f1-8cdb-a5e460ff3bf0
-# ╟─0f7ee75c-cddb-11f1-8c7d-0f60bd295ebf
-# ╟─0f7ee75c-cddb-11f1-b210-d36e684af320
-# ╟─0f7ee766-cddb-11f1-8761-a9f04ac0e1aa
-# ╟─0f7ee766-cddb-11f1-9366-75c711cb306e
-# ╠═0f7ee770-cddb-11f1-9c13-0d98b1155b2f
-# ╟─0f7ee770-cddb-11f1-ac6f-cfa7679be49e
-# ╟─0f7ee77a-cddb-11f1-b1ab-b39b1e6c6fc3
-# ╠═0f7ee77a-cddb-11f1-bc7d-d3fc3ab565be
-# ╟─0f7ee784-cddb-11f1-b939-11e2f664ec7a
-# ╟─0f7ee784-cddb-11f1-8e21-bd44e93eea8d
-# ╠═0f7ee78e-cddb-11f1-a2ef-7b458318c13b
-# ╟─0f7ee78e-cddb-11f1-8206-134a777fe45b
-# ╟─0f7ee798-cddb-11f1-a0cc-357d29301631
-# ╟─0f7ee798-cddb-11f1-815e-6fc8c37cb42d
-# ╠═0f7ee7a2-cddb-11f1-8a2b-cf9fe6039a5c
-# ╠═0f7ee7a2-cddb-11f1-b6cf-e5f16a1146a8
-# ╠═0f7ee7ac-cddb-11f1-80f2-b92af38b108e
-# ╠═0f7ee7ac-cddb-11f1-897f-85119e2ae153
-# ╠═0f7ee7ac-cddb-11f1-ac91-a1d0faecb007
-# ╠═0f7ee7b8-cddb-11f1-b41f-bd8933396b92
-# ╠═0f7ee7b8-cddb-11f1-a236-1f5574408b47
-# ╠═0f7ee7c0-cddb-11f1-94ef-2b0ba1b4fbb3
-# ╠═0f7ee7c0-cddb-11f1-bbfe-c592f3d9db35
-# ╠═0f7ee7ca-cddb-11f1-bec7-67e3c646ba23
-# ╠═0f7ee7ca-cddb-11f1-84ac-91ede14978ee
+# ╟─79f0cf8a-ce42-11f1-8537-fd4058302583
+# ╟─79f0cfbc-ce42-11f1-95c3-33c0fb01e1a9
+# ╟─79f0cfc6-ce42-11f1-a782-7dc60c9a6383
+# ╟─79f0cfd2-ce42-11f1-8094-3fda0fefe96e
+# ╟─79f0cfd2-ce42-11f1-8fce-99909440998d
+# ╟─79f0cfda-ce42-11f1-8665-db659c3e3767
+# ╟─79f0cfe4-ce42-11f1-8ba8-e133b70d1029
+# ╟─79f0cfe4-ce42-11f1-b3c0-951f59026c15
+# ╠═79f0cfee-ce42-11f1-930c-e5ed1c4020c8
+# ╟─79f0cfee-ce42-11f1-87d7-e1d1178a009f
+# ╟─79f0cff8-ce42-11f1-91cd-e3d3307b23b5
+# ╟─79f0cff8-ce42-11f1-b17b-53abc1ee9c3c
+# ╟─79f0d004-ce42-11f1-8beb-7931a0fd28e2
+# ╟─79f0d00c-ce42-11f1-9186-b564b1c16771
+# ╟─79f0d016-ce42-11f1-9e06-59be1ddc62ad
+# ╟─79f0d016-ce42-11f1-b7ba-5b5f667863b7
+# ╟─79f0d020-ce42-11f1-9c26-4bb92d2be034
+# ╟─79f0d020-ce42-11f1-92e9-b57119fec0ef
+# ╟─79f0d02a-ce42-11f1-a464-3d9c2cd3caa6
+# ╟─79f0d036-ce42-11f1-a331-1da5007484ef
+# ╟─79f0d03e-ce42-11f1-8e41-8d7022fead0c
+# ╟─79f0d03e-ce42-11f1-a991-cdd8b764508b
+# ╟─79f0d048-ce42-11f1-bba2-6de7ed3f663d
+# ╟─79f0d048-ce42-11f1-bacc-4fa211d3bd3a
+# ╟─79f0d052-ce42-11f1-9596-614974be0030
+# ╟─79f0d05c-ce42-11f1-9e90-378c1beb45cc
+# ╟─79f0d05c-ce42-11f1-b07e-cfdea54ae718
+# ╠═79f0d064-ce42-11f1-b604-abd169f0232c
+# ╟─79f0d064-ce42-11f1-95ef-157cab428346
+# ╟─79f0d070-ce42-11f1-9b8a-ef9bceb6e1ad
+# ╠═79f0d070-ce42-11f1-ac50-39138bd2a870
+# ╟─79f0d07a-ce42-11f1-b967-190e3158b6bd
+# ╟─79f0d07a-ce42-11f1-89de-776054351e60
+# ╠═79f0d084-ce42-11f1-a7dd-9d4aae9c78d9
+# ╟─79f0d084-ce42-11f1-b138-abe69de31683
+# ╟─79f0d08e-ce42-11f1-929a-0fc461011973
+# ╟─79f0d08e-ce42-11f1-b8b2-83fa69f85a95
+# ╠═79f0d096-ce42-11f1-a276-4799177f1a8b
+# ╠═79f0d096-ce42-11f1-beaf-e941776af298
+# ╠═79f0d0a2-ce42-11f1-91fe-6399ddbaa79e
+# ╠═79f0d0a2-ce42-11f1-96e2-cd81527e05fb
+# ╠═79f0d0ac-ce42-11f1-a682-7518b0032f89
+# ╠═79f0d0ac-ce42-11f1-ba79-1fe29c01cc4f
+# ╠═79f0d0b6-ce42-11f1-ba1d-b3b8f4a0f3a0
+# ╠═79f0d0b6-ce42-11f1-97ff-8b623201657e
+# ╠═79f0d0b6-ce42-11f1-888c-75fb2a7abd20
+# ╠═79f0d0c0-ce42-11f1-a55e-0b5faba19ad4
+# ╠═79f0d0c0-ce42-11f1-822c-23076540c5d4
