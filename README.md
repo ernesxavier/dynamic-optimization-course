@@ -37,7 +37,7 @@ CISE, UAdeC), con cuadernos en Julia.
 |---|---|---|---|
 | 1 | Por qué optimizar en el tiempo | `s01_optimizar_en_el_tiempo.md` | `s01_optimizar_en_el_tiempo.jl` |
 | 2 | Lagrange y Kuhn-Tucker | `s02_lagrange_kuhn_tucker.md` | `s02_lagrange_kuhn_tucker.jl` |
-| 3 | Envolvente y estática comparativa | `s03_envolvente.md` | |
+| 3 | Envolvente y estática comparativa | `s03_envolvente.md` | `s03_envolvente.jl` |
 | 4 | Laboratorio 0: Julia, Pluto.jl, Symbolics.jl | | `s04_laboratorio_0.jl` |
 | 5 | Ecuaciones lineales | `s05_ecuaciones_lineales.md` | |
 | 6 | Equilibrio y diagramas de fase | `s06_diagramas_de_fase.md` | |
