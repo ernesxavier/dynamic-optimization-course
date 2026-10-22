@@ -46,8 +46,9 @@ donde ``x_i \ge 0`` es la inversión y ``a_i`` la productividad de la región.
 Más inversión da más producto, pero cada peso rinde menos que el anterior.
 La región 1 es la más productiva: ``a_1 \ge a_2``.
 
-El fondo se reparte por completo: la región 1 recibe ``x_1`` y la región 2,
-``B - x_1``. Mueve los deslizadores y observa dónde está el mejor reparto.
+Es la versión estática del hilo conductor del curso (sesión 1): se decide
+una sola vez y no hay "después". El fondo se reparte por completo: la región
+1 recibe ``x_1`` y la región 2, ``B - x_1``. Mueve los deslizadores y observa dónde está el mejor reparto.
 
 ``a_1`` (productividad de la región 1): $(@bind a1 Slider(1.0:0.1:4.0, default = 2.0, show_value = true))
 
@@ -600,10 +601,11 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
     pendiente(x) = x === missing || (x isa AbstractArray && any(pendiente, x))
+    cerca(a, b) = a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)
     if pendiente(resultado)
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif resultado isa AbstractArray && size(resultado) == size(esperado) &&
-           all(isapprox.(resultado, esperado; rtol, atol = 1e-12))
+    elseif (resultado isa AbstractArray && size(resultado) == size(esperado) &&
+            all(cerca.(resultado, esperado))) || cerca(resultado, esperado)
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)

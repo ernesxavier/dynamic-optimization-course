@@ -2,16 +2,17 @@
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s02_lagrange_kuhn_tucker.jl`), después se formaliza
-> aquí. Lo que no tiene marca se ve en clase y se evalúa. Las secciones y
-> demostraciones marcadas **[Avanzado]** son opcionales.
+> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
+> evalúa. Las demostraciones y los temas opcionales están al final, en
+> **Para profundizar**; donde estaban queda una línea que los enlaza.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.B5](repaso/calculo.md#cb5) (gradiente),
 > [C.I1](repaso/calculo.md#ci1) (hessiana), [C.I2](repaso/calculo.md#ci2)
 > (concavidad), [C.I5](repaso/calculo.md#ci5) (Lagrange),
 > [L.I4](repaso/algebra_lineal.md#li4) (definitud) y
-> [L.I5](repaso/algebra_lineal.md#li5) (hessiana orlada); para los puntos
-> [Avanzado], [C.A1](repaso/calculo.md#ca1),
+> [L.I5](repaso/algebra_lineal.md#li5) (hessiana orlada); para Para
+> profundizar, [C.I4](repaso/calculo.md#ci4), [C.A1](repaso/calculo.md#ca1),
 > [L.A3](repaso/algebra_lineal.md#la3) y [A.I3](repaso/analisis.md#ai3).
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 11–13.
@@ -92,10 +93,7 @@ $$
 
 la función queda por debajo de su plano tangente.
 
-*Demostración* **[Avanzado]**. Por concavidad, para $\theta \in (0, 1]$,
-$f\big(x + \theta(y - x)\big) \ge f(x) + \theta\big(f(y) - f(x)\big)$.
-Restando $f(x)$, dividiendo entre $\theta$ y haciendo $\theta \to 0$, el
-lado izquierdo tiende a $\nabla f(x)^\top(y - x)$. $\square$
+*Demostración*: en [Para profundizar, P.1](#pp1).
 
 **Proposición.** Si $f$ es cóncava en $U$ convexo y $\nabla f(x^\ast) = 0$,
 entonces $x^\ast$ es un máximo global. Si $f$ es estrictamente cóncava, es
@@ -139,16 +137,10 @@ tangente a la restricción: si no lo fuera, moverse a lo largo de la
 restricción aumentaría $f$. Tangencia significa gradientes paralelos,
 $\nabla f = \lambda\nabla g$.
 
-*Demostración para $n = 2$, $m = 1$* **[Avanzado]**. Como $\nabla g(x^\ast) \ne 0$,
-supón $g_2 \ne 0$. Por el teorema de la función implícita
-([C.I4](repaso/calculo.md#ci4)), cerca de $x^\ast$ la restricción define
-$x_2 = h(x_1)$ con $h' = -g_1/g_2$. La función de una variable
-$F(x_1) = f\big(x_1, h(x_1)\big)$ tiene un máximo local en $x_1^\ast$, así que
-$F' = f_1 + f_2h' = f_1 - f_2\thinspace g_1/g_2 = 0$. Con
-$\lambda = f_2/g_2$ quedan $f_2 = \lambda g_2$ y $f_1 = \lambda g_1$. $\square$
+*Demostración para $n = 2$, $m = 1$*: en [Para profundizar, P.2](#pp2).
 
-La condición de rango es necesaria. Sin ella el teorema puede fallar: ver la
-sección 4.5.
+La condición de rango es necesaria. Sin ella el teorema puede fallar: ver
+[Para profundizar, P.4](#pp4).
 
 ### 3.2 El multiplicador como precio sombra
 
@@ -272,21 +264,7 @@ del fondo.
 las condiciones de Kuhn-Tucker es un máximo global. Si $f$ es estrictamente
 cóncava, el máximo es único.
 
-*Demostración* **[Avanzado]**. Para $\lambda \ge 0$ fijo, la función
-$x \mapsto \mathcal L(x, \lambda)$ es cóncava (suma de cóncavas). Sea $x$
-factible. Por la desigualdad del gradiente (sección 2.3),
-
-$$
-\mathcal L(x, \lambda) \le \mathcal L(x^\ast, \lambda) + \nabla_x\mathcal L(x^\ast, \lambda)^\top(x - x^\ast)
-= \mathcal L(x^\ast, \lambda) + \sum_i \frac{\partial\mathcal L}{\partial x_i}\thinspace x_i,
-$$
-
-donde se usó $x_i^\ast\thinspace\partial\mathcal L/\partial x_i = 0$. Como
-$\partial\mathcal L/\partial x_i \le 0$ y $x_i \ge 0$, la suma es $\le 0$, así
-que $\mathcal L(x, \lambda) \le \mathcal L(x^\ast, \lambda) = f(x^\ast)$, por
-holgura complementaria. Además, $\mathcal L(x, \lambda) \ge f(x)$ porque
-$\lambda_j \ge 0$ y $c_j - g_j(x) \ge 0$. Entonces $f(x) \le f(x^\ast)$.
-$\square$
+*Demostración*: en [Para profundizar, P.3](#pp3).
 
 Las condiciones son **necesarias** en general (bajo calificación) y
 **suficientes** con concavidad. Sin concavidad, un punto de Kuhn-Tucker puede
@@ -353,30 +331,13 @@ $$
 $x^\ast = (0.5, 0)$ y $\lambda = 2/1.5 \approx 1.33$. Con $B = 4$:
 $x^\ast = (3, 1)$ y $\lambda = 3/6 = 0.5$.
 
-### 4.5 Calificación de las restricciones **[Avanzado]**
+### 4.5 Calificación de las restricciones
 
-El teorema de Kuhn-Tucker pide una **calificación de las restricciones**. La
-más usada (independencia lineal) exige que los gradientes de las
-restricciones activas en $x^\ast$, incluidas las $x_i \ge 0$ activas, sean
-linealmente independientes ([L.A3](repaso/algebra_lineal.md#la3)).
-
-**Contraejemplo** (Chiang y Wainwright, sec. 13.2). Maximizar $x_1$ sujeto a
-$x_2 - (1 - x_1)^3 \le 0$ y $x_1, x_2 \ge 0$. El conjunto factible está bajo
-la curva $x_2 = (1 - x_1)^3$ y el óptimo es $(1, 0)$. Ahí
-
-$$
-\frac{\partial\mathcal L}{\partial x_1} = 1 - 3\lambda(1 - x_1)^2 = 1 > 0
-\quad\text{con}\quad x_1 = 1 > 0,
-$$
-
-así que no existe $\lambda$ que cumpla las condiciones. La frontera forma una
-cúspide en el óptimo, y los gradientes de las dos restricciones activas,
-$(0, 1)$ y $(0, -1)$, son linealmente dependientes.
-
-**Restricciones lineales.** Si todas las restricciones son lineales, como en
-el problema de las regiones, una calificación (la de Abadie) se cumple
-siempre, y las condiciones de Kuhn-Tucker son necesarias sin más
-hipótesis.
+El teorema de Kuhn-Tucker pide una **calificación de las restricciones**:
+una condición sobre la forma del conjunto factible en el óptimo. Si todas
+las restricciones son lineales, como en el problema de las regiones, se
+cumple siempre. Qué es, y un ejemplo en el que falla: en [Para
+profundizar, P.4](#pp4).
 
 ---
 
@@ -428,7 +389,7 @@ momento dado, cambia a la otra.
 | Kuhn-Tucker | Condiciones de signo y de holgura complementaria | 4.1, 4.2 |
 | Suficiencia | $f$ cóncava, $g_j$ convexas $\Rightarrow$ Kuhn-Tucker basta | 4.3 |
 | Dos regiones | Todo a la más productiva si $B \le a_1/a_2 - 1$; si no, se iguala el producto marginal | 4.4 |
-| Calificación | Sin ella, el óptimo puede no cumplir Kuhn-Tucker; con restricciones lineales siempre se cumple | 4.5 |
+| Calificación | Sin ella, el óptimo puede no cumplir Kuhn-Tucker; con restricciones lineales siempre se cumple | 4.5, P.4 |
 | Sin concavidad | Un punto de Kuhn-Tucker puede ser un mínimo | 5 |
 
 ---
@@ -448,7 +409,7 @@ momento dado, cambia a la otra.
 - **F4.** Con $a_1 = 2$, $a_2 = 1$, calcula $V(B)$ para $B = 0.5$ y $B = 0.51$
   y compara $\big(V(0.51) - V(0.5)\big)/0.01$ con $\lambda(0.5)$.
 
-**[Avanzado]**
+**Para profundizar** (opcionales)
 
 - **F5.** Generaliza a $n$ regiones con $f_i = a_i\ln(1 + x_i)$. Muestra que
   $x_i^\ast = \max\lbrace a_i/\lambda - 1,\ 0\rbrace$, donde $\lambda$ es el
@@ -456,9 +417,82 @@ momento dado, cambia a la otra.
   regla de "llenado de agua".)
 - **F6.** Demuestra que $V(B)$ es cóncava en el problema de las dos regiones,
   usando la fórmula de $\lambda(B)$. ¿Es diferenciable en $\bar B$?
-- **F7.** Demuestra que en el contraejemplo de la sección 4.5 el óptimo es
+- **F7.** Demuestra que en el contraejemplo de [P.4](#pp4) el óptimo es
   $(1, 0)$ y que ahí no existe $\lambda \ge 0$ que cumpla Kuhn-Tucker. ¿Qué
   pasa si se reemplaza $(1 - x_1)^3$ por $1 - x_1$?
+
+## Para profundizar
+
+Material opcional: demostraciones y temas que no se ven en clase. Cada
+apartado indica de qué sección de las notas viene.
+
+<a id="pp1"></a>
+
+### P.1 La desigualdad del gradiente (sección 2.3)
+
+*Demostración.* Por concavidad, para $\theta \in (0, 1]$,
+$f\big(x + \theta(y - x)\big) \ge f(x) + \theta\big(f(y) - f(x)\big)$.
+Restando $f(x)$, dividiendo entre $\theta$ y haciendo $\theta \to 0$, el
+lado izquierdo tiende a $\nabla f(x)^\top(y - x)$. $\square$
+
+<a id="pp2"></a>
+
+### P.2 El teorema de Lagrange con dos variables (sección 3.1)
+
+*Demostración.* Con $n = 2$ y $m = 1$, la condición de rango dice que
+$\nabla g(x^\ast) \ne 0$; supón $g_2 \ne 0$. Por el teorema de la función implícita
+([C.I4](repaso/calculo.md#ci4)), cerca de $x^\ast$ la restricción define
+$x_2 = h(x_1)$ con $h' = -g_1/g_2$. La función de una variable
+$F(x_1) = f\big(x_1, h(x_1)\big)$ tiene un máximo local en $x_1^\ast$, así que
+$F' = f_1 + f_2h' = f_1 - f_2\thinspace g_1/g_2 = 0$. Con
+$\lambda = f_2/g_2$ quedan $f_2 = \lambda g_2$ y $f_1 = \lambda g_1$. $\square$
+
+<a id="pp3"></a>
+
+### P.3 Suficiencia de las condiciones de Kuhn-Tucker (sección 4.3)
+
+*Demostración.* Para $\lambda \ge 0$ fijo, la función
+$x \mapsto \mathcal L(x, \lambda)$ es cóncava (suma de cóncavas). Sea $x$
+factible. Por la desigualdad del gradiente (sección 2.3, [P.1](#pp1)),
+
+$$
+\mathcal L(x, \lambda) \le \mathcal L(x^\ast, \lambda) + \nabla_x\mathcal L(x^\ast, \lambda)^\top(x - x^\ast)
+= \mathcal L(x^\ast, \lambda) + \sum_i \frac{\partial\mathcal L}{\partial x_i}\thinspace x_i,
+$$
+
+donde se usó $x_i^\ast\thinspace\partial\mathcal L/\partial x_i = 0$. Como
+$\partial\mathcal L/\partial x_i \le 0$ y $x_i \ge 0$, la suma es $\le 0$, así
+que $\mathcal L(x, \lambda) \le \mathcal L(x^\ast, \lambda) = f(x^\ast)$, por
+holgura complementaria. Además, $\mathcal L(x, \lambda) \ge f(x)$ porque
+$\lambda_j \ge 0$ y $c_j - g_j(x) \ge 0$. Entonces $f(x) \le f(x^\ast)$.
+$\square$
+
+<a id="pp4"></a>
+
+### P.4 Calificación de las restricciones (secciones 3.1 y 4.5)
+
+El teorema de Kuhn-Tucker pide una **calificación de las restricciones**. La
+más usada (independencia lineal) exige que los gradientes de las
+restricciones activas en $x^\ast$, incluidas las $x_i \ge 0$ activas, sean
+linealmente independientes ([L.A3](repaso/algebra_lineal.md#la3)).
+
+**Contraejemplo** (Chiang y Wainwright, sec. 13.2). Maximizar $x_1$ sujeto a
+$x_2 - (1 - x_1)^3 \le 0$ y $x_1, x_2 \ge 0$. El conjunto factible está bajo
+la curva $x_2 = (1 - x_1)^3$ y el óptimo es $(1, 0)$. Ahí
+
+$$
+\frac{\partial\mathcal L}{\partial x_1} = 1 - 3\lambda(1 - x_1)^2 = 1 > 0
+\quad\text{con}\quad x_1 = 1 > 0,
+$$
+
+así que no existe $\lambda$ que cumpla las condiciones. La frontera forma una
+cúspide en el óptimo, y los gradientes de las dos restricciones activas,
+$(0, 1)$ y $(0, -1)$, son linealmente dependientes.
+
+**Restricciones lineales.** Si todas las restricciones son lineales, como en
+el problema de las regiones, una calificación (la de Abadie) se cumple
+siempre, y las condiciones de Kuhn-Tucker son necesarias sin más
+hipótesis.
 
 ---
 
