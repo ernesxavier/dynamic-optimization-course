@@ -41,7 +41,7 @@ CISE, UAdeC), con cuadernos en Julia.
 | 4 | Laboratorio 0: Julia, Pluto.jl, Symbolics.jl | | `s04_laboratorio_0.jl` |
 | 5 | Ecuaciones lineales | `s05_ecuaciones_lineales.md` | `s05_ecuaciones_lineales.jl` |
 | 6 | Equilibrio y diagramas de fase | `s06_diagramas_de_fase.md` | `s06_diagramas_de_fase.jl` |
-| 7 | Sistemas lineales y linealización | `s07_sistemas_lineales.md` | |
+| 7 | Sistemas lineales y linealización | `s07_sistemas_lineales.md` | `s07_sistemas_lineales.jl` |
 | 8 | Estabilidad no lineal | `s08_estabilidad_no_lineal.md` | `s08_estabilidad_no_lineal.jl` |
 | 9 | Laboratorio 1: diagramas de fase | | `s09_laboratorio_1.jl` |
 | 10 | Cálculo de variaciones | `s10_calculo_de_variaciones.md` | |
