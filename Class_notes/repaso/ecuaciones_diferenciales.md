@@ -1,7 +1,7 @@
 # Repaso: ecuaciones diferenciales y en diferencias
 
 > Cada concepto tiene una clave (por ejemplo **[D.I5](#di5)**) y dice en qué
-> sesiones se usa. El índice [README.md](README.md) indica qué repasar antes
+> sesiones se usa. El índice [README.md](./README.md) indica qué repasar antes
 > de cada sesión. Los fragmentos de Julia corren en el entorno del curso
 > (`julia --project=Code`).
 >

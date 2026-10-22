@@ -1,7 +1,7 @@
 # Repaso: cálculo de una y varias variables
 
 > Cada concepto tiene una clave (por ejemplo **[C.I5](#ci5)**) y dice en qué
-> sesiones se usa. El índice [README.md](README.md) indica qué repasar antes
+> sesiones se usa. El índice [README.md](./README.md) indica qué repasar antes
 > de cada sesión. Los fragmentos de Julia corren en el entorno del curso
 > (`julia --project=Code`).
 >

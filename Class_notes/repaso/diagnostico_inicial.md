@@ -8,7 +8,7 @@ $e^{-1} \approx 0.37$). Las respuestas están plegadas debajo de cada
 pregunta.
 
 Todas las preguntas usan sólo el nivel básico: las claves B de las [notas de
-repaso](README.md). Al final hay dos preguntas abiertas, sin respuesta
+repaso](./README.md). Al final hay dos preguntas abiertas, sin respuesta
 correcta, que el profesor usa para planear el curso.
 
 ---
@@ -192,7 +192,7 @@ Este problema es el punto de partida de la propuesta de proyecto
 | 10 | [N.B1](metodos_numericos.md#nb1) (Julia en cinco minutos), [N.B3](metodos_numericos.md#nb3) (cuadernos de Pluto) | 4 y todos los laboratorios |
 
 Las preguntas no cubren los niveles intermedio y avanzado. Antes de cada
-sesión, la tabla del [índice de repaso](README.md) dice qué claves I conviene
+sesión, la tabla del [índice de repaso](./README.md) dice qué claves I conviene
 leer, y cada área termina con un autodiagnóstico de 10 preguntas.
 
 ## Orientación según tu formación
