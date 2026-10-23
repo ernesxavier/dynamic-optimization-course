@@ -54,6 +54,7 @@ CISE, UAdeC), con cuadernos en Julia.
 | 17 | Laboratorio 2: iteración de función valor | | `s17_laboratorio_2.jl` |
 | 18 | Control óptimo frente a programación dinámica | `s18_control_vs_pd.md` | |
 | 19 | Laboratorio 3: comparación numérica | | `s19_laboratorio_3.jl` |
+| 20–24 | Proyecto: avances, taller y presentaciones | `s20_proyecto.md` | |
 
 ## Requisitos
 
