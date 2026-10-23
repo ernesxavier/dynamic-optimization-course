@@ -1,4 +1,4 @@
-# Sesión 13: Varias variables de estado y de control. Notas formales
+# Sesión 13: Varias variables de estado y de control
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s13_varias_variables.jl`), después se formaliza

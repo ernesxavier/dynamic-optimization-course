@@ -1,4 +1,4 @@
-# Sesión 8: Estabilidad de sistemas no lineales. Notas formales
+# Sesión 8: Estabilidad de sistemas no lineales
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s08_estabilidad_no_lineal.jl`), después se formaliza

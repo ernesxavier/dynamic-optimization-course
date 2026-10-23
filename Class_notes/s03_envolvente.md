@@ -1,4 +1,4 @@
-# Sesión 3: Envolvente y estática comparativa. Notas formales
+# Sesión 3: Envolvente y estática comparativa
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s03_envolvente.jl`), después se formaliza aquí. El

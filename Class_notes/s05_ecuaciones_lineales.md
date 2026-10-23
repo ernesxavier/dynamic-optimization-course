@@ -1,4 +1,4 @@
-# Sesión 5: Ecuaciones diferenciales lineales de primer orden. Notas formales
+# Sesión 5: Ecuaciones diferenciales lineales de primer orden
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s05_ecuaciones_lineales.jl`), después se formaliza

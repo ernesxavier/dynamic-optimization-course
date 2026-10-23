@@ -1,4 +1,4 @@
-# Sesión 7: Sistemas de ecuaciones diferenciales y linealización. Notas formales
+# Sesión 7: Sistemas de ecuaciones diferenciales y linealización
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s07_sistemas_lineales.jl`), después se formaliza

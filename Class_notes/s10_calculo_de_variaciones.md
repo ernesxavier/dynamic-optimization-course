@@ -1,4 +1,4 @@
-# Sesión 10: Del cálculo de variaciones al Hamiltoniano. Notas formales
+# Sesión 10: Del cálculo de variaciones al Hamiltoniano
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s10_calculo_de_variaciones.jl`), después se formaliza

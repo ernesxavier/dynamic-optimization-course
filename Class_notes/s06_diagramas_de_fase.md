@@ -1,4 +1,4 @@
-# Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias. Notas formales
+# Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s06_diagramas_de_fase.jl`), después se formaliza

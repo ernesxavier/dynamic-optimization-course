@@ -1,4 +1,4 @@
-# Sesión 14: Caso completo: inversión entre dos regiones. Notas formales
+# Sesión 14: Caso completo: inversión entre dos regiones
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s14_dos_regiones.jl`), después se formaliza aquí.

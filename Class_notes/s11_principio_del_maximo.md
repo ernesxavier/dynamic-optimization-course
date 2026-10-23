@@ -1,4 +1,4 @@
-# Sesión 11: Principio del máximo. Notas formales
+# Sesión 11: Principio del máximo
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s11_principio_del_maximo.jl`), después se formaliza

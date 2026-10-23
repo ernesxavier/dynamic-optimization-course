@@ -1,4 +1,4 @@
-# Sesión 12: Horizonte infinito y descuento. Notas formales
+# Sesión 12: Horizonte infinito y descuento
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s12_ramsey.jl`), después se formaliza aquí. El

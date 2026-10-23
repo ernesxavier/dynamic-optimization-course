@@ -1,4 +1,4 @@
-# Sesión 2: Lagrange, concavidad y Kuhn-Tucker. Notas formales
+# Sesión 2: Lagrange, concavidad y Kuhn-Tucker
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s02_lagrange_kuhn_tucker.jl`), después se formaliza

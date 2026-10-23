@@ -1,4 +1,4 @@
-# Sesión 1: Por qué optimizar en el tiempo. Notas formales
+# Sesión 1: Por qué optimizar en el tiempo
 
 > **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
 > en el cuaderno (`Code/s01_optimizar_en_el_tiempo.jl`), después se formaliza
