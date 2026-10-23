@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 004d083c-ce41-11f1-9592-a167173271ff
+# ╔═╡ e2dcd26e-cf03-11f1-9cfe-bddfdcfa40f4
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,82 +31,64 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 004d0758-ce41-11f1-b276-a7a5d5e34223
+# ╔═╡ e2dcd0ae-cf03-11f1-a2cc-556b9871b55c
 md"""
 # Sesión 5: Ecuaciones diferenciales lineales de primer orden
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
 
-**Objetivos de la sesión**
-1. Resolver ``\dot y + ay = b`` y leer su solución como equilibrio más una
-   desviación que decae o crece.
-2. Decidir cuándo el equilibrio es estable y medir la velocidad de
-   convergencia con la vida media.
-3. Estimar la convergencia β entre las entidades de México con datos del
-   INEGI, y traducir la pendiente de la regresión a una velocidad.
-4. Distinguir la convergencia β de la σ, y reconocer un resultado engañoso.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s05_ecuaciones_lineales.md`.
+**Cómo usar este cuaderno.** En esta sesión **la clase sigue el cuaderno**:
+aquí se exploran los datos de las 32 entidades y se estima la convergencia.
+El pizarrón se usa para dos derivaciones, la de la ecuación lineal y la del
+paso del modelo a la regresión, que están completas en las notas,
+`Class_notes/s05_ecuaciones_lineales.md`. Cada sección dice en qué momento
+de la clase se usa y qué hacer. Pluto es reactivo: al mover un deslizador,
+todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s05_ecuaciones_lineales.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B3 (exponencial), D.B2
-y D.B3 (crecimiento exponencial y método de Euler), D.I1 (lineales de primer
-orden), E.B2 y E.B3 (tasas de crecimiento y mínimos cuadrados), E.I2 (error
-estándar) y N.I7 (datos en Julia). Para los puntos [Avanzado]: E.A1.
 """
 
-# ╔═╡ 004d078a-ce41-11f1-b190-b5a71fd1ddaf
+# ╔═╡ e2dcd0f4-cf03-11f1-992b-75392806d59e
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 004d0794-ce41-11f1-a5f7-c529cdbce5d0
+# ╔═╡ e2dcd112-cf03-11f1-b25a-0f9f69de6588
 md"""
 En escala logarítmica, la distancia vertical entre dos entidades es el
-logaritmo de su razón de ingresos. Si las brechas se cerraran, las líneas se
-juntarían. ¿Se juntan?
+logaritmo de su razón de ingresos.
 
-Para responder con precisión hace falta un modelo de cómo se cierra una
-brecha: ``\dot z = -\beta z``, con ``z`` la distancia (en logaritmos) al
-estado estacionario. Las secciones 1 y 2 lo resuelven; la 3 lo lleva a los
-datos.
+1. **Elige** tu entidad, o la de tu tesis. ¿Se acerca a la Ciudad de
+   México, se aleja o se mantiene?
+2. **Observa** el abanico gris: si las brechas se cerraran, las líneas se
+   juntarían. ¿Se juntan?
+3. ¿Qué haría falta para responder con precisión? Un modelo de cómo se
+   cierra una brecha: es lo que sigue en el pizarrón.
 """
 
-# ╔═╡ 004d079e-ce41-11f1-bcbb-df5bee2dbf22
+# ╔═╡ e2dcd11c-cf03-11f1-82c4-0d277667b4f2
 md"""
 ## 1. La exponencial: ``\dot y = ay``
 
-La solución es ``y(t) = y_0 e^{at}``: ``a`` es la tasa de crecimiento. Mueve
-``a`` y observa las trayectorias desde varias condiciones iniciales.
+*Minutos 30–38, después de las secciones 1 y 2 de las notas.* Soluciones
+desde varias condiciones iniciales.
 
 ``a``: $(@bind a_exp Slider(-0.5:0.05:0.5, default = -0.2, show_value = true))
 """
 
-# ╔═╡ 004d079e-ce41-11f1-83d6-6ba5f486be5c
+# ╔═╡ e2dcd130-cf03-11f1-82fc-557355515f2b
 md"""
-Con ``a < 0`` todas convergen a cero; con ``a > 0``, todas (salvo
-``y_0 = 0``) se alejan. La **vida media** de un decaimiento es
-``\ln 2/|a|``: el tiempo en que la distancia a cero se reduce a la mitad.
+**Mueve** ``a`` de negativo a positivo. **Observa:** ¿cuándo convergen todas
+las trayectorias y cuándo se alejan?
 """
 
-# ╔═╡ 004d07aa-ce41-11f1-9dfe-1bcd8f50d90e
+# ╔═╡ e2dcd138-cf03-11f1-b4ca-e95b2070cc52
 md"""
 ## 2. ``\dot y + ay = b``: equilibrio y estabilidad
 
-El **equilibrio** es ``y^\ast = b/a``, donde ``\dot y = 0``. La solución es
-
-```math
-y(t) = y^\ast + (y_0 - y^\ast)\,e^{-at}:
-```
-
-equilibrio más una desviación que decae si ``a > 0`` y crece si ``a < 0``.
-La curva azul es la solución exacta; los puntos naranjas, el **método de
-Euler** con paso ``\Delta t`` (D.B3).
+*Minutos 30–38.* La curva azul es la solución exacta (notas, 2.2); los
+puntos naranjas, el método de Euler con paso ``\Delta t``.
 
 ``a``: $(@bind a Slider(-0.3:0.05:1.0, default = 0.5, show_value = true))
 
@@ -117,7 +99,7 @@ Euler** con paso ``\Delta t`` (D.B3).
 Paso de Euler ``\Delta t``: $(@bind Δt Slider([0.05, 0.1, 0.25, 0.5, 1.0, 2.0], default = 0.5, show_value = true))
 """
 
-# ╔═╡ 004d07b2-ce41-11f1-b371-19cba9af0359
+# ╔═╡ e2dcd14e-cf03-11f1-a947-8dd2bce4727f
 let
     r(v) = round(v, digits = 2)
     texto = a > 0 ?
@@ -138,54 +120,49 @@ let
     md"""
     $(texto)
 
-    Agranda ``\Delta t``: con pasos grandes, Euler se aleja de la solución
-    exacta. Con ``a\,\Delta t > 1`` oscila alrededor del equilibrio, y con
-    ``a\,\Delta t > 2`` diverge, aunque la ecuación sea estable. La razón se
-    ve en tiempo discreto, en la sesión 6.
+    1. **Mueve** ``y_0`` y ``b``: ¿cambia la vida media?
+    2. **Mueve** ``a`` a un valor negativo: ¿qué pasa con el equilibrio?
+    3. Con ``a = 0.5``, **agranda** ``\Delta t`` hasta 2: ¿cuándo empieza
+       Euler a oscilar y cuándo diverge? La razón se ve en la sesión 6.
     """
 end
 
-# ╔═╡ 004d07b2-ce41-11f1-ac78-e91ebe89b0ea
+# ╔═╡ e2dcd158-cf03-11f1-965b-19c632e84eb1
 md"""
 ### Completa el código
+
+*Después de clase.*
 
 **1.** Escribe `solucion(a, b, y0, t)`, la solución de ``\dot y + ay = b``
 con ``y(0) = y_0`` y ``a \ne 0``.
 """
 
-# ╔═╡ 004d07bc-ce41-11f1-ab07-0d05e5db32be
+# ╔═╡ e2dcd162-cf03-11f1-80b7-ab209031d79f
 function solucion(a, b, y0, t)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 004d07c6-ce41-11f1-b26c-171d88abd653
+# ╔═╡ e2dcd176-cf03-11f1-9826-e5f1f53f8631
 md"""
 **2.** Escribe `vida_media(a)`, el tiempo en que la brecha con el equilibrio
 se reduce a la mitad, para ``a > 0``.
 """
 
-# ╔═╡ 004d07c6-ce41-11f1-a7ce-05d4607aecc0
+# ╔═╡ e2dcd180-cf03-11f1-9c8e-8b942d4e8831
 vida_media(a) = missing  # reemplaza missing
 
-# ╔═╡ 004d07d0-ce41-11f1-b4aa-d9c943c45a1c
+# ╔═╡ e2dcd194-cf03-11f1-af8e-4314ea8937ed
 md"""
 ## 3. Convergencia β con los datos de México
 
-Si la brecha de cada entidad con un estado estacionario común cumple
-``\dot z = -\beta z``, su crecimiento promedio entre ``0`` y ``T`` es una
-recta en el logaritmo del ingreso inicial (notas, sección 3.1):
-
-```math
-g_i = \frac{1}{T}\ln\frac{y_i(T)}{y_i(0)} = a + b\ln y_i(0),
-\qquad b = -\frac{1 - e^{-\beta T}}{T}.
-```
-
-Si ``b < 0``, las entidades que empezaron más pobres crecieron más rápido.
-La celda siguiente estima la recta por mínimos cuadrados (E.B3) y su error
-estándar (E.I2). Léela: es el tipo de código de las tareas.
+*Minutos 55–80, después de las secciones 3.1 y 3.2 de las notas.* Si la
+brecha de cada entidad cumple ``\dot z = -\beta z``, su crecimiento promedio
+es una recta en ``\ln y_i(0)``: ``g_i = a + b\ln y_i(0)``. La celda siguiente
+la estima por mínimos cuadrados (E.B3) con su error estándar (E.I2).
+**Léela con calma**: es el tipo de código de las tareas.
 """
 
-# ╔═╡ 004d07dc-ce41-11f1-b8b9-271fb40d8e3a
+# ╔═╡ e2dcd1a8-cf03-11f1-bec2-7d569960e0f0
 md"""
 Elige el periodo y si se incluye la extracción de petróleo.
 
@@ -196,9 +173,11 @@ Año final: $(@bind año1 Slider(2008:2023, default = 2023, show_value = true))
 Incluir el petróleo: $(@bind con_petroleo CheckBox(default = false))
 """
 
-# ╔═╡ 004d07f8-ce41-11f1-9e0b-1ba85015f46c
+# ╔═╡ e2dcd1d0-cf03-11f1-a018-f359a8bcb10c
 md"""
 ### Completa el código
+
+*Minutos 100–115, en parejas.*
 
 **3.** Escribe `pendiente_mco(x, y)`, la pendiente de mínimos cuadrados de
 ``y`` sobre ``x``, con la fórmula ``\hat b = \mathrm{Cov}(x, y)/\mathrm{Var}(x)``.
@@ -206,47 +185,39 @@ Usa `cov` y `var` del paquete Statistics. El verificador la compara con la
 pendiente de la celda de arriba.
 """
 
-# ╔═╡ 004d07f8-ce41-11f1-82d3-3fcb1ee72482
+# ╔═╡ e2dcd1dc-cf03-11f1-8acc-c324e5b469c0
 pendiente_mco(x, y) = missing  # reemplaza missing
 
-# ╔═╡ 004d0802-ce41-11f1-b1bd-d90209329c13
+# ╔═╡ e2dcd1ee-cf03-11f1-8696-859285b17ef0
 md"""
 **4.** Escribe `beta_de_pendiente(b, T)`, que traduzca la pendiente ``b`` a la
 velocidad de convergencia ``\beta`` (notas, sección 3.2).
 """
 
-# ╔═╡ 004d0802-ce41-11f1-bc90-694671ef98e7
+# ╔═╡ e2dcd1f8-cf03-11f1-b57b-b3bd7ed9a100
 beta_de_pendiente(b, T) = missing  # reemplaza missing
 
-# ╔═╡ 004d080e-ce41-11f1-9752-632670fbc52a
+# ╔═╡ e2dcd20e-cf03-11f1-b287-1f78622cbfee
 md"""
 ## 4. Convergencia σ: ¿baja la dispersión?
 
-La convergencia β dice que las entidades pobres crecen más rápido. La
-**convergencia σ** pregunta otra cosa: si la dispersión de los ingresos,
-la desviación estándar de ``\ln y_i`` entre entidades, baja con el tiempo.
+*Minutos 80–90* (notas, 3.4). La desviación estándar de ``\ln y_i`` entre
+entidades, año por año, sin y con petróleo.
 """
 
-# ╔═╡ 004d0816-ce41-11f1-bad9-7f7881f9a420
+# ╔═╡ e2dcd220-cf03-11f1-aeaf-cb7e923b7c60
 md"""
-- **Sin petróleo**, la dispersión subió de 0.38 en 2003 a 0.41 en 2019 y
-  terminó en 0.40: no hay convergencia σ. Es coherente con ``\hat b \approx 0``.
-- **Con petróleo**, la dispersión baja, pero sólo porque Campeche, que
-  empezó muy arriba, cayó. No es que las entidades pobres alcancen a las
-  ricas.
-
-**Conclusión.** Entre 2003 y 2023, las brechas entre las entidades de México
-no se cerraron solas. Ésa es la motivación del curso: si esperar no basta,
-¿cómo debe invertir un gobierno entre regiones?
+1. **Observa** la curva sin petróleo: ¿la dispersión baja, sube o se
+   mantiene? ¿Es coherente con la pendiente de la sección 3?
+2. **Compara** con la curva con petróleo: ¿por qué baja? ¿Significa que las
+   entidades pobres alcanzan a las ricas?
 """
 
-# ╔═╡ 004d0820-ce41-11f1-ae0d-cdccaae250a4
+# ╔═╡ e2dcd240-cf03-11f1-98e0-5f57ee23b556
 md"""
 ## 6. [Avanzado] Convergencia β sin convergencia σ
 
-La falacia de Galton (notas, P.2): con choques nuevos cada periodo, puede
-haber ``b < 0`` sin que la dispersión baje. La simulación genera 32 regiones
-con brechas iniciales ``z_{i,0}`` y las mueve con
+*Fuera de clase* (notas, P.2). 32 regiones simuladas con
 ``z_{i,T} = \rho\, z_{i,0} + \varepsilon_i``.
 
 ``\rho``: $(@bind ρ Slider(0.5:0.05:1.0, default = 0.8, show_value = true))
@@ -254,29 +225,19 @@ con brechas iniciales ``z_{i,0}`` y las mueve con
 Desviación estándar de los choques ``\sigma_\varepsilon``: $(@bind σε Slider(0.0:0.05:0.5, default = 0.25, show_value = true))
 """
 
-# ╔═╡ 004d082a-ce41-11f1-a5d6-e59538293083
+# ╔═╡ e2dcd252-cf03-11f1-8286-35e357a97311
 md"""
-Con ``\rho < 1`` la pendiente es negativa: hay convergencia β. Pero sube
-``\sigma_\varepsilon`` hasta que ``\sigma_T`` iguale o supere a
-``\sigma_0``: la dispersión no baja. Por eso se revisan las dos
-convergencias.
+**Mueve** ``\sigma_\varepsilon`` hacia arriba con ``\rho = 0.8``.
+**Observa:** la pendiente sigue negativa (convergencia β), pero ¿en qué
+momento deja de bajar la dispersión (``\sigma_T \ge \sigma_0``)?
 """
 
-# ╔═╡ 004d0834-ce41-11f1-96b6-3f96af460205
+# ╔═╡ e2dcd25c-cf03-11f1-8032-5fee8f0212f6
 md"""
-## Resumen
-
-| Concepto | Qué dice | En los datos de México, 2003–2023 |
-|---|---|---|
-| Equilibrio | ``y^\ast = b/a`` | — |
-| Solución | ``y(t) = y^\ast + (y_0 - y^\ast)e^{-at}`` | — |
-| Estabilidad | Estable si y sólo si ``a > 0`` | — |
-| Vida media | ``\ln 2/a`` | — |
-| Convergencia β | ``b < 0`` en ``g_i = a + b\ln y_i(0)``; ``\beta = -\ln(1 + bT)/T`` | Sin petróleo, ``\hat b \approx 0`` |
-| Convergencia σ | La dispersión de ``\ln y_i`` baja | Sin petróleo, sube un poco |
-| Datos engañosos | Una región que cae desde arriba simula convergencia | Campeche con petróleo |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 7).
 
 ### Interpretación
 
@@ -304,9 +265,6 @@ md"""
 10. Agrega a la regresión una variable que aproxime el estado estacionario
     de cada entidad (por ejemplo, la región del país) y estima la
     convergencia condicional. ¿Cambia ``\hat b``?
-11. En la sección 6, encuentra la ``\sigma_\varepsilon`` con la que la
-    dispersión se mantiene constante (notas, ejercicio F7) y compárala con
-    la simulación.
 
 ## Para la próxima sesión
 
@@ -317,7 +275,7 @@ md"""
 - Repaso: D.I4 (puntos fijos y diagramas de fase) y A.B2 (sucesiones).
 """
 
-# ╔═╡ 004d083c-ce41-11f1-903e-c1daa61ce9d7
+# ╔═╡ e2dcd266-cf03-11f1-8cf8-41c9bb065b5e
 md"""
 ---
 ## Apéndice: paquetes, datos y funciones auxiliares
@@ -326,7 +284,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 004d0848-ce41-11f1-8d6c-9980463fce5a
+# ╔═╡ e2dcd27a-cf03-11f1-8146-db382a218fa7
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie, recta ajustada
@@ -334,7 +292,7 @@ begin
     const TINTA   = "#0b0b0b"   # valor elegido
 end;
 
-# ╔═╡ 004d079e-ce41-11f1-b2e8-0d9f1e08f9ea
+# ╔═╡ e2dcd126-cf03-11f1-9b29-3d4bccb8d6c7
 let
     t = range(0, 10, length = 200)
     p = plot(; xlabel = "t", ylabel = "y(t)", ylims = (-3, 3),
@@ -345,7 +303,7 @@ let
     hline!(p, [0]; color = GRIS, ls = :dash, lw = 1)
 end
 
-# ╔═╡ 004d082a-ce41-11f1-a8c6-93e39964c760
+# ╔═╡ e2dcd248-cf03-11f1-89a7-75b5ed9619c4
 let
     z0 = 0.4 .* randn(Xoshiro(1), 32)
     zT = ρ .* z0 .+ σε .* randn(Xoshiro(2), 32)
@@ -357,11 +315,11 @@ let
     plot!(p, [-1, 1], pend .* [-1, 1]; color = NARANJA, lw = 2)
 end
 
-# ╔═╡ 004d0848-ce41-11f1-b495-0797ab967d29
+# ╔═╡ e2dcd284-cf03-11f1-b963-3fd7b946e854
 "Nombre corto de una entidad (sin \"de Zaragoza\", \"de Ignacio de la Llave\", etc.)."
 nombre_corto(n) = replace(n, r" de (Zaragoza|Ocampo|Ignacio de la Llave)$" => "")
 
-# ╔═╡ 004d07dc-ce41-11f1-951b-a52e0bf4c662
+# ╔═╡ e2dcd19e-cf03-11f1-9469-09f9d4a71116
 function estimar_convergencia(datos, año0, año1; con_petroleo = false)
     columna = con_petroleo ? :pibpc_total : :pibpc
     inicio = sort(filter(:año => ==(año0), datos), :clave)
@@ -376,7 +334,7 @@ function estimar_convergencia(datos, año0, año1; con_petroleo = false)
     (; x, g, nombres = nombre_corto.(inicio.entidad), T, a, b, se, r2 = cor(x, g)^2)
 end
 
-# ╔═╡ 004d0848-ce41-11f1-aef6-87e20cb3b5ad
+# ╔═╡ e2dcd28e-cf03-11f1-8b37-c7eea56a2ce9
 begin
     entidades = CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame)
     # PIB por persona en miles de pesos de 2018 (el PIB está en millones),
@@ -386,18 +344,18 @@ begin
     const ENTIDADES = sort(unique(zip(entidades.clave, entidades.entidad)))
 end;
 
-# ╔═╡ 004d078a-ce41-11f1-affe-d1a2c360fe10
+# ╔═╡ e2dcd0fe-cf03-11f1-bfda-fb5e19f94bc3
 md"""
 ## 0. La pregunta: ¿se acercan las entidades pobres a las ricas?
 
-La gráfica muestra el logaritmo del PIB per cápita sin petróleo de las 32
-entidades entre 2003 y 2023 (INEGI y OCDE, `Data/entidades.csv`). Elige una
-entidad para destacarla junto a la Ciudad de México y Chiapas.
+*Minutos 0–8.* El logaritmo del PIB per cápita sin petróleo de las 32
+entidades, 2003–2023 (INEGI y OCDE, `Data/entidades.csv`), con la Ciudad
+de México, Chiapas y una entidad a elegir.
 
 Entidad: $(@bind clave_elegida Select([c => nombre_corto(n) for (c, n) in ENTIDADES]; default = 19))
 """
 
-# ╔═╡ 004d0794-ce41-11f1-95e4-b75a775abbec
+# ╔═╡ e2dcd106-cf03-11f1-a77b-2585d10dbb47
 let
     p = plot(; xlabel = "año", ylabel = "ln PIB per cápita (miles de pesos de 2018)",
              title = "Las 32 entidades, sin petróleo", legend = :outerright, size = (720, 360))
@@ -411,10 +369,10 @@ let
     p
 end
 
-# ╔═╡ 004d07e4-ce41-11f1-b594-d5ef17f6fae5
+# ╔═╡ e2dcd1b2-cf03-11f1-926e-534d8222f420
 convergencia = estimar_convergencia(entidades, año0, max(año1, año0 + 5); con_petroleo)
 
-# ╔═╡ 004d07e4-ce41-11f1-a054-a51d70c900c4
+# ╔═╡ e2dcd1bc-cf03-11f1-aaa7-afaf46b63a28
 let
     c = convergencia
     p = scatter(c.x, 100 .* c.g; color = AZUL, ms = 5, msw = 0, alpha = 0.8,
@@ -431,7 +389,7 @@ let
     p
 end
 
-# ╔═╡ 004d07ee-ce41-11f1-bbad-9757c02f2ca0
+# ╔═╡ e2dcd1c6-cf03-11f1-859c-1ddca388f277
 let
     c = convergencia
     r(v, d = 4) = round(v, digits = d)
@@ -458,14 +416,18 @@ let
 
     $(lectura)
 
-    **Prueba.** Marca *Incluir el petróleo*. La pendiente se vuelve claramente
-    negativa. ¿Qué entidad la produce? Busca a Campeche en la gráfica: en
-    2003 tenía el mayor PIB per cápita del país por la extracción de
-    petróleo, y para 2023 había caído a menos de la mitad.
+    1. **Lee** la tabla para 2003–2023 sin petróleo: ¿hay convergencia? ¿Qué
+       dice el intervalo?
+    2. **Cambia** el periodo a 2003–2013 y a 2013–2023. ¿Cambia la
+       conclusión? ¿Y si el periodo termina en 2020?
+    3. **Marca** *Incluir el petróleo*. La pendiente se vuelve negativa:
+       ¿qué entidad la produce? Búscala en la gráfica.
+    4. Si las entidades tuvieran estados estacionarios distintos, ¿qué
+       mediría esta regresión? (Notas, 3.3.)
     """
 end
 
-# ╔═╡ 004d080e-ce41-11f1-9045-735cff02c01d
+# ╔═╡ e2dcd216-cf03-11f1-b605-077dbde0be89
 let
     σ = combine(groupby(entidades, :año), :pibpc => (y -> std(log.(y))) => :sin,
                 :pibpc_total => (y -> std(log.(y))) => :con)
@@ -476,27 +438,26 @@ let
           label = "con petróleo")
 end
 
-# ╔═╡ 004d0852-ce41-11f1-afce-2b2e3b0415b6
+# ╔═╡ e2dcd298-cf03-11f1-b6c0-9fbb6bca6e62
 # Razón del PIB per cápita sin petróleo de la Ciudad de México (9) y Chiapas (7) en 2023
 const RAZON_2023 = let
     y(c) = only(filter(r -> r.clave == c && r.año == 2023, entidades).pibpc)
     y(9) / y(7)
 end
 
-# ╔═╡ 004d0816-ce41-11f1-a3b4-0b94e65743b1
+# ╔═╡ e2dcd220-cf03-11f1-a854-6f7301f9612c
 md"""
 ## 5. ¿Cuánto tardaría en cerrarse la brecha?
 
-En 2023, el PIB per cápita sin petróleo de la Ciudad de México era
-$(round(RAZON_2023, digits = 1)) veces el de Chiapas. Si las dos fueran al
-mismo estado estacionario con velocidad ``\beta``, la brecha en logaritmos
-cumpliría ``z(t) = z_0 e^{-\beta t}``, y la razón de ingresos sería
-``e^{z(t)}``. La línea punteada marca una razón de 2.
+*Minutos 90–100.* En 2023, el PIB per cápita sin petróleo de la Ciudad de
+México era $(round(RAZON_2023, digits = 1)) veces el de Chiapas. Si las dos
+fueran al mismo estado estacionario con velocidad ``\beta``, la razón sería
+``e^{z_0e^{-\beta t}}``; la línea punteada marca una razón de 2.
 
 ``\beta``: $(@bind β_sim Slider(0.0025:0.0025:0.05, default = 0.02, show_value = true))
 """
 
-# ╔═╡ 004d0820-ce41-11f1-9f9f-bd194f957df7
+# ╔═╡ e2dcd22a-cf03-11f1-9e30-9dbeb92594f0
 let
     t = range(0, 150, length = 300)
     z0 = log(RAZON_2023)
@@ -509,22 +470,25 @@ let
     p
 end
 
-# ╔═╡ 004d0820-ce41-11f1-97fd-8f3be24176f7
+# ╔═╡ e2dcd234-cf03-11f1-a3e7-3980e61d9031
 let
     años = round(Int, log(log(RAZON_2023) / log(2)) / β_sim)
     md"""
-    Con ``\beta`` = $(β_sim), la razón bajaría a 2 en unos $(años) años. Con la "regla del 2%"
-    de Barro y Sala-i-Martin, tomaría medio siglo; con la ``\beta`` que se
-    estima sin petróleo, prácticamente nunca. Y esto suponiendo un estado
-    estacionario común (convergencia absoluta), que los datos no apoyan.
+    Con ``\beta`` = $(β_sim), la razón bajaría a 2 en unos $(años) años.
+
+    1. **Pon** ``\beta = 0.02``, la "regla del 2%" de Barro y Sala-i-Martin:
+       ¿cuántos años tomaría?
+    2. **Baja** ``\beta`` al mínimo, cerca de la que se estima sin petróleo:
+       ¿y ahora?
+    3. ¿Qué supuesto de este cálculo no apoyan los datos?
     """
 end
 
-# ╔═╡ 004d0852-ce41-11f1-bd0b-154e61367841
+# ╔═╡ e2dcd2a0-cf03-11f1-82bf-2f76c2cedcb4
 "Solución de ẏ + ay = b con y(0) = y0, para a ≠ 0."
 solucion_ref(a, b, y0, t) = a == 0 ? y0 + b * t : b / a + (y0 - b / a) * exp(-a * t)
 
-# ╔═╡ 004d085c-ce41-11f1-9211-93e21b446716
+# ╔═╡ e2dcd2a0-cf03-11f1-82c7-1b1c1045a472
 "Método de Euler para ẏ = b − ay: devuelve los tiempos y los valores."
 function euler_lineal(a, b, y0, Δt, tmax)
     n = round(Int, tmax / Δt)
@@ -536,7 +500,7 @@ function euler_lineal(a, b, y0, Δt, tmax)
     (0:n) .* Δt, y
 end
 
-# ╔═╡ 004d07aa-ce41-11f1-8a3b-3f5d7f4ac490
+# ╔═╡ e2dcd144-cf03-11f1-ac75-758c1a9027a9
 let
     tmax = 12
     t = range(0, tmax, length = 300)
@@ -552,11 +516,11 @@ let
     p
 end
 
-# ╔═╡ 004d085c-ce41-11f1-a3a2-2bdabcd3abbf
+# ╔═╡ e2dcd2ac-cf03-11f1-87c2-bdeebf70b8bb
 "Casos de prueba (a, b, y0, t) para la solución de ẏ + ay = b."
 const CASOS_EDO = [(0.5, 2.0, 1.0, 2.0), (0.05, 10.0, 100.0, 30.0), (-0.1, 1.0, 5.0, 4.0), (2.0, 0.0, 3.0, 0.5)]
 
-# ╔═╡ 004d085c-ce41-11f1-978d-9b49af24b120
+# ╔═╡ e2dcd2b6-cf03-11f1-91d7-01b3134c79bc
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -577,70 +541,70 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 004d07bc-ce41-11f1-9dcf-87cd45f9c253
+# ╔═╡ e2dcd16a-cf03-11f1-8615-51f79686e54e
 verificar(() -> [solucion(c...) for c in CASOS_EDO], [solucion_ref(c...) for c in CASOS_EDO];
           pista = md"Con `ystar = b / a`, la solución es `ystar + (y0 - ystar) * exp(-a * t)`.")
 
-# ╔═╡ 004d07d0-ce41-11f1-b6c1-2162b415974b
+# ╔═╡ e2dcd18a-cf03-11f1-be97-39dfc044ceb1
 verificar(() -> vida_media.([0.02, 0.05, 0.5]), log(2) ./ [0.02, 0.05, 0.5];
           pista = md"Resuelve ``e^{-at} = 1/2``: `vida_media(a) = log(2) / a`.")
 
-# ╔═╡ 004d07f8-ce41-11f1-967c-d964b74dc55a
+# ╔═╡ e2dcd1e4-cf03-11f1-a012-9be9a6f88349
 verificar(() -> pendiente_mco(convergencia.x, convergencia.g), convergencia.b;
           pista = md"`pendiente_mco(x, y) = cov(x, y) / var(x)`")
 
-# ╔═╡ 004d080e-ce41-11f1-9fb1-955731b3ceff
+# ╔═╡ e2dcd202-cf03-11f1-b6b8-47dc83800c2d
 verificar(() -> [beta_de_pendiente(-0.012, 20), beta_de_pendiente(-0.01, 20), beta_de_pendiente(-0.02, 10)],
           [-log(1 - 0.012 * 20) / 20, -log(0.8) / 20, -log(0.8) / 10];
           pista = md"Despeja ``\beta`` de ``b = -(1 - e^{-\beta T})/T``: `-log(1 + b * T) / T`.")
 
 # ╔═╡ Cell order:
-# ╟─004d0758-ce41-11f1-b276-a7a5d5e34223
-# ╟─004d078a-ce41-11f1-b190-b5a71fd1ddaf
-# ╟─004d078a-ce41-11f1-affe-d1a2c360fe10
-# ╟─004d0794-ce41-11f1-95e4-b75a775abbec
-# ╟─004d0794-ce41-11f1-a5f7-c529cdbce5d0
-# ╟─004d079e-ce41-11f1-bcbb-df5bee2dbf22
-# ╟─004d079e-ce41-11f1-b2e8-0d9f1e08f9ea
-# ╟─004d079e-ce41-11f1-83d6-6ba5f486be5c
-# ╟─004d07aa-ce41-11f1-9dfe-1bcd8f50d90e
-# ╟─004d07aa-ce41-11f1-8a3b-3f5d7f4ac490
-# ╟─004d07b2-ce41-11f1-b371-19cba9af0359
-# ╟─004d07b2-ce41-11f1-ac78-e91ebe89b0ea
-# ╠═004d07bc-ce41-11f1-ab07-0d05e5db32be
-# ╟─004d07bc-ce41-11f1-9dcf-87cd45f9c253
-# ╟─004d07c6-ce41-11f1-b26c-171d88abd653
-# ╠═004d07c6-ce41-11f1-a7ce-05d4607aecc0
-# ╟─004d07d0-ce41-11f1-b6c1-2162b415974b
-# ╟─004d07d0-ce41-11f1-b4aa-d9c943c45a1c
-# ╠═004d07dc-ce41-11f1-951b-a52e0bf4c662
-# ╟─004d07dc-ce41-11f1-b8b9-271fb40d8e3a
-# ╠═004d07e4-ce41-11f1-b594-d5ef17f6fae5
-# ╟─004d07e4-ce41-11f1-a054-a51d70c900c4
-# ╟─004d07ee-ce41-11f1-bbad-9757c02f2ca0
-# ╟─004d07f8-ce41-11f1-9e0b-1ba85015f46c
-# ╠═004d07f8-ce41-11f1-82d3-3fcb1ee72482
-# ╟─004d07f8-ce41-11f1-967c-d964b74dc55a
-# ╟─004d0802-ce41-11f1-b1bd-d90209329c13
-# ╠═004d0802-ce41-11f1-bc90-694671ef98e7
-# ╟─004d080e-ce41-11f1-9fb1-955731b3ceff
-# ╟─004d080e-ce41-11f1-9752-632670fbc52a
-# ╟─004d080e-ce41-11f1-9045-735cff02c01d
-# ╟─004d0816-ce41-11f1-bad9-7f7881f9a420
-# ╟─004d0816-ce41-11f1-a3b4-0b94e65743b1
-# ╟─004d0820-ce41-11f1-9f9f-bd194f957df7
-# ╟─004d0820-ce41-11f1-97fd-8f3be24176f7
-# ╟─004d0820-ce41-11f1-ae0d-cdccaae250a4
-# ╟─004d082a-ce41-11f1-a8c6-93e39964c760
-# ╟─004d082a-ce41-11f1-a5d6-e59538293083
-# ╟─004d0834-ce41-11f1-96b6-3f96af460205
-# ╟─004d083c-ce41-11f1-903e-c1daa61ce9d7
-# ╠═004d083c-ce41-11f1-9592-a167173271ff
-# ╠═004d0848-ce41-11f1-8d6c-9980463fce5a
-# ╠═004d0848-ce41-11f1-b495-0797ab967d29
-# ╠═004d0848-ce41-11f1-aef6-87e20cb3b5ad
-# ╠═004d0852-ce41-11f1-afce-2b2e3b0415b6
-# ╠═004d0852-ce41-11f1-bd0b-154e61367841
-# ╠═004d085c-ce41-11f1-9211-93e21b446716
-# ╠═004d085c-ce41-11f1-a3a2-2bdabcd3abbf
-# ╠═004d085c-ce41-11f1-978d-9b49af24b120
+# ╟─e2dcd0ae-cf03-11f1-a2cc-556b9871b55c
+# ╟─e2dcd0f4-cf03-11f1-992b-75392806d59e
+# ╟─e2dcd0fe-cf03-11f1-bfda-fb5e19f94bc3
+# ╟─e2dcd106-cf03-11f1-a77b-2585d10dbb47
+# ╟─e2dcd112-cf03-11f1-b25a-0f9f69de6588
+# ╟─e2dcd11c-cf03-11f1-82c4-0d277667b4f2
+# ╟─e2dcd126-cf03-11f1-9b29-3d4bccb8d6c7
+# ╟─e2dcd130-cf03-11f1-82fc-557355515f2b
+# ╟─e2dcd138-cf03-11f1-b4ca-e95b2070cc52
+# ╟─e2dcd144-cf03-11f1-ac75-758c1a9027a9
+# ╟─e2dcd14e-cf03-11f1-a947-8dd2bce4727f
+# ╟─e2dcd158-cf03-11f1-965b-19c632e84eb1
+# ╠═e2dcd162-cf03-11f1-80b7-ab209031d79f
+# ╟─e2dcd16a-cf03-11f1-8615-51f79686e54e
+# ╟─e2dcd176-cf03-11f1-9826-e5f1f53f8631
+# ╠═e2dcd180-cf03-11f1-9c8e-8b942d4e8831
+# ╟─e2dcd18a-cf03-11f1-be97-39dfc044ceb1
+# ╟─e2dcd194-cf03-11f1-af8e-4314ea8937ed
+# ╠═e2dcd19e-cf03-11f1-9469-09f9d4a71116
+# ╟─e2dcd1a8-cf03-11f1-bec2-7d569960e0f0
+# ╠═e2dcd1b2-cf03-11f1-926e-534d8222f420
+# ╟─e2dcd1bc-cf03-11f1-aaa7-afaf46b63a28
+# ╟─e2dcd1c6-cf03-11f1-859c-1ddca388f277
+# ╟─e2dcd1d0-cf03-11f1-a018-f359a8bcb10c
+# ╠═e2dcd1dc-cf03-11f1-8acc-c324e5b469c0
+# ╟─e2dcd1e4-cf03-11f1-a012-9be9a6f88349
+# ╟─e2dcd1ee-cf03-11f1-8696-859285b17ef0
+# ╠═e2dcd1f8-cf03-11f1-b57b-b3bd7ed9a100
+# ╟─e2dcd202-cf03-11f1-b6b8-47dc83800c2d
+# ╟─e2dcd20e-cf03-11f1-b287-1f78622cbfee
+# ╟─e2dcd216-cf03-11f1-b605-077dbde0be89
+# ╟─e2dcd220-cf03-11f1-aeaf-cb7e923b7c60
+# ╟─e2dcd220-cf03-11f1-a854-6f7301f9612c
+# ╟─e2dcd22a-cf03-11f1-9e30-9dbeb92594f0
+# ╟─e2dcd234-cf03-11f1-a3e7-3980e61d9031
+# ╟─e2dcd240-cf03-11f1-98e0-5f57ee23b556
+# ╟─e2dcd248-cf03-11f1-89a7-75b5ed9619c4
+# ╟─e2dcd252-cf03-11f1-8286-35e357a97311
+# ╟─e2dcd25c-cf03-11f1-8032-5fee8f0212f6
+# ╟─e2dcd266-cf03-11f1-8cf8-41c9bb065b5e
+# ╠═e2dcd26e-cf03-11f1-9cfe-bddfdcfa40f4
+# ╠═e2dcd27a-cf03-11f1-8146-db382a218fa7
+# ╠═e2dcd284-cf03-11f1-b963-3fd7b946e854
+# ╠═e2dcd28e-cf03-11f1-8b37-c7eea56a2ce9
+# ╠═e2dcd298-cf03-11f1-b6c0-9fbb6bca6e62
+# ╠═e2dcd2a0-cf03-11f1-82bf-2f76c2cedcb4
+# ╠═e2dcd2a0-cf03-11f1-82c7-1b1c1045a472
+# ╠═e2dcd2ac-cf03-11f1-87c2-bdeebf70b8bb
+# ╠═e2dcd2b6-cf03-11f1-91d7-01b3134c79bc

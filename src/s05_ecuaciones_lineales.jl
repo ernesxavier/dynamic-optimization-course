@@ -5,28 +5,17 @@ md"""
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
 
-**Objetivos de la sesión**
-1. Resolver ``\dot y + ay = b`` y leer su solución como equilibrio más una
-   desviación que decae o crece.
-2. Decidir cuándo el equilibrio es estable y medir la velocidad de
-   convergencia con la vida media.
-3. Estimar la convergencia β entre las entidades de México con datos del
-   INEGI, y traducir la pendiente de la regresión a una velocidad.
-4. Distinguir la convergencia β de la σ, y reconocer un resultado engañoso.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s05_ecuaciones_lineales.md`.
+**Cómo usar este cuaderno.** En esta sesión **la clase sigue el cuaderno**:
+aquí se exploran los datos de las 32 entidades y se estima la convergencia.
+El pizarrón se usa para dos derivaciones, la de la ecuación lineal y la del
+paso del modelo a la regresión, que están completas en las notas,
+`Class_notes/s05_ecuaciones_lineales.md`. Cada sección dice en qué momento
+de la clase se usa y qué hacer. Pluto es reactivo: al mover un deslizador,
+todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s05_ecuaciones_lineales.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B3 (exponencial), D.B2
-y D.B3 (crecimiento exponencial y método de Euler), D.I1 (lineales de primer
-orden), E.B2 y E.B3 (tasas de crecimiento y mínimos cuadrados), E.I2 (error
-estándar) y N.I7 (datos en Julia). Para los puntos [Avanzado]: E.A1.
 """
 
 #%% hide
@@ -36,9 +25,9 @@ TableOfContents(title = "Contenido")
 md"""
 ## 0. La pregunta: ¿se acercan las entidades pobres a las ricas?
 
-La gráfica muestra el logaritmo del PIB per cápita sin petróleo de las 32
-entidades entre 2003 y 2023 (INEGI y OCDE, `Data/entidades.csv`). Elige una
-entidad para destacarla junto a la Ciudad de México y Chiapas.
+*Minutos 0–8.* El logaritmo del PIB per cápita sin petróleo de las 32
+entidades, 2003–2023 (INEGI y OCDE, `Data/entidades.csv`), con la Ciudad
+de México, Chiapas y una entidad a elegir.
 
 Entidad: $(@bind clave_elegida Select([c => nombre_corto(n) for (c, n) in ENTIDADES]; default = 19))
 """
@@ -60,21 +49,22 @@ end
 #%% hide
 md"""
 En escala logarítmica, la distancia vertical entre dos entidades es el
-logaritmo de su razón de ingresos. Si las brechas se cerraran, las líneas se
-juntarían. ¿Se juntan?
+logaritmo de su razón de ingresos.
 
-Para responder con precisión hace falta un modelo de cómo se cierra una
-brecha: ``\dot z = -\beta z``, con ``z`` la distancia (en logaritmos) al
-estado estacionario. Las secciones 1 y 2 lo resuelven; la 3 lo lleva a los
-datos.
+1. **Elige** tu entidad, o la de tu tesis. ¿Se acerca a la Ciudad de
+   México, se aleja o se mantiene?
+2. **Observa** el abanico gris: si las brechas se cerraran, las líneas se
+   juntarían. ¿Se juntan?
+3. ¿Qué haría falta para responder con precisión? Un modelo de cómo se
+   cierra una brecha: es lo que sigue en el pizarrón.
 """
 
 #%% hide
 md"""
 ## 1. La exponencial: ``\dot y = ay``
 
-La solución es ``y(t) = y_0 e^{at}``: ``a`` es la tasa de crecimiento. Mueve
-``a`` y observa las trayectorias desde varias condiciones iniciales.
+*Minutos 30–38, después de las secciones 1 y 2 de las notas.* Soluciones
+desde varias condiciones iniciales.
 
 ``a``: $(@bind a_exp Slider(-0.5:0.05:0.5, default = -0.2, show_value = true))
 """
@@ -92,24 +82,16 @@ end
 
 #%% hide
 md"""
-Con ``a < 0`` todas convergen a cero; con ``a > 0``, todas (salvo
-``y_0 = 0``) se alejan. La **vida media** de un decaimiento es
-``\ln 2/|a|``: el tiempo en que la distancia a cero se reduce a la mitad.
+**Mueve** ``a`` de negativo a positivo. **Observa:** ¿cuándo convergen todas
+las trayectorias y cuándo se alejan?
 """
 
 #%% hide
 md"""
 ## 2. ``\dot y + ay = b``: equilibrio y estabilidad
 
-El **equilibrio** es ``y^\ast = b/a``, donde ``\dot y = 0``. La solución es
-
-```math
-y(t) = y^\ast + (y_0 - y^\ast)\,e^{-at}:
-```
-
-equilibrio más una desviación que decae si ``a > 0`` y crece si ``a < 0``.
-La curva azul es la solución exacta; los puntos naranjas, el **método de
-Euler** con paso ``\Delta t`` (D.B3).
+*Minutos 30–38.* La curva azul es la solución exacta (notas, 2.2); los
+puntos naranjas, el método de Euler con paso ``\Delta t``.
 
 ``a``: $(@bind a Slider(-0.3:0.05:1.0, default = 0.5, show_value = true))
 
@@ -157,16 +139,18 @@ let
     md"""
     $(texto)
 
-    Agranda ``\Delta t``: con pasos grandes, Euler se aleja de la solución
-    exacta. Con ``a\,\Delta t > 1`` oscila alrededor del equilibrio, y con
-    ``a\,\Delta t > 2`` diverge, aunque la ecuación sea estable. La razón se
-    ve en tiempo discreto, en la sesión 6.
+    1. **Mueve** ``y_0`` y ``b``: ¿cambia la vida media?
+    2. **Mueve** ``a`` a un valor negativo: ¿qué pasa con el equilibrio?
+    3. Con ``a = 0.5``, **agranda** ``\Delta t`` hasta 2: ¿cuándo empieza
+       Euler a oscilar y cuándo diverge? La razón se ve en la sesión 6.
     """
 end
 
 #%% hide
 md"""
 ### Completa el código
+
+*Después de clase.*
 
 **1.** Escribe `solucion(a, b, y0, t)`, la solución de ``\dot y + ay = b``
 con ``y(0) = y_0`` y ``a \ne 0``.
@@ -198,18 +182,11 @@ verificar(() -> vida_media.([0.02, 0.05, 0.5]), log(2) ./ [0.02, 0.05, 0.5];
 md"""
 ## 3. Convergencia β con los datos de México
 
-Si la brecha de cada entidad con un estado estacionario común cumple
-``\dot z = -\beta z``, su crecimiento promedio entre ``0`` y ``T`` es una
-recta en el logaritmo del ingreso inicial (notas, sección 3.1):
-
-```math
-g_i = \frac{1}{T}\ln\frac{y_i(T)}{y_i(0)} = a + b\ln y_i(0),
-\qquad b = -\frac{1 - e^{-\beta T}}{T}.
-```
-
-Si ``b < 0``, las entidades que empezaron más pobres crecieron más rápido.
-La celda siguiente estima la recta por mínimos cuadrados (E.B3) y su error
-estándar (E.I2). Léela: es el tipo de código de las tareas.
+*Minutos 55–80, después de las secciones 3.1 y 3.2 de las notas.* Si la
+brecha de cada entidad cumple ``\dot z = -\beta z``, su crecimiento promedio
+es una recta en ``\ln y_i(0)``: ``g_i = a + b\ln y_i(0)``. La celda siguiente
+la estima por mínimos cuadrados (E.B3) con su error estándar (E.I2).
+**Léela con calma**: es el tipo de código de las tareas.
 """
 
 #%%
@@ -285,16 +262,22 @@ let
 
     $(lectura)
 
-    **Prueba.** Marca *Incluir el petróleo*. La pendiente se vuelve claramente
-    negativa. ¿Qué entidad la produce? Busca a Campeche en la gráfica: en
-    2003 tenía el mayor PIB per cápita del país por la extracción de
-    petróleo, y para 2023 había caído a menos de la mitad.
+    1. **Lee** la tabla para 2003–2023 sin petróleo: ¿hay convergencia? ¿Qué
+       dice el intervalo?
+    2. **Cambia** el periodo a 2003–2013 y a 2013–2023. ¿Cambia la
+       conclusión? ¿Y si el periodo termina en 2020?
+    3. **Marca** *Incluir el petróleo*. La pendiente se vuelve negativa:
+       ¿qué entidad la produce? Búscala en la gráfica.
+    4. Si las entidades tuvieran estados estacionarios distintos, ¿qué
+       mediría esta regresión? (Notas, 3.3.)
     """
 end
 
 #%% hide
 md"""
 ### Completa el código
+
+*Minutos 100–115, en parejas.*
 
 **3.** Escribe `pendiente_mco(x, y)`, la pendiente de mínimos cuadrados de
 ``y`` sobre ``x``, con la fórmula ``\hat b = \mathrm{Cov}(x, y)/\mathrm{Var}(x)``.
@@ -327,9 +310,8 @@ verificar(() -> [beta_de_pendiente(-0.012, 20), beta_de_pendiente(-0.01, 20), be
 md"""
 ## 4. Convergencia σ: ¿baja la dispersión?
 
-La convergencia β dice que las entidades pobres crecen más rápido. La
-**convergencia σ** pregunta otra cosa: si la dispersión de los ingresos,
-la desviación estándar de ``\ln y_i`` entre entidades, baja con el tiempo.
+*Minutos 80–90* (notas, 3.4). La desviación estándar de ``\ln y_i`` entre
+entidades, año por año, sin y con petróleo.
 """
 
 #%% hide
@@ -345,26 +327,20 @@ end
 
 #%% hide
 md"""
-- **Sin petróleo**, la dispersión subió de 0.38 en 2003 a 0.41 en 2019 y
-  terminó en 0.40: no hay convergencia σ. Es coherente con ``\hat b \approx 0``.
-- **Con petróleo**, la dispersión baja, pero sólo porque Campeche, que
-  empezó muy arriba, cayó. No es que las entidades pobres alcancen a las
-  ricas.
-
-**Conclusión.** Entre 2003 y 2023, las brechas entre las entidades de México
-no se cerraron solas. Ésa es la motivación del curso: si esperar no basta,
-¿cómo debe invertir un gobierno entre regiones?
+1. **Observa** la curva sin petróleo: ¿la dispersión baja, sube o se
+   mantiene? ¿Es coherente con la pendiente de la sección 3?
+2. **Compara** con la curva con petróleo: ¿por qué baja? ¿Significa que las
+   entidades pobres alcanzan a las ricas?
 """
 
 #%% hide
 md"""
 ## 5. ¿Cuánto tardaría en cerrarse la brecha?
 
-En 2023, el PIB per cápita sin petróleo de la Ciudad de México era
-$(round(RAZON_2023, digits = 1)) veces el de Chiapas. Si las dos fueran al
-mismo estado estacionario con velocidad ``\beta``, la brecha en logaritmos
-cumpliría ``z(t) = z_0 e^{-\beta t}``, y la razón de ingresos sería
-``e^{z(t)}``. La línea punteada marca una razón de 2.
+*Minutos 90–100.* En 2023, el PIB per cápita sin petróleo de la Ciudad de
+México era $(round(RAZON_2023, digits = 1)) veces el de Chiapas. Si las dos
+fueran al mismo estado estacionario con velocidad ``\beta``, la razón sería
+``e^{z_0e^{-\beta t}}``; la línea punteada marca una razón de 2.
 
 ``\beta``: $(@bind β_sim Slider(0.0025:0.0025:0.05, default = 0.02, show_value = true))
 """
@@ -386,10 +362,13 @@ end
 let
     años = round(Int, log(log(RAZON_2023) / log(2)) / β_sim)
     md"""
-    Con ``\beta`` = $(β_sim), la razón bajaría a 2 en unos $(años) años. Con la "regla del 2%"
-    de Barro y Sala-i-Martin, tomaría medio siglo; con la ``\beta`` que se
-    estima sin petróleo, prácticamente nunca. Y esto suponiendo un estado
-    estacionario común (convergencia absoluta), que los datos no apoyan.
+    Con ``\beta`` = $(β_sim), la razón bajaría a 2 en unos $(años) años.
+
+    1. **Pon** ``\beta = 0.02``, la "regla del 2%" de Barro y Sala-i-Martin:
+       ¿cuántos años tomaría?
+    2. **Baja** ``\beta`` al mínimo, cerca de la que se estima sin petróleo:
+       ¿y ahora?
+    3. ¿Qué supuesto de este cálculo no apoyan los datos?
     """
 end
 
@@ -397,9 +376,7 @@ end
 md"""
 ## 6. [Avanzado] Convergencia β sin convergencia σ
 
-La falacia de Galton (notas, P.2): con choques nuevos cada periodo, puede
-haber ``b < 0`` sin que la dispersión baje. La simulación genera 32 regiones
-con brechas iniciales ``z_{i,0}`` y las mueve con
+*Fuera de clase* (notas, P.2). 32 regiones simuladas con
 ``z_{i,T} = \rho\, z_{i,0} + \varepsilon_i``.
 
 ``\rho``: $(@bind ρ Slider(0.5:0.05:1.0, default = 0.8, show_value = true))
@@ -421,27 +398,17 @@ end
 
 #%% hide
 md"""
-Con ``\rho < 1`` la pendiente es negativa: hay convergencia β. Pero sube
-``\sigma_\varepsilon`` hasta que ``\sigma_T`` iguale o supere a
-``\sigma_0``: la dispersión no baja. Por eso se revisan las dos
-convergencias.
+**Mueve** ``\sigma_\varepsilon`` hacia arriba con ``\rho = 0.8``.
+**Observa:** la pendiente sigue negativa (convergencia β), pero ¿en qué
+momento deja de bajar la dispersión (``\sigma_T \ge \sigma_0``)?
 """
 
 #%% hide
 md"""
-## Resumen
-
-| Concepto | Qué dice | En los datos de México, 2003–2023 |
-|---|---|---|
-| Equilibrio | ``y^\ast = b/a`` | — |
-| Solución | ``y(t) = y^\ast + (y_0 - y^\ast)e^{-at}`` | — |
-| Estabilidad | Estable si y sólo si ``a > 0`` | — |
-| Vida media | ``\ln 2/a`` | — |
-| Convergencia β | ``b < 0`` en ``g_i = a + b\ln y_i(0)``; ``\beta = -\ln(1 + bT)/T`` | Sin petróleo, ``\hat b \approx 0`` |
-| Convergencia σ | La dispersión de ``\ln y_i`` baja | Sin petróleo, sube un poco |
-| Datos engañosos | Una región que cae desde arriba simula convergencia | Campeche con petróleo |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 7).
 
 ### Interpretación
 
@@ -469,9 +436,6 @@ md"""
 10. Agrega a la regresión una variable que aproxime el estado estacionario
     de cada entidad (por ejemplo, la región del país) y estima la
     convergencia condicional. ¿Cambia ``\hat b``?
-11. En la sección 6, encuentra la ``\sigma_\varepsilon`` con la que la
-    dispersión se mantiene constante (notas, ejercicio F7) y compárala con
-    la simulación.
 
 ## Para la próxima sesión
 

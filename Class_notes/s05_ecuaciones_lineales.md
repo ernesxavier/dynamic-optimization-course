@@ -1,10 +1,14 @@
 # Sesión 5: Ecuaciones diferenciales lineales de primer orden
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s05_ecuaciones_lineales.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** Ésta es una sesión con datos: la clase sigue
+> el **cuaderno** (`Code/s05_ecuaciones_lineales.jl`), donde se exploran los
+> datos y se hacen las estimaciones. El pizarrón se usa para las dos
+> derivaciones que el cuaderno necesita (la ecuación lineal y el paso del
+> modelo a la regresión); estas notas las tienen completas, junto con la
+> lectura de los resultados y los ejercicios. El **plan de clase** de abajo
+> dice qué se hace en cada momento. El cuerpo de las notas es la **ruta
+> básica** y se evalúa; las demostraciones y los temas opcionales están al
+> final, en **Para profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (exponencial y
 > logaritmo), [D.B1–B4](repaso/ecuaciones_diferenciales.md#db1) (ecuaciones
@@ -18,6 +22,22 @@
 >
 > Lecturas: Chiang y Wainwright (2006), cap. 15; Barro y Sala-i-Martin
 > (1992). Para el caso de México: Barceinas y Raymond (2005).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–8 | Cuaderno | La pregunta: las 32 entidades, 2003–2023 | 0; cuaderno, sección 0 |
+| 8–30 | Pizarra | $\dot y = ay$ y $\dot y + ay = b$: equilibrio, solución, estabilidad y vida media; el ejemplo del capital | 1, 2.1–2.4 |
+| 30–38 | Cuaderno | Las dos ecuaciones con deslizadores; el método de Euler con pasos grandes | Cuaderno, secciones 1 y 2 |
+| 38–50 | Pizarra | Del modelo a la regresión; de la pendiente a la velocidad | 3.1, 3.2 |
+| 50–55 | | Pausa | |
+| 55–80 | Cuaderno | Leer la función que estima la convergencia; estimar sin y con petróleo y en otros periodos; convergencia absoluta y condicional, de palabra | Cuaderno, sección 3; notas, 3.3 y 4 |
+| 80–90 | Cuaderno | Convergencia σ | Cuaderno, sección 4; notas, 3.4 |
+| 90–100 | Cuaderno | ¿Cuánto tardaría en cerrarse la brecha? | Cuaderno, sección 5 |
+| 100–115 | Parejas, en el cuaderno | Ejercicios de código 3 y 4 | Cuaderno, ejercicios |
+| 115–120 | Pizarra | Cierre: qué dicen los datos; entrega de la Tarea 1 | 4 |
+| Después | Lectura | Simular (2.5), la lectura completa de los resultados de México (4), el resumen (6), Para profundizar y Barceinas y Raymond (2005) | |
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -93,6 +113,8 @@ Un **equilibrio** (o estado estacionario) es un valor $y^\ast$ en el que
 $y$ deja de moverse: $\dot y = 0$. Aquí,
 
 $$
+\dot y = b - ay^\ast = 0
+\quad\Longrightarrow\quad
 y^\ast = \frac{b}{a}.
 $$
 
@@ -101,7 +123,7 @@ $$
 **Proposición.** La solución con $y(0) = y_0$ es
 
 $$
-y(t) = y^\ast + (y_0 - y^\ast)\thinspace e^{-at}.
+\boxed{\ y(t) = y^\ast + (y_0 - y^\ast)\thinspace e^{-at}\ }
 $$
 
 *Demostración.* La **desviación** $z = y - y^\ast$ cumple
@@ -134,8 +156,8 @@ Cuando el equilibrio es estable, $a$ mide la **velocidad de convergencia**:
 |---|---|
 | Fracción de la brecha que queda en $t$ | $e^{-at}$ |
 | Fracción que se cierra en $t$ | $1 - e^{-at}$ |
-| Vida media de la brecha | $\ln 2/a$ |
-| Tiempo para cerrar el 90% | $\ln 10/a$ |
+| Vida media de la brecha | $\ln 2/a$ (de $e^{-at} = 1/2$) |
+| Tiempo para cerrar el 90% | $\ln 10/a$ (de $e^{-at} = 1/10$) |
 
 La velocidad no depende del tamaño de la brecha: en cada instante se cierra
 la misma **fracción**. Una brecha el doble de grande se cierra el doble de
@@ -179,12 +201,22 @@ diferencias**, el tema de la sesión 6.
 Supón que el ingreso de estado estacionario crece a una tasa $x$ común a
 todas las regiones, $\ln y^\ast(t) = \ln y_0^\ast + xt$, y que la brecha
 $z_i = \ln y_i - \ln y^\ast$ de cada región $i$ cumple $\dot z_i = -\beta z_i$.
-Entonces $z_i(T) = e^{-\beta T}z_i(0)$, y el **crecimiento promedio** de la
-región entre $0$ y $T$ es
+Entonces $z_i(T) = e^{-\beta T}z_i(0)$. Como $\ln y_i = \ln y^\ast + z_i$,
+el cambio del logaritmo del ingreso entre $0$ y $T$ es
+
+$$
+\begin{aligned}
+\ln y_i(T) - \ln y_i(0)
+&= \big(\ln y^\ast(T) - \ln y^\ast(0)\big) + \big(z_i(T) - z_i(0)\big) \cr
+&= xT + \big(e^{-\beta T} - 1\big)z_i(0) \cr
+&= xT - \big(1 - e^{-\beta T}\big)\big(\ln y_i(0) - \ln y_0^\ast\big).
+\end{aligned}
+$$
+
+Dividiendo entre $T$, el **crecimiento promedio** de la región es
 
 $$
 g_i = \frac{1}{T}\ln\frac{y_i(T)}{y_i(0)}
-= x + \frac{z_i(T) - z_i(0)}{T}
 = \underbrace{x + \frac{1 - e^{-\beta T}}{T}\ln y_0^\ast}_{a}\
 \underbrace{-\ \frac{1 - e^{-\beta T}}{T}}_{b}\ \ln y_i(0).
 $$
@@ -193,7 +225,7 @@ Es una recta en $\ln y_i(0)$. Con datos de muchas regiones se estima por
 mínimos cuadrados ([E.B3](repaso/estadistica.md#eb3)):
 
 $$
-g_i = a + b\ln y_i(0) + e_i.
+\boxed{\ g_i = a + b\ln y_i(0) + e_i\ }
 $$
 
 **Convergencia β**: $b < 0$, las regiones que empezaron más pobres crecen
@@ -201,10 +233,12 @@ más rápido.
 
 ### 3.2 De la pendiente a la velocidad
 
-La pendiente **no** es $-\beta$. Despejando de $b = -(1 - e^{-\beta T})/T$:
+La pendiente **no** es $-\beta$. Se despeja de $b = -(1 - e^{-\beta T})/T$:
 
 $$
-\beta = -\frac{\ln(1 + bT)}{T},
+bT = e^{-\beta T} - 1
+\iff e^{-\beta T} = 1 + bT
+\iff \boxed{\ \beta = -\frac{\ln(1 + bT)}{T}\ },
 \qquad
 \text{vida media} = \frac{\ln 2}{\beta}.
 $$
