@@ -309,8 +309,9 @@ opcional (SE 12).
 	  verificar el código (error contra la solución y contra el número de
 	  iteraciones). Después, crecimiento óptimo de una región con los
 	  parámetros calibrados en la sesión 12.
-	- Extensión opcional: el modelo de la sesión 14 en tiempo discreto.
-	- Lecturas: SS 5.2.2.
+	- Extensión opcional: la búsqueda de empleo de McCall sin final, con un
+	  estado discreto (salario de reserva y seguro de desempleo).
+	- Lecturas: SS 1.3 y 5.2.2.
 - **Sesión 18: Control óptimo frente a programación dinámica (flexible)**
 	- La ecuación de Euler en tiempo discreto, $u'(c_t) = \beta R\, u'(c_{t+1})$, y su
 	  relación con el principio del máximo.
