@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 995a761e-ce42-11f1-9ea0-07ca67242994
+# ╔═╡ d6392586-cf04-11f1-b8a2-df9d5df985af
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 995a7498-ce42-11f1-9cf2-49e833fe4d0f
+# ╔═╡ d63922fc-cf04-11f1-9fc0-c1a20816f875
 md"""
 # Sesión 4: Laboratorio 0. Julia, Pluto.jl y Symbolics.jl
 
@@ -57,6 +57,23 @@ clic en el ojo que aparece a su izquierda. Los ejercicios con verificador
 dicen **Pendiente** hasta que reemplazas `missing` por tu código. Las
 secciones marcadas **[Avanzado]** son opcionales.
 
+**Plan del laboratorio** (120 minutos). Cada bloque empieza con 3 a 5
+minutos de demostración en el proyector; después cada quien trabaja en su
+cuaderno.
+
+| Minutos | Qué | Sección |
+|---|---|---|
+| 0–10 | Verificar que el entorno funciona; resolver lo que falte | 0 |
+| 10–30 | Julia en cinco minutos y «Tu turno» | 1 |
+| 30–40 | Celdas reactivas de Pluto | 2 |
+| 40–50 | Gráficas con Plots.jl | 3 |
+| 50–55 | Punto flotante | 4 |
+| 55–60 | Pausa | |
+| 60–85 | Symbolics.jl: las condiciones de primer orden | 5 |
+| 85–115 | El reparto óptimo, ``V(B)`` y ``\lambda(B)`` | 6 |
+| 115–120 | Cierre y tarea de la semana | Para la próxima sesión |
+| Después | La sección [Avanzado] y las preguntas | 7, Preguntas |
+
 **Antes de la sesión.** Instala el entorno siguiendo el `README.md` del
 repositorio. Si el cuaderno abrió y la sección 0 muestra la tabla de
 versiones, todo funciona.
@@ -66,15 +83,15 @@ versiones, todo funciona.
 los puntos [Avanzado]: N.A4 (diferencias finitas).
 """
 
-# ╔═╡ 995a74de-ce42-11f1-9779-03ca1da5e82e
+# ╔═╡ d6392342-cf04-11f1-9ed7-e79e911d9991
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 995a74e8-ce42-11f1-842a-b50cdd6a0818
+# ╔═╡ d6392356-cf04-11f1-bad0-a1454c462c34
 md"""
 ## 0. ¿Funciona el entorno?
 """
 
-# ╔═╡ 995a74e8-ce42-11f1-8d13-51a41e2b4bf4
+# ╔═╡ d6392360-cf04-11f1-aa73-1305ac45970d
 md"""
 | Componente | Versión |
 |:---|:---|
@@ -87,7 +104,7 @@ Si ves esta tabla, el entorno del curso está instalado y los paquetes cargan.
 La primera vez tarda varios minutos; las siguientes, mucho menos.
 """
 
-# ╔═╡ 995a74f4-ce42-11f1-a8db-6d26e6c5f3c3
+# ╔═╡ d639236c-cf04-11f1-bf53-e36b17204d02
 md"""
 ## 1. Julia en cinco minutos
 
@@ -95,25 +112,25 @@ Una **función de una línea** se define como en papel. Ésta es el producto
 marginal de una región con productividad ``a`` cuando ya recibió ``x``:
 """
 
-# ╔═╡ 995a74f4-ce42-11f1-870e-695907b9946b
+# ╔═╡ d639236c-cf04-11f1-88b3-8524eb0d8428
 producto_marginal(a, x) = a / (1 + x)
 
-# ╔═╡ 995a74fc-ce42-11f1-b413-a599b6ab4fc4
+# ╔═╡ d6392374-cf04-11f1-834d-4918e4321208
 producto_marginal(2.0, 3.0)
 
-# ╔═╡ 995a74fc-ce42-11f1-a6bd-314a4a36a445
+# ╔═╡ d639237e-cf04-11f1-87c2-5780f81ceab1
 md"""
 Un **rango** es una sucesión de números igualmente espaciados, y el **punto**
 aplica una función a cada elemento (*broadcasting*):
 """
 
-# ╔═╡ 995a7506-ce42-11f1-a0e9-153fe587c0fb
+# ╔═╡ d6392388-cf04-11f1-b8aa-e7a3d0c76efa
 inversiones = 0:0.5:3
 
-# ╔═╡ 995a7506-ce42-11f1-8ef1-f540d0762a0d
+# ╔═╡ d6392392-cf04-11f1-80db-f38d09840aa3
 producto_marginal.(2.0, inversiones)
 
-# ╔═╡ 995a7506-ce42-11f1-8607-c12a9a273576
+# ╔═╡ d639239e-cf04-11f1-ad0e-4d90f50af017
 md"""
 Sin el punto, `producto_marginal(2.0, inversiones)` da error, porque dentro
 de la función se calcula `1 + inversiones`, y sumar un número a un rango no
@@ -122,35 +139,35 @@ aplica la función a cada elemento y evita el problema. Una **comprensión** con
 regla, y puede filtrar:
 """
 
-# ╔═╡ 995a7510-ce42-11f1-8123-f3cdb9c67e3f
+# ╔═╡ d63923a6-cf04-11f1-8100-57ac13ab4972
 [producto_marginal(2.0, x) for x in inversiones if x >= 1]
 
-# ╔═╡ 995a7510-ce42-11f1-80c1-430bcbec29ac
+# ╔═╡ d63923a6-cf04-11f1-9e1e-ebc32900c58b
 md"""
 Una **matriz** se escribe por filas, separadas con `;`. El operador `\`
 resuelve el sistema lineal ``Ax = b``, el mismo que en la sesión 3 se
 resolvía con la regla de Cramer:
 """
 
-# ╔═╡ 995a7510-ce42-11f1-91c7-7fec0948c3df
+# ╔═╡ d63923b0-cf04-11f1-916d-77048d6a2a0d
 A = [2 1; 1 3]
 
-# ╔═╡ 995a751a-ce42-11f1-8873-33c951b35a9f
+# ╔═╡ d63923ba-cf04-11f1-a017-7b2c88e5ae3e
 A \ [5, 5]
 
-# ╔═╡ 995a7526-ce42-11f1-a59d-750d6c980282
+# ╔═╡ d63923ba-cf04-11f1-bbb1-3bb35e8f5e64
 md"""
 Una **tupla con nombres** agrupa los parámetros de un modelo. Las letras con
 subíndice se escriben como en LaTeX: `a\_1` y Tab da `a₁`.
 """
 
-# ╔═╡ 995a7526-ce42-11f1-8199-ab192cf4710c
+# ╔═╡ d63923c4-cf04-11f1-820f-cfadf2678c80
 parametros = (a₁ = 2.0, a₂ = 1.0, B = 4.0)
 
-# ╔═╡ 995a752e-ce42-11f1-b5f8-9551a1a63825
+# ╔═╡ d63923cc-cf04-11f1-93da-179127c74a9f
 parametros.a₁ / parametros.a₂ - 1
 
-# ╔═╡ 995a752e-ce42-11f1-8c99-bdc78bfcad90
+# ╔═╡ d63923d8-cf04-11f1-a972-3791932fb80d
 md"""
 ### Tu turno
 
@@ -159,10 +176,10 @@ regiones: ``a_1\ln(1 + x_1) + a_2\ln(1 + x_2)``. En Julia, el logaritmo
 natural es `log`.
 """
 
-# ╔═╡ 995a7538-ce42-11f1-9f4a-739d460067c5
+# ╔═╡ d63923ec-cf04-11f1-b27d-c1c8276e1341
 producto_total(x1, x2, a1, a2) = missing  # reemplaza missing
 
-# ╔═╡ 995a7542-ce42-11f1-8319-596cdb971e1a
+# ╔═╡ d63923f6-cf04-11f1-bfd9-53550a44a0a7
 md"""
 **2.** Con ``a_1 = 2``, ``a_2 = 1`` y ``B = 4``, la región 1 recibe
 ``x_1 = 0, 1, 2, 3, 4`` y la región 2 recibe el resto, ``4 - x_1``. Calcula
@@ -171,10 +188,10 @@ broadcasting o con una comprensión, y guárdalo en `productos`. ¿Cuál es el
 mejor de los cinco?
 """
 
-# ╔═╡ 995a7542-ce42-11f1-b941-a5cfb459fd86
+# ╔═╡ d63923fe-cf04-11f1-b88c-991778f475f3
 productos = missing  # reemplaza missing
 
-# ╔═╡ 995a754c-ce42-11f1-b8c7-3998e3c1d82f
+# ╔═╡ d6392414-cf04-11f1-b32c-519ec28a4b4f
 md"""
 ## 2. Pluto: celdas reactivas
 
@@ -203,16 +220,16 @@ todo lo que depende de ella se recalcula:
 ``a_2`` (productividad de la región 2): $(@bind a2 Slider(0.2:0.1:1.0, default = 1.0, show_value = true))
 """
 
-# ╔═╡ 995a7554-ce42-11f1-b917-456ef814756f
+# ╔═╡ d639241e-cf04-11f1-befa-1b02e6dd7688
 md"El primer peso invertido en la región 1 rinde $(producto_marginal(a1, 0)); en la región 2, $(producto_marginal(a2, 0))."
 
-# ╔═╡ 995a7554-ce42-11f1-8d7d-d9f9d06eacfb
+# ╔═╡ d639241e-cf04-11f1-b63c-e9e4f2fd64a9
 md"""
 La celda anterior es Markdown con valores interpolados con `$( … )`. Así se
 escriben los textos que cambian con los deslizadores.
 """
 
-# ╔═╡ 995a7554-ce42-11f1-bb34-292f61173ed4
+# ╔═╡ d6392428-cf04-11f1-9309-6367d9072191
 md"""
 ## 3. Gráficas con Plots.jl
 
@@ -221,7 +238,7 @@ van después de `;`. Ésta compara los productos marginales de las dos
 regiones, con los deslizadores de la sección 2:
 """
 
-# ╔═╡ 995a7560-ce42-11f1-a677-3fbb3538bfb7
+# ╔═╡ d639243c-cf04-11f1-9bee-bf5c633ca623
 md"""
 **Tu turno** (sin verificador). En la celda anterior:
 - agrega una línea horizontal en ``\lambda = 0.5`` con
@@ -231,7 +248,7 @@ md"""
   (Compara con la sesión 2: con ``B = 4``, el reparto es ``(3, 1)``.)
 """
 
-# ╔═╡ 995a756a-ce42-11f1-99fc-d1b2b1952ae5
+# ╔═╡ d6392446-cf04-11f1-9d2c-919fbeaa5528
 md"""
 ## 4. Punto flotante
 
@@ -239,20 +256,20 @@ La computadora guarda los números con unos 16 dígitos, y casi ningún decimal
 es exacto (N.B4):
 """
 
-# ╔═╡ 995a756a-ce42-11f1-9bac-5d15ce379cb7
+# ╔═╡ d6392446-cf04-11f1-aaef-5ff5260bc863
 0.1 + 0.2 == 0.3
 
-# ╔═╡ 995a7574-ce42-11f1-9745-d19fa5f746cb
+# ╔═╡ d6392450-cf04-11f1-baca-372a7076a5cb
 0.1 + 0.2 ≈ 0.3
 
-# ╔═╡ 995a7574-ce42-11f1-9eee-31d2235c6809
+# ╔═╡ d639245a-cf04-11f1-a9e0-7918ff296670
 md"""
 `≈` (se escribe `\approx` y Tab) compara con una tolerancia. **Nunca**
 compares números reales con `==`. Los verificadores de este cuaderno
 comparan con tolerancia por esa razón.
 """
 
-# ╔═╡ 995a7574-ce42-11f1-a92d-fbdf03e0d54e
+# ╔═╡ d6392464-cf04-11f1-87c0-f30fb85b37c3
 md"""
 ## 5. Symbolics.jl: las condiciones de primer orden
 
@@ -262,26 +279,26 @@ productividades se llaman ``\alpha_i`` y el fondo ``b`` para no chocar con
 los deslizadores `a1`, `a2` y `B` (regla 1 de Pluto).
 """
 
-# ╔═╡ 995a757e-ce42-11f1-a1b4-03e7f4d66bdb
+# ╔═╡ d6392464-cf04-11f1-bd8d-4fb68db6756c
 @variables x₁ x₂ λ μ α₁ α₂ b
 
-# ╔═╡ 995a757e-ce42-11f1-b3b8-8b20f0d8e8f0
+# ╔═╡ d639246e-cf04-11f1-a959-1d0d0e3b0f46
 lagrangiano = α₁ * log(1 + x₁) + α₂ * log(1 + x₂) + λ * (b - x₁ - x₂)
 
-# ╔═╡ 995a7586-ce42-11f1-80de-a56e6c014570
+# ╔═╡ d6392478-cf04-11f1-a7c8-455946b8f29c
 md"""
 Las condiciones de primer orden son el gradiente del lagrangiano respecto de
 ``(x_1, x_2, \lambda)``, y la hessiana respecto de ``(x_1, x_2)`` da la
 condición de segundo orden:
 """
 
-# ╔═╡ 995a7586-ce42-11f1-ad17-797cda1984d0
+# ╔═╡ d6392482-cf04-11f1-9375-7768b095f598
 cpo = Symbolics.gradient(lagrangiano, [x₁, x₂, λ])
 
-# ╔═╡ 995a7592-ce42-11f1-a4e2-39fabfd7ccb0
+# ╔═╡ d639248c-cf04-11f1-a8a9-8f7a90f4c4f6
 Symbolics.hessian(lagrangiano, [x₁, x₂])
 
-# ╔═╡ 995a7592-ce42-11f1-bcd7-5ff603268378
+# ╔═╡ d6392496-cf04-11f1-bc6c-4511964bd0ad
 md"""
 La hessiana es diagonal con entradas negativas: el producto es estrictamente
 cóncavo, como en la sesión 2.
@@ -291,19 +308,19 @@ signo `~` escribe una ecuación simbólica. Las dos primeras condiciones dan
 cada inversión en función de ``\lambda``:
 """
 
-# ╔═╡ 995a759c-ce42-11f1-93e1-57ad1171fd73
+# ╔═╡ d6392496-cf04-11f1-bd58-f10f839f8860
 despejes = (symbolic_solve(cpo[1] ~ 0, x₁)[1], symbolic_solve(cpo[2] ~ 0, x₂)[1])
 
-# ╔═╡ 995a759c-ce42-11f1-a482-1b5aec33e843
+# ╔═╡ d63924a2-cf04-11f1-85d4-01f96a4e0670
 md"""
 Al sustituirlas en la tercera condición, el presupuesto, queda una ecuación
 sólo en ``\lambda``:
 """
 
-# ╔═╡ 995a759c-ce42-11f1-b565-15255271bf69
+# ╔═╡ d63924aa-cf04-11f1-8bc2-0115b260dedc
 presupuesto = substitute(cpo[3], Dict(x₁ => despejes[1], x₂ => despejes[2]))
 
-# ╔═╡ 995a75a6-ce42-11f1-af34-11c1828ee164
+# ╔═╡ d63924b4-cf04-11f1-8dfd-7d702b2827e3
 md"""
 `symbolic_solve` no despeja ``\lambda`` de esta ecuación, porque ``\lambda``
 aparece en el denominador. Un cambio de variable lo arregla: con
@@ -311,13 +328,13 @@ aparece en el denominador. Un cambio de variable lo arregla: con
 `symbolic_linear_solve` la resuelve. Es un truco que se hace igual a mano:
 """
 
-# ╔═╡ 995a75a6-ce42-11f1-85d3-fd889e233454
+# ╔═╡ d63924b4-cf04-11f1-80e3-a70ad09a9618
 λ_interior = simplify(1 / symbolic_linear_solve(substitute(presupuesto, Dict(λ => 1 / μ)) ~ 0, μ))
 
-# ╔═╡ 995a75b0-ce42-11f1-bad6-43dc6cd57145
+# ╔═╡ d63924be-cf04-11f1-aeae-1d4ca5da7c01
 x_interior = [simplify(substitute(d, Dict(λ => λ_interior))) for d in despejes]
 
-# ╔═╡ 995a75b0-ce42-11f1-a380-ed69a10915b1
+# ╔═╡ d63924c8-cf04-11f1-964c-433101df1bb2
 md"""
 Es la solución interior de la sesión 2:
 ``\lambda = (a_1 + a_2)/(B + 2)`` y ``x_i = a_i(B + 2)/(a_1 + a_2) - 1``.
@@ -326,30 +343,30 @@ su derivada respecto del fondo es… el multiplicador. Es el teorema de la
 envolvente de la sesión 3, comprobado por la computadora:
 """
 
-# ╔═╡ 995a75b0-ce42-11f1-9dcd-ab1e63554375
+# ╔═╡ d63924d4-cf04-11f1-98d0-212461aa1d16
 V_interior = substitute(α₁ * log(1 + x₁) + α₂ * log(1 + x₂),
                         Dict(x₁ => x_interior[1], x₂ => x_interior[2]))
 
-# ╔═╡ 995a75b8-ce42-11f1-b8a7-3dee387980a5
+# ╔═╡ d63924d4-cf04-11f1-8565-23d7f28baae0
 simplify(Symbolics.derivative(V_interior, b))
 
-# ╔═╡ 995a75b8-ce42-11f1-bfe3-d9075d3fb937
+# ╔═╡ d63924dc-cf04-11f1-afa5-cb1d5b0d5000
 md"""
 **De la fórmula al número.** `substitute` evalúa una expresión en valores
 concretos, y `build_function` la convierte en una función de Julia, mucho
 más rápida para graficar:
 """
 
-# ╔═╡ 995a75c4-ce42-11f1-8fbe-3bced8f79a39
+# ╔═╡ d63924e6-cf04-11f1-9dad-8339b82bfe88
 substitute(λ_interior, Dict(α₁ => 2, α₂ => 1, b => 4))
 
-# ╔═╡ 995a75c4-ce42-11f1-a315-eb34fe04af6b
+# ╔═╡ d63924e6-cf04-11f1-b65c-b35eb04a3977
 λ_numerica = build_function(λ_interior, α₁, α₂, b; expression = Val(false))
 
-# ╔═╡ 995a75c4-ce42-11f1-9cc6-2f542cf8aa2c
+# ╔═╡ d63924f0-cf04-11f1-b02c-4d3258734002
 λ_numerica(2.0, 1.0, 4.0)
 
-# ╔═╡ 995a75ce-ce42-11f1-b8e5-23bd32428ecf
+# ╔═╡ d63924fa-cf04-11f1-85a6-99dde8ecd079
 md"""
 ## 6. Laboratorio: el reparto óptimo, ``V(B)`` y ``\lambda(B)``
 
@@ -363,23 +380,23 @@ puedes usar `λ_numerica(a1, a2, B)`. Un `if … else … end` o el operador
 `condicion ? si : no` deciden el régimen.
 """
 
-# ╔═╡ 995a75ce-ce42-11f1-ad87-2f0b6b355014
+# ╔═╡ d63924fa-cf04-11f1-92f2-c52a6ecc88d9
 function reparto(a1, a2, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 995a75d8-ce42-11f1-8065-8700b2ba006f
+# ╔═╡ d639250e-cf04-11f1-bf4c-09e9f664d3db
 md"""
 **4.** Escribe `valor(a1, a2, B)`, el producto total con el reparto óptimo.
 Usa `reparto` y `producto_total`.
 """
 
-# ╔═╡ 995a75d8-ce42-11f1-acaa-7f7fdc69cb46
+# ╔═╡ d6392518-cf04-11f1-b12e-616345d74f79
 function valor(a1, a2, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 995a75ec-ce42-11f1-86dd-59dded8206a1
+# ╔═╡ d639252c-cf04-11f1-8b7c-8d434cef01de
 md"""
 ### Las gráficas
 
@@ -391,7 +408,7 @@ para poner dos gráficas lado a lado.
 Fondo ``B``: $(@bind B Slider(0.1:0.1:10.0, default = 4.0, show_value = true))
 """
 
-# ╔═╡ 995a75f6-ce42-11f1-a6e4-fbe2ba17a93f
+# ╔═╡ d6392534-cf04-11f1-9f3d-7bcfc4c75739
 md"""
 La línea punteada es el umbral ``\bar B``; la naranja, el ``B`` del
 deslizador. ``V`` es creciente y cóncava, y ``\lambda`` es decreciente y
@@ -402,12 +419,12 @@ una derivada numérica. Escribe `derivada_centrada(g, x; h = 1e-5)`, que
 aproxime ``g'(x)`` con ``\big(g(x + h) - g(x - h)\big)/2h``.
 """
 
-# ╔═╡ 995a75f6-ce42-11f1-a03b-f3a6aa63b49a
+# ╔═╡ d6392540-cf04-11f1-a495-fd505c811dbf
 function derivada_centrada(g, x; h = 1e-5)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 995a7600-ce42-11f1-90b8-99bdc0d1cf0e
+# ╔═╡ d639255e-cf04-11f1-9756-bb3a49f0c8a3
 md"""
 ## 7. [Avanzado] ¿Qué tan pequeño debe ser ``h``?
 
@@ -419,14 +436,14 @@ iguales (sección 4). La gráfica muestra el error al estimar ``V'(B) = \lambda`
 con cada fórmula, en escala logarítmica.
 """
 
-# ╔═╡ 995a760a-ce42-11f1-806f-49ba4caae0bb
+# ╔═╡ d6392566-cf04-11f1-8c82-c18c3b0e770b
 md"""
 El mejor ``h`` está cerca de ``10^{-8}`` para la diferencia hacia adelante y
 de ``10^{-5}`` para la centrada; por eso el ejercicio 5 usa ``h = 10^{-5}``.
 Con ``h`` más pequeño, el error **crece**.
 """
 
-# ╔═╡ 995a7614-ce42-11f1-993e-759d1e418820
+# ╔═╡ d6392572-cf04-11f1-8bd2-db9ef481ae97
 md"""
 ## Resumen
 
@@ -457,12 +474,16 @@ md"""
 - **Sesión 5: ecuaciones diferenciales lineales de primer orden.** Empieza
   la Unidad II: ¿convergen los estados de México? Se usan los datos del
   PIB por entidad (`Data/entidades.csv`).
+- **Tarea de esta semana:** los ejercicios de código de los cuadernos de
+  las sesiones 1, 2 y 3, que quedaron pendientes porque todavía no tenías
+  Julia (siete ejercicios, más tres [Avanzado] opcionales). Se revisan con
+  el verificador de cada cuaderno.
 - **Entrega de la Tarea 1** (Unidad I).
 - Repaso: C.B3 (exponencial), D.B1 a D.B4 (ecuaciones diferenciales) y
   N.I7 (datos en Julia).
 """
 
-# ╔═╡ 995a7614-ce42-11f1-b4e9-596cda02caee
+# ╔═╡ d639257c-cf04-11f1-b75a-43c44a0a7c52
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -471,14 +492,14 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir el laboratorio.
 """
 
-# ╔═╡ 995a762a-ce42-11f1-8458-7b69bc59ec25
+# ╔═╡ d6392590-cf04-11f1-b78a-43afae4085fa
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # segunda serie, valor elegido
     const GRIS    = "#52514e"   # referencias
 end;
 
-# ╔═╡ 995a7560-ce42-11f1-a251-633b963c943d
+# ╔═╡ d6392432-cf04-11f1-9ecc-3ff3a05fc9ff
 let
     x = range(0, 6, length = 200)
     plot(x, producto_marginal.(a1, x); label = "región 1", lw = 2, color = AZUL,
@@ -486,11 +507,11 @@ let
     plot!(x, producto_marginal.(a2, x); label = "región 2", lw = 2, color = NARANJA)
 end
 
-# ╔═╡ 995a762a-ce42-11f1-a070-21aad34373f2
+# ╔═╡ d639259a-cf04-11f1-922d-2d59c5b61e7c
 "Producto total de las dos regiones: a₁ ln(1 + x₁) + a₂ ln(1 + x₂)."
 producto_ref(x1, x2, a1, a2) = a1 * log1p(x1) + a2 * log1p(x2)
 
-# ╔═╡ 995a762a-ce42-11f1-94ac-df3fa4b92335
+# ╔═╡ d639259a-cf04-11f1-9636-abec761919d5
 "Reparto óptimo con Kuhn-Tucker: (x₁, x₂, λ). Funciona con cualquier orden de a₁ y a₂."
 function reparto_ref(a1, a2, B)
     if a1 < a2
@@ -502,14 +523,14 @@ function reparto_ref(a1, a2, B)
     (a1 / λ - 1, a2 / λ - 1, λ)
 end
 
-# ╔═╡ 995a7632-ce42-11f1-96e4-a7a915242510
+# ╔═╡ d63925a4-cf04-11f1-8cf6-77a2f3e7fcf7
 "Valor óptimo V(a₁, a₂, B): el producto total con el reparto óptimo."
 function valor_ref(a1, a2, B)
     x1, x2, _ = reparto_ref(a1, a2, B)
     producto_ref(x1, x2, a1, a2)
 end
 
-# ╔═╡ 995a760a-ce42-11f1-ac3e-5dc619603a76
+# ╔═╡ d6392566-cf04-11f1-ad2d-0df9e917ffe4
 let
     hs = 10.0 .^ (-1:-0.25:-13)
     V(b) = valor_ref(a1, a2, b)
@@ -522,7 +543,7 @@ let
     plot!(hs, max.(centrada, 1e-17); lw = 2, color = NARANJA, label = "centrada")
 end
 
-# ╔═╡ 995a7632-ce42-11f1-abea-b7042dfaf0a6
+# ╔═╡ d63925ae-cf04-11f1-9635-5b9e9d497e9a
 begin
     # Casos de prueba: (x₁, x₂, a₁, a₂) para el producto; (a₁, a₂, B) con
     # esquina, umbral e interior para el reparto.
@@ -530,7 +551,7 @@ begin
     const CASOS = [(2.0, 1.0, 0.5), (2.0, 1.0, 1.0), (2.0, 1.0, 4.0), (3.0, 0.5, 2.0), (1.0, 1.0, 3.0)]
 end;
 
-# ╔═╡ 995a763c-ce42-11f1-adad-65459406b436
+# ╔═╡ d63925b8-cf04-11f1-87aa-9f2b45ad10d8
 "¿La función ya está escrita? Verdadero si corre sin error y no devuelve missing."
 function completo(f)
     r = try
@@ -541,7 +562,7 @@ function completo(f)
     !(r === missing || (r isa AbstractArray && any(ismissing, r)))
 end
 
-# ╔═╡ 995a75ec-ce42-11f1-ac68-85d45d1dd3f1
+# ╔═╡ d6392534-cf04-11f1-a844-110445820092
 if completo(() -> valor(2.0, 1.0, 4.0)) && completo(() -> reparto(2.0, 1.0, 4.0))
     let
         Bs = range(0.01, 10, length = 300)
@@ -560,7 +581,7 @@ else
     md"Completa los ejercicios 3 y 4 para ver las gráficas."
 end
 
-# ╔═╡ 995a7600-ce42-11f1-9f41-c3fbc23f1de3
+# ╔═╡ d6392554-cf04-11f1-ade8-2bcb94fb2ccc
 if completo(() -> derivada_centrada(exp, 1.0)) && completo(() -> valor(2.0, 1.0, 4.0))
     md"""
     Con ``B`` = $(B): la derivada numérica de ``V`` es
@@ -571,7 +592,7 @@ else
     md"Completa los ejercicios 4 y 5 para comparar ``V'(B)`` con ``\lambda``."
 end
 
-# ╔═╡ 995a763c-ce42-11f1-aae4-79875e60d0d3
+# ╔═╡ d63925b8-cf04-11f1-ac8c-4537dade072f
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -592,107 +613,107 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 995a7538-ce42-11f1-b308-250cc17a1b30
+# ╔═╡ d63923ec-cf04-11f1-bfa6-5980fa6a745a
 verificar(() -> [producto_total(c...) for c in CASOS_PRODUCTO],
           [producto_ref(c...) for c in CASOS_PRODUCTO];
           pista = md"`producto_total(x1, x2, a1, a2) = a1 * log(1 + x1) + a2 * log(1 + x2)`")
 
-# ╔═╡ 995a754c-ce42-11f1-8f84-79ee574782ca
+# ╔═╡ d639240a-cf04-11f1-ba9d-cd458e8d380e
 verificar(() -> productos, producto_ref.(0:4, 4 .- (0:4), 2.0, 1.0);
           pista = md"Con broadcasting: `producto_total.(0:4, 4 .- (0:4), 2.0, 1.0)`. Con una comprensión: `[producto_total(x, 4 - x, 2.0, 1.0) for x in 0:4]`.")
 
-# ╔═╡ 995a75ce-ce42-11f1-b95d-41e4a616581c
+# ╔═╡ d6392502-cf04-11f1-9333-8b965938e690
 verificar(() -> [reparto(c...) for c in CASOS],
           [collect(reparto_ref(c...)) for c in CASOS];
           pista = md"Calcula `B̄ = a1 / a2 - 1`. Si `B <= B̄`, devuelve `[B, 0.0, a1 / (1 + B)]`. Si no, `λ = λ_numerica(a1, a2, B)` y devuelve `[a1 / λ - 1, a2 / λ - 1, λ]`.")
 
-# ╔═╡ 995a75e2-ce42-11f1-b0dc-1d0b500bc759
+# ╔═╡ d6392522-cf04-11f1-a98f-cf3fb4962374
 verificar(() -> [valor(c...) for c in CASOS], [valor_ref(c...) for c in CASOS];
           pista = md"`x1, x2, _ = reparto(a1, a2, B)` y después `producto_total(x1, x2, a1, a2)`.")
 
-# ╔═╡ 995a75f6-ce42-11f1-be9c-59dd2031e8c2
+# ╔═╡ d639254a-cf04-11f1-a08b-ab08aaec3dfb
 verificar(() -> [derivada_centrada(exp, 1.0), derivada_centrada(sin, 0.0), derivada_centrada(x -> x^3, 2.0)],
           [exp(1.0), 1.0, 12.0];
           rtol = 1e-8,
           pista = md"`(g(x + h) - g(x - h)) / (2h)`")
 
 # ╔═╡ Cell order:
-# ╟─995a7498-ce42-11f1-9cf2-49e833fe4d0f
-# ╟─995a74de-ce42-11f1-9779-03ca1da5e82e
-# ╟─995a74e8-ce42-11f1-842a-b50cdd6a0818
-# ╟─995a74e8-ce42-11f1-8d13-51a41e2b4bf4
-# ╟─995a74f4-ce42-11f1-a8db-6d26e6c5f3c3
-# ╠═995a74f4-ce42-11f1-870e-695907b9946b
-# ╠═995a74fc-ce42-11f1-b413-a599b6ab4fc4
-# ╟─995a74fc-ce42-11f1-a6bd-314a4a36a445
-# ╠═995a7506-ce42-11f1-a0e9-153fe587c0fb
-# ╠═995a7506-ce42-11f1-8ef1-f540d0762a0d
-# ╟─995a7506-ce42-11f1-8607-c12a9a273576
-# ╠═995a7510-ce42-11f1-8123-f3cdb9c67e3f
-# ╟─995a7510-ce42-11f1-80c1-430bcbec29ac
-# ╠═995a7510-ce42-11f1-91c7-7fec0948c3df
-# ╠═995a751a-ce42-11f1-8873-33c951b35a9f
-# ╟─995a7526-ce42-11f1-a59d-750d6c980282
-# ╠═995a7526-ce42-11f1-8199-ab192cf4710c
-# ╠═995a752e-ce42-11f1-b5f8-9551a1a63825
-# ╟─995a752e-ce42-11f1-8c99-bdc78bfcad90
-# ╠═995a7538-ce42-11f1-9f4a-739d460067c5
-# ╟─995a7538-ce42-11f1-b308-250cc17a1b30
-# ╟─995a7542-ce42-11f1-8319-596cdb971e1a
-# ╠═995a7542-ce42-11f1-b941-a5cfb459fd86
-# ╟─995a754c-ce42-11f1-8f84-79ee574782ca
-# ╟─995a754c-ce42-11f1-b8c7-3998e3c1d82f
-# ╠═995a7554-ce42-11f1-b917-456ef814756f
-# ╟─995a7554-ce42-11f1-8d7d-d9f9d06eacfb
-# ╟─995a7554-ce42-11f1-bb34-292f61173ed4
-# ╠═995a7560-ce42-11f1-a251-633b963c943d
-# ╟─995a7560-ce42-11f1-a677-3fbb3538bfb7
-# ╟─995a756a-ce42-11f1-99fc-d1b2b1952ae5
-# ╠═995a756a-ce42-11f1-9bac-5d15ce379cb7
-# ╠═995a7574-ce42-11f1-9745-d19fa5f746cb
-# ╟─995a7574-ce42-11f1-9eee-31d2235c6809
-# ╟─995a7574-ce42-11f1-a92d-fbdf03e0d54e
-# ╠═995a757e-ce42-11f1-a1b4-03e7f4d66bdb
-# ╠═995a757e-ce42-11f1-b3b8-8b20f0d8e8f0
-# ╟─995a7586-ce42-11f1-80de-a56e6c014570
-# ╠═995a7586-ce42-11f1-ad17-797cda1984d0
-# ╠═995a7592-ce42-11f1-a4e2-39fabfd7ccb0
-# ╟─995a7592-ce42-11f1-bcd7-5ff603268378
-# ╠═995a759c-ce42-11f1-93e1-57ad1171fd73
-# ╟─995a759c-ce42-11f1-a482-1b5aec33e843
-# ╠═995a759c-ce42-11f1-b565-15255271bf69
-# ╟─995a75a6-ce42-11f1-af34-11c1828ee164
-# ╠═995a75a6-ce42-11f1-85d3-fd889e233454
-# ╠═995a75b0-ce42-11f1-bad6-43dc6cd57145
-# ╟─995a75b0-ce42-11f1-a380-ed69a10915b1
-# ╠═995a75b0-ce42-11f1-9dcd-ab1e63554375
-# ╠═995a75b8-ce42-11f1-b8a7-3dee387980a5
-# ╟─995a75b8-ce42-11f1-bfe3-d9075d3fb937
-# ╠═995a75c4-ce42-11f1-8fbe-3bced8f79a39
-# ╠═995a75c4-ce42-11f1-a315-eb34fe04af6b
-# ╠═995a75c4-ce42-11f1-9cc6-2f542cf8aa2c
-# ╟─995a75ce-ce42-11f1-b8e5-23bd32428ecf
-# ╠═995a75ce-ce42-11f1-ad87-2f0b6b355014
-# ╟─995a75ce-ce42-11f1-b95d-41e4a616581c
-# ╟─995a75d8-ce42-11f1-8065-8700b2ba006f
-# ╠═995a75d8-ce42-11f1-acaa-7f7fdc69cb46
-# ╟─995a75e2-ce42-11f1-b0dc-1d0b500bc759
-# ╟─995a75ec-ce42-11f1-86dd-59dded8206a1
-# ╠═995a75ec-ce42-11f1-ac68-85d45d1dd3f1
-# ╟─995a75f6-ce42-11f1-a6e4-fbe2ba17a93f
-# ╠═995a75f6-ce42-11f1-a03b-f3a6aa63b49a
-# ╟─995a75f6-ce42-11f1-be9c-59dd2031e8c2
-# ╠═995a7600-ce42-11f1-9f41-c3fbc23f1de3
-# ╟─995a7600-ce42-11f1-90b8-99bdc0d1cf0e
-# ╠═995a760a-ce42-11f1-ac3e-5dc619603a76
-# ╟─995a760a-ce42-11f1-806f-49ba4caae0bb
-# ╟─995a7614-ce42-11f1-993e-759d1e418820
-# ╟─995a7614-ce42-11f1-b4e9-596cda02caee
-# ╠═995a761e-ce42-11f1-9ea0-07ca67242994
-# ╠═995a762a-ce42-11f1-8458-7b69bc59ec25
-# ╠═995a762a-ce42-11f1-a070-21aad34373f2
-# ╠═995a762a-ce42-11f1-94ac-df3fa4b92335
-# ╠═995a7632-ce42-11f1-96e4-a7a915242510
-# ╠═995a7632-ce42-11f1-abea-b7042dfaf0a6
-# ╠═995a763c-ce42-11f1-adad-65459406b436
-# ╠═995a763c-ce42-11f1-aae4-79875e60d0d3
+# ╟─d63922fc-cf04-11f1-9fc0-c1a20816f875
+# ╟─d6392342-cf04-11f1-9ed7-e79e911d9991
+# ╟─d6392356-cf04-11f1-bad0-a1454c462c34
+# ╟─d6392360-cf04-11f1-aa73-1305ac45970d
+# ╟─d639236c-cf04-11f1-bf53-e36b17204d02
+# ╠═d639236c-cf04-11f1-88b3-8524eb0d8428
+# ╠═d6392374-cf04-11f1-834d-4918e4321208
+# ╟─d639237e-cf04-11f1-87c2-5780f81ceab1
+# ╠═d6392388-cf04-11f1-b8aa-e7a3d0c76efa
+# ╠═d6392392-cf04-11f1-80db-f38d09840aa3
+# ╟─d639239e-cf04-11f1-ad0e-4d90f50af017
+# ╠═d63923a6-cf04-11f1-8100-57ac13ab4972
+# ╟─d63923a6-cf04-11f1-9e1e-ebc32900c58b
+# ╠═d63923b0-cf04-11f1-916d-77048d6a2a0d
+# ╠═d63923ba-cf04-11f1-a017-7b2c88e5ae3e
+# ╟─d63923ba-cf04-11f1-bbb1-3bb35e8f5e64
+# ╠═d63923c4-cf04-11f1-820f-cfadf2678c80
+# ╠═d63923cc-cf04-11f1-93da-179127c74a9f
+# ╟─d63923d8-cf04-11f1-a972-3791932fb80d
+# ╠═d63923ec-cf04-11f1-b27d-c1c8276e1341
+# ╟─d63923ec-cf04-11f1-bfa6-5980fa6a745a
+# ╟─d63923f6-cf04-11f1-bfd9-53550a44a0a7
+# ╠═d63923fe-cf04-11f1-b88c-991778f475f3
+# ╟─d639240a-cf04-11f1-ba9d-cd458e8d380e
+# ╟─d6392414-cf04-11f1-b32c-519ec28a4b4f
+# ╠═d639241e-cf04-11f1-befa-1b02e6dd7688
+# ╟─d639241e-cf04-11f1-b63c-e9e4f2fd64a9
+# ╟─d6392428-cf04-11f1-9309-6367d9072191
+# ╠═d6392432-cf04-11f1-9ecc-3ff3a05fc9ff
+# ╟─d639243c-cf04-11f1-9bee-bf5c633ca623
+# ╟─d6392446-cf04-11f1-9d2c-919fbeaa5528
+# ╠═d6392446-cf04-11f1-aaef-5ff5260bc863
+# ╠═d6392450-cf04-11f1-baca-372a7076a5cb
+# ╟─d639245a-cf04-11f1-a9e0-7918ff296670
+# ╟─d6392464-cf04-11f1-87c0-f30fb85b37c3
+# ╠═d6392464-cf04-11f1-bd8d-4fb68db6756c
+# ╠═d639246e-cf04-11f1-a959-1d0d0e3b0f46
+# ╟─d6392478-cf04-11f1-a7c8-455946b8f29c
+# ╠═d6392482-cf04-11f1-9375-7768b095f598
+# ╠═d639248c-cf04-11f1-a8a9-8f7a90f4c4f6
+# ╟─d6392496-cf04-11f1-bc6c-4511964bd0ad
+# ╠═d6392496-cf04-11f1-bd58-f10f839f8860
+# ╟─d63924a2-cf04-11f1-85d4-01f96a4e0670
+# ╠═d63924aa-cf04-11f1-8bc2-0115b260dedc
+# ╟─d63924b4-cf04-11f1-8dfd-7d702b2827e3
+# ╠═d63924b4-cf04-11f1-80e3-a70ad09a9618
+# ╠═d63924be-cf04-11f1-aeae-1d4ca5da7c01
+# ╟─d63924c8-cf04-11f1-964c-433101df1bb2
+# ╠═d63924d4-cf04-11f1-98d0-212461aa1d16
+# ╠═d63924d4-cf04-11f1-8565-23d7f28baae0
+# ╟─d63924dc-cf04-11f1-afa5-cb1d5b0d5000
+# ╠═d63924e6-cf04-11f1-9dad-8339b82bfe88
+# ╠═d63924e6-cf04-11f1-b65c-b35eb04a3977
+# ╠═d63924f0-cf04-11f1-b02c-4d3258734002
+# ╟─d63924fa-cf04-11f1-85a6-99dde8ecd079
+# ╠═d63924fa-cf04-11f1-92f2-c52a6ecc88d9
+# ╟─d6392502-cf04-11f1-9333-8b965938e690
+# ╟─d639250e-cf04-11f1-bf4c-09e9f664d3db
+# ╠═d6392518-cf04-11f1-b12e-616345d74f79
+# ╟─d6392522-cf04-11f1-a98f-cf3fb4962374
+# ╟─d639252c-cf04-11f1-8b7c-8d434cef01de
+# ╠═d6392534-cf04-11f1-a844-110445820092
+# ╟─d6392534-cf04-11f1-9f3d-7bcfc4c75739
+# ╠═d6392540-cf04-11f1-a495-fd505c811dbf
+# ╟─d639254a-cf04-11f1-a08b-ab08aaec3dfb
+# ╠═d6392554-cf04-11f1-ade8-2bcb94fb2ccc
+# ╟─d639255e-cf04-11f1-9756-bb3a49f0c8a3
+# ╠═d6392566-cf04-11f1-ad2d-0df9e917ffe4
+# ╟─d6392566-cf04-11f1-8c82-c18c3b0e770b
+# ╟─d6392572-cf04-11f1-8bd2-db9ef481ae97
+# ╟─d639257c-cf04-11f1-b75a-43c44a0a7c52
+# ╠═d6392586-cf04-11f1-b8a2-df9d5df985af
+# ╠═d6392590-cf04-11f1-b78a-43afae4085fa
+# ╠═d639259a-cf04-11f1-922d-2d59c5b61e7c
+# ╠═d639259a-cf04-11f1-9636-abec761919d5
+# ╠═d63925a4-cf04-11f1-8cf6-77a2f3e7fcf7
+# ╠═d63925ae-cf04-11f1-9635-5b9e9d497e9a
+# ╠═d63925b8-cf04-11f1-87aa-9f2b45ad10d8
+# ╠═d63925b8-cf04-11f1-ac8c-4537dade072f

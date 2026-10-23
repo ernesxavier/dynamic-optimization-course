@@ -24,6 +24,23 @@ clic en el ojo que aparece a su izquierda. Los ejercicios con verificador
 dicen **Pendiente** hasta que reemplazas `missing` por tu código. Las
 secciones marcadas **[Avanzado]** son opcionales.
 
+**Plan del laboratorio** (120 minutos). Cada bloque empieza con 3 a 5
+minutos de demostración en el proyector; después cada quien trabaja en su
+cuaderno.
+
+| Minutos | Qué | Sección |
+|---|---|---|
+| 0–10 | Verificar que el entorno funciona; resolver lo que falte | 0 |
+| 10–30 | Julia en cinco minutos y «Tu turno» | 1 |
+| 30–40 | Celdas reactivas de Pluto | 2 |
+| 40–50 | Gráficas con Plots.jl | 3 |
+| 50–55 | Punto flotante | 4 |
+| 55–60 | Pausa | |
+| 60–85 | Symbolics.jl: las condiciones de primer orden | 5 |
+| 85–115 | El reparto óptimo, ``V(B)`` y ``\lambda(B)`` | 6 |
+| 115–120 | Cierre y tarea de la semana | Para la próxima sesión |
+| Después | La sección [Avanzado] y las preguntas | 7, Preguntas |
+
 **Antes de la sesión.** Instala el entorno siguiendo el `README.md` del
 repositorio. Si el cuaderno abrió y la sección 0 muestra la tabla de
 versiones, todo funciona.
@@ -499,6 +516,10 @@ md"""
 - **Sesión 5: ecuaciones diferenciales lineales de primer orden.** Empieza
   la Unidad II: ¿convergen los estados de México? Se usan los datos del
   PIB por entidad (`Data/entidades.csv`).
+- **Tarea de esta semana:** los ejercicios de código de los cuadernos de
+  las sesiones 1, 2 y 3, que quedaron pendientes porque todavía no tenías
+  Julia (siete ejercicios, más tres [Avanzado] opcionales). Se revisan con
+  el verificador de cada cuaderno.
 - **Entrega de la Tarea 1** (Unidad I).
 - Repaso: C.B3 (exponencial), D.B1 a D.B4 (ecuaciones diferenciales) y
   N.I7 (datos en Julia).

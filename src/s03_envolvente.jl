@@ -309,7 +309,7 @@ end
 md"""
 ## Ejercicios
 
-*Después del Laboratorio 0 (sesión 4).* Los ejercicios con demostraciones
+*Tarea de la semana del Laboratorio 0 (sesión 4).* Los ejercicios con demostraciones
 están en las notas (sección 7).
 
 ### Completa el código

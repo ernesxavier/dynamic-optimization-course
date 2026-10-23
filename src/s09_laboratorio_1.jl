@@ -22,6 +22,21 @@ deciden?
 marcadas **[Avanzado]** son opcionales. La teoría está en las notas de las
 sesiones 5 a 8.
 
+**Plan del laboratorio** (120 minutos). Cada bloque empieza con 3 a 5
+minutos de demostración en el proyector; después cada quien trabaja en su
+cuaderno.
+
+| Minutos | Qué | Sección |
+|---|---|---|
+| 0–5 | Verificar que DifferentialEquations.jl funciona | 0 |
+| 5–30 | Solow con una región: `ODEProblem` y `solve`; el error del método de Euler | 1 |
+| 30–55 | Dos regiones con movilidad de capital: programar el sistema y su diagrama de fase | 2 |
+| 55–60 | Pausa | |
+| 60–80 | ¿Converge el sur? | 2 |
+| 80–110 | ¿Qué parámetros lo deciden? | 3 |
+| 110–120 | Cierre: preguntas 2 y 3, en voz alta | Preguntas |
+| Después | La sección [Avanzado] y las demás preguntas | 4, Preguntas |
+
 **Repaso recomendado** (en `Class_notes/repaso/`): D.B3 (método de Euler),
 N.B1 a N.B3 (Julia, gráficas y Pluto), N.I3 (DifferentialEquations.jl) y
 N.I6 (error y orden de un método). Para los puntos [Avanzado]: N.A3

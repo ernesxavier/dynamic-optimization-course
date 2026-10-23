@@ -217,7 +217,7 @@ end
 md"""
 ## Ejercicios
 
-*Después del Laboratorio 0 (sesión 4).* Los ejercicios con demostraciones
+*Tarea de la semana del Laboratorio 0 (sesión 4).* Los ejercicios con demostraciones
 están en las notas (sección 8).
 
 ### Completa el código
@@ -479,11 +479,11 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
     pendiente(x) = x === missing || (x isa AbstractArray && any(pendiente, x))
-    cerca(a, b) = a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)
+    cerca(a, b) = (a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)) ||
+                  (a isa AbstractArray && b isa AbstractArray && size(a) == size(b) && all(cerca.(a, b)))
     if pendiente(resultado)
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif (resultado isa AbstractArray && size(resultado) == size(esperado) &&
-            all(cerca.(resultado, esperado))) || cerca(resultado, esperado)
+    elseif cerca(resultado, esperado)
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)

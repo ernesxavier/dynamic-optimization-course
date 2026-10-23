@@ -41,8 +41,26 @@ analítica no alcanza.
 
 **Contenido y [Avanzado].** Todo el contenido sin marca se ve en clase y se
 evalúa. Los puntos marcados **[Avanzado]** son demostraciones completas y
-extensiones: se desarrollan en las notas formales y se tratan en clase si el
-tiempo lo permite.
+extensiones: se desarrollan en las notas de cada sesión y se tratan en clase
+si el tiempo lo permite.
+
+**Formato de clase.** La clase se da en el pizarrón y sigue las notas de la
+sesión, que abren con un plan de clase de 120 minutos: qué se escribe en el
+pizarrón, cuándo se proyecta el cuaderno, qué se resuelve en parejas y qué
+queda para leer. Las notas contienen todo lo que se escribe, con los pasos
+intermedios, así que no hace falta copiar. El peso de cada medio depende del
+contenido:
+
+- **Sesiones teóricas** (1–3, 6–8, 10, 11, 13, 15, 16 y 18): el pizarrón
+  conduce la clase; el cuaderno se proyecta en bloques cortos para lo que se
+  entiende mejor en movimiento (diagramas de fase, trayectorias,
+  comprobaciones numéricas). En las sesiones de diagramas de fase el
+  cuaderno tiene más tiempo.
+- **Sesiones con datos** (5, 12 y 14): el cuaderno conduce la clase, con
+  pasos guiados; el pizarrón se usa para las derivaciones que el cuaderno
+  necesita.
+- **Laboratorios** (4, 9, 17 y 19): se trabaja en el cuaderno de principio a
+  fin, con una demostración breve al inicio de cada bloque.
 
 - **Repaso**: al inicio de la sesión que lo requiere, 15 minutos de la
   herramienta matemática necesaria.

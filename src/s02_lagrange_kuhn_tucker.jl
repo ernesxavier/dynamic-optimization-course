@@ -317,8 +317,8 @@ end
 md"""
 ## Ejercicios
 
-*Fuera de clase.* Los ejercicios con demostraciones están en las notas
-(sección 8).
+*Tarea de la semana del Laboratorio 0 (sesión 4).* Los ejercicios con
+demostraciones están en las notas (sección 8).
 
 ### Completa el código
 

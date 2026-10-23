@@ -12,7 +12,7 @@ CISE, UAdeC), con cuadernos en Julia.
 │   ├── planeacion.md          → Decisiones de diseño y plan B
 │   └── guia-de-repaso.md      → Repaso del profesor antes del curso
 ├── Class_notes/
-│   ├── sNN_tema.md            → Notas formales por sesión (ver tabla abajo)
+│   ├── sNN_tema.md            → Notas por sesión, con su plan de clase (ver tabla abajo)
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
 │       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
