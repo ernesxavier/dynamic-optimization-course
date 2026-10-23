@@ -5,29 +5,15 @@ md"""
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
 
-**Objetivos de la sesión**
-1. Resolver ``\dot x = Ax`` por modos: cada eigenvector evoluciona por su
-   cuenta.
-2. Clasificar el equilibrio (nodo, foco, centro o punto de silla) con la
-   traza y el determinante.
-3. Escribir una ecuación de segundo orden como sistema, y decidir la
-   estabilidad en tiempo discreto con ``|\lambda| < 1``.
-4. Linealizar un sistema no lineal con el jacobiano, y ver por qué el
-   modelo de Ramsey tiene un punto de silla.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s07_sistemas_lineales.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s07_sistemas_lineales.md`, y se desarrolla en el pizarrón; el
+cuaderno sirve para mover los parámetros y ver qué pasa. En clase se
+proyectan las secciones 1 a 4; los ejercicios son para después. Pluto es
+reactivo: al mover un deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s07_sistemas_lineales.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): L.I1 a L.I3
-(eigenvalores, diagonalización y eigenvalores complejos), L.I6 (jacobiano),
-D.I3 (lineales de segundo orden) y D.I5 (sistemas lineales de dos
-dimensiones).
 """
 
 #%% hide
@@ -37,11 +23,10 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. Explorador: ``\dot x = Ax``
 
-Elige las cuatro entradas de ``A``. A la izquierda, el **retrato de fase**:
-las flechas dan la dirección del movimiento en cada punto y las curvas
-azules son trayectorias desde varios puntos de partida. Si los eigenvalores
-son reales, las rectas naranjas son los eigenvectores. A la derecha, el
-**plano traza-determinante**: dónde cae ``A`` decide el tipo de equilibrio.
+*En clase, después de la sección 2.2 de las notas.* A la izquierda, el
+retrato de fase de ``\dot x = Ax`` (las rectas naranjas son los
+eigenvectores, si son reales); a la derecha, dónde cae ``A`` en el plano
+traza-determinante.
 
 ``a_{11}``: $(@bind a11 Slider(-2.0:0.1:2.0, default = -0.2, show_value = true))
 ``a_{12}``: $(@bind a12 Slider(-2.0:0.1:2.0, default = -1.0, show_value = true))
@@ -78,9 +63,10 @@ let
 
     El origen es un $(tipo).
 
-    Prueba: ``a_{12} = 2``, ``a_{21} = 2``, ``a_{11} = a_{22} = 1`` (punto de
-    silla); ``a_{11} = a_{22} = 0`` con ``a_{12} = -1`` y ``a_{21} = 1``
-    (centro); y después agrega un poco de ``a_{11} < 0``.
+    **Mueve** las entradas para pasar por las cinco zonas del plano: punto de
+    silla (``a_{12} = a_{21} = 2``, ``a_{11} = a_{22} = 1``), centro
+    (``a_{11} = a_{22} = 0``, ``a_{12} = -1``, ``a_{21} = 1``), foco y nodo.
+    **Observa** cómo cambia el retrato al cruzar cada frontera.
     """
 end
 
@@ -90,16 +76,9 @@ md"""
 
 ### 2.1 Dos regiones con derrames: un nodo estable
 
-Cada región cierra su brecha con el estado estacionario a la tasa
-``\beta = 0.02`` (sesión 5), y la brecha de una arrastra a la otra con
-intensidad ``\mu``:
-
-```math
-\dot z_1 = -\beta z_1 + \mu (z_2 - z_1), \qquad \dot z_2 = -\beta z_2 + \mu (z_1 - z_2).
-```
-
-La región 1 empieza 100% arriba de su estado estacionario y la región 2, 50%
-abajo.
+*En clase, después de la sección 2.3 de las notas.* La región 1 empieza
+100% arriba de su estado estacionario y la región 2, 50% abajo, con
+``\beta = 0.02``.
 
 Intensidad de los derrames ``\mu``: $(@bind μ Slider(0.0:0.01:0.1, default = 0.03, show_value = true))
 """
@@ -120,23 +99,16 @@ end
 
 #%% hide
 md"""
-Los eigenvalores son ``-\beta`` = $(-0.02), con eigenvector ``(1, 1)``, y
-``-\beta - 2\mu`` = $(round(-0.02 - 2μ, digits = 3)), con eigenvector
-``(1, -1)``. El **promedio** de las dos brechas decae siempre a la tasa
-``\beta``: los derrames no lo aceleran. La **diferencia** entre las regiones
-decae a la tasa ``\beta + 2\mu``: los derrames cierran las brechas entre
-regiones, no la brecha con el estado estacionario. Pon ``\mu = 0`` y
-compara.
+**Mueve** ``\mu`` de 0 a 0.1. **Observa:** ¿qué curva gris cambia de
+velocidad, el promedio (modo común) o la diferencia (modo diferencial)?
 """
 
 #%% hide
 md"""
 ### 2.2 El primer punto de silla: ``\ddot y = y``
 
-Como sistema en ``(y, \dot y)``, la matriz es
-``\begin{pmatrix} 0 & 1 \cr 1 & 0 \end{pmatrix}``, con eigenvalores ``-1`` y
-``1``. La solución es ``y(t) = c_1 e^{-t} + c_2 e^{t}``. Con ``y(0) = 1``
-dado, **elige ``\dot y(0)``**: ¿cuál lleva al origen?
+*En clase, después de la sección 2.4 de las notas.* Con ``y(0) = 1`` dado,
+**elige ``\dot y(0)``**: ¿cuál lleva al origen?
 
 ``\dot y(0)``: $(@bind dy0 Slider(-2.0:0.05:0.0, default = -0.8, show_value = true))
 """
@@ -159,23 +131,16 @@ end
 
 #%% hide
 md"""
-Sólo ``\dot y(0) = -1``, que pone el punto de partida sobre el eigenvector
-estable ``(1, -1)``, converge al origen. Cualquier otro valor tiene
-``c_2 \ne 0`` y explota, hacia arriba o hacia abajo. En los modelos de
-crecimiento óptimo pasa lo mismo: el capital inicial está dado, y el consumo
-inicial se elige para caer exactamente sobre la **rama estable** (sesiones
-10 y 12).
+**Observa** que sólo un valor de ``\dot y(0)`` no explota: el que pone el
+punto de partida sobre el eigenvector estable.
 """
 
 #%% hide
 md"""
 ### 2.3 El ciclo inmobiliario regional: un foco
 
-Precio ``p`` y acervo de vivienda ``H``, como desviaciones de su equilibrio:
-
-```math
-\dot p = -\eta p - H, \qquad \dot H = \psi p - \delta H, \qquad \delta = 0.05.
-```
+*En clase* (notas, 2.5). Precio ``p`` y acervo de vivienda ``H`` después de
+un choque al precio, con ``\delta = 0.05``.
 
 Respuesta de la construcción al precio ``\psi``: $(@bind ψ Slider(0.0:0.05:1.0, default = 0.5, show_value = true))
 
@@ -204,9 +169,7 @@ let
     if all(isreal, λ)
         md"""
         Eigenvalores reales, ``-`` $(round(-real(λ[1]), digits = 3)) y
-        ``-`` $(round(-real(λ[2]), digits = 3)): un **nodo**. Sin ciclo: la
-        construcción responde tan poco al precio que el mercado se ajusta sin
-        pasarse.
+        ``-`` $(round(-real(λ[2]), digits = 3)): un **nodo**, sin ciclo.
         """
     else
         ω, α = abs(imag(λ[1])), real(λ[1])
@@ -215,9 +178,8 @@ let
         $(round(ω, digits = 3)) ``i``: un **foco**. El ciclo dura
         ``2\pi/\omega \approx`` $(round(2π / ω, digits = 1)) años, y su
         amplitud se reduce a la mitad cada ``\ln 2/|\alpha| \approx``
-        $(round(log(2) / abs(α), digits = 1)) años. El ciclo no viene de
-        choques externos: lo genera el rezago entre el precio y la
-        construcción. Pon ``\eta = 0`` y mira qué tan lento se amortigua.
+        $(round(log(2) / abs(α), digits = 1)) años. **Mueve** ``\psi`` hacia
+        abajo hasta que desaparezca el ciclo, y ``\eta`` a cero.
         """
     end
 end
@@ -226,11 +188,10 @@ end
 md"""
 ## 3. Tiempo continuo y tiempo discreto
 
-Para la matriz ``A`` de la sección 1, la gráfica pone los eigenvalores en el
-plano complejo. En **tiempo continuo**, ``\dot x = Ax`` es estable si los
-eigenvalores están a la izquierda del eje imaginario. En **tiempo
-discreto**, ``x_{t+1} = Ax_t`` es estable si están dentro del círculo
-unitario. La misma matriz puede ser estable en un caso y no en el otro.
+*En clase, después de la sección 4 de las notas.* Los eigenvalores de la
+matriz ``A`` de la sección 1 en el plano complejo: a la izquierda del eje
+azul, ``\dot x = Ax`` es estable; dentro del círculo naranja,
+``x_{t+1} = Ax_t`` lo es.
 """
 
 #%% hide
@@ -256,10 +217,9 @@ let
     md"""
     Con esta ``A``: en tiempo continuo, $(cont); en tiempo discreto,
     $(disc) (módulos de los eigenvalores: $(modulos)).
-    Prueba ``a_{11} = a_{22} = -1.5`` con ``a_{12} = a_{21} = 0``: estable en
-    continuo e inestable en discreto, porque ``\lambda = -1.5`` está fuera del
-    círculo. Es lo que le pasa al método de Euler con un paso demasiado
-    grande (sesión 6).
+    **Mueve** ``A`` a ``a_{11} = a_{22} = -1.5`` con ``a_{12} = a_{21} = 0``.
+    **Observa:** la misma matriz es estable en continuo e inestable en
+    discreto.
     """
 end
 
@@ -267,15 +227,8 @@ end
 md"""
 ## 4. Linealización: el punto de silla de Ramsey
 
-El modelo de Ramsey (sesión 12) es un sistema no lineal en el capital ``k`` y
-el consumo ``c``:
-
-```math
-\dot k = k^\alpha - \delta k - c, \qquad \dot c = \frac{c}{\theta}\big(\alpha k^{\alpha - 1} - \delta - \rho\big).
-```
-
-Cerca del estado estacionario se comporta como su linealización
-``\dot h = J h``, con ``J`` el jacobiano. Symbolics.jl lo calcula:
+*En clase, después de la sección 5.2 de las notas.* Symbolics.jl calcula el
+jacobiano del sistema de Ramsey:
 """
 
 #%%
@@ -287,9 +240,7 @@ end
 
 #%% hide
 md"""
-En el estado estacionario, ``\alpha k^{\alpha - 1} = \delta + \rho``, así que
-la entrada ``(1, 1)`` vale ``\rho`` y la ``(2, 2)`` vale cero. Como
-``f'' < 0``, el determinante es negativo: **siempre es un punto de silla**.
+Isoclinas y direcciones del punto de silla en el estado estacionario.
 
 Tasa de descuento ``\rho``: $(@bind ρ_r Slider(0.01:0.01:0.08, default = 0.03, show_value = true))
 
@@ -324,29 +275,18 @@ let
     | Velocidad de convergencia sobre la rama estable | $(velocidad) |
     | Vida media de la brecha | $(round(log(2) / -r.λs, digits = 1)) años |
 
-    La recta naranja es la dirección por la que la economía llega al estado
-    estacionario: la aproximación lineal de la rama estable. Con más
-    paciencia (``\rho`` menor), ``k^\ast`` sube; con más aversión a la
-    variación del consumo (``\theta`` mayor), la convergencia se vuelve más
-    lenta, porque el consumo se ajusta más despacio. En la sesión 8 se dibuja
-    la rama estable completa, no sólo su aproximación lineal.
+    La recta naranja es la aproximación lineal de la rama estable. **Mueve**
+    ``\rho`` y ``\theta``. **Observa** cuál cambia el estado estacionario y
+    cuál la velocidad de convergencia. La sesión 8 dibuja la rama completa.
     """
 end
 
 #%% hide
 md"""
-## Resumen
-
-| Concepto | Qué dice | En este cuaderno |
-|---|---|---|
-| Modos | Cada eigenvector evoluciona como ``e^{\lambda t}`` | Derrames: modo común y modo diferencial |
-| Clasificación | Silla si ``\Delta < 0``; estable si ``\tau < 0 < \Delta``; foco si ``\tau^2 < 4\Delta`` | Plano traza-determinante |
-| Punto de silla | Sólo converge lo que empieza sobre el eigenvector estable | ``\ddot y = y``; Ramsey |
-| Foco | Ciclos con periodo ``2\pi/\omega`` | Ciclo inmobiliario |
-| Discreto | Estable si ``|\lambda_i| < 1`` | Eigenvalores frente al círculo unitario |
-| Linealización | El jacobiano en el equilibrio decide el tipo (si es hiperbólico) | Ramsey es siempre un punto de silla |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 8).
 
 ### Completa el código
 
@@ -441,8 +381,6 @@ md"""
 9. Muestra numéricamente que el ciclo inmobiliario es un centro cuando
    ``\eta = \delta = 0`` y que cualquier amortiguamiento lo convierte en
    foco. (Cambia ``\delta = 0.05`` en el código de la sección 2.3.)
-10. En la sección 4, verifica que la pendiente de la dirección estable es
-    ``\rho - \lambda_s`` (notas, ejercicio F6).
 
 ## Para la próxima sesión
 

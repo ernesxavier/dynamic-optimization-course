@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ f61ed908-ce4c-11f1-a152-5576bf947a3e
+# ╔═╡ ceb7416e-cf02-11f1-a178-d745a87dd3bd
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,63 +31,44 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ f61ed82c-ce4c-11f1-8f15-1fb1b16e2c25
+# ╔═╡ ceb73fca-cf02-11f1-b285-317b68e4001b
 md"""
 # Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
 
-**Objetivos de la sesión**
-1. Encontrar los equilibrios de ``\dot x = f(x)`` y decidir, con la recta de
-   fase y el signo de ``f'(x^\ast)``, cuáles son estables.
-2. Reconocer equilibrios múltiples y umbrales, y lo que implican para la
-   política regional.
-3. Resolver ``y_{t+1} = ay_t + b`` y saber cuándo converge y cuándo oscila.
-4. Leer un diagrama de telaraña y aplicar el criterio ``|g'(x^\ast)| < 1``.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s06_diagramas_de_fase.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s06_diagramas_de_fase.md`, y se desarrolla en el pizarrón; el
+cuaderno sirve para mover los parámetros y ver qué pasa. En clase se
+proyectan las secciones 0 a 5; la sección 6 y los ejercicios son para
+después. Pluto es reactivo: al mover un deslizador, todo lo que depende de
+él se recalcula. En las gráficas, un **punto lleno** es un equilibrio
+estable y un **punto vacío**, uno inestable.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s06_diagramas_de_fase.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): D.B1 y D.B2 (ecuaciones
-diferenciales y en diferencias), A.B2 (sucesiones), D.I1 (lineales de
-primer orden) y D.I4 (puntos fijos y diagramas de fase). Para los puntos
-[Avanzado]: A.I5 (contracciones).
 """
 
-# ╔═╡ f61ed854-ce4c-11f1-a8b5-8d6b08ea46f4
+# ╔═╡ ceb74010-cf02-11f1-942f-d770597eefa3
 TableOfContents(title = "Contenido")
 
-# ╔═╡ f61ed85e-ce4c-11f1-962a-810148f24c77
+# ╔═╡ ceb7401a-cf02-11f1-b42b-adf506e12b41
 md"""
 ## 0. La pregunta: ¿a dónde va una región?
 
-En la sesión 5, la brecha de una región cumplía una ecuación lineal y se
-podía resolver. Los modelos económicos casi nunca son lineales. La buena
-noticia: para saber **a dónde va** el sistema no hace falta resolverlo.
-Basta el **diagrama de fase**: dibujar ``\dot x = f(x)`` contra ``x``.
-Donde ``f > 0``, ``x`` crece; donde ``f < 0``, decrece; donde ``f = 0``,
-está en equilibrio.
-
-En las gráficas de este cuaderno, un **punto lleno** es un equilibrio estable
-y un **punto vacío**, uno inestable.
+*En clase, al inicio* (notas, sección 0). Las secciones 1 y 2 muestran, sin
+resolver ninguna ecuación, a dónde va una región según dónde empieza: es lo
+que la clase justifica en el pizarrón.
 """
 
-# ╔═╡ f61ed85e-ce4c-11f1-8bdb-758ba879bbcd
+# ╔═╡ ceb74024-cf02-11f1-aab4-8189a8bfbd56
 md"""
 ## 1. Solow: un equilibrio estable
 
-El capital por trabajador de una región cumple
-
-```math
-\dot k = s k^\alpha - (n + \delta) k .
-```
+*En clase, después de la sección 1.4 de las notas.* Recta de fase y
+trayectorias de ``\dot k = sk^\alpha - (n + \delta)k``.
 
 Tasa de ahorro ``s``: $(@bind s Slider(0.05:0.05:0.5, default = 0.2, show_value = true))
 
@@ -96,7 +77,7 @@ Participación del capital ``\alpha``: $(@bind α Slider(0.2:0.05:0.6, default =
 Crecimiento de la población más depreciación, ``n + \delta``: $(@bind nδ Slider(0.02:0.01:0.12, default = 0.06, show_value = true))
 """
 
-# ╔═╡ f61ed868-ce4c-11f1-9067-c1a21784a741
+# ╔═╡ ceb74042-cf02-11f1-9f0d-0d8a3e12635f
 let
     kstar = (s / nδ)^(1 / (1 - α))
     fp = -(1 - α) * nδ
@@ -104,65 +85,51 @@ let
     md"""
     | | Valor |
     |:---|---:|
-    | Estado estacionario ``k^\ast = (s/(n + \delta))^{1/(1-\alpha)}`` | $(r(kstar)) |
-    | Pendiente ``f'(k^\ast) = -(1 - \alpha)(n + \delta)`` | $(r(fp)) |
-    | Vida media de una desviación pequeña, ``\ln 2/|f'(k^\ast)|`` | $(round(log(2) / abs(fp), digits = 1)) años |
+    | Estado estacionario ``k^\ast`` | $(r(kstar)) |
+    | Pendiente ``f'(k^\ast)`` | $(r(fp)) |
+    | Vida media de una desviación pequeña | $(round(log(2) / abs(fp), digits = 1)) años |
 
-    Todas las trayectorias con ``k_0 > 0`` van a ``k^\ast``: las que empiezan
-    abajo crecen y las que empiezan arriba bajan, **sin cruzarse ni
-    oscilar**. En una dimensión y en tiempo continuo, las soluciones son
-    monótonas.
-
-    Sube ``s``: ``k^\ast`` sube, pero la velocidad no cambia. Sube ``\alpha``:
-    la convergencia se vuelve más lenta. Es la razón por la que la regla del
-    2% de la sesión 5 pide un ``\alpha`` alto.
+    **Mueve** ``s`` y después ``\alpha``. **Observa:** ¿cuál de los dos cambia
+    ``k^\ast`` y cuál la velocidad de convergencia? ¿Se cruzan o oscilan las
+    trayectorias?
     """
 end
 
-# ╔═╡ f61ed872-ce4c-11f1-ac97-93dbfb6645e3
+# ╔═╡ ceb74042-cf02-11f1-8cab-811c4d6ce8d8
 md"""
 ## 2. Aglomeración: dos equilibrios estables y un umbral
 
-Una región atrae población según cuánto mejor se vive ahí que en el resto
-del país. Con aglomeración, la ventaja ``u(L)`` sube con el tamaño de la
-región al principio y baja después, por congestión:
-
-```math
-\dot L = L\,u(L), \qquad u(L) = a + 2L - 1.5L^2 .
-```
-
-Con ``a < 0``, una región pequeña no tiene la masa crítica para atraer a
-nadie.
+*En clase, antes de la sección 1.5 de las notas.* Recta de fase y
+trayectorias de ``\dot L = L\,u(L)``, con ``u(L) = a + 2L - 1.5L^2``.
 
 Ventaja de partida ``a``: $(@bind a_agl Slider(-0.6:0.05:0.1, default = -0.3, show_value = true))
 """
 
-# ╔═╡ f61ed888-ce4c-11f1-ad20-49ba5336a702
+# ╔═╡ ceb74062-cf02-11f1-a8f7-69a5bd5f3507
 md"""
 ### Un gran impulso
 
-Una región empieza con ``L_0 = 0.1``, debajo del umbral. El gobierno le da un
-subsidio ``\sigma`` que sube su ventaja, ``u(L) + \sigma``, durante los
-primeros ``T_s`` años, y después lo retira. ¿Cuánto subsidio y por cuánto
-tiempo hacen falta para que la región se consolide?
+Una región empieza con ``L_0 = 0.1``, debajo del umbral. Un subsidio
+``\sigma`` sube su ventaja durante ``T_s`` años y después se retira.
+
+1. Con ``\sigma = 0.3``, **busca** la menor duración ``T_s`` que consolide la
+   región.
+2. Con ``T_s = 2``, **busca** el menor ``\sigma`` que lo logre.
+3. ¿Cuál de las dos combinaciones es más barata, si el costo es
+   ``\sigma \times T_s``? ¿Qué pasa con un subsidio que se queda justo debajo
+   del umbral?
 
 Subsidio ``\sigma``: $(@bind σ_sub Slider(0.0:0.05:0.6, default = 0.3, show_value = true))
 
 Duración ``T_s`` (años): $(@bind T_sub Slider(0:1:20, default = 5, show_value = true))
 """
 
-# ╔═╡ f61ed890-ce4c-11f1-9a8a-0b66f1155d25
+# ╔═╡ ceb7407e-cf02-11f1-a6be-ed625c81d147
 md"""
 ## 3. Ecuaciones en diferencias lineales
 
-En tiempo discreto, ``y_{t+1} = a y_t + b``. El punto fijo es
-``y^\ast = b/(1 - a)`` y la solución es
-
-```math
-y_t = y^\ast + a^t (y_0 - y^\ast):
-```
-
-la desviación se multiplica por ``a`` cada periodo.
+*En clase, después de la sección 2.1 de las notas.* Trayectoria de
+``y_{t+1} = ay_t + b``; la línea punteada es el punto fijo.
 
 ``a``: $(@bind a_d Slider(-1.5:0.1:1.5, default = -0.5, show_value = true))
 
@@ -171,28 +138,25 @@ la desviación se multiplica por ``a`` cada periodo.
 ``y_0``: $(@bind y0_d Slider(0.0:0.5:10.0, default = 0.0, show_value = true))
 """
 
-# ╔═╡ f61ed89a-ce4c-11f1-b9bb-b709f9f90b3a
+# ╔═╡ ceb74094-cf02-11f1-bdfc-53d0550760eb
 let
     regimen = a_d ≈ 1 ? "crece en línea recta, porque no hay punto fijo" :
               abs(a_d) ≈ 1 ? "oscila para siempre entre dos valores" :
               abs(a_d) < 1 ? (a_d < -1e-9 ? "converge oscilando" : a_d > 1e-9 ? "converge monótonamente" : "llega al punto fijo en un paso") :
               (a_d < 0 ? "se aleja oscilando" : "se aleja monótonamente")
     md"""
-    Con ``a`` = $(a_d), la trayectoria $(regimen). El punto fijo es estable si y sólo si
-    ``|a| < 1``, y la trayectoria oscila si y sólo si ``a < 0``. En tiempo
-    continuo, una ecuación de primer orden nunca oscila; en discreto, el
-    estado puede brincar al otro lado del equilibrio.
+    Con ``a`` = $(a_d), la trayectoria $(regimen). **Mueve** ``a`` por las
+    seis zonas de la tabla de la sección 2.1 de las notas y comprueba cada
+    una.
     """
 end
 
-# ╔═╡ f61ed89a-ce4c-11f1-aa99-7da2c95253a1
+# ╔═╡ ceb7409c-cf02-11f1-bff8-2d89a32c5687
 md"""
 ## 4. Ecuaciones no lineales: el diagrama de telaraña
 
-Para ``x_{t+1} = g(x_t)``, los puntos fijos son los cruces de ``y = g(x)``
-con la diagonal. La telaraña sube a la curva (aplicar ``g``) y va a la
-diagonal (pasar el resultado al eje horizontal), una y otra vez. Cerca de un
-punto fijo, la desviación se multiplica por ``g'(x^\ast)``.
+*En clase, después de la sección 2.2 de las notas.* Telaraña y trayectoria
+de tres mapas.
 
 Mapa: $(@bind mapa Select(["mercado" => "Telaraña de un mercado regional", "solow" => "Solow discreto (sesión 1)", "logistico" => "Mapa logístico"]))
 
@@ -203,68 +167,53 @@ Parámetro ``r`` (logístico): $(@bind r_log Slider(0.5:0.1:3.0, default = 2.8, 
 Punto de partida (fracción del rango): $(@bind x0_frac Slider(0.05:0.05:0.95, default = 0.15, show_value = true))
 """
 
-# ╔═╡ f61ed8ae-ce4c-11f1-9187-b51a2bf1a1a9
+# ╔═╡ ceb740ba-cf02-11f1-a97f-57c818f0ba92
 md"""
 ## 5. El método de Euler es una ecuación en diferencias
 
-En la sesión 5, el método de Euler oscilaba con pasos grandes. La razón: al
-aplicarlo a ``\dot y = -a(y - y^\ast)`` con paso ``\Delta t`` se obtiene
-
-```math
-y_{k+1} - y^\ast = (1 - a\,\Delta t)(y_k - y^\ast),
-```
-
-una ecuación lineal en diferencias con coeficiente ``1 - a\,\Delta t``.
+*En clase* (notas, 2.6). El método de Euler para ``\dot y = -a(y - y^\ast)``
+es una ecuación lineal en diferencias con coeficiente ``1 - a\,\Delta t``.
+**Mueve** ``a\,\Delta t`` de 0.5 a 2.5 y **observa** cuándo la aproximación
+oscila o diverge, aunque la ecuación diferencial sea estable.
 
 ``a\,\Delta t``: $(@bind aΔt Slider(0.1:0.1:2.5, default = 0.5, show_value = true))
 """
 
-# ╔═╡ f61ed8ba-ce4c-11f1-b192-f361a8524ae3
+# ╔═╡ ceb740ce-cf02-11f1-962d-cbf6b77320c2
 let
     regimen = aΔt ≈ 1 ? "exacta en el equilibrio: llega en un paso" : aΔt < 1 ? "monótona y cercana a la solución exacta" :
               aΔt ≈ 2 ? "oscilante sin converger" : aΔt < 2 ? "oscilante, aunque la ecuación no oscila" :
               "divergente, aunque la ecuación es estable"
     md"""
     El coeficiente es ``1 - a\,\Delta t`` = $(round(1 - aΔt, digits = 2)):
-    la aproximación es $(regimen). El paso debe ser pequeño respecto de
-    ``1/a``, el tiempo característico del sistema.
+    la aproximación es $(regimen).
     """
 end
 
-# ╔═╡ f61ed8c2-ce4c-11f1-ba66-111f40ffe15c
+# ╔═╡ ceb740d8-cf02-11f1-965e-8b65ed7d3ef6
 md"""
 ## 6. [Avanzado] Contracciones: convergencia desde cualquier punto
 
-El criterio ``|g'(x^\ast)| < 1`` es local. Si ``|g'(x)| \le \rho < 1`` en
-todo un intervalo que ``g`` manda en sí mismo, la iteración converge desde
-cualquier punto del intervalo, con error ``|x_t - x^\ast| \le \rho^t |x_0 - x^\ast|``
-(notas, sección 2.3). Con ``g(x) = 1 + 0.5\cos x``, ``|g'(x)| = 0.5|\sin x| \le 0.5``.
+*Fuera de clase* (notas, 2.3). Con ``g(x) = 1 + 0.5\cos x``, una
+contracción con ``\rho = 0.5``: el error de la iteración contra la cota
+``\rho^t|x_0 - x^\ast|``.
 
 Punto de partida ``x_0``: $(@bind x0_c Slider(-10.0:1.0:10.0, default = 5.0, show_value = true))
 """
 
-# ╔═╡ f61ed8c2-ce4c-11f1-a22b-1341fb8d1719
+# ╔═╡ ceb740ec-cf02-11f1-931f-1f292d78ebf9
 md"""
-Desde cualquier ``x_0`` el error cae al menos a la mitad en cada iteración,
-y en la práctica más rápido: cerca del punto fijo, ``|g'(x^\ast)| \approx 0.46``.
-La iteración de la función valor de la sesión 16 es este mismo argumento con
-funciones en lugar de números, y con el factor de descuento ``\beta`` en el
-papel de ``\rho``.
+**Mueve** ``x_0`` lejos del punto fijo. **Observa** que el error siempre
+queda debajo de la cota. La iteración de la función valor de la sesión 16
+es este mismo argumento con funciones en lugar de números.
 """
 
-# ╔═╡ f61ed8cc-ce4c-11f1-a635-91d47b86e62c
+# ╔═╡ ceb740f4-cf02-11f1-a128-2d8491f6490a
 md"""
-## Resumen
-
-| | Tiempo continuo, ``\dot x = f(x)`` | Tiempo discreto, ``x_{t+1} = g(x_t)`` |
-|---|---|---|
-| Equilibrio | ``f(x^\ast) = 0`` | ``g(x^\ast) = x^\ast`` |
-| Estable si | ``f'(x^\ast) < 0`` | ``|g'(x^\ast)| < 1`` |
-| Oscila | Nunca, en una dimensión | Si ``g'(x^\ast) < 0`` |
-| Diagrama | Recta de fase | Telaraña |
-| En este cuaderno | Solow; aglomeración con umbral | Solow discreto, mercado, logístico, Euler |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 6).
 
 ### Completa el código
 
@@ -272,47 +221,47 @@ md"""
 `:estable`, `:inestable` o `:no_decide`.
 """
 
-# ╔═╡ f61ed8cc-ce4c-11f1-a9a0-8f0d1a452f94
+# ╔═╡ ceb74100-cf02-11f1-bff0-936155fd9b01
 function clasificar_continuo(fp)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ f61ed8d6-ce4c-11f1-804b-ed5cfccf71db
+# ╔═╡ ceb7410a-cf02-11f1-940a-854d54251270
 md"""
 **2.** Escribe `clasificar_discreto(gp)`, que reciba ``g'(x^\ast)`` y devuelva
 `:monotona` (estable sin oscilar), `:oscilante` (estable oscilando),
 `:inestable` o `:no_decide` (si ``|g'(x^\ast)| = 1``).
 """
 
-# ╔═╡ f61ed8e0-ce4c-11f1-818e-95955e57060b
+# ╔═╡ ceb74114-cf02-11f1-a600-b1d3e2693ce7
 function clasificar_discreto(gp)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ f61ed8e8-ce4c-11f1-b1bc-a3a4d0576eb1
+# ╔═╡ ceb74126-cf02-11f1-b904-3f47a2d83318
 md"""
 **3.** Escribe `iterar(g, x0, n)`, que devuelva el vector
 ``[x_0, x_1, \dots, x_n]`` con ``x_{t+1} = g(x_t)``.
 """
 
-# ╔═╡ f61ed8e8-ce4c-11f1-964e-d9f08ab8d03d
+# ╔═╡ ceb74132-cf02-11f1-8fcf-6d52f8ad4c2a
 function iterar(g, x0, n)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ f61ed8f4-ce4c-11f1-b39b-6fe53388f74a
+# ╔═╡ ceb7413c-cf02-11f1-bfda-43790f1ca52a
 md"""
 **4.** Escribe `umbral(a, b, c)`, el umbral ``L_1`` del modelo de
 aglomeración con ``u(L) = a + bL - cL^2``: la raíz menor de ``u``. Supón
 ``a < 0`` y ``b^2 > 4|a|c``.
 """
 
-# ╔═╡ f61ed8f4-ce4c-11f1-bcbc-3568305fb895
+# ╔═╡ ceb74146-cf02-11f1-a57a-b9eda178b7a0
 function umbral(a, b, c)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ f61ed8fe-ce4c-11f1-8f53-0f16b6075f4a
+# ╔═╡ ceb74158-cf02-11f1-bc47-15372f51edc3
 md"""
 ### Interpretación
 
@@ -332,15 +281,6 @@ md"""
 9. ¿Puede tener tu problema de tesis más de un equilibrio? Si sí, ¿qué
    determinaría a cuál llega una región? Si no, ¿qué supuesto lo impide?
 
-### [Avanzado]
-
-10. En el mapa logístico, ¿para qué valores de ``r`` la convergencia es
-    monótona y para cuáles oscilante? Verifícalo con ``g'(x^\ast) = 2 - r``
-    y con la telaraña.
-11. Con la sección 6, ¿cuántas iteraciones bastan para que el error sea
-    menor que ``10^{-6}`` desde ``x_0 = 10``, según la cota? ¿Cuántas hacen
-    falta en realidad?
-
 ## Para la próxima sesión
 
 - **Sesión 7: sistemas de ecuaciones diferenciales y linealización.** Dos
@@ -350,7 +290,7 @@ md"""
   D.I5 (sistemas lineales de dos dimensiones).
 """
 
-# ╔═╡ f61ed908-ce4c-11f1-9ce0-8d3c223339bd
+# ╔═╡ ceb74164-cf02-11f1-a156-59fe6162871e
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -359,7 +299,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ f61ed912-ce4c-11f1-920e-c36a0634dcc7
+# ╔═╡ ceb74178-cf02-11f1-bf52-cd309704ed25
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # flechas, telaraña, subsidio
@@ -367,7 +307,7 @@ begin
     const TINTA   = "#0b0b0b"   # equilibrios
 end;
 
-# ╔═╡ f61ed8ba-ce4c-11f1-80e5-cdfd49f8079f
+# ╔═╡ ceb740c6-cf02-11f1-8620-a71691e90ec6
 let
     t = range(0, 12, length = 300)
     k = 0:round(Int, 12 / aΔt)
@@ -378,7 +318,7 @@ let
           msw = 0, label = "Euler")
 end
 
-# ╔═╡ f61ed912-ce4c-11f1-889e-bd314ff79f6d
+# ╔═╡ ceb74182-cf02-11f1-af9d-f5299e1d376d
 "Simula ẋ = f(x, t) con Runge-Kutta de cuarto orden y paso dt; devuelve tiempos y valores."
 function simular(f, x0, T; dt = 0.02)
     n = round(Int, T / dt)
@@ -395,7 +335,7 @@ function simular(f, x0, T; dt = 0.02)
     (0:n) .* dt, x
 end
 
-# ╔═╡ f61ed888-ce4c-11f1-92fa-133419fef9ac
+# ╔═╡ ceb74074-cf02-11f1-85db-35ecbd5d03dd
 let
     u(L) = a_agl + 2L - 1.5L^2
     _, Ls = simular((L, t) -> L * (u(L) + (t < T_sub ? σ_sub : 0.0)), 0.1, 40)
@@ -404,7 +344,7 @@ let
         md"**La región se vacía**: el subsidio no bastó para cruzar el umbral, y al retirarlo la región vuelve a perder población. Lo gastado se pierde."
 end
 
-# ╔═╡ f61ed91a-ce4c-11f1-ad38-e3e4963af018
+# ╔═╡ ceb7418c-cf02-11f1-bf77-bbc41e02503a
 """
 Recta de fase de ẋ = f(x) en [xmin, xmax]: la curva f, flechas sobre el eje
 según el signo de f y los equilibrios (llenos si son estables, vacíos si no).
@@ -428,7 +368,7 @@ function recta_de_fase(f, eqs, estables, xmin, xmax; titulo = "", etiqueta = "x"
     p
 end
 
-# ╔═╡ f61ed868-ce4c-11f1-b9f2-db9898853592
+# ╔═╡ ceb7402e-cf02-11f1-adb1-0b9048aad257
 let
     f(k) = s * k^α - nδ * k
     kstar = (s / nδ)^(1 / (1 - α))
@@ -444,7 +384,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (760, 320))
 end
 
-# ╔═╡ f61ed91a-ce4c-11f1-9212-b19cdf577060
+# ╔═╡ ceb74196-cf02-11f1-999f-bd6da72a1ab6
 "Equilibrios de L̇ = L(a + 2L − 1.5L²) en L ≥ 0 y si son estables."
 function equilibrios_aglomeracion(a; b = 2.0, c = 1.5)
     disc = b^2 + 4a * c
@@ -455,7 +395,7 @@ function equilibrios_aglomeracion(a; b = 2.0, c = 1.5)
     a < 0 ? ([0.0, L1, L2], [true, false, true]) : ([0.0, L2], [false, true])
 end
 
-# ╔═╡ f61ed87c-ce4c-11f1-bf5c-0d5e05498e34
+# ╔═╡ ceb7404c-cf02-11f1-97da-1f2dc6b7bca4
 let
     u(L) = a_agl + 2L - 1.5L^2
     f(L) = L * u(L)
@@ -470,20 +410,22 @@ let
     plot(g1, g2; layout = (1, 2), size = (760, 320))
 end
 
-# ╔═╡ f61ed87c-ce4c-11f1-9ee1-872defcee076
+# ╔═╡ ceb74056-cf02-11f1-a7e3-134aca5d6b7c
 let
     eqs, estables = equilibrios_aglomeracion(a_agl)
     r(v) = round(v, digits = 3)
     if length(eqs) == 3
         md"""
-        Hay tres equilibrios: ``L = 0`` (estable: la región se vacía),
-        ``L_1`` = $(r(eqs[2])) (**inestable**: el umbral) y ``L_2`` = $(r(eqs[3]))
-        (estable: la región consolidada). **La historia decide**: dos regiones
-        idénticas terminan en lugares distintos según de qué lado del umbral
-        empiecen.
+        Tres equilibrios: ``L = 0``, el umbral ``L_1`` = $(r(eqs[2])) y
+        ``L_2`` = $(r(eqs[3])).
 
-        Sube ``a``: el umbral baja y la región consolidada crece. Con ``a > 0``,
-        el equilibrio ``L = 0`` se vuelve inestable y toda región crece.
+        1. **Observa** las trayectorias que empiezan cerca del umbral, a uno y
+           otro lado: ¿a dónde va cada una?
+        2. **Mueve** ``a`` de ``-0.3`` a ``-0.1``: ¿el umbral sube o baja? ¿Qué
+           significa para una región pequeña?
+        3. **Mueve** ``a`` a ``0.05``: ¿qué pasa con el equilibrio ``L = 0`` y
+           con el umbral?
+        4. Regresa a ``a = -0.3`` para el gran impulso.
         """
     elseif length(eqs) == 2
         md"""
@@ -499,7 +441,7 @@ let
     end
 end
 
-# ╔═╡ f61ed888-ce4c-11f1-9843-cba1fc865817
+# ╔═╡ ceb7406a-cf02-11f1-b4b7-75cde2b33fd4
 let
     eqs, _ = equilibrios_aglomeracion(a_agl)
     u(L) = a_agl + 2L - 1.5L^2
@@ -511,11 +453,11 @@ let
     p
 end
 
-# ╔═╡ f61ed91a-ce4c-11f1-bcae-95f2450e3f00
+# ╔═╡ ceb741a0-cf02-11f1-8e97-5384696f36a7
 "Umbral de masa crítica: la raíz menor de a + bL − cL²."
 umbral_ref(a, b, c) = (b - sqrt(b^2 + 4a * c)) / (2c)
 
-# ╔═╡ f61ed926-ce4c-11f1-9f46-fba7f718ef52
+# ╔═╡ ceb741aa-cf02-11f1-a35d-0fcc0a26468f
 "Iteraciones x₀, x₁, …, xₙ de x_{t+1} = g(x_t)."
 function iterar_ref(g, x0, n)
     x = [float(x0)]
@@ -525,7 +467,7 @@ function iterar_ref(g, x0, n)
     x
 end
 
-# ╔═╡ f61ed890-ce4c-11f1-bf93-0b6b0c10fddf
+# ╔═╡ ceb74088-cf02-11f1-910e-0b8f811e7de3
 let
     ys = iterar_ref(y -> a_d * y + b_d, y0_d, 20)
     p = scatter(0:20, ys; color = AZUL, ms = 4, msw = 0, xlabel = "t", ylabel = "yₜ",
@@ -535,7 +477,7 @@ let
     p
 end
 
-# ╔═╡ f61ed8c2-ce4c-11f1-a5f7-47bfa046fb61
+# ╔═╡ ceb740e2-cf02-11f1-8a53-0b25a57e065c
 let
     g(x) = 1 + 0.5cos(x)
     xstar = iterar_ref(g, 1.0, 200)[end]
@@ -548,7 +490,7 @@ let
           label = "cota ρᵗ |x₀ − x*|")
 end
 
-# ╔═╡ f61ed926-ce4c-11f1-b1d1-93567a8e5149
+# ╔═╡ ceb741b4-cf02-11f1-b5f8-e354750ac240
 "Los tres mapas de la sección 4: función, rango, punto fijo y g′ en el punto fijo."
 function mapa_ref(nombre, D, r)
     if nombre == "solow"
@@ -566,7 +508,7 @@ function mapa_ref(nombre, D, r)
     end
 end
 
-# ╔═╡ f61ed8a4-ce4c-11f1-b92b-a5f670f5901f
+# ╔═╡ ceb740b0-cf02-11f1-8c6d-df61c8201a1d
 let
     m = mapa_ref(mapa, D_oferta, r_log)
     gp = m.gprima
@@ -576,20 +518,18 @@ let
     Punto fijo ``x^\ast`` = $(round(m.xstar, digits = 3)), con
     ``g'(x^\ast)`` = $(round(gp, digits = 3)): $(lectura).
 
-    - **Mercado.** ``g'(p^\ast) = -D/B``: el precio siempre oscila. Con
-      ``D > B`` (la oferta responde más que la demanda), las oscilaciones
-      crecen.
-    - **Solow discreto.** ``g'(K^\ast) = 1 - (1 - \alpha)\delta = 0.965``: cada
-      año queda el 96.5% de la brecha. Por eso, en la sesión 1, el capital
-      sólo llegó a 5.4 de 7.25 en 40 años. La curva casi coincide con la
-      diagonal, y la telaraña es una escalera de peldaños diminutos.
-    - **Logístico.** ``g'(x^\ast) = 2 - r``. Prueba ``r = 1.5`` (converge
-      monótonamente), ``r = 2.8`` (oscila y converge) y ``r = 3`` (el
-      límite: ``g'(x^\ast) = -1``).
+    1. **Mercado** (notas, 2.5): con ``D = 0.8``, la telaraña es una espiral
+       que se cierra. **Mueve** ``D`` a 1 y después a 1.2: ¿qué pasa con las
+       oscilaciones del precio? ¿Por qué depende de ``D/B``?
+    2. **Solow discreto** (notas, 2.4): **observa** lo pequeños que son los
+       peldaños con ``g'(K^\ast) = 0.965``. ¿Por qué el capital tarda tanto en
+       llegar?
+    3. **Logístico:** prueba ``r = 1.5``, ``2.8`` y ``3``. ¿En cuál converge
+       sin oscilar, en cuál oscilando y en cuál el criterio no decide?
     """
 end
 
-# ╔═╡ f61ed930-ce4c-11f1-9775-35aab7cb3fb0
+# ╔═╡ ceb741be-cf02-11f1-8dee-331bd6941499
 "Diagrama de telaraña de g para la trayectoria xs en el rango dado."
 function telarana(g, xs, rango; titulo = "")
     grid = range(rango..., length = 300)
@@ -604,7 +544,7 @@ function telarana(g, xs, rango; titulo = "")
     plot!(p, px, clamp.(py, rango...); color = NARANJA, lw = 1)
 end
 
-# ╔═╡ f61ed8a4-ce4c-11f1-a60f-43cb66554035
+# ╔═╡ ceb740a6-cf02-11f1-8f8c-f597bf2e56f3
 let
     m = mapa_ref(mapa, D_oferta, r_log)
     x0 = m.rango[1] + x0_frac * (m.rango[2] - m.rango[1])
@@ -616,7 +556,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (760, 340))
 end
 
-# ╔═╡ f61ed930-ce4c-11f1-902b-6f81435dc282
+# ╔═╡ ceb741ca-cf02-11f1-a45c-95fdaf186c3d
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -638,72 +578,72 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ f61ed8d6-ce4c-11f1-bf01-81e19a24906b
+# ╔═╡ ceb7410a-cf02-11f1-8836-79e4f916f65f
 verificar(() -> clasificar_continuo.([-0.042, 0.255, 0.0, -1.72]),
           [:estable, :inestable, :no_decide, :estable];
           pista = md"Usa `fp < 0 ? :estable : fp > 0 ? :inestable : :no_decide`.")
 
-# ╔═╡ f61ed8e0-ce4c-11f1-96da-e7c825bbb30b
+# ╔═╡ ceb7411e-cf02-11f1-bc61-6d98e7b79e37
 verificar(() -> clasificar_discreto.([0.965, -0.8, 1.5, -1.2, 1.0, -1.0, 0.0]),
           [:monotona, :oscilante, :inestable, :inestable, :no_decide, :no_decide, :monotona];
           pista = md"Primero compara `abs(gp)` con 1; si es menor, decide por el signo de `gp` (con `gp >= 0` monótona).")
 
-# ╔═╡ f61ed8f4-ce4c-11f1-9705-99271c6db2e6
+# ╔═╡ ceb74132-cf02-11f1-b603-6bd698abeed5
 verificar(() -> [iterar(y -> -0.5y + 3, 0.0, 4); iterar(cos, 1.0, 3)],
           [iterar_ref(y -> -0.5y + 3, 0.0, 4); iterar_ref(cos, 1.0, 3)];
           pista = md"Crea `x = [x0]` y en un ciclo `for t in 1:n` agrega `push!(x, g(x[end]))`; devuelve `x`.")
 
-# ╔═╡ f61ed8fe-ce4c-11f1-9da6-555c5080e657
+# ╔═╡ ceb74150-cf02-11f1-a361-85729409cc30
 verificar(() -> [umbral(-0.3, 2.0, 1.5), umbral(-0.1, 2.0, 1.5), umbral(-0.5, 3.0, 2.0)],
           [umbral_ref(-0.3, 2.0, 1.5), umbral_ref(-0.1, 2.0, 1.5), umbral_ref(-0.5, 3.0, 2.0)];
           pista = md"Las raíces de ``-cL^2 + bL + a = 0`` son ``\big(b \mp \sqrt{b^2 + 4ac}\big)/(2c)``; la menor lleva el signo menos.")
 
 # ╔═╡ Cell order:
-# ╟─f61ed82c-ce4c-11f1-8f15-1fb1b16e2c25
-# ╟─f61ed854-ce4c-11f1-a8b5-8d6b08ea46f4
-# ╟─f61ed85e-ce4c-11f1-962a-810148f24c77
-# ╟─f61ed85e-ce4c-11f1-8bdb-758ba879bbcd
-# ╟─f61ed868-ce4c-11f1-b9f2-db9898853592
-# ╟─f61ed868-ce4c-11f1-9067-c1a21784a741
-# ╟─f61ed872-ce4c-11f1-ac97-93dbfb6645e3
-# ╟─f61ed87c-ce4c-11f1-bf5c-0d5e05498e34
-# ╟─f61ed87c-ce4c-11f1-9ee1-872defcee076
-# ╟─f61ed888-ce4c-11f1-ad20-49ba5336a702
-# ╟─f61ed888-ce4c-11f1-9843-cba1fc865817
-# ╟─f61ed888-ce4c-11f1-92fa-133419fef9ac
-# ╟─f61ed890-ce4c-11f1-9a8a-0b66f1155d25
-# ╟─f61ed890-ce4c-11f1-bf93-0b6b0c10fddf
-# ╟─f61ed89a-ce4c-11f1-b9bb-b709f9f90b3a
-# ╟─f61ed89a-ce4c-11f1-aa99-7da2c95253a1
-# ╟─f61ed8a4-ce4c-11f1-a60f-43cb66554035
-# ╟─f61ed8a4-ce4c-11f1-b92b-a5f670f5901f
-# ╟─f61ed8ae-ce4c-11f1-9187-b51a2bf1a1a9
-# ╟─f61ed8ba-ce4c-11f1-80e5-cdfd49f8079f
-# ╟─f61ed8ba-ce4c-11f1-b192-f361a8524ae3
-# ╟─f61ed8c2-ce4c-11f1-ba66-111f40ffe15c
-# ╟─f61ed8c2-ce4c-11f1-a5f7-47bfa046fb61
-# ╟─f61ed8c2-ce4c-11f1-a22b-1341fb8d1719
-# ╟─f61ed8cc-ce4c-11f1-a635-91d47b86e62c
-# ╠═f61ed8cc-ce4c-11f1-a9a0-8f0d1a452f94
-# ╟─f61ed8d6-ce4c-11f1-bf01-81e19a24906b
-# ╟─f61ed8d6-ce4c-11f1-804b-ed5cfccf71db
-# ╠═f61ed8e0-ce4c-11f1-818e-95955e57060b
-# ╟─f61ed8e0-ce4c-11f1-96da-e7c825bbb30b
-# ╟─f61ed8e8-ce4c-11f1-b1bc-a3a4d0576eb1
-# ╠═f61ed8e8-ce4c-11f1-964e-d9f08ab8d03d
-# ╟─f61ed8f4-ce4c-11f1-9705-99271c6db2e6
-# ╟─f61ed8f4-ce4c-11f1-b39b-6fe53388f74a
-# ╠═f61ed8f4-ce4c-11f1-bcbc-3568305fb895
-# ╟─f61ed8fe-ce4c-11f1-9da6-555c5080e657
-# ╟─f61ed8fe-ce4c-11f1-8f53-0f16b6075f4a
-# ╟─f61ed908-ce4c-11f1-9ce0-8d3c223339bd
-# ╠═f61ed908-ce4c-11f1-a152-5576bf947a3e
-# ╠═f61ed912-ce4c-11f1-920e-c36a0634dcc7
-# ╠═f61ed912-ce4c-11f1-889e-bd314ff79f6d
-# ╠═f61ed91a-ce4c-11f1-ad38-e3e4963af018
-# ╠═f61ed91a-ce4c-11f1-9212-b19cdf577060
-# ╠═f61ed91a-ce4c-11f1-bcae-95f2450e3f00
-# ╠═f61ed926-ce4c-11f1-9f46-fba7f718ef52
-# ╠═f61ed926-ce4c-11f1-b1d1-93567a8e5149
-# ╠═f61ed930-ce4c-11f1-9775-35aab7cb3fb0
-# ╠═f61ed930-ce4c-11f1-902b-6f81435dc282
+# ╟─ceb73fca-cf02-11f1-b285-317b68e4001b
+# ╟─ceb74010-cf02-11f1-942f-d770597eefa3
+# ╟─ceb7401a-cf02-11f1-b42b-adf506e12b41
+# ╟─ceb74024-cf02-11f1-aab4-8189a8bfbd56
+# ╟─ceb7402e-cf02-11f1-adb1-0b9048aad257
+# ╟─ceb74042-cf02-11f1-9f0d-0d8a3e12635f
+# ╟─ceb74042-cf02-11f1-8cab-811c4d6ce8d8
+# ╟─ceb7404c-cf02-11f1-97da-1f2dc6b7bca4
+# ╟─ceb74056-cf02-11f1-a7e3-134aca5d6b7c
+# ╟─ceb74062-cf02-11f1-a8f7-69a5bd5f3507
+# ╟─ceb7406a-cf02-11f1-b4b7-75cde2b33fd4
+# ╟─ceb74074-cf02-11f1-85db-35ecbd5d03dd
+# ╟─ceb7407e-cf02-11f1-a6be-ed625c81d147
+# ╟─ceb74088-cf02-11f1-910e-0b8f811e7de3
+# ╟─ceb74094-cf02-11f1-bdfc-53d0550760eb
+# ╟─ceb7409c-cf02-11f1-bff8-2d89a32c5687
+# ╟─ceb740a6-cf02-11f1-8f8c-f597bf2e56f3
+# ╟─ceb740b0-cf02-11f1-8c6d-df61c8201a1d
+# ╟─ceb740ba-cf02-11f1-a97f-57c818f0ba92
+# ╟─ceb740c6-cf02-11f1-8620-a71691e90ec6
+# ╟─ceb740ce-cf02-11f1-962d-cbf6b77320c2
+# ╟─ceb740d8-cf02-11f1-965e-8b65ed7d3ef6
+# ╟─ceb740e2-cf02-11f1-8a53-0b25a57e065c
+# ╟─ceb740ec-cf02-11f1-931f-1f292d78ebf9
+# ╟─ceb740f4-cf02-11f1-a128-2d8491f6490a
+# ╠═ceb74100-cf02-11f1-bff0-936155fd9b01
+# ╟─ceb7410a-cf02-11f1-8836-79e4f916f65f
+# ╟─ceb7410a-cf02-11f1-940a-854d54251270
+# ╠═ceb74114-cf02-11f1-a600-b1d3e2693ce7
+# ╟─ceb7411e-cf02-11f1-bc61-6d98e7b79e37
+# ╟─ceb74126-cf02-11f1-b904-3f47a2d83318
+# ╠═ceb74132-cf02-11f1-8fcf-6d52f8ad4c2a
+# ╟─ceb74132-cf02-11f1-b603-6bd698abeed5
+# ╟─ceb7413c-cf02-11f1-bfda-43790f1ca52a
+# ╠═ceb74146-cf02-11f1-a57a-b9eda178b7a0
+# ╟─ceb74150-cf02-11f1-a361-85729409cc30
+# ╟─ceb74158-cf02-11f1-bc47-15372f51edc3
+# ╟─ceb74164-cf02-11f1-a156-59fe6162871e
+# ╠═ceb7416e-cf02-11f1-a178-d745a87dd3bd
+# ╠═ceb74178-cf02-11f1-bf52-cd309704ed25
+# ╠═ceb74182-cf02-11f1-af9d-f5299e1d376d
+# ╠═ceb7418c-cf02-11f1-bf77-bbc41e02503a
+# ╠═ceb74196-cf02-11f1-999f-bd6da72a1ab6
+# ╠═ceb741a0-cf02-11f1-8e97-5384696f36a7
+# ╠═ceb741aa-cf02-11f1-a35d-0fcc0a26468f
+# ╠═ceb741b4-cf02-11f1-b5f8-e354750ac240
+# ╠═ceb741be-cf02-11f1-8dee-331bd6941499
+# ╠═ceb741ca-cf02-11f1-a45c-95fdaf186c3d

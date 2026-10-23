@@ -1,10 +1,14 @@
 # Sesión 7: Sistemas de ecuaciones diferenciales y linealización
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s07_sistemas_lineales.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s07_sistemas_lineales.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [L.B1–B3](repaso/algebra_lineal.md#lb1) (matrices,
 > sistemas y determinantes), [L.I1–I3](repaso/algebra_lineal.md#li1)
@@ -18,6 +22,25 @@
 >
 > Lecturas: Chiang y Wainwright (2006), cap. 16 y secs. 19.5–19.6; Strogatz
 > (2015), caps. 5–6.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Pizarra | La pregunta: dos regiones que se afectan entre sí | 0 |
+| 5–15 | Pizarra | Repaso: eigenvalores, traza y determinante | 1 |
+| 15–30 | Pizarra | La solución por modos; los casos complejo y repetido, de palabra | 2.1 |
+| 30–42 | Pizarra | Clasificación por la traza y el determinante; la Proposición 2 | 2.2 |
+| 42–50 | Proyector | El explorador de $A$: retrato de fase y plano traza-determinante | Cuaderno, sección 1 |
+| 50–62 | Pizarra | Dos regiones con derrames (nodo); el primer punto de silla, $\ddot y = y$ | 2.3, 2.4 |
+| 62–67 | | Pausa | |
+| 67–74 | Proyector | Tres sistemas regionales, incluido el ciclo inmobiliario (foco) | Cuaderno, sección 2; notas, 2.5 |
+| 74–82 | Pizarra | Ecuaciones de segundo orden como sistemas | 3 |
+| 82–92 | Pizarra y proyector | Sistemas en tiempo discreto: $\lvert\lambda\rvert < 1$; continuo contra discreto | 4; cuaderno, sección 3 |
+| 92–108 | Pizarra y proyector | Linealización con el jacobiano; el punto de silla de Ramsey | 5.1, 5.2; cuaderno, sección 4 |
+| 108–118 | Parejas | Ejercicio F1 a mano | 8 |
+| 118–120 | Pizarra | Cierre: diagramas de fase no lineales (sesión 8) | 6 |
+| Después | Lectura | El ciclo inmobiliario en detalle (2.5), el centro (2.6), el término constante (2.7), el triángulo de estabilidad (P.3), Hartman-Grobman (P.2), el resumen (7) y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -45,14 +68,21 @@ aparece en todos los modelos de crecimiento óptimo (sesiones 10 y 12).
 Para una matriz $A$ de $2 \times 2$, un **eigenvector** $v \ne 0$ con
 **eigenvalor** $\lambda$ cumple $Av = \lambda v$: en la dirección de $v$,
 aplicar $A$ sólo estira por el factor $\lambda$
-([L.I1](repaso/algebra_lineal.md#li1)). Con la traza
-$\tau = a_{11} + a_{22}$ y el determinante $\Delta = \det A$, los
-eigenvalores son las raíces de
+([L.I1](repaso/algebra_lineal.md#li1)). Hay un $v \ne 0$ así si y sólo si
+$A - \lambda I$ no es invertible. Con la traza $\tau = a_{11} + a_{22}$ y el
+determinante $\Delta = \det A$:
 
 $$
-\lambda^2 - \tau\lambda + \Delta = 0,
+\det(A - \lambda I) = (a_{11} - \lambda)(a_{22} - \lambda) - a_{12}a_{21}
+= \lambda^2 - (a_{11} + a_{22})\lambda + (a_{11}a_{22} - a_{12}a_{21}),
+$$
+
+así que los eigenvalores son las raíces de
+
+$$
+\boxed{\ \lambda^2 - \tau\lambda + \Delta = 0,
 \qquad
-\lambda_{1,2} = \frac{\tau \pm \sqrt{\tau^2 - 4\Delta}}{2},
+\lambda_{1,2} = \frac{\tau \pm \sqrt{\tau^2 - 4\Delta}}{2}\ }
 $$
 
 y cumplen $\lambda_1 + \lambda_2 = \tau$ y $\lambda_1\lambda_2 = \Delta$.
@@ -69,7 +99,7 @@ $\lambda_1, \lambda_2$ con eigenvectores $v_1, v_2$, la solución de
 $\dot x = Ax$ con $x(0) = x_0$ es
 
 $$
-x(t) = c_1e^{\lambda_1t}v_1 + c_2e^{\lambda_2t}v_2,
+\boxed{\ x(t) = c_1e^{\lambda_1t}v_1 + c_2e^{\lambda_2t}v_2\ }
 $$
 
 donde $(c_1, c_2)$ son las coordenadas de $x_0$ en la base de
@@ -121,7 +151,10 @@ $\Delta$ ([D.I5](repaso/ecuaciones_diferenciales.md#di5)):
 | $\Delta = 0$ | Al menos uno es cero | No hiperbólico | Una recta de equilibrios |
 
 **Proposición 2.** El origen es asintóticamente estable si y sólo si
-$\tau < 0$ y $\Delta > 0$.
+
+$$
+\boxed{\ \tau < 0 \quad\text{y}\quad \Delta > 0\ }
+$$
 
 *Demostración.* Si los eigenvalores son reales, $\Delta > 0$ dice que tienen
 el mismo signo y $\tau < 0$ que ese signo es negativo. Si son complejos,
@@ -151,6 +184,18 @@ $$
 A = \begin{pmatrix} -\beta - \mu & \mu \cr \mu & -\beta - \mu \end{pmatrix}.
 $$
 
+Los eigenvectores se comprueban multiplicando:
+
+$$
+A\begin{pmatrix} 1 \cr 1 \end{pmatrix}
+= \begin{pmatrix} -\beta - \mu + \mu \cr \mu - \beta - \mu \end{pmatrix}
+= -\beta\begin{pmatrix} 1 \cr 1 \end{pmatrix},
+\qquad
+A\begin{pmatrix} 1 \cr -1 \end{pmatrix}
+= \begin{pmatrix} -\beta - 2\mu \cr \beta + 2\mu \end{pmatrix}
+= (-\beta - 2\mu)\begin{pmatrix} 1 \cr -1 \end{pmatrix}.
+$$
+
 Los eigenvalores son $-\beta$, con eigenvector $(1, 1)$, y $-\beta - 2\mu$,
 con eigenvector $(1, -1)$. Los dos modos tienen lectura económica:
 
@@ -175,13 +220,15 @@ $$
 \qquad \tau = 0,\quad \Delta = -1:
 $$
 
-un punto de silla, con eigenvalores $-1$ y $1$ y eigenvectores $(1, -1)$ y
-$(1, 1)$. La solución es $y(t) = c_1e^{-t} + c_2e^{t}$.
+un punto de silla. Los eigenvalores cumplen $\lambda^2 - 1 = 0$, así que
+son $-1$ y $1$, con eigenvectores $(1, -1)$ y $(1, 1)$:
+$A(1, -1)^\top = (-1, 1)^\top$ y $A(1, 1)^\top = (1, 1)^\top$. La solución es
+$y(t) = c_1e^{-t} + c_2e^{t}$.
 
 Dado $y(0) = y_0$, todavía hay que elegir $\dot y(0)$. Casi toda elección
-tiene $c_2 \ne 0$ y explota. **Sólo $\dot y(0) = -y_0$**, que pone la
-condición inicial sobre el eigenvector estable $(1, -1)$, converge al
-origen. En los problemas de optimización con horizonte infinito, el estado
+tiene $c_2 \ne 0$ y explota. Para que $c_2 = 0$, la condición inicial
+$(y_0, \dot y(0))$ tiene que estar sobre el eigenvector estable $(1, -1)$:
+**sólo $\dot y(0) = -y_0$** converge al origen. En los problemas de optimización con horizonte infinito, el estado
 inicial está dado y la variable que falta (el consumo, el coestado) se elige
 justamente así: para caer sobre la **rama estable** del punto de silla
 (sesiones 10 y 12).
@@ -243,7 +290,16 @@ $$
 \qquad \tau = -a_1,\quad \Delta = a_2.
 $$
 
-El polinomio característico de la matriz, $\lambda^2 + a_1\lambda + a_2$, es
+(La primera ecuación, $\dot x_1 = x_2$, dice que $x_2 = \dot y$; la segunda
+es la ecuación original despejada, $\ddot y = -a_2y - a_1\dot y$.) El
+polinomio característico de la matriz,
+
+$$
+\det\begin{pmatrix} -\lambda & 1 \cr -a_2 & -a_1 - \lambda \end{pmatrix}
+= \lambda(a_1 + \lambda) + a_2 = \lambda^2 + a_1\lambda + a_2,
+$$
+
+es
 la **ecuación característica** de la ecuación de segundo orden
 ([D.I3](repaso/ecuaciones_diferenciales.md#di3)): las raíces características
 son los eigenvalores. Según el discriminante $a_1^2 - 4a_2$:
@@ -304,7 +360,7 @@ $F(x^\ast) = 0$. Cerca de $x^\ast$, por el desarrollo de Taylor
 ([C.I7](repaso/calculo.md#ci7)),
 
 $$
-\dot x = F(x) \approx F(x^\ast) + J(x^\ast)(x - x^\ast) = J(x^\ast)(x - x^\ast),
+\boxed{\ \dot x = F(x) \approx F(x^\ast) + J(x^\ast)(x - x^\ast) = J(x^\ast)(x - x^\ast)\ }
 $$
 
 donde $J$ es el **jacobiano**: la matriz de derivadas parciales
@@ -333,18 +389,34 @@ $$
 $$
 
 con $f(k) = k^\alpha$. En el estado estacionario, $f'(k^\ast) = \delta + \rho$
-y $c^\ast = f(k^\ast) - \delta k^\ast$. El jacobiano ahí es
+y $c^\ast = f(k^\ast) - \delta k^\ast$. Las cuatro derivadas parciales son
+
+$$
+\frac{\partial\dot k}{\partial k} = f'(k) - \delta,
+\qquad
+\frac{\partial\dot k}{\partial c} = -1,
+\qquad
+\frac{\partial\dot c}{\partial k} = \frac{c\thinspace f''(k)}{\theta},
+\qquad
+\frac{\partial\dot c}{\partial c} = \frac{f'(k) - \delta - \rho}{\theta},
+$$
+
+y el jacobiano en el estado estacionario es
 
 $$
 J = \begin{pmatrix} f'(k^\ast) - \delta & -1 \cr \dfrac{c^\ast f''(k^\ast)}{\theta} & 0 \end{pmatrix}
 = \begin{pmatrix} \rho & -1 \cr \dfrac{c^\ast f''(k^\ast)}{\theta} & 0 \end{pmatrix}.
 $$
 
-(La entrada $\partial\dot c/\partial c = \big(f'(k) - \delta - \rho\big)/\theta$
-vale cero en el estado estacionario.) Como
-$f'' < 0$, $\Delta = c^\ast f''(k^\ast)/\theta < 0$: **el estado
-estacionario de Ramsey es un punto de silla**, sin importar los valores de
-los parámetros.
+(La entrada $\partial\dot c/\partial c$ vale cero en el estado estacionario,
+porque ahí $f'(k^\ast) = \delta + \rho$.) Su determinante es
+
+$$
+\boxed{\ \Delta = \rho\cdot 0 - (-1)\frac{c^\ast f''(k^\ast)}{\theta} = \frac{c^\ast f''(k^\ast)}{\theta} < 0\ }
+$$
+
+porque $f'' < 0$: **el estado estacionario de Ramsey es un punto de silla**,
+sin importar los valores de los parámetros.
 
 Con $\alpha = 0.3$, $\delta = 0.05$, $\rho = 0.03$ y $\theta = 2$:
 $k^\ast \approx 6.61$, $c^\ast \approx 1.43$ y los eigenvalores son

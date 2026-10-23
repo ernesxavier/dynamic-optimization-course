@@ -5,28 +5,15 @@ md"""
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
 
-**Objetivos de la sesión**
-1. Construir el diagrama de fase de un sistema no lineal en el plano:
-   isoclinas, direcciones del flujo, equilibrios y su tipo.
-2. Reconocer cuencas de atracción y separatrices: cuando el destino depende
-   de dónde se empieza.
-3. Leer el diagrama de fase de Ramsey: el punto de silla, la rama estable y
-   por qué sólo un consumo inicial es óptimo.
-4. Calcular la rama estable numéricamente, integrando hacia atrás y por
-   disparo.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s08_estabilidad_no_lineal.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s08_estabilidad_no_lineal.md`, y se desarrolla en el pizarrón;
+el cuaderno sirve para mover los parámetros y ver qué pasa. En clase se
+proyectan las secciones 1 a 4; los ejercicios son para después. Pluto es
+reactivo: al mover un deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s08_estabilidad_no_lineal.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): L.I1 y L.I2
-(eigenvalores), L.I6 (jacobiano) y D.I6 (diagramas de fase en el plano).
-Para los puntos [Avanzado]: D.A2 (variedad estable).
 """
 
 #%% hide
@@ -36,18 +23,12 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. Dos regiones que compiten por la misma actividad
 
-``x`` e ``y`` son el tamaño de una actividad en la región 1 y en la región 2,
-como fracción de lo que cada una podría sostener sola. La actividad en una
-región le quita mercado a la otra:
-
-```math
-\dot x = x(1 - x - a y), \qquad \dot y = y(1 - y - b x).
-```
-
-En la gráfica, las rectas azul y naranja son las isoclinas ``\dot x = 0`` y
-``\dot y = 0``; los puntos llenos son equilibrios estables y los vacíos,
-inestables o puntos de silla. Si el equilibrio interior es un punto de
-silla, la curva negra es la **separatriz**: sus ramas estables.
+*En clase, después de la sección 2 de las notas.* Diagrama de fase de
+``\dot x = x(1 - x - ay)``, ``\dot y = y(1 - y - bx)``. Las rectas azul y
+naranja son las isoclinas ``\dot x = 0`` y ``\dot y = 0``; los puntos llenos
+son equilibrios estables y los vacíos, inestables o puntos de silla. Si el
+equilibrio interior es un punto de silla, la curva negra es la
+**separatriz**.
 
 Cuánto le quita la región 2 a la 1, ``a``: $(@bind a_c Slider(0.2:0.1:2.5, default = 2.0, show_value = true))
 
@@ -99,29 +80,27 @@ end
 
 #%% hide
 md"""
-Con ``a = b = 2``, dos regiones casi idénticas terminan en destinos
-opuestos según de qué lado de la separatriz empiecen: es la versión en el
-plano del umbral de aglomeración de la sesión 6. Baja ``a`` y ``b`` por
-debajo de 1: el equilibrio interior se vuelve estable y las regiones
-coexisten. La política que busque la coexistencia tiene que cambiar ``a`` y
-``b`` (menos competencia, más especialización), no sólo las condiciones
-iniciales.
+Recorre los tres casos de la tabla de la sección 2.4 de las notas:
+
+1. **Competencia débil**, ``a = b = 0.5``: ¿cuántos equilibrios estables hay?
+   ¿A dónde van todas las trayectorias?
+2. **Competencia fuerte**, ``a = b = 2``: **observa** la separatriz. ¿A dónde
+   van dos regiones que empiezan casi iguales, a uno y otro lado de ella?
+3. **Mueve** ``a`` a 2.5 con ``b = 2``: ¿hacia dónde se inclina la
+   separatriz? ¿Qué región tiene ahora la cuenca más grande?
+4. **Una región domina**, ``a = 0.5`` y ``b = 1.5``: ¿qué pasó con el
+   equilibrio interior?
+5. ¿Qué tendría que cambiar una política para pasar del caso 2 al caso 1?
 """
 
 #%% hide
 md"""
 ## 2. El diagrama de fase de Ramsey
 
-El capital ``k`` y el consumo ``c`` óptimos de una economía cumplen (sesión
-12)
-
-```math
-\dot k = k^\alpha - \delta k - c, \qquad \dot c = \frac{c}{\theta}\big(\alpha k^{\alpha-1} - \delta - \rho\big),
-```
-
-con ``\alpha = 0.3`` y ``\delta = 0.05``. La curva azul es la isoclina
-``\dot k = 0``, la recta punteada es ``\dot c = 0`` y la curva naranja es la
-**rama estable**: el único camino al estado estacionario.
+*En clase, después de la sección 3.4 de las notas.* Con ``\alpha = 0.3`` y
+``\delta = 0.05``. La curva azul es la isoclina ``\dot k = 0``, la recta
+punteada es ``\dot c = 0`` y la curva naranja es la **rama estable**. La
+trayectoria negra empieza en ``(k_0, c_0)``.
 
 Tasa de descuento ``\rho``: $(@bind ρ Slider(0.01:0.005:0.08, default = 0.03, show_value = true))
 
@@ -179,9 +158,14 @@ let
     | Tasa de ahorro en el estado estacionario, ``\alpha\delta/(\delta + \rho)`` | $(rd(r.α * r.δ / (r.δ + ρ))) |
     | Consumo óptimo con ``k_0`` = $(rd(k0_frac * r.kstar)) | $(rd(politica(r, k0_frac * r.kstar))) |
 
-    Mueve ``c_0`` arriba y abajo de 1: sólo el consumo de la rama estable es
-    óptimo. Baja ``\rho``: la recta ``\dot c = 0`` se mueve a la derecha y
-    ``k^\ast`` se acerca a la regla de oro.
+    1. Con ``k_0 = 0.5k^\ast``, **pon** ``c_0`` en 1 (la rama estable), en
+       1.03 y en 0.97: son los tres destinos de la sección 3.4 de las notas.
+    2. **Mueve** ``k_0`` por encima de ``k^\ast``: ¿qué rama sigue ahora la
+       economía? ¿El consumo sube o baja en la transición?
+    3. **Baja** ``\rho``: ¿hacia dónde se mueve la recta ``\dot c = 0``? ¿Se
+       acerca ``k^\ast`` a la regla de oro?
+    4. **Sube** ``\theta``: ¿qué le pasa a la rama estable cerca de
+       ``k^\ast``?
     """
 end
 
@@ -189,9 +173,8 @@ end
 md"""
 ## 3. La función de política: cuánto ahorra una región pobre
 
-La rama estable es la gráfica de una función ``c = \sigma(k)``: el consumo
-óptimo para cada nivel de capital. A la derecha, la tasa de ahorro que
-implica, ``1 - \sigma(k)/k^\alpha``.
+*En clase* (notas, 3.5). La rama estable como función ``c = \sigma(k)``, y la
+tasa de ahorro que implica, ``1 - \sigma(k)/k^\alpha``.
 """
 
 #%% hide
@@ -211,22 +194,18 @@ end
 
 #%% hide
 md"""
-Una región pobre **ahorra una fracción mayor** de su producto, porque ahí el
-capital rinde más; la tasa baja a medida que el capital se acerca a
-``k^\ast``. La línea punteada es la tasa de la regla de oro, ``\alpha``:
-el ahorro óptimo de largo plazo queda por debajo, por la impaciencia. Sube
-``\theta``: el ahorro de la región pobre baja, porque con más aversión a la
-variación del consumo conviene suavizarlo más.
+**Observa:** ¿ahorra más una región pobre o una rica? ¿Dónde queda el ahorro
+de largo plazo respecto de la regla de oro (línea punteada)? **Mueve**
+``\theta`` en la sección 2 y mira qué pasa con el ahorro de la región pobre.
 """
 
 #%% hide
 md"""
-## 4. [Avanzado] Un cambio inesperado en la paciencia
+## 4. Un cambio inesperado en la paciencia
 
-La economía está en su estado estacionario con ``\rho = 0.04`` y, en el
-año 10, la tasa de descuento baja de manera permanente e inesperada al
-valor ``\rho`` del deslizador de la sección 2. El capital no puede saltar;
-el consumo sí. ¿Qué hace cada uno?
+*En clase, con la sección 3.6 de las notas.* La economía está en su estado
+estacionario con ``\rho = 0.04`` y, en el año 10, la tasa de descuento cambia
+de manera permanente al valor ``\rho`` del deslizador de la sección 2.
 """
 
 #%% hide
@@ -244,28 +223,20 @@ end
 
 #%% hide
 md"""
-Si el nuevo ``\rho`` es menor que 0.04, en el año 10 el consumo **cae de
-golpe** hasta la nueva rama estable y después crece, mientras el capital se
-acumula poco a poco hacia el nuevo ``k^\ast``. El estado (``k``) se mueve
-despacio; el control (``c``) salta. Es la lectura típica de un diagrama de
-fase de optimización (notas, sección 3.6). Prueba un ``\rho`` mayor que
-0.04: el consumo salta hacia arriba.
+1. **Pon** ``\rho = 0.03`` en la sección 2: la economía se vuelve más
+   paciente. ¿Qué variable salta en el año 10, y hacia dónde? ¿Cuál se mueve
+   despacio?
+2. **Pon** ``\rho = 0.06``: ¿qué cambia en la respuesta?
+3. ¿Por qué el consumo cae justo cuando la economía se vuelve más paciente,
+   si a largo plazo termina más alto?
 """
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Isoclinas | Dónde una variable no cambia; sus cruces son equilibrios | Rectas de competencia; joroba y vertical de Ramsey |
-| Flechas | El signo de cada ecuación entre isoclinas | Campo de direcciones |
-| Jacobiano | El tipo de cada equilibrio | Tabla de la competencia |
-| Separatriz | Divide el plano en cuencas de atracción | Competencia fuerte |
-| Rama estable | El único camino al punto de silla; es la función de política | Ramsey |
-| Disparo e integración hacia atrás | Dos formas de calcular la rama estable | Ejercicio 3; curva naranja |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 7).
 
 ### Completa el código
 
@@ -356,10 +327,8 @@ md"""
 
 ### [Avanzado]
 
-9. En la sección 4, ¿por qué el consumo cae justo después de que la
-   economía se vuelve más paciente, si a largo plazo termina más alto?
-10. Compara la rama estable de la sección 2 con la recta del eigenvector
-    estable de la sesión 7. ¿Dónde coinciden y dónde se separan?
+9. Compara la rama estable de la sección 2 con la recta del eigenvector
+   estable de la sesión 7. ¿Dónde coinciden y dónde se separan?
 
 ## Para la próxima sesión
 

@@ -5,27 +5,17 @@ md"""
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
 
-**Objetivos de la sesión**
-1. Encontrar los equilibrios de ``\dot x = f(x)`` y decidir, con la recta de
-   fase y el signo de ``f'(x^\ast)``, cuáles son estables.
-2. Reconocer equilibrios múltiples y umbrales, y lo que implican para la
-   política regional.
-3. Resolver ``y_{t+1} = ay_t + b`` y saber cuándo converge y cuándo oscila.
-4. Leer un diagrama de telaraña y aplicar el criterio ``|g'(x^\ast)| < 1``.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s06_diagramas_de_fase.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s06_diagramas_de_fase.md`, y se desarrolla en el pizarrón; el
+cuaderno sirve para mover los parámetros y ver qué pasa. En clase se
+proyectan las secciones 0 a 5; la sección 6 y los ejercicios son para
+después. Pluto es reactivo: al mover un deslizador, todo lo que depende de
+él se recalcula. En las gráficas, un **punto lleno** es un equilibrio
+estable y un **punto vacío**, uno inestable.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s06_diagramas_de_fase.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): D.B1 y D.B2 (ecuaciones
-diferenciales y en diferencias), A.B2 (sucesiones), D.I1 (lineales de
-primer orden) y D.I4 (puntos fijos y diagramas de fase). Para los puntos
-[Avanzado]: A.I5 (contracciones).
 """
 
 #%% hide
@@ -35,26 +25,17 @@ TableOfContents(title = "Contenido")
 md"""
 ## 0. La pregunta: ¿a dónde va una región?
 
-En la sesión 5, la brecha de una región cumplía una ecuación lineal y se
-podía resolver. Los modelos económicos casi nunca son lineales. La buena
-noticia: para saber **a dónde va** el sistema no hace falta resolverlo.
-Basta el **diagrama de fase**: dibujar ``\dot x = f(x)`` contra ``x``.
-Donde ``f > 0``, ``x`` crece; donde ``f < 0``, decrece; donde ``f = 0``,
-está en equilibrio.
-
-En las gráficas de este cuaderno, un **punto lleno** es un equilibrio estable
-y un **punto vacío**, uno inestable.
+*En clase, al inicio* (notas, sección 0). Las secciones 1 y 2 muestran, sin
+resolver ninguna ecuación, a dónde va una región según dónde empieza: es lo
+que la clase justifica en el pizarrón.
 """
 
 #%% hide
 md"""
 ## 1. Solow: un equilibrio estable
 
-El capital por trabajador de una región cumple
-
-```math
-\dot k = s k^\alpha - (n + \delta) k .
-```
+*En clase, después de la sección 1.4 de las notas.* Recta de fase y
+trayectorias de ``\dot k = sk^\alpha - (n + \delta)k``.
 
 Tasa de ahorro ``s``: $(@bind s Slider(0.05:0.05:0.5, default = 0.2, show_value = true))
 
@@ -87,18 +68,13 @@ let
     md"""
     | | Valor |
     |:---|---:|
-    | Estado estacionario ``k^\ast = (s/(n + \delta))^{1/(1-\alpha)}`` | $(r(kstar)) |
-    | Pendiente ``f'(k^\ast) = -(1 - \alpha)(n + \delta)`` | $(r(fp)) |
-    | Vida media de una desviación pequeña, ``\ln 2/|f'(k^\ast)|`` | $(round(log(2) / abs(fp), digits = 1)) años |
+    | Estado estacionario ``k^\ast`` | $(r(kstar)) |
+    | Pendiente ``f'(k^\ast)`` | $(r(fp)) |
+    | Vida media de una desviación pequeña | $(round(log(2) / abs(fp), digits = 1)) años |
 
-    Todas las trayectorias con ``k_0 > 0`` van a ``k^\ast``: las que empiezan
-    abajo crecen y las que empiezan arriba bajan, **sin cruzarse ni
-    oscilar**. En una dimensión y en tiempo continuo, las soluciones son
-    monótonas.
-
-    Sube ``s``: ``k^\ast`` sube, pero la velocidad no cambia. Sube ``\alpha``:
-    la convergencia se vuelve más lenta. Es la razón por la que la regla del
-    2% de la sesión 5 pide un ``\alpha`` alto.
+    **Mueve** ``s`` y después ``\alpha``. **Observa:** ¿cuál de los dos cambia
+    ``k^\ast`` y cuál la velocidad de convergencia? ¿Se cruzan o oscilan las
+    trayectorias?
     """
 end
 
@@ -106,16 +82,8 @@ end
 md"""
 ## 2. Aglomeración: dos equilibrios estables y un umbral
 
-Una región atrae población según cuánto mejor se vive ahí que en el resto
-del país. Con aglomeración, la ventaja ``u(L)`` sube con el tamaño de la
-región al principio y baja después, por congestión:
-
-```math
-\dot L = L\,u(L), \qquad u(L) = a + 2L - 1.5L^2 .
-```
-
-Con ``a < 0``, una región pequeña no tiene la masa crítica para atraer a
-nadie.
+*En clase, antes de la sección 1.5 de las notas.* Recta de fase y
+trayectorias de ``\dot L = L\,u(L)``, con ``u(L) = a + 2L - 1.5L^2``.
 
 Ventaja de partida ``a``: $(@bind a_agl Slider(-0.6:0.05:0.1, default = -0.3, show_value = true))
 """
@@ -141,14 +109,16 @@ let
     r(v) = round(v, digits = 3)
     if length(eqs) == 3
         md"""
-        Hay tres equilibrios: ``L = 0`` (estable: la región se vacía),
-        ``L_1`` = $(r(eqs[2])) (**inestable**: el umbral) y ``L_2`` = $(r(eqs[3]))
-        (estable: la región consolidada). **La historia decide**: dos regiones
-        idénticas terminan en lugares distintos según de qué lado del umbral
-        empiecen.
+        Tres equilibrios: ``L = 0``, el umbral ``L_1`` = $(r(eqs[2])) y
+        ``L_2`` = $(r(eqs[3])).
 
-        Sube ``a``: el umbral baja y la región consolidada crece. Con ``a > 0``,
-        el equilibrio ``L = 0`` se vuelve inestable y toda región crece.
+        1. **Observa** las trayectorias que empiezan cerca del umbral, a uno y
+           otro lado: ¿a dónde va cada una?
+        2. **Mueve** ``a`` de ``-0.3`` a ``-0.1``: ¿el umbral sube o baja? ¿Qué
+           significa para una región pequeña?
+        3. **Mueve** ``a`` a ``0.05``: ¿qué pasa con el equilibrio ``L = 0`` y
+           con el umbral?
+        4. Regresa a ``a = -0.3`` para el gran impulso.
         """
     elseif length(eqs) == 2
         md"""
@@ -168,10 +138,15 @@ end
 md"""
 ### Un gran impulso
 
-Una región empieza con ``L_0 = 0.1``, debajo del umbral. El gobierno le da un
-subsidio ``\sigma`` que sube su ventaja, ``u(L) + \sigma``, durante los
-primeros ``T_s`` años, y después lo retira. ¿Cuánto subsidio y por cuánto
-tiempo hacen falta para que la región se consolide?
+Una región empieza con ``L_0 = 0.1``, debajo del umbral. Un subsidio
+``\sigma`` sube su ventaja durante ``T_s`` años y después se retira.
+
+1. Con ``\sigma = 0.3``, **busca** la menor duración ``T_s`` que consolide la
+   región.
+2. Con ``T_s = 2``, **busca** el menor ``\sigma`` que lo logre.
+3. ¿Cuál de las dos combinaciones es más barata, si el costo es
+   ``\sigma \times T_s``? ¿Qué pasa con un subsidio que se queda justo debajo
+   del umbral?
 
 Subsidio ``\sigma``: $(@bind σ_sub Slider(0.0:0.05:0.6, default = 0.3, show_value = true))
 
@@ -203,14 +178,8 @@ end
 md"""
 ## 3. Ecuaciones en diferencias lineales
 
-En tiempo discreto, ``y_{t+1} = a y_t + b``. El punto fijo es
-``y^\ast = b/(1 - a)`` y la solución es
-
-```math
-y_t = y^\ast + a^t (y_0 - y^\ast):
-```
-
-la desviación se multiplica por ``a`` cada periodo.
+*En clase, después de la sección 2.1 de las notas.* Trayectoria de
+``y_{t+1} = ay_t + b``; la línea punteada es el punto fijo.
 
 ``a``: $(@bind a_d Slider(-1.5:0.1:1.5, default = -0.5, show_value = true))
 
@@ -236,10 +205,9 @@ let
               abs(a_d) < 1 ? (a_d < -1e-9 ? "converge oscilando" : a_d > 1e-9 ? "converge monótonamente" : "llega al punto fijo en un paso") :
               (a_d < 0 ? "se aleja oscilando" : "se aleja monótonamente")
     md"""
-    Con ``a`` = $(a_d), la trayectoria $(regimen). El punto fijo es estable si y sólo si
-    ``|a| < 1``, y la trayectoria oscila si y sólo si ``a < 0``. En tiempo
-    continuo, una ecuación de primer orden nunca oscila; en discreto, el
-    estado puede brincar al otro lado del equilibrio.
+    Con ``a`` = $(a_d), la trayectoria $(regimen). **Mueve** ``a`` por las
+    seis zonas de la tabla de la sección 2.1 de las notas y comprueba cada
+    una.
     """
 end
 
@@ -247,10 +215,8 @@ end
 md"""
 ## 4. Ecuaciones no lineales: el diagrama de telaraña
 
-Para ``x_{t+1} = g(x_t)``, los puntos fijos son los cruces de ``y = g(x)``
-con la diagonal. La telaraña sube a la curva (aplicar ``g``) y va a la
-diagonal (pasar el resultado al eje horizontal), una y otra vez. Cerca de un
-punto fijo, la desviación se multiplica por ``g'(x^\ast)``.
+*En clase, después de la sección 2.2 de las notas.* Telaraña y trayectoria
+de tres mapas.
 
 Mapa: $(@bind mapa Select(["mercado" => "Telaraña de un mercado regional", "solow" => "Solow discreto (sesión 1)", "logistico" => "Mapa logístico"]))
 
@@ -283,16 +249,14 @@ let
     Punto fijo ``x^\ast`` = $(round(m.xstar, digits = 3)), con
     ``g'(x^\ast)`` = $(round(gp, digits = 3)): $(lectura).
 
-    - **Mercado.** ``g'(p^\ast) = -D/B``: el precio siempre oscila. Con
-      ``D > B`` (la oferta responde más que la demanda), las oscilaciones
-      crecen.
-    - **Solow discreto.** ``g'(K^\ast) = 1 - (1 - \alpha)\delta = 0.965``: cada
-      año queda el 96.5% de la brecha. Por eso, en la sesión 1, el capital
-      sólo llegó a 5.4 de 7.25 en 40 años. La curva casi coincide con la
-      diagonal, y la telaraña es una escalera de peldaños diminutos.
-    - **Logístico.** ``g'(x^\ast) = 2 - r``. Prueba ``r = 1.5`` (converge
-      monótonamente), ``r = 2.8`` (oscila y converge) y ``r = 3`` (el
-      límite: ``g'(x^\ast) = -1``).
+    1. **Mercado** (notas, 2.5): con ``D = 0.8``, la telaraña es una espiral
+       que se cierra. **Mueve** ``D`` a 1 y después a 1.2: ¿qué pasa con las
+       oscilaciones del precio? ¿Por qué depende de ``D/B``?
+    2. **Solow discreto** (notas, 2.4): **observa** lo pequeños que son los
+       peldaños con ``g'(K^\ast) = 0.965``. ¿Por qué el capital tarda tanto en
+       llegar?
+    3. **Logístico:** prueba ``r = 1.5``, ``2.8`` y ``3``. ¿En cuál converge
+       sin oscilar, en cuál oscilando y en cuál el criterio no decide?
     """
 end
 
@@ -300,14 +264,10 @@ end
 md"""
 ## 5. El método de Euler es una ecuación en diferencias
 
-En la sesión 5, el método de Euler oscilaba con pasos grandes. La razón: al
-aplicarlo a ``\dot y = -a(y - y^\ast)`` con paso ``\Delta t`` se obtiene
-
-```math
-y_{k+1} - y^\ast = (1 - a\,\Delta t)(y_k - y^\ast),
-```
-
-una ecuación lineal en diferencias con coeficiente ``1 - a\,\Delta t``.
+*En clase* (notas, 2.6). El método de Euler para ``\dot y = -a(y - y^\ast)``
+es una ecuación lineal en diferencias con coeficiente ``1 - a\,\Delta t``.
+**Mueve** ``a\,\Delta t`` de 0.5 a 2.5 y **observa** cuándo la aproximación
+oscila o diverge, aunque la ecuación diferencial sea estable.
 
 ``a\,\Delta t``: $(@bind aΔt Slider(0.1:0.1:2.5, default = 0.5, show_value = true))
 """
@@ -330,8 +290,7 @@ let
               "divergente, aunque la ecuación es estable"
     md"""
     El coeficiente es ``1 - a\,\Delta t`` = $(round(1 - aΔt, digits = 2)):
-    la aproximación es $(regimen). El paso debe ser pequeño respecto de
-    ``1/a``, el tiempo característico del sistema.
+    la aproximación es $(regimen).
     """
 end
 
@@ -339,10 +298,9 @@ end
 md"""
 ## 6. [Avanzado] Contracciones: convergencia desde cualquier punto
 
-El criterio ``|g'(x^\ast)| < 1`` es local. Si ``|g'(x)| \le \rho < 1`` en
-todo un intervalo que ``g`` manda en sí mismo, la iteración converge desde
-cualquier punto del intervalo, con error ``|x_t - x^\ast| \le \rho^t |x_0 - x^\ast|``
-(notas, sección 2.3). Con ``g(x) = 1 + 0.5\cos x``, ``|g'(x)| = 0.5|\sin x| \le 0.5``.
+*Fuera de clase* (notas, 2.3). Con ``g(x) = 1 + 0.5\cos x``, una
+contracción con ``\rho = 0.5``: el error de la iteración contra la cota
+``\rho^t|x_0 - x^\ast|``.
 
 Punto de partida ``x_0``: $(@bind x0_c Slider(-10.0:1.0:10.0, default = 5.0, show_value = true))
 """
@@ -362,26 +320,17 @@ end
 
 #%% hide
 md"""
-Desde cualquier ``x_0`` el error cae al menos a la mitad en cada iteración,
-y en la práctica más rápido: cerca del punto fijo, ``|g'(x^\ast)| \approx 0.46``.
-La iteración de la función valor de la sesión 16 es este mismo argumento con
-funciones en lugar de números, y con el factor de descuento ``\beta`` en el
-papel de ``\rho``.
+**Mueve** ``x_0`` lejos del punto fijo. **Observa** que el error siempre
+queda debajo de la cota. La iteración de la función valor de la sesión 16
+es este mismo argumento con funciones en lugar de números.
 """
 
 #%% hide
 md"""
-## Resumen
-
-| | Tiempo continuo, ``\dot x = f(x)`` | Tiempo discreto, ``x_{t+1} = g(x_t)`` |
-|---|---|---|
-| Equilibrio | ``f(x^\ast) = 0`` | ``g(x^\ast) = x^\ast`` |
-| Estable si | ``f'(x^\ast) < 0`` | ``|g'(x^\ast)| < 1`` |
-| Oscila | Nunca, en una dimensión | Si ``g'(x^\ast) < 0`` |
-| Diagrama | Recta de fase | Telaraña |
-| En este cuaderno | Solow; aglomeración con umbral | Solow discreto, mercado, logístico, Euler |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 6).
 
 ### Completa el código
 
@@ -468,15 +417,6 @@ md"""
 
 9. ¿Puede tener tu problema de tesis más de un equilibrio? Si sí, ¿qué
    determinaría a cuál llega una región? Si no, ¿qué supuesto lo impide?
-
-### [Avanzado]
-
-10. En el mapa logístico, ¿para qué valores de ``r`` la convergencia es
-    monótona y para cuáles oscilante? Verifícalo con ``g'(x^\ast) = 2 - r``
-    y con la telaraña.
-11. Con la sección 6, ¿cuántas iteraciones bastan para que el error sea
-    menor que ``10^{-6}`` desde ``x_0 = 10``, según la cota? ¿Cuántas hacen
-    falta en realidad?
 
 ## Para la próxima sesión
 

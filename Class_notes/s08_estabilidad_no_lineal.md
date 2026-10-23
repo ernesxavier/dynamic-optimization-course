@@ -1,10 +1,14 @@
 # Sesión 8: Estabilidad de sistemas no lineales
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s08_estabilidad_no_lineal.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s08_estabilidad_no_lineal.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.I7](repaso/calculo.md#ci7) (desarrollo de Taylor),
 > [L.I1–I2](repaso/algebra_lineal.md#li1) (eigenvalores y diagonalización),
@@ -16,6 +20,23 @@
 > Liapunov).
 >
 > Lecturas: Strogatz (2015), cap. 6.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Pizarra | La pregunta: lo que la linealización no dice | 0 |
+| 5–18 | Pizarra | El método: isoclinas, direcciones del flujo, equilibrios y trayectorias | 1.1–1.4 |
+| 18–28 | Pizarra | Dos regiones que compiten: isoclinas, equilibrio interior, jacobiano y el signo de $\Delta$ | 2.1–2.3 |
+| 28–48 | Proyector | Los tres casos de la competencia; la separatriz y las cuencas de atracción | Cuaderno, sección 1; notas, 2.4 |
+| 48–53 | | Pausa | |
+| 53–65 | Pizarra | Ramsey: el sistema, las isoclinas, $k^\ast$ y $k_{RO}$, y por qué es un punto de silla | 3.1–3.3 |
+| 65–88 | Proyector | Los tres destinos según $c_0$; la rama estable; la función de política y el ahorro de una región pobre | Cuaderno, secciones 2 y 3; notas, 3.4 y 3.5 |
+| 88–93 | Pizarra | Las variables de estado se mueven despacio; las de control saltan | 3.6 |
+| 93–105 | Proyector | Un cambio inesperado en la paciencia | Cuaderno, sección 4 |
+| 105–118 | Parejas | Ejercicio F1 a mano: dibujar un diagrama de fase | 7 |
+| 118–120 | Pizarra | Cierre: el Laboratorio 1 | 5 |
+| Después | Lectura | La tabla de ahorro (3.5), la variedad estable (4), el resumen (6) y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -118,11 +139,23 @@ especies (Strogatz, sec. 6.4).
 - $\dot x = 0$ en el eje $x = 0$ y en la recta $x + ay = 1$.
 - $\dot y = 0$ en el eje $y = 0$ y en la recta $bx + y = 1$.
 
-Los equilibrios son $(0, 0)$, $(1, 0)$, $(0, 1)$ y, si las dos rectas se
-cruzan en el cuadrante positivo,
+Los equilibrios son $(0, 0)$, $(1, 0)$, $(0, 1)$ y el cruce de las dos
+rectas, si está en el cuadrante positivo. De la segunda recta,
+$y = 1 - bx$; sustituyendo en la primera:
 
 $$
-(x^\ast, y^\ast) = \left(\frac{1 - a}{1 - ab},\ \frac{1 - b}{1 - ab}\right).
+\begin{aligned}
+x + a(1 - bx) = 1
+&\iff x(1 - ab) = 1 - a
+\iff x^\ast = \frac{1 - a}{1 - ab}, \cr
+y^\ast = 1 - bx^\ast &= \frac{1 - ab - b + ab}{1 - ab} = \frac{1 - b}{1 - ab},
+\end{aligned}
+$$
+
+así que
+
+$$
+\boxed{\ (x^\ast, y^\ast) = \left(\frac{1 - a}{1 - ab},\ \frac{1 - b}{1 - ab}\right)\ }
 $$
 
 ### 2.3 Estabilidad
@@ -138,10 +171,20 @@ $$
   eigenvalores $-1$ y $1 - b$: estable si $b > 1$, punto de silla si
   $b < 1$.
 - En $(0, 1)$, por simetría: estable si $a > 1$.
-- En el equilibrio interior, usando $x^\ast + ay^\ast = 1$ y
-  $bx^\ast + y^\ast = 1$,
-  $J = \begin{pmatrix} -x^\ast & -ax^\ast \cr -by^\ast & -y^\ast \end{pmatrix}$,
-  con $\tau = -(x^\ast + y^\ast) < 0$ y $\Delta = x^\ast y^\ast(1 - ab)$.
+- En el equilibrio interior, usando $x^\ast + ay^\ast = 1$, la entrada
+  $(1, 1)$ es $1 - 2x^\ast - ay^\ast = (1 - x^\ast - ay^\ast) - x^\ast = -x^\ast$,
+  y lo mismo con $y^\ast$ en la $(2, 2)$:
+
+$$
+J = \begin{pmatrix} -x^\ast & -ax^\ast \cr -by^\ast & -y^\ast \end{pmatrix},
+\qquad
+\tau = -(x^\ast + y^\ast) < 0,
+\qquad
+\Delta = x^\ast y^\ast - abx^\ast y^\ast = x^\ast y^\ast(1 - ab).
+$$
+
+  El signo de $\Delta$ decide: nodo estable si $ab < 1$, punto de silla si
+  $ab > 1$.
 
 ### 2.4 Tres casos
 
@@ -201,10 +244,20 @@ descuento. Aquí sólo se analiza su diagrama de fase.
   (la **regla de oro modificada**), y el eje $c = 0$. A la izquierda de
   $k^\ast$ el capital rinde mucho y $c$ sube; a la derecha, $c$ baja.
 
-Como $\rho > 0$, $f'(k^\ast) > f'(k_{RO})$ y $k^\ast < k_{RO}$: **la
-impaciencia hace que no convenga acumular hasta la regla de oro.** Con
-$\alpha = 0.3$, $\delta = 0.05$ y $\rho = 0.03$: $k^\ast \approx 6.61$,
-$k_{RO} \approx 12.9$ y $k_{\max} \approx 72$.
+Como $\rho > 0$, $f'(k^\ast) > f'(k_{RO})$ y, como $f'$ es decreciente,
+$k^\ast < k_{RO}$: **la impaciencia hace que no convenga acumular hasta la
+regla de oro.** Con $f(k) = k^\alpha$, las tres condiciones se despejan:
+
+$$
+\begin{aligned}
+\alpha k^{\alpha - 1} = \delta + \rho &\iff \boxed{\ k^\ast = \left(\frac{\alpha}{\delta + \rho}\right)^{1/(1 - \alpha)}\ }, \cr
+\alpha k^{\alpha - 1} = \delta &\iff k_{RO} = \left(\frac{\alpha}{\delta}\right)^{1/(1 - \alpha)}, \cr
+k^\alpha = \delta k &\iff k_{\max} = \left(\frac{1}{\delta}\right)^{1/(1 - \alpha)}.
+\end{aligned}
+$$
+
+Con $\alpha = 0.3$, $\delta = 0.05$ y $\rho = 0.03$: $k^\ast = 3.75^{1/0.7} \approx 6.61$,
+$k_{RO} = 6^{1/0.7} \approx 12.9$ y $k_{\max} = 20^{1/0.7} \approx 72$.
 
 ### 3.3 El estado estacionario es un punto de silla
 

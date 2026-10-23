@@ -1,10 +1,14 @@
 # Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s06_diagramas_de_fase.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s06_diagramas_de_fase.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [D.B1–B2](repaso/ecuaciones_diferenciales.md#db1)
 > (ecuaciones diferenciales y en diferencias, crecimiento exponencial),
@@ -15,6 +19,26 @@
 > [C.I7](repaso/calculo.md#ci7) (desarrollo de Taylor).
 >
 > Lecturas: Strogatz (2015), cap. 2; Chiang y Wainwright (2006), cap. 17.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Proyector | La pregunta: ¿a dónde va una región? | 0; cuaderno, sección 0 |
+| 5–22 | Pizarra | Equilibrios; la recta de fase; el criterio de la derivada y la linealización; el caso $f'(x^\ast) = 0$, de palabra | 1.1–1.3 |
+| 22–32 | Pizarra | Solow: los equilibrios y $f'(k^\ast)$ | 1.4 |
+| 32–40 | Proyector | Solow: recta de fase y trayectorias; qué cambia $k^\ast$ y qué cambia la velocidad | Cuaderno, sección 1 |
+| 40–47 | Pizarra | Aglomeración: los tres equilibrios y el umbral | 1.5 |
+| 47–57 | Proyector | Aglomeración: el umbral al mover $a$; el gran impulso más barato | Cuaderno, sección 2 |
+| 57–62 | | Pausa | |
+| 62–72 | Pizarra | La ecuación lineal en diferencias: solución, estabilidad si $\lvert a\rvert < 1$ y oscilación si $a < 0$ | 2.1 |
+| 72–78 | Proyector | Las seis zonas de $a$ | Cuaderno, sección 3 |
+| 78–88 | Pizarra | La ecuación no lineal: el criterio $\lvert g'(x^\ast)\rvert < 1$ y la telaraña; Solow en tiempo discreto | 2.2, 2.4 |
+| 88–100 | Proyector | Telarañas de tres mapas; el método de Euler como ecuación en diferencias | Cuaderno, secciones 4 y 5; notas, 2.5 y 2.6 |
+| 100–103 | Pizarra | Continuo y discreto, lado a lado, con la tabla | 3 |
+| 103–118 | Parejas | Ejercicio F3 a mano | 6 |
+| 118–120 | Pizarra | Cierre: sistemas en el plano (sesión 7) | 4 |
+| Después | Lectura | Contracciones (2.3), la telaraña de un mercado regional (2.5) y del tiempo continuo al discreto (2.6) en detalle, el resumen (5) y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -84,7 +108,7 @@ La idea es que cerca del equilibrio $f$ se parece a su recta tangente
 ([C.I7](repaso/calculo.md#ci7)):
 
 $$
-\dot x = f(x) \approx f'(x^\ast)(x - x^\ast).
+\boxed{\ \dot x = f(x) \approx f'(x^\ast)(x - x^\ast)\ }
 $$
 
 Es la ecuación lineal de la sesión 5 con $a = -f'(x^\ast)$: la desviación
@@ -112,8 +136,13 @@ $$
 $$
 
 con tasa de ahorro $s$, crecimiento de la población $n$ y depreciación
-$\delta$. Los equilibrios son $k = 0$ y
-$k^\ast = \big(s/(n + \delta)\big)^{1/(1-\alpha)}$.
+$\delta$. Los equilibrios salen de $f(k) = 0$:
+
+$$
+sk^\alpha = (n + \delta)k
+\iff k = 0 \ \text{ o } \ k^{\alpha - 1} = \frac{n + \delta}{s}
+\iff k = 0 \ \text{ o } \ k^\ast = \left(\frac{s}{n + \delta}\right)^{1/(1-\alpha)}.
+$$
 
 - Cerca de $k = 0$, $sk^\alpha$ domina a $(n + \delta)k$ y $f > 0$: el
   equilibrio $k = 0$ es inestable. (Ahí $f'$ no existe, porque
@@ -121,7 +150,7 @@ $k^\ast = \big(s/(n + \delta)\big)^{1/(1-\alpha)}$.
 - En $k^\ast$, usando $sk^{\ast\thinspace\alpha - 1} = n + \delta$,
 
 $$
-f'(k^\ast) = \alpha sk^{\ast\thinspace\alpha - 1} - (n + \delta) = -(1 - \alpha)(n + \delta) < 0:
+\boxed{\ f'(k^\ast) = \alpha sk^{\ast\thinspace\alpha - 1} - (n + \delta) = \alpha(n + \delta) - (n + \delta) = -(1 - \alpha)(n + \delta) < 0\ }
 $$
 
   estable.
@@ -129,8 +158,15 @@ $$
 Toda región con $k > 0$ converge a $k^\ast$, y la velocidad cerca de
 $k^\ast$ es $(1 - \alpha)(n + \delta)$, la misma que se obtuvo para el
 ingreso en la sesión 5 (P.3). Con $s = 0.2$, $\alpha = 0.3$ y
-$n + \delta = 0.06$: $k^\ast \approx 5.58$ y la vida media de una
-desviación pequeña es $\ln 2/0.042 \approx 16.5$ años.
+$n + \delta = 0.06$:
+
+$$
+k^\ast = \left(\frac{0.2}{0.06}\right)^{1/0.7} \approx 5.58,
+\qquad
+\lvert f'(k^\ast)\rvert = 0.7 \times 0.06 = 0.042,
+\qquad
+\text{vida media} = \frac{\ln 2}{0.042} \approx 16.5 \text{ años}.
+$$
 
 **Lectura regional.** Si dos regiones tienen los mismos $s$, $\alpha$, $n$ y
 $\delta$, convergen al mismo $k^\ast$: convergencia absoluta. Si difieren en
@@ -166,7 +202,16 @@ tres equilibrios:
 (En $L_1$ y $L_2$, $u = 0$, así que $f'(L_i) = u(L_i) + L_iu'(L_i) = L_iu'(L_i)$;
 $u$ crece en $L_1$ y decrece en $L_2$.)
 
-Con $a = -0.3$, $b = 2$ y $c = 1.5$: $L_1 \approx 0.17$ y $L_2 \approx 1.16$.
+Las raíces de $u$ salen de la fórmula cuadrática:
+
+$$
+u(L) = 0 \iff cL^2 - bL - a = 0 \iff
+L_{1,2} = \frac{b \mp \sqrt{b^2 + 4ac}}{2c}
+= \frac{b \mp \sqrt{b^2 - 4\lvert a\rvert c}}{2c}.
+$$
+
+Con $a = -0.3$, $b = 2$ y $c = 1.5$: $\sqrt{4 - 1.8} \approx 1.48$, así que
+$L_1 \approx (2 - 1.48)/3 \approx 0.17$ y $L_2 \approx (2 + 1.48)/3 \approx 1.16$.
 
 **Lectura regional.**
 - **La historia importa.** Dos regiones idénticas pueden terminar en
@@ -188,11 +233,23 @@ simple posible. El modelo es ilustrativo, construido para esta sesión.
 
 ### 2.1 La ecuación lineal $y_{t+1} = ay_t + b$
 
-Con $a \ne 1$, el punto fijo es $y^\ast = b/(1 - a)$, y la desviación
-$z_t = y_t - y^\ast$ cumple $z_{t+1} = az_t$. Entonces
+Con $a \ne 1$, el punto fijo cumple $y^\ast = ay^\ast + b$, así que
+$y^\ast = b/(1 - a)$. Restando las dos ecuaciones, la desviación
+$z_t = y_t - y^\ast$ cumple
 
 $$
-y_t = y^\ast + a^t(y_0 - y^\ast).
+\begin{aligned}
+y_{t+1} - y^\ast &= (ay_t + b) - (ay^\ast + b) = a\thinspace(y_t - y^\ast), \cr
+z_{t+1} &= az_t
+\quad\Longrightarrow\quad
+z_t = a^tz_0,
+\end{aligned}
+$$
+
+y entonces
+
+$$
+\boxed{\ y_t = y^\ast + a^t(y_0 - y^\ast)\ }
 $$
 
 Como en la sesión 5, **solución = equilibrio + desviación**; la desviación
@@ -223,7 +280,7 @@ Un **punto fijo** cumple $g(x^\ast) = x^\ast$: gráficamente, es un cruce de
 $y = g(x)$ con la diagonal $y = x$. Cerca de él,
 
 $$
-x_{t+1} - x^\ast = g(x_t) - g(x^\ast) \approx g'(x^\ast)(x_t - x^\ast),
+\boxed{\ x_{t+1} - x^\ast = g(x_t) - g(x^\ast) \approx g'(x^\ast)(x_t - x^\ast)\ }
 $$
 
 que es la ecuación lineal de la sección 2.1 con $a = g'(x^\ast)$.
