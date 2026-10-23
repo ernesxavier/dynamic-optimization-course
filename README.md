@@ -49,7 +49,7 @@ CISE, UAdeC), con cuadernos en Julia.
 | 12 | Horizonte infinito y Ramsey | `s12_horizonte_infinito.md` | `s12_ramsey.jl` |
 | 13 | Varias variables, bang-bang | `s13_varias_variables.md` | `s13_varias_variables.jl` |
 | 14 | Caso: inversión entre dos regiones | `s14_dos_regiones.md` | `s14_dos_regiones.jl` |
-| 15 | Bellman en horizonte finito | `s15_bellman.md` | |
+| 15 | Bellman en horizonte finito | `s15_bellman.md` | `s15_bellman.jl` |
 | 16 | Bellman en horizonte infinito | `s16_bellman_infinito.md` | `s16_bellman_infinito.jl` |
 | 17 | Laboratorio 2: iteración de función valor | | `s17_laboratorio_2.jl` |
 | 18 | Control óptimo frente a programación dinámica | `s18_control_vs_pd.md` | |
