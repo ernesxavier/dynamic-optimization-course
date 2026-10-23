@@ -1,10 +1,14 @@
 # Sesión 2: Lagrange, concavidad y Kuhn-Tucker
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s02_lagrange_kuhn_tucker.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s02_lagrange_kuhn_tucker.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.B5](repaso/calculo.md#cb5) (gradiente),
@@ -17,6 +21,22 @@
 > [L.A3](repaso/algebra_lineal.md#la3).
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 11–13.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Pizarra | La pregunta y el problema de las dos regiones; por qué importan la concavidad y $f_i'(0)$ | 1 |
+| 10–25 | Pizarra | Repaso rápido: primer y segundo orden, concavidad da un máximo global; el ejemplo de una región | 2.1–2.3 (enunciados; las demostraciones son lectura) |
+| 25–50 | Pizarra | Teorema de Lagrange y tangencia; $V'(c) = \lambda$; la condición de la hessiana orlada (enunciado); las dos regiones con el presupuesto agotado y la falla $x_2 < 0$ | 3.1–3.4 |
+| 50–58 | Proyector | Tangencia y precio sombra con deslizadores | Cuaderno, secciones 2 y 3 |
+| 58–63 | | Pausa | |
+| 63–90 | Pizarra | Condiciones de Kuhn-Tucker; la tabla de holgura complementaria, de palabra; el teorema de suficiencia (enunciado); solución por casos y el ejemplo numérico | 4.1–4.4 (sin la cuasiconcavidad) |
+| 90–97 | Proyector | La solución de esquina; rendimientos crecientes | Cuaderno, secciones 4 y 5 |
+| 97–105 | Pizarra | Rendimientos crecientes: $\varphi'' > 0$ y el punto de Kuhn-Tucker es un mínimo | 5 |
+| 105–118 | Parejas | Ejercicio F1 a mano | 8 |
+| 118–120 | Pizarra | Cierre: el multiplicador será el coestado | 6 |
+| Después | Lectura | El criterio general de la hessiana orlada (3.3), la cuasiconcavidad y el teorema de Arrow y Enthoven (4.3), la calificación de las restricciones (4.5), el resumen (7) y Para profundizar | |
 
 **Pregunta de la unidad.** Un gobierno tiene un fondo $B$ para invertir en dos
 regiones. ¿Cómo debe repartirlo? ¿Conviene siempre dar algo a cada región?
@@ -125,7 +145,7 @@ restricciones.
 rango $m$, existen multiplicadores $\lambda_1, \dots, \lambda_m$ tales que
 
 $$
-\nabla f(x^\ast) = \sum_{j=1}^m \lambda_j\nabla g_j(x^\ast).
+\boxed{\ \nabla f(x^\ast) = \sum_{j=1}^m \lambda_j\nabla g_j(x^\ast)\ }
 $$
 
 Equivalentemente, con el **lagrangiano**
@@ -148,12 +168,12 @@ La condición de rango es necesaria. Sin ella el teorema puede fallar: ver
 Sea $V(c)$ el valor máximo cuando la restricción es $g(x) = c$. Entonces
 
 $$
-V'(c) = \lambda:
+\boxed{\ V'(c) = \lambda\ }
 $$
 
-el multiplicador dice cuánto aumenta el óptimo si la restricción se relaja
-en una unidad. En el problema de las regiones, $\lambda$ es el **valor
-social de un peso adicional del fondo**. La demostración general es el
+es decir, el multiplicador dice cuánto aumenta el óptimo si la restricción
+se relaja en una unidad. En el problema de las regiones, $\lambda$ es el
+**valor social de un peso adicional del fondo**. La demostración general es el
 teorema de la envolvente, que se ve en la sesión 3; aquí se verifica en el
 ejemplo de la sección 3.4.
 
@@ -172,35 +192,77 @@ de $x$. El criterio general, con $n$ variables y $m$ restricciones, está en
 
 ### 3.4 Ejemplo: las dos regiones con el presupuesto agotado
 
-Si se exige $x_1 + x_2 = B$ y se ignoran las restricciones $x_i \ge 0$, las
-condiciones de Lagrange son
+Si se exige $x_1 + x_2 = B$ y se ignoran las restricciones $x_i \ge 0$, el
+lagrangiano es
 
 $$
-\frac{a_1}{1 + x_1} = \frac{a_2}{1 + x_2} = \lambda.
+\mathcal L = a_1\ln(1 + x_1) + a_2\ln(1 + x_2) + \lambda\thinspace(B - x_1 - x_2),
 $$
 
-El último peso debe rendir lo mismo en las dos regiones. Despejando
-$1 + x_i = a_i/\lambda$ y sumando, $B + 2 = (a_1 + a_2)/\lambda$:
+y las condiciones de Lagrange son
 
 $$
-\lambda = \frac{a_1 + a_2}{B + 2},
+\frac{\partial\mathcal L}{\partial x_i} = \frac{a_i}{1 + x_i} - \lambda = 0 \quad (i = 1, 2),
 \qquad
-x_i = \frac{a_i\thinspace(B + 2)}{a_1 + a_2} - 1.
+\frac{\partial\mathcal L}{\partial\lambda} = B - x_1 - x_2 = 0.
 $$
 
-**Precio sombra.** El valor óptimo es
-$V(B) = \sum_i a_i\ln\big(a_i(B + 2)/(a_1 + a_2)\big)$, y derivando,
-$V'(B) = (a_1 + a_2)/(B + 2) = \lambda$, como afirma la sección 3.2.
-
-**Segundo orden.** Con $g_1 = g_2 = 1$, $\mathcal L_{12} = 0$ y
-$\mathcal L_{ii} = -a_i/(1 + x_i)^2 < 0$, el determinante de la hessiana
-orlada vale $-(\mathcal L_{11} + \mathcal L_{22}) > 0$: es un máximo.
-
-**El problema.** La fórmula da $x_2 < 0$ cuando
-$a_2(B + 2) < a_1 + a_2$, es decir, cuando
+La primera dice que el último peso debe rendir lo mismo en las dos
+regiones: $a_1/(1 + x_1) = a_2/(1 + x_2) = \lambda$. Se despeja cada $x_i$ y
+se usa el presupuesto:
 
 $$
-B < \bar B = \frac{a_1}{a_2} - 1.
+\begin{aligned}
+1 + x_i &= \frac{a_i}{\lambda} && (i = 1, 2) \cr
+(1 + x_1) + (1 + x_2) &= \frac{a_1 + a_2}{\lambda} && \text{(sumando)} \cr
+B + 2 &= \frac{a_1 + a_2}{\lambda} && (x_1 + x_2 = B) \cr
+\lambda &= \frac{a_1 + a_2}{B + 2}, \cr
+x_i &= \frac{a_i}{\lambda} - 1 = \frac{a_i\thinspace(B + 2)}{a_1 + a_2} - 1.
+\end{aligned}
+$$
+
+**Precio sombra.** Con $1 + x_i = a_i(B + 2)/(a_1 + a_2)$, el valor óptimo
+es
+
+$$
+\begin{aligned}
+V(B) &= a_1\ln(1 + x_1) + a_2\ln(1 + x_2)
+= \sum_i a_i\ln\frac{a_i\thinspace(B + 2)}{a_1 + a_2} \cr
+&= \sum_i a_i\ln a_i + (a_1 + a_2)\ln(B + 2) - (a_1 + a_2)\ln(a_1 + a_2).
+\end{aligned}
+$$
+
+Sólo el término del medio depende de $B$, así que
+
+$$
+V'(B) = \frac{a_1 + a_2}{B + 2} = \lambda,
+$$
+
+como afirma la sección 3.2.
+
+**Segundo orden.** Con $g = x_1 + x_2$, $g_1 = g_2 = 1$; además
+$\mathcal L_{12} = 0$ y $\mathcal L_{ii} = -a_i/(1 + x_i)^2 < 0$. Desarrollando
+por el primer renglón:
+
+$$
+\det\bar H =
+\det\begin{pmatrix} 0 & 1 & 1 \cr 1 & \mathcal L_{11} & 0 \cr 1 & 0 & \mathcal L_{22}\end{pmatrix}
+= 0 - 1\cdot(\mathcal L_{22} - 0) + 1\cdot(0 - \mathcal L_{11})
+= -(\mathcal L_{11} + \mathcal L_{22}) > 0:
+$$
+
+es un máximo.
+
+**El problema.** La fórmula de $x_2$ puede ser negativa:
+
+$$
+\begin{aligned}
+x_2 < 0
+&\iff \frac{a_2\thinspace(B + 2)}{a_1 + a_2} < 1
+\iff a_2B + 2a_2 < a_1 + a_2 \cr
+&\iff a_2B < a_1 - a_2
+\iff \boxed{\ B < \bar B = \frac{a_1}{a_2} - 1\ }
+\end{aligned}
 $$
 
 Con un fondo pequeño y regiones muy distintas, Lagrange recomienda
@@ -272,6 +334,8 @@ Las condiciones son **necesarias** en general (bajo calificación) y
 ser incluso un mínimo; el cuaderno lo muestra con rendimientos crecientes
 (sección 5).
 
+*Lectura: de aquí al final de la sección 4.3.*
+
 **Cuasiconcavidad.** En economía, muchas funciones objetivo no son cóncavas
 pero sí **cuasicóncavas**: sus conjuntos de nivel superior
 $\lbrace x : f(x) \ge c\rbrace$ son convexos para todo $c$
@@ -325,16 +389,32 @@ B - x_1 - x_2 \ge 0,
 \qquad \lambda\thinspace(B - x_1 - x_2) = 0.
 $$
 
+Se resuelve por casos.
+
 1. **El fondo se agota.** Si $\lambda = 0$, la primera condición pediría
-   $a_i/(1 + x_i) \le 0$, imposible. Entonces $\lambda > 0$ y
-   $x_1 + x_2 = B$.
-2. **Las dos regiones reciben inversión** ($x_1, x_2 > 0$). Es la solución de
-   Lagrange de la sección 3.4, válida si $B \ge \bar B$.
-3. **Sólo la región 1 recibe** ($x_2 = 0$, $x_1 = B$). La condición de
-   $x_1 > 0$ da $\lambda = a_1/(1 + B)$, y la de $x_2 = 0$ pide
-   $a_2 - \lambda \le 0$, es decir, $B \le \bar B$.
-4. **Sólo la región 2 recibe** ($x_1 = 0$): pediría $a_1 \le a_2/(1 + B)$,
-   imposible con $a_1 \ge a_2$ y $B > 0$.
+   $a_i/(1 + x_i) \le 0$, imposible porque $a_i > 0$. Entonces $\lambda > 0$,
+   y la holgura complementaria da $x_1 + x_2 = B$.
+2. **Las dos regiones reciben inversión** ($x_1, x_2 > 0$). Las dos
+   condiciones se cumplen con igualdad: es la solución de Lagrange de la
+   sección 3.4. Es válida si $x_2 \ge 0$, es decir, si $B \ge \bar B$ (y
+   entonces también $x_1 > 0$, porque $a_1 \ge a_2$).
+3. **Sólo la región 1 recibe** ($x_2 = 0$, $x_1 = B$). Las condiciones de
+   cada región:
+
+   $$
+   \begin{aligned}
+   x_1 = B > 0: &\quad \frac{a_1}{1 + B} - \lambda = 0
+   \ \Rightarrow\ \lambda = \frac{a_1}{1 + B}, \cr
+   x_2 = 0: &\quad \frac{a_2}{1 + 0} - \lambda \le 0
+   \iff a_2 \le \frac{a_1}{1 + B}
+   \iff 1 + B \le \frac{a_1}{a_2}
+   \iff B \le \bar B.
+   \end{aligned}
+   $$
+
+4. **Sólo la región 2 recibe** ($x_1 = 0$, $x_2 = B$). Igual que en el caso
+   3, $\lambda = a_2/(1 + B)$, y $x_1 = 0$ pide
+   $a_1 \le \lambda = a_2/(1 + B) < a_2$, imposible con $a_1 \ge a_2$.
 
 Como $f$ es estrictamente cóncava y la restricción es lineal, la solución es
 el único máximo global (sección 4.3).
@@ -342,27 +422,35 @@ el único máximo global (sección 4.3).
 **Proposición.** Con $a_1 \ge a_2$ y $\bar B = a_1/a_2 - 1$:
 
 $$
-(x_1^\ast, x_2^\ast, \lambda) =
+\boxed{(x_1^\ast, x_2^\ast, \lambda) =
 \begin{cases}
 \left(B,\ 0,\ \dfrac{a_1}{1 + B}\right) & \text{si } B \le \bar B, \cr
 \left(\dfrac{a_1(B + 2)}{a_1 + a_2} - 1,\ \dfrac{a_2(B + 2)}{a_1 + a_2} - 1,\ \dfrac{a_1 + a_2}{B + 2}\right) & \text{si } B > \bar B.
-\end{cases}
+\end{cases}}
 $$
 
 **Lectura económica.**
 - Con un fondo pequeño, todo va a la región más productiva; a partir de
   $\bar B$, también la menos productiva recibe. El umbral crece con la
   brecha de productividad $a_1/a_2$.
-- El precio sombra $\lambda(B)$ es continuo y decreciente: en $\bar B$ vale
-  $a_2$ por las dos fórmulas. Cada peso adicional del fondo vale menos que el
-  anterior, y $V(B)$ es cóncava.
+- El precio sombra $\lambda(B)$ es continuo y decreciente. En
+  $\bar B = a_1/a_2 - 1$ las dos fórmulas coinciden:
+  $a_1/(1 + \bar B) = a_1/(a_1/a_2) = a_2$ y
+  $(a_1 + a_2)/(\bar B + 2) = (a_1 + a_2)/\big((a_1 + a_2)/a_2\big) = a_2$.
+  Cada peso adicional del fondo vale menos que el anterior, y $V(B)$ es
+  cóncava.
 - Desde la región 2, la regla es simple: recibe inversión si y sólo si su
   producto marginal en cero, $a_2$, supera el valor de un peso del fondo,
   $\lambda$.
 
-**Ejemplo numérico.** Con $a_1 = 2$ y $a_2 = 1$, $\bar B = 1$. Con $B = 0.5$:
-$x^\ast = (0.5, 0)$ y $\lambda = 2/1.5 \approx 1.33$. Con $B = 4$:
-$x^\ast = (3, 1)$ y $\lambda = 3/6 = 0.5$.
+**Ejemplo numérico.** Con $a_1 = 2$ y $a_2 = 1$, $\bar B = 2/1 - 1 = 1$.
+
+- Con $B = 0.5 \le \bar B$: esquina, $x^\ast = (0.5, 0)$ y
+  $\lambda = 2/1.5 \approx 1.33$. La región 2 no recibe porque su primer peso
+  rinde $a_2 = 1 < 1.33$.
+- Con $B = 4 > \bar B$: $\lambda = (2 + 1)/(4 + 2) = 0.5$,
+  $x_1 = 2 \cdot 6/3 - 1 = 3$ y $x_2 = 1 \cdot 6/3 - 1 = 1$:
+  $x^\ast = (3, 1)$.
 
 ### 4.5 Calificación de las restricciones
 
@@ -377,13 +465,24 @@ profundizar, P.4](#pp4).
 ## 5. Cuándo la concavidad no se cumple
 
 Supón rendimientos crecientes, $f_i(x_i) = a_ix_i^\gamma$ con $\gamma > 1$:
-por ejemplo, economías de aglomeración. A lo largo del presupuesto
-agotado, $\varphi(x_1) = a_1x_1^\gamma + a_2(B - x_1)^\gamma$ es convexa, así
-que su máximo está en un extremo: **todo el fondo va a una sola región**,
-la de mayor $a_i$.
+por ejemplo, economías de aglomeración. A lo largo del presupuesto agotado,
+$x_2 = B - x_1$, el producto total es
 
-El punto interior donde $a_1\gamma x_1^{\gamma-1} = a_2\gamma x_2^{\gamma-1}$
-cumple las condiciones de Kuhn-Tucker, pero es el **mínimo** de $\varphi$. Las
+$$
+\begin{aligned}
+\varphi(x_1) &= a_1x_1^\gamma + a_2(B - x_1)^\gamma, \cr
+\varphi'(x_1) &= \gamma\big(a_1x_1^{\gamma - 1} - a_2(B - x_1)^{\gamma - 1}\big), \cr
+\varphi''(x_1) &= \gamma(\gamma - 1)\big(a_1x_1^{\gamma - 2} + a_2(B - x_1)^{\gamma - 2}\big) > 0.
+\end{aligned}
+$$
+
+$\varphi$ es convexa, así que su máximo está en un extremo:
+$\varphi(B) = a_1B^\gamma$ o $\varphi(0) = a_2B^\gamma$. **Todo el fondo va a
+una sola región**, la de mayor $a_i$.
+
+El punto interior donde $\varphi' = 0$, es decir,
+$a_1x_1^{\gamma - 1} = a_2x_2^{\gamma - 1}$, cumple las condiciones de
+Kuhn-Tucker, pero como $\varphi'' > 0$ es el **mínimo** de $\varphi$. Las
 condiciones son necesarias, no suficientes; sin concavidad hay que comparar
 todos los candidatos.
 

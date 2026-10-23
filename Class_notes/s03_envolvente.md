@@ -1,10 +1,14 @@
 # Sesión 3: Envolvente y estática comparativa
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s03_envolvente.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**: se ve en clase y se evalúa. Las
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s03_envolvente.jl`) y qué queda para leer. En el pizarrón van las
+> ecuaciones y los resultados en recuadro; el texto que las rodea es lo que
+> se explica de palabra. Como todo está aquí, en clase no hace falta copiar.
+> El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
-> profundizar**; donde estaban queda una línea que los enlaza.
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (derivadas),
 > [C.B5](repaso/calculo.md#cb5) (derivadas parciales),
@@ -17,6 +21,27 @@
 > [C.I6](repaso/calculo.md#ci6).
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 8 y 13.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Proyector | La pregunta: cómo cambia el reparto cuando mejora la región 2 | Cuaderno, sección 0 |
+| 5–12 | Pizarra | Variables y parámetros; la solución y la función de valor; la solución de la sesión 2 | 1 |
+| 12–30 | Pizarra | Diferencial total; teorema de la función implícita; estática comparativa de un óptimo y el ejemplo de una región | 2.1–2.3 |
+| 30–35 | Proyector | El cruce del producto marginal con el precio; función implícita contra diferencia finita | Cuaderno, sección 1 |
+| 35–58 | Pizarra | Sistemas y el método de cuatro pasos; las dos regiones: el sistema, su determinante, y un aumento del fondo y de la productividad por la regla de Cramer | 2.4, 3.1–3.3 |
+| 58–63 | Proyector | Cramer contra diferencia finita; el pico de $x^\ast(B)$ en $\bar B$ | Cuaderno, sección 2; notas, 3.4 |
+| 63–68 | | Pausa | |
+| 68–88 | Pizarra | Envolvente sin restricciones (efecto directo e indirecto) y su ejemplo; con restricciones; $V'(c) = \lambda$ | 4.1, 4.3 |
+| 88–95 | Proyector | Por qué se llama envolvente; la envolvente del reparto | Cuaderno, sección 3; notas, 4.2 |
+| 95–105 | Pizarra | La envolvente en el problema de las regiones; comparar políticas | 4.4, 4.5 |
+| 105–118 | Parejas | Ejercicio F4 a mano | 7 |
+| 118–120 | Pizarra | Cierre: el Laboratorio 0 | — |
+| Después | Lectura | El cambio de régimen en detalle (3.4), por qué se llama envolvente (4.2), las verificaciones con la fórmula cerrada, el resumen (6) y Para profundizar, con la demostración del teorema de la envolvente (P.1) | |
+
+El cuaderno se proyecta en clase; cada estudiante lo abre después del
+Laboratorio 0 (sesión 4), cuando ya tiene Julia instalado.
 
 **Pregunta de la unidad.** Un gobierno tiene un fondo $B$ para invertir en dos
 regiones. ¿Cómo debe repartirlo?
@@ -98,7 +123,7 @@ entonces cerca de $(x_0, \alpha_0)$ existe una única función diferenciable
 $x(\alpha)$ con $F\big(x(\alpha), \alpha\big) = 0$, y
 
 $$
-\frac{dx}{d\alpha} = -\frac{F_\alpha}{F_x}.
+\boxed{\ \frac{dx}{d\alpha} = -\frac{F_\alpha}{F_x}\ }
 $$
 
 La fórmula sale del diferencial total: a lo largo de la solución, $F$ no
@@ -159,7 +184,7 @@ Cramer** ([L.B4](repaso/algebra_lineal.md#lb4)) da cada derivada como un
 cociente de determinantes:
 
 $$
-\frac{\partial z_i}{\partial\alpha} = \frac{\det J_i}{\det D_zF},
+\boxed{\ \frac{\partial z_i}{\partial\alpha} = \frac{\det J_i}{\det D_zF}\ }
 $$
 
 donde $J_i$ es $D_zF$ con la columna $i$ reemplazada por
@@ -195,7 +220,18 @@ $$
 
 Sea $h_i = a_i/(1 + x_i)^2 > 0$, la curvatura del producto de la región $i$:
 cuánto cae su producto marginal con cada peso adicional. El diferencial
-total de las tres ecuaciones es
+total de cada ecuación, con $x_1, x_2, \lambda$ y los parámetros moviéndose a
+la vez:
+
+$$
+\begin{aligned}
+d\Big(\frac{a_1}{1 + x_1} - \lambda\Big) &= \frac{da_1}{1 + x_1} - h_1\thinspace dx_1 - d\lambda = 0, \cr
+d\Big(\frac{a_2}{1 + x_2} - \lambda\Big) &= \frac{da_2}{1 + x_2} - h_2\thinspace dx_2 - d\lambda = 0, \cr
+d\big(B - x_1 - x_2\big) &= dB - dx_1 - dx_2 = 0.
+\end{aligned}
+$$
+
+Pasando los términos de los parámetros a la derecha, en forma matricial:
 
 $$
 \begin{pmatrix} -h_1 & 0 & -1 \cr 0 & -h_2 & -1 \cr -1 & -1 & 0 \end{pmatrix}
@@ -203,30 +239,40 @@ $$
 = -\begin{pmatrix} da_1/(1 + x_1) \cr da_2/(1 + x_2) \cr dB \end{pmatrix}.
 $$
 
+Desarrollando el determinante por el primer renglón:
+
+$$
+\Delta = -h_1\big((-h_2)\cdot 0 - (-1)(-1)\big) - 0 + (-1)\big(0\cdot(-1) - (-h_2)(-1)\big)
+= h_1 + h_2 > 0.
+$$
+
 Salvo el orden y el signo de la orla, la matriz es la hessiana orlada de la
-sesión 2, y tiene el mismo determinante:
-
-$$
-\Delta = h_1 + h_2 > 0,
-$$
-
-positivo por la condición de segundo orden. El teorema de la función
+sesión 2, y su determinante es positivo por la condición de segundo orden. El teorema de la función
 implícita se aplica en todo el régimen interior.
 
 ### 3.2 Un aumento del fondo
 
 Con $dB = 1$ y $da_1 = da_2 = 0$, el lado derecho es $(0, 0, -1)$. Por la
-regla de Cramer,
+regla de Cramer, se reemplaza cada columna por ese vector:
 
 $$
-\frac{\partial x_1^\ast}{\partial B} = \frac{1}{\Delta}
+\begin{aligned}
+\frac{\partial x_1^\ast}{\partial B} &= \frac{1}{\Delta}
 \begin{vmatrix} 0 & 0 & -1 \cr 0 & -h_2 & -1 \cr -1 & -1 & 0 \end{vmatrix}
-= \frac{h_2}{h_1 + h_2},
-\qquad
-\frac{\partial x_2^\ast}{\partial B} = \frac{h_1}{h_1 + h_2},
-\qquad
-\frac{\partial\lambda}{\partial B} = -\frac{h_1h_2}{h_1 + h_2} < 0.
+= \frac{(-1)\big(0\cdot(-1) - (-h_2)(-1)\big)}{\Delta}
+= \frac{h_2}{h_1 + h_2}, \cr
+\frac{\partial x_2^\ast}{\partial B} &= \frac{1}{\Delta}
+\begin{vmatrix} -h_1 & 0 & -1 \cr 0 & 0 & -1 \cr -1 & -1 & 0 \end{vmatrix}
+= \frac{-h_1\big(0 - (-1)(-1)\big)}{\Delta}
+= \frac{h_1}{h_1 + h_2}, \cr
+\frac{\partial\lambda}{\partial B} &= \frac{1}{\Delta}
+\begin{vmatrix} -h_1 & 0 & 0 \cr 0 & -h_2 & 0 \cr -1 & -1 & -1 \end{vmatrix}
+= \frac{-h_1\big((-h_2)(-1) - 0\big)}{\Delta}
+= -\frac{h_1h_2}{h_1 + h_2} < 0.
+\end{aligned}
 $$
+
+(Cada determinante se desarrolló por el primer renglón.)
 
 **Lectura.** El peso adicional se reparte entre las dos regiones, y recibe
 una parte mayor la región cuyo producto marginal cae **más despacio** (la
@@ -239,14 +285,23 @@ derivada de $x_1^\ast = a_1(B + 2)/(a_1 + a_2) - 1$ respecto de $B$.
 
 ### 3.3 Un aumento de la productividad
 
-Con $da_2 = 1$, el lado derecho es $\big(0, -1/(1 + x_2), 0\big)$:
+Con $da_2 = 1$, el lado derecho es $(0, -q, 0)$, con $q = 1/(1 + x_2)$:
 
 $$
-\frac{\partial x_2^\ast}{\partial a_2} = \frac{1}{(1 + x_2)\thinspace\Delta} > 0,
-\qquad
-\frac{\partial x_1^\ast}{\partial a_2} = -\frac{1}{(1 + x_2)\thinspace\Delta} < 0,
-\qquad
-\frac{\partial\lambda}{\partial a_2} = \frac{h_1}{(1 + x_2)\thinspace\Delta} > 0.
+\begin{aligned}
+\frac{\partial x_1^\ast}{\partial a_2} &= \frac{1}{\Delta}
+\begin{vmatrix} 0 & 0 & -1 \cr -q & -h_2 & -1 \cr 0 & -1 & 0 \end{vmatrix}
+= \frac{(-1)\big((-q)(-1) - 0\big)}{\Delta}
+= -\frac{q}{\Delta} < 0, \cr
+\frac{\partial x_2^\ast}{\partial a_2} &= \frac{1}{\Delta}
+\begin{vmatrix} -h_1 & 0 & -1 \cr 0 & -q & -1 \cr -1 & 0 & 0 \end{vmatrix}
+= \frac{-h_1\cdot 0 - 0 + (-1)\big(0 - (-q)(-1)\big)}{\Delta}
+= \frac{q}{\Delta} > 0, \cr
+\frac{\partial\lambda}{\partial a_2} &= \frac{1}{\Delta}
+\begin{vmatrix} -h_1 & 0 & 0 \cr 0 & -h_2 & -q \cr -1 & -1 & 0 \end{vmatrix}
+= \frac{-h_1\big(0 - (-q)(-1)\big)}{\Delta}
+= \frac{h_1\thinspace q}{\Delta} > 0.
+\end{aligned}
 $$
 
 **Lectura.**
@@ -344,7 +399,7 @@ $\mathcal L = f(x, \alpha) + \sum_j\lambda_j\big(c_j - g_j(x, \alpha)\big)$.
 Si la solución $\big(x^\ast(\alpha), \lambda(\alpha)\big)$ es diferenciable,
 
 $$
-V'(\alpha) = \frac{\partial\mathcal L}{\partial\alpha}\bigg|_{x^\ast(\alpha),\ \lambda(\alpha)}.
+\boxed{\ V'(\alpha) = \frac{\partial\mathcal L}{\partial\alpha}\bigg|_{x^\ast(\alpha),\ \lambda(\alpha)}\ }
 $$
 
 Se deriva el **lagrangiano** respecto del parámetro, sin derivar $x^\ast$ ni
@@ -358,7 +413,7 @@ la restricción, $\alpha = c_j$, entonces $\partial\mathcal L/\partial c_j = \la
 y
 
 $$
-V'(c_j) = \lambda_j.
+\boxed{\ V'(c_j) = \lambda_j\ }
 $$
 
 Es el resultado que la sesión 2 dejó pendiente: el multiplicador es el

@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 79f0d096-ce42-11f1-a276-4799177f1a8b
+# ╔═╡ e78bd536-ce9b-11f1-9446-49ca1155e028
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 79f0cf8a-ce42-11f1-8537-fd4058302583
+# ╔═╡ e78bd43c-ce9b-11f1-b314-71fe6852d880
 md"""
 # Sesión 2: Lagrange, concavidad y Kuhn-Tucker
 
@@ -39,79 +39,63 @@ md"""
 dos regiones. ¿Cómo debe repartirlo? ¿Conviene siempre dar algo a cada
 región?
 
-**Objetivos de la sesión**
-1. Plantear el reparto como un problema de optimización con restricciones.
-2. Leer la condición de Lagrange como una tangencia, y el multiplicador como
-   el valor de un peso adicional del fondo.
-3. Usar las condiciones de Kuhn-Tucker para encontrar soluciones de esquina.
-4. Entender por qué la concavidad hace suficientes esas condiciones, y qué
-   pasa cuando falta.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s02_lagrange_kuhn_tucker.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s02_lagrange_kuhn_tucker.md`, y se desarrolla en el pizarrón;
+el cuaderno sirve para mover los parámetros y ver qué pasa. En clase se
+proyectan las secciones 2 a 5; las secciones 0 y 1 se exploran antes, y los
+ejercicios, después. Pluto es reactivo: al mover un deslizador, todo lo que
+depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s02_lagrange_kuhn_tucker.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B2 (máximos en una
-variable), C.B5 (gradiente), C.I1 y C.I2 (hessiana y concavidad), C.I5
-(Lagrange), L.I4 y L.I5 (definitud y hessiana orlada). Para los puntos
-[Avanzado]: C.A1 y L.A3.
 """
 
-# ╔═╡ 79f0cfbc-ce42-11f1-95c3-33c0fb01e1a9
+# ╔═╡ e78bd482-ce9b-11f1-b92a-59af3364debb
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 79f0cfc6-ce42-11f1-a782-7dc60c9a6383
+# ╔═╡ e78bd482-ce9b-11f1-a6f9-f35e0a070569
 md"""
 ## 0. La pregunta: repartir un fondo entre dos regiones
 
-Cada peso invertido en la región ``i`` produce
-
-```math
-f_i(x_i) = a_i \ln(1 + x_i),
-```
-
-donde ``x_i \ge 0`` es la inversión y ``a_i`` la productividad de la región.
-Más inversión da más producto, pero cada peso rinde menos que el anterior.
-La región 1 es la más productiva: ``a_1 \ge a_2``.
-
-Es la versión estática del hilo conductor del curso (sesión 1): se decide
-una sola vez y no hay "después". El fondo se reparte por completo: la región
-1 recibe ``x_1`` y la región 2, ``B - x_1``. Mueve los deslizadores y observa dónde está el mejor reparto.
+*Antes de clase.* Cada región produce ``f_i(x_i) = a_i\ln(1 + x_i)`` y el
+fondo se reparte por completo: la región 1 recibe ``x_1`` y la 2, ``B - x_1``
+(notas, sección 1).
 
 ``a_1`` (productividad de la región 1): $(@bind a1 Slider(1.0:0.1:4.0, default = 2.0, show_value = true))
 
 ``a_2`` (productividad de la región 2): $(@bind a2 Slider(0.2:0.1:1.0, default = 1.0, show_value = true))
 
 Fondo ``B``: $(@bind B Slider(0.1:0.1:10.0, default = 4.0, show_value = true))
+
+Antes de usar la teoría, el mejor reparto se puede encontrar **por fuerza
+bruta**: se prueban 400 repartos y se queda el que da más producto.
 """
 
-# ╔═╡ 79f0cfda-ce42-11f1-8665-db659c3e3767
+# ╔═╡ e78bd496-ce9b-11f1-b734-079aa93622ff
+md"""
+**Mueve** ``B`` por debajo de 1, y prueba regiones muy distintas
+(``a_1 = 4``, ``a_2 = 0.5``). **Observa:** ¿siempre recibe algo la región
+menos productiva? La búsqueda por fuerza bruta da la respuesta para cada
+caso, pero no dice por qué; las condiciones de Kuhn-Tucker sí (sección 4).
+"""
+
+# ╔═╡ e78bd4a0-ce9b-11f1-b39f-6f78cc0524b0
 md"""
 ## 1. Repaso: gradiente, curvas de nivel y hessiana
 
-Con ``f(x_1, x_2) = a_1\ln(1 + x_1) + a_2\ln(1 + x_2)``, el **gradiente**
-
-```math
-\nabla f = \left(\frac{a_1}{1 + x_1},\ \frac{a_2}{1 + x_2}\right)
-```
-
-apunta hacia donde ``f`` crece más rápido y es perpendicular a las **curvas
-de nivel**. Sus entradas son los productos marginales de la inversión en cada
-región. Las flechas se acortan al alejarse del origen: rendimientos
-decrecientes.
+*Antes de clase.* El gradiente de ``f`` (las flechas) es perpendicular a las
+curvas de nivel; sus entradas son los productos marginales. **Observa** que
+las flechas se acortan al alejarse del origen: rendimientos decrecientes.
 """
 
-# ╔═╡ 79f0cfe4-ce42-11f1-b3c0-951f59026c15
+# ╔═╡ e78bd4aa-ce9b-11f1-a496-af87ed01042d
 md"""
-La **hessiana** se puede calcular a mano o con Symbolics.jl:
+Symbolics.jl calcula el gradiente y la hessiana; compáralos con los que
+obtienes a mano (notas, sección 2):
 """
 
-# ╔═╡ 79f0cfee-ce42-11f1-930c-e5ed1c4020c8
+# ╔═╡ e78bd4aa-ce9b-11f1-95e9-755fe5ebafd6
 begin
     @variables x₁ x₂ α₁ α₂
     f_simbolica = α₁ * log(1 + x₁) + α₂ * log(1 + x₂)
@@ -119,161 +103,90 @@ begin
      hessiana = Symbolics.hessian(f_simbolica, [x₁, x₂]))
 end
 
-# ╔═╡ 79f0cfee-ce42-11f1-87d7-e1d1178a009f
-md"""
-La hessiana es diagonal con entradas negativas: es **definida negativa** en
-todo punto, así que ``f`` es estrictamente cóncava (C.I2). Esto será clave
-en la sección 4: con una función cóncava y restricciones lineales, las
-condiciones de primer orden bastan para el máximo global.
-"""
-
-# ╔═╡ 79f0cff8-ce42-11f1-91cd-e3d3307b23b5
+# ╔═╡ e78bd4aa-ce9b-11f1-8ab0-ed0b8ded6c6d
 md"""
 ## 2. Lagrange: el óptimo es una tangencia
 
-Si se exige gastar todo el fondo, ``x_1 + x_2 = B``, y se ignora que la
-inversión no puede ser negativa, el método de Lagrange pide que la curva de
-nivel de ``f`` sea **tangente** a la recta del presupuesto:
-
-```math
-\frac{a_1}{1 + x_1} = \frac{a_2}{1 + x_2} = \lambda .
-```
-
-El último peso debe rendir lo mismo en las dos regiones. Despejando,
-
-```math
-\lambda = \frac{a_1 + a_2}{B + 2}, \qquad
-x_i = \frac{a_i\,(B + 2)}{a_1 + a_2} - 1 .
-```
-
-En la gráfica, la recta naranja es el presupuesto (sólida donde es factible),
-la curva azul es la curva de nivel tangente y el punto es la solución de
-Lagrange.
+*En clase, después de la sección 3.4 de las notas.* La solución de Lagrange
+iguala los productos marginales: la curva de nivel (azul) toca la recta del
+presupuesto (naranja, sólida donde es factible).
 """
 
-# ╔═╡ 79f0d00c-ce42-11f1-9186-b564b1c16771
+# ╔═╡ e78bd4be-ce9b-11f1-8ff4-bdf19509cb57
 md"""
 ## 3. El multiplicador como precio sombra
 
-¿Qué significa ``\lambda``? Si ``V(B)`` es el producto total con el mejor
-reparto del fondo ``B``, entonces
-
-```math
-V'(B) = \lambda :
-```
-
-el multiplicador es el **valor de un peso adicional del fondo**. La
-demostración general es el teorema de la envolvente (sesión 3). Aquí se
-comprueba numéricamente. La línea punteada marca el umbral ``\bar B`` a
-partir del cual la región 2 recibe inversión, y la naranja, el ``B`` elegido.
+*En clase.* Las gráficas muestran el valor óptimo ``V(B)`` y el
+multiplicador ``\lambda(B)`` para cada tamaño del fondo (notas, sección
+3.2). La línea punteada es el umbral ``\bar B``; la naranja, el ``B``
+elegido.
 """
 
-# ╔═╡ 79f0d020-ce42-11f1-9c26-4bb92d2be034
+# ╔═╡ e78bd4d2-ce9b-11f1-9768-95012eb8dca9
 md"""
 ## 4. Kuhn-Tucker: soluciones de esquina
 
-Con las restricciones completas, ``x_1 + x_2 \le B`` y ``x_1, x_2 \ge 0``, y
-el lagrangiano ``\mathcal{L} = f(x) + \lambda (B - x_1 - x_2)``, las
-condiciones de Kuhn-Tucker son:
-
-```math
-\frac{a_i}{1 + x_i} - \lambda \le 0, \qquad x_i \ge 0, \qquad
-x_i \left(\frac{a_i}{1 + x_i} - \lambda\right) = 0,
-```
-
-```math
-B - x_1 - x_2 \ge 0, \qquad \lambda \ge 0, \qquad \lambda\,(B - x_1 - x_2) = 0 .
-```
-
-En cada par, **al menos una de las dos desigualdades se cumple con
-igualdad** (holgura complementaria). La tabla las evalúa en la solución
-óptima para los valores de los deslizadores.
+*En clase, después de la sección 4.4 de las notas.* La tabla evalúa las
+condiciones de Kuhn-Tucker en la solución óptima: en cada renglón, el
+producto de la última columna debe ser cero (holgura complementaria).
 """
 
-# ╔═╡ 79f0d02a-ce42-11f1-a464-3d9c2cd3caa6
+# ╔═╡ e78bd4dc-ce9b-11f1-9122-7392f2147a79
 md"""
-Resolviendo los casos (notas, sección 4.4), la región 2 recibe inversión si
-y sólo si el fondo supera el umbral
-
-```math
-\bar B = \frac{a_1}{a_2} - 1 .
-```
-
-Con un fondo pequeño, todo va a la región más productiva. El mapa muestra los
-dos regímenes según la brecha de productividad ``a_1/a_2`` y el tamaño del
-fondo. El punto es la combinación elegida con los deslizadores.
+**¿Quién recibe inversión?** La región 2 recibe sólo si ``B > \bar B``. El
+mapa muestra los dos regímenes según la brecha de productividad ``a_1/a_2``
+y el tamaño del fondo; el punto es la combinación de los deslizadores.
+**Mueve** ``a_1`` y ``B`` y **observa** cómo el punto cruza la frontera.
 """
 
-# ╔═╡ 79f0d03e-ce42-11f1-8e41-8d7022fead0c
+# ╔═╡ e78bd4e6-ce9b-11f1-89a7-a1eff3c842f4
 md"""
 ## 5. Sin concavidad, las condiciones no bastan
 
-Supón **rendimientos crecientes**, ``f_i = a_i x_i^\gamma`` con
-``\gamma > 1``, por ejemplo por economías de aglomeración. La gráfica
-muestra el producto total a lo largo del presupuesto, ``x_2 = B - x_1``, y
-marca el punto interior donde los productos marginales se igualan, que
-cumple las condiciones de Kuhn-Tucker.
+*En clase, antes de la sección 5 de las notas.* Con
+``f_i = a_i x_i^\gamma``, la gráfica muestra el producto total a lo largo
+del presupuesto y marca el punto interior que cumple Kuhn-Tucker.
 
 ``\gamma``: $(@bind γ Slider(0.3:0.1:2.0, default = 1.5, show_value = true))
 """
 
-# ╔═╡ 79f0d048-ce42-11f1-bba2-6de7ed3f663d
+# ╔═╡ e78bd4f0-ce9b-11f1-ad30-41eb3b03fae0
 md"""
-- Con ``\gamma < 1``, ``f`` es cóncava y el punto interior es el **máximo**:
-  conviene repartir.
-- Con ``\gamma > 1``, ``f`` es convexa a lo largo del presupuesto y el punto
-  interior es el **mínimo**. El óptimo está en una esquina: todo el fondo a
-  una sola región.
-
-Las condiciones de Kuhn-Tucker son **necesarias**; sólo con concavidad son
-también **suficientes** (notas, sección 4.3). Para la política regional, la
-lección es que la forma de los rendimientos decide entre repartir y
-concentrar.
+**Mueve** ``\gamma`` de 0.5 a 1.5. **Observa:** ¿cuándo el punto de
+Kuhn-Tucker es el mejor reparto y cuándo el peor? ¿Adónde va el fondo con
+rendimientos crecientes?
 """
 
-# ╔═╡ 79f0d048-ce42-11f1-bacc-4fa211d3bd3a
+# ╔═╡ e78bd4fc-ce9b-11f1-b045-d97c7f998cc2
 md"""
 ## 6. [Avanzado] Cuando falla la calificación de las restricciones
 
-Maximizar ``x_1`` sujeto a ``x_2 \le (1 - x_1)^3`` y ``x_1, x_2 \ge 0``. El
-conjunto factible (sombreado) termina en una **cúspide** en ``(1, 0)``, que
-es el óptimo. Ahí los gradientes de las dos restricciones activas, ``(0, 1)``
-y ``(0, -1)``, son paralelos: no pueden combinarse para igualar el gradiente
-del objetivo, ``(1, 0)``. Las condiciones de Kuhn-Tucker fallan aunque el
-óptimo existe.
+*Fuera de clase* (notas, P.4). En el problema de maximizar ``x_1`` con
+``x_2 \le (1 - x_1)^3``, el conjunto factible termina en una cúspide en el
+óptimo ``(1, 0)``. Los gradientes de las restricciones activas son
+paralelos y no pueden igualar al del objetivo: no existe ``\lambda``.
 """
 
-# ╔═╡ 79f0d05c-ce42-11f1-9e90-378c1beb45cc
-md"""
-## Resumen
-
-| Herramienta | Qué dice | En el problema de las regiones |
-|---|---|---|
-| Primer orden | En un máximo interior, ``\nabla f = 0`` | — |
-| Concavidad | Hessiana semidefinida negativa: el óptimo local es global | ``f`` es estrictamente cóncava |
-| Lagrange | Tangencia: ``\nabla f = \lambda \nabla g`` | Igualar productos marginales |
-| Precio sombra | ``V'(B) = \lambda`` | Valor de un peso adicional del fondo |
-| Kuhn-Tucker | Signos y holgura complementaria | La región 2 recibe sólo si ``B > a_1/a_2 - 1`` |
-| Suficiencia | ``f`` cóncava y restricciones convexas: Kuhn-Tucker basta | Sí; con rendimientos crecientes, no |
-"""
-
-# ╔═╡ 79f0d05c-ce42-11f1-b07e-cfdea54ae718
+# ╔═╡ e78bd504-ce9b-11f1-8f81-2f81f803e80a
 md"""
 ## Ejercicios
+
+*Fuera de clase.* Los ejercicios con demostraciones están en las notas
+(sección 8).
 
 ### Completa el código
 
 **1.** Escribe `reparto_optimo(a1, a2, B)`, que devuelva el vector
-`[x1, x2, λ]` del reparto óptimo, suponiendo ``a_1 \ge a_2``. Usa el umbral
-``\bar B = a_1/a_2 - 1`` y las dos fórmulas de las secciones 2 y 4.
+`[x1, x2, λ]` del reparto óptimo, suponiendo ``a_1 \ge a_2`` (notas,
+sección 4.4).
 """
 
-# ╔═╡ 79f0d064-ce42-11f1-b604-abd169f0232c
+# ╔═╡ e78bd504-ce9b-11f1-bda8-4171ce10c7d7
 function reparto_optimo(a1, a2, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 79f0d070-ce42-11f1-9b8a-ef9bceb6e1ad
+# ╔═╡ e78bd50e-ce9b-11f1-b64f-3f647a14a6b7
 md"""
 **2.** Escribe `precio_sombra_numerico(a1, a2, B; h = 1e-5)`, que aproxime
 ``V'(B)`` con una diferencia centrada, ``\big(V(B + h) - V(B - h)\big)/2h``.
@@ -281,12 +194,12 @@ Usa la función `valor_ref(a1, a2, B)`, que calcula ``V(B)``. El verificador
 compara tu resultado con ``\lambda``.
 """
 
-# ╔═╡ 79f0d070-ce42-11f1-ac50-39138bd2a870
+# ╔═╡ e78bd50e-ce9b-11f1-bc9d-8322b80270e0
 function precio_sombra_numerico(a1, a2, B; h = 1e-5)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 79f0d07a-ce42-11f1-89de-776054351e60
+# ╔═╡ e78bd518-ce9b-11f1-9f17-f30fc5a81f35
 md"""
 **3. [Avanzado]** Con ``n`` regiones, ``f_i = a_i\ln(1 + x_i)``, la solución
 es ``x_i = \max\lbrace a_i/\lambda - 1,\ 0\rbrace``, con ``\lambda`` tal que las
@@ -296,12 +209,12 @@ inversiones. Encuentra ``\lambda`` por bisección: la suma de inversiones
 decrece con ``\lambda``.
 """
 
-# ╔═╡ 79f0d084-ce42-11f1-a7dd-9d4aae9c78d9
+# ╔═╡ e78bd522-ce9b-11f1-aeaf-ff9d841ecc5c
 function llenado_de_agua(a, B)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 79f0d08e-ce42-11f1-929a-0fc461011973
+# ╔═╡ e78bd522-ce9b-11f1-a365-930ffaea094e
 md"""
 ### Interpretación
 
@@ -316,27 +229,19 @@ md"""
 7. Un planificador preocupado por la equidad quiere que la región 2 reciba
    algo aunque el fondo sea pequeño. Propón dos formas de modificar el
    problema para lograrlo y explica su costo en producto total.
-
-### [Avanzado]
-
-8. Demuestra directamente, sin el teorema general, que el reparto de la
-   sección 4 es el máximo global (usa la concavidad de ``f``).
-9. Verifica numéricamente con `llenado_de_agua` que el precio sombra del
-   problema con ``n`` regiones también cumple ``V'(B) = \lambda``.
-10. En la sección 6, reemplaza ``(1 - x_1)^3`` por ``1 - x_1``. ¿Se cumple
-    ahora la calificación de las restricciones? ¿Existe ``\lambda``?
+8. **[Avanzado]** Verifica numéricamente con `llenado_de_agua` que el precio
+   sombra del problema con ``n`` regiones también cumple ``V'(B) = \lambda``.
 
 ## Para la próxima sesión
 
-- **Sesión 3: envolvente y estática comparativa.** Veremos por qué
-  ``V'(B) = \lambda`` siempre (teorema de la envolvente) y cómo cambia el
-  reparto cuando cambia la productividad de una región (estática
-  comparativa con el teorema de la función implícita y la regla de Cramer).
+- **Sesión 3: envolvente y estática comparativa.** Por qué
+  ``V'(B) = \lambda`` siempre, y cómo cambia el reparto cuando cambia la
+  productividad de una región.
 - Lectura: Chiang y Wainwright (2006), caps. 8 y 13.
 - Repaso: C.I3, C.I4 y L.B4.
 """
 
-# ╔═╡ 79f0d08e-ce42-11f1-b8b2-83fa69f85a95
+# ╔═╡ e78bd52e-ce9b-11f1-9c3e-75e62ba17d58
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -345,7 +250,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 79f0d096-ce42-11f1-beaf-e941776af298
+# ╔═╡ e78bd536-ce9b-11f1-8876-4103614824ff
 begin
     const AZUL    = "#2a78d6"   # serie principal
     const NARANJA = "#eb6834"   # restricción, punto destacado
@@ -353,7 +258,7 @@ begin
     const TINTA   = "#0b0b0b"   # óptimo
 end;
 
-# ╔═╡ 79f0d036-ce42-11f1-a331-1da5007484ef
+# ╔═╡ e78bd4e6-ce9b-11f1-bd2a-6de9b912e780
 let
     r = range(1, 20, length = 200)
     p = plot(r, r .- 1; fillrange = 0, fillalpha = 0.15, color = NARANJA, lw = 2,
@@ -364,7 +269,7 @@ let
     scatter!(p, [a1 / a2], [B]; color = TINTA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 79f0d03e-ce42-11f1-a991-cdd8b764508b
+# ╔═╡ e78bd4f0-ce9b-11f1-973c-275954257fa3
 let
     x1s = range(0, B, length = 400)
     φ = a1 .* x1s .^ γ .+ a2 .* (B .- x1s) .^ γ
@@ -380,7 +285,7 @@ let
     p
 end
 
-# ╔═╡ 79f0d052-ce42-11f1-9596-614974be0030
+# ╔═╡ e78bd4fc-ce9b-11f1-bdf0-0915ed216841
 let
     x = range(0, 1, length = 300)
     p = plot(x, (1 .- x) .^ 3; fillrange = 0, fillalpha = 0.2, color = AZUL, lw = 2,
@@ -397,28 +302,35 @@ let
     annotate!(p, 1.05, -0.42, text("∇g₂ = (0, −1)", 8, :left, GRIS))
 end
 
-# ╔═╡ 79f0d0a2-ce42-11f1-91fe-6399ddbaa79e
+# ╔═╡ e78bd540-ce9b-11f1-8ce9-6bfbdc2a9ff2
 "Producto total de las dos regiones: a₁ ln(1 + x₁) + a₂ ln(1 + x₂)."
 producto(x1, x2, a1, a2) = a1 * log1p(x1) + a2 * log1p(x2)
 
-# ╔═╡ 79f0cfd2-ce42-11f1-8094-3fda0fefe96e
+# ╔═╡ e78bd48c-ce9b-11f1-95b8-e75574eb195c
+mejor = let
+    x1s = range(0, B, length = 400)                  # repartos posibles
+    total = producto.(x1s, B .- x1s, a1, a2)         # producto de cada uno
+    i = argmax(total)
+    (x1 = x1s[i], x2 = B - x1s[i], producto = total[i])
+end
+
+# ╔═╡ e78bd496-ce9b-11f1-931f-f166ed23034e
 let
     x1s = range(0, B, length = 400)
     total = producto.(x1s, B .- x1s, a1, a2)
-    i = argmax(total)
     p = plot(x1s, total; color = AZUL, lw = 2,
              xlabel = "inversión en la región 1, x₁ (la región 2 recibe B − x₁)",
              ylabel = "producto total",
              title = "Producto total según el reparto del fondo B = $B")
-    scatter!(p, [x1s[i]], [total[i]]; color = NARANJA, ms = 6, msw = 0)
-    annotate!(p, x1s[i], total[i], text("  mejor reparto", 8, :left, NARANJA))
+    scatter!(p, [mejor.x1], [mejor.producto]; color = NARANJA, ms = 6, msw = 0)
+    annotate!(p, mejor.x1, mejor.producto, text("  mejor reparto", 8, :left, NARANJA))
 end
 
-# ╔═╡ 79f0d0a2-ce42-11f1-96e2-cd81527e05fb
+# ╔═╡ e78bd540-ce9b-11f1-9026-07a5f90961e5
 "Gradiente del producto total (productos marginales de cada región)."
 gradiente(x1, x2, a1, a2) = (a1 / (1 + x1), a2 / (1 + x2))
 
-# ╔═╡ 79f0cfe4-ce42-11f1-8ba8-e133b70d1029
+# ╔═╡ e78bd4a0-ce9b-11f1-b91d-217692321e46
 let
     xs = range(0, 10, length = 200)
     p = contour(xs, xs, (u, v) -> producto(u, v, a1, a2); levels = 8, color = :blues,
@@ -432,18 +344,18 @@ let
             quiver = (escala .* first.(g), escala .* last.(g)), color = NARANJA, lw = 1.5)
 end
 
-# ╔═╡ 79f0d0ac-ce42-11f1-a682-7518b0032f89
+# ╔═╡ e78bd540-ce9b-11f1-a6b8-01e714750015
 "Umbral del fondo a partir del cual la región menos productiva recibe inversión."
 umbral(a1, a2) = max(a1, a2) / min(a1, a2) - 1
 
-# ╔═╡ 79f0d0ac-ce42-11f1-ba79-1fe29c01cc4f
+# ╔═╡ e78bd54a-ce9b-11f1-b710-2374643d867e
 "Solución de Lagrange con el presupuesto agotado, sin imponer xᵢ ≥ 0: (x₁, x₂, λ)."
 function lagrange_interior(a1, a2, B)
     λ = (a1 + a2) / (B + 2)
     (a1 / λ - 1, a2 / λ - 1, λ)
 end
 
-# ╔═╡ 79f0cff8-ce42-11f1-b17b-53abc1ee9c3c
+# ╔═╡ e78bd4b4-ce9b-11f1-9cc2-03275f158a23
 let
     xl1, xl2, _ = lagrange_interior(a1, a2, B)
     xs = range(-0.95, 11, length = 300)
@@ -459,32 +371,30 @@ let
     scatter!(p, [xl1], [xl2]; color = xl2 < 0 ? :red : TINTA, ms = 6, msw = 0)
 end
 
-# ╔═╡ 79f0d004-ce42-11f1-8beb-7931a0fd28e2
+# ╔═╡ e78bd4be-ce9b-11f1-b6df-6fee3f0fcc44
 let
     xl1, xl2, λl = lagrange_interior(a1, a2, B)
     aviso = xl2 < 0 ?
         md"""
         !!! danger "No es factible"
             Con ``B`` = $(B), Lagrange recomienda ``x_2`` = $(round(xl2, digits = 2)):
-            **desinvertir** en la región 2 para invertir más en la 1. La inversión
-            no puede ser negativa. Para tratar las restricciones ``x_i \ge 0``
-            hacen falta las condiciones de Kuhn-Tucker (sección 4).
+            **desinvertir** en la región 2. Hacen falta las condiciones de
+            Kuhn-Tucker (sección 4).
         """ :
         md"""
         !!! correct "Factible"
-            Con ``B`` = $(B), las dos inversiones son positivas:
-            ``x_1`` = $(round(xl1, digits = 2)), ``x_2`` = $(round(xl2, digits = 2)),
-            y ``\lambda`` = $(round(λl, digits = 3)).
+            Con ``B`` = $(B): ``x_1`` = $(round(xl1, digits = 2)),
+            ``x_2`` = $(round(xl2, digits = 2)) y ``\lambda`` = $(round(λl, digits = 3)).
         """
     md"""
     $(aviso)
 
-    Reduce ``B`` hasta que el punto salga del cuadrante factible. ¿En qué
-    valor de ``B`` ocurre? (Respuesta en la sección 4.)
+    **Mueve** ``B`` hacia abajo. **Observa** en qué valor el punto sale del
+    cuadrante factible: es el umbral ``\bar B = a_1/a_2 - 1`` de las notas.
     """
 end
 
-# ╔═╡ 79f0d0b6-ce42-11f1-ba1d-b3b8f4a0f3a0
+# ╔═╡ e78bd54a-ce9b-11f1-a93d-5bede1039696
 "Reparto óptimo con Kuhn-Tucker: (x₁, x₂, λ). Funciona con cualquier orden de a₁ y a₂."
 function reparto_ref(a1, a2, B)
     if a1 < a2
@@ -494,21 +404,7 @@ function reparto_ref(a1, a2, B)
     B <= umbral(a1, a2) ? (B, 0.0, a1 / (1 + B)) : lagrange_interior(a1, a2, B)
 end
 
-# ╔═╡ 79f0cfd2-ce42-11f1-8fce-99909440998d
-let
-    x1, x2, λ = reparto_ref(a1, a2, B)
-    md"""
-    Con estos valores, el mejor reparto da ``x_1 = `` $(round(x1, digits = 2))
-    a la región 1 y ``x_2 = `` $(round(x2, digits = 2)) a la región 2.
-
-    Prueba con un fondo pequeño (``B < 1``) y con regiones muy distintas
-    (``a_1 = 4``, ``a_2 = 0.5``). **¿Siempre recibe algo la región menos
-    productiva?** Las condiciones de Kuhn-Tucker (sección 4) dicen exactamente
-    cuándo sí y cuándo no.
-    """
-end
-
-# ╔═╡ 79f0d020-ce42-11f1-92e9-b57119fec0ef
+# ╔═╡ e78bd4dc-ce9b-11f1-9c6a-fba7cfb47592
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     d1, d2 = a1 / (1 + x1) - λ, a2 / (1 + x2) - λ
@@ -532,17 +428,20 @@ let
     | Fondo | ``\lambda`` = $(r(λ)) | ``B - x_1 - x_2`` = $(r(holgura)) | $(r(λ * holgura)) |
 
     $(mensaje)
+
+    La fórmula de Kuhn-Tucker da ``x_1`` = $(r(x1)); la búsqueda por fuerza
+    bruta de la sección 0 dio $(r(mejor.x1)).
     """
 end
 
-# ╔═╡ 79f0d0b6-ce42-11f1-97ff-8b623201657e
+# ╔═╡ e78bd554-ce9b-11f1-9f8b-ebc5706fe0e8
 "Valor óptimo V(B): el producto total con el reparto óptimo."
 function valor_ref(a1, a2, B)
     x1, x2, _ = reparto_ref(a1, a2, B)
     producto(x1, x2, a1, a2)
 end
 
-# ╔═╡ 79f0d016-ce42-11f1-9e06-59be1ddc62ad
+# ╔═╡ e78bd4ca-ce9b-11f1-8039-c77a5351bd64
 let
     Bs = range(0.01, 10, length = 400)
     V = [valor_ref(a1, a2, b) for b in Bs]
@@ -559,23 +458,22 @@ let
     plot(p1, p2; layout = (1, 2), size = (760, 320))
 end
 
-# ╔═╡ 79f0d016-ce42-11f1-b7ba-5b5f667863b7
+# ╔═╡ e78bd4ca-ce9b-11f1-8410-f5f751df21a1
 let
     h = 0.01
     λ = reparto_ref(a1, a2, B)[3]
     dif = (valor_ref(a1, a2, B + h) - valor_ref(a1, a2, B)) / h
     md"""
-    Con ``B`` = $(B): aumentar el fondo en ``h = 0.01`` aumenta el producto en
-    ``\Delta V / h`` = $(round(dif, digits = 4)), y el multiplicador vale
-    ``\lambda`` = $(round(λ, digits = 4)).
+    **Comprobación numérica:** con ``B`` = $(B), aumentar el fondo en
+    ``h = 0.01`` aumenta el producto en ``\Delta V/h`` = $(round(dif, digits = 4));
+    el multiplicador vale ``\lambda`` = $(round(λ, digits = 4)).
 
-    Observa dos cosas en las gráficas: ``V`` es **cóncava** (cada peso adicional
-    vale menos que el anterior) y ``\lambda`` es **continuo** en el umbral,
+    **Observa** que ``V`` es cóncava y que ``\lambda`` es continuo en el umbral,
     aunque la fórmula del reparto cambia ahí.
     """
 end
 
-# ╔═╡ 79f0d0b6-ce42-11f1-888c-75fb2a7abd20
+# ╔═╡ e78bd55c-ce9b-11f1-b0c8-a7b535fe6d93
 "Reparto óptimo entre n regiones con aᵢ ln(1 + xᵢ), por bisección en λ."
 function llenado_de_agua_ref(a, B)
     total(λ) = sum(max.(a ./ λ .- 1, 0))
@@ -588,11 +486,11 @@ function llenado_de_agua_ref(a, B)
     max.(a ./ λ .- 1, 0)
 end
 
-# ╔═╡ 79f0d0c0-ce42-11f1-a55e-0b5faba19ad4
+# ╔═╡ e78bd55c-ce9b-11f1-a8d2-211fbfbd8886
 "Casos de prueba (a₁, a₂, B) para los ejercicios: esquina, umbral e interior."
 const CASOS = [(2.0, 1.0, 0.5), (2.0, 1.0, 1.0), (2.0, 1.0, 4.0), (3.0, 0.5, 2.0), (1.0, 1.0, 3.0)]
 
-# ╔═╡ 79f0d0c0-ce42-11f1-822c-23076540c5d4
+# ╔═╡ e78bd55c-ce9b-11f1-a1cb-b3abcb3f756b
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -602,80 +500,79 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
     pendiente(x) = x === missing || (x isa AbstractArray && any(pendiente, x))
-    cerca(a, b) = a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)
+    cerca(a, b) = (a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)) ||
+                  (a isa AbstractArray && b isa AbstractArray && size(a) == size(b) && all(cerca.(a, b)))
     if pendiente(resultado)
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif (resultado isa AbstractArray && size(resultado) == size(esperado) &&
-            all(cerca.(resultado, esperado))) || cerca(resultado, esperado)
+    elseif cerca(resultado, esperado)
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)
     end
 end
 
-# ╔═╡ 79f0d064-ce42-11f1-95ef-157cab428346
+# ╔═╡ e78bd504-ce9b-11f1-ad0c-97074d3c8621
 verificar(() -> [reparto_optimo(c...) for c in CASOS],
           [collect(reparto_ref(c...)) for c in CASOS];
           pista = md"Calcula `B̄ = a1 / a2 - 1`. Si `B <= B̄`, devuelve `[B, 0.0, a1 / (1 + B)]`. Si no, `λ = (a1 + a2) / (B + 2)`, `x1 = a1 / λ - 1` y `x2 = B - x1`.")
 
-# ╔═╡ 79f0d07a-ce42-11f1-b967-190e3158b6bd
+# ╔═╡ e78bd518-ce9b-11f1-9828-61e507a50535
 verificar(() -> [precio_sombra_numerico(c...) for c in CASOS],
           [reparto_ref(c...)[3] for c in CASOS];
           rtol = 1e-5,
           pista = md"Devuelve `(valor_ref(a1, a2, B + h) - valor_ref(a1, a2, B - h)) / (2h)`.")
 
-# ╔═╡ 79f0d084-ce42-11f1-b138-abe69de31683
+# ╔═╡ e78bd522-ce9b-11f1-bb83-6f737ae12cfd
 verificar(() -> llenado_de_agua([3.0, 2.0, 1.0, 0.5], 2.0),
           llenado_de_agua_ref([3.0, 2.0, 1.0, 0.5], 2.0);
           rtol = 1e-6,
           pista = md"Busca ``\lambda`` entre `sum(a) / (B + length(a))` (ahí la suma es al menos `B`) y `maximum(a)` (ahí es 0). En cada paso, calcula `x = max.(a ./ λ .- 1, 0)` y compara `sum(x)` con `B`.")
 
 # ╔═╡ Cell order:
-# ╟─79f0cf8a-ce42-11f1-8537-fd4058302583
-# ╟─79f0cfbc-ce42-11f1-95c3-33c0fb01e1a9
-# ╟─79f0cfc6-ce42-11f1-a782-7dc60c9a6383
-# ╟─79f0cfd2-ce42-11f1-8094-3fda0fefe96e
-# ╟─79f0cfd2-ce42-11f1-8fce-99909440998d
-# ╟─79f0cfda-ce42-11f1-8665-db659c3e3767
-# ╟─79f0cfe4-ce42-11f1-8ba8-e133b70d1029
-# ╟─79f0cfe4-ce42-11f1-b3c0-951f59026c15
-# ╠═79f0cfee-ce42-11f1-930c-e5ed1c4020c8
-# ╟─79f0cfee-ce42-11f1-87d7-e1d1178a009f
-# ╟─79f0cff8-ce42-11f1-91cd-e3d3307b23b5
-# ╟─79f0cff8-ce42-11f1-b17b-53abc1ee9c3c
-# ╟─79f0d004-ce42-11f1-8beb-7931a0fd28e2
-# ╟─79f0d00c-ce42-11f1-9186-b564b1c16771
-# ╟─79f0d016-ce42-11f1-9e06-59be1ddc62ad
-# ╟─79f0d016-ce42-11f1-b7ba-5b5f667863b7
-# ╟─79f0d020-ce42-11f1-9c26-4bb92d2be034
-# ╟─79f0d020-ce42-11f1-92e9-b57119fec0ef
-# ╟─79f0d02a-ce42-11f1-a464-3d9c2cd3caa6
-# ╟─79f0d036-ce42-11f1-a331-1da5007484ef
-# ╟─79f0d03e-ce42-11f1-8e41-8d7022fead0c
-# ╟─79f0d03e-ce42-11f1-a991-cdd8b764508b
-# ╟─79f0d048-ce42-11f1-bba2-6de7ed3f663d
-# ╟─79f0d048-ce42-11f1-bacc-4fa211d3bd3a
-# ╟─79f0d052-ce42-11f1-9596-614974be0030
-# ╟─79f0d05c-ce42-11f1-9e90-378c1beb45cc
-# ╟─79f0d05c-ce42-11f1-b07e-cfdea54ae718
-# ╠═79f0d064-ce42-11f1-b604-abd169f0232c
-# ╟─79f0d064-ce42-11f1-95ef-157cab428346
-# ╟─79f0d070-ce42-11f1-9b8a-ef9bceb6e1ad
-# ╠═79f0d070-ce42-11f1-ac50-39138bd2a870
-# ╟─79f0d07a-ce42-11f1-b967-190e3158b6bd
-# ╟─79f0d07a-ce42-11f1-89de-776054351e60
-# ╠═79f0d084-ce42-11f1-a7dd-9d4aae9c78d9
-# ╟─79f0d084-ce42-11f1-b138-abe69de31683
-# ╟─79f0d08e-ce42-11f1-929a-0fc461011973
-# ╟─79f0d08e-ce42-11f1-b8b2-83fa69f85a95
-# ╠═79f0d096-ce42-11f1-a276-4799177f1a8b
-# ╠═79f0d096-ce42-11f1-beaf-e941776af298
-# ╠═79f0d0a2-ce42-11f1-91fe-6399ddbaa79e
-# ╠═79f0d0a2-ce42-11f1-96e2-cd81527e05fb
-# ╠═79f0d0ac-ce42-11f1-a682-7518b0032f89
-# ╠═79f0d0ac-ce42-11f1-ba79-1fe29c01cc4f
-# ╠═79f0d0b6-ce42-11f1-ba1d-b3b8f4a0f3a0
-# ╠═79f0d0b6-ce42-11f1-97ff-8b623201657e
-# ╠═79f0d0b6-ce42-11f1-888c-75fb2a7abd20
-# ╠═79f0d0c0-ce42-11f1-a55e-0b5faba19ad4
-# ╠═79f0d0c0-ce42-11f1-822c-23076540c5d4
+# ╟─e78bd43c-ce9b-11f1-b314-71fe6852d880
+# ╟─e78bd482-ce9b-11f1-b92a-59af3364debb
+# ╟─e78bd482-ce9b-11f1-a6f9-f35e0a070569
+# ╠═e78bd48c-ce9b-11f1-95b8-e75574eb195c
+# ╟─e78bd496-ce9b-11f1-931f-f166ed23034e
+# ╟─e78bd496-ce9b-11f1-b734-079aa93622ff
+# ╟─e78bd4a0-ce9b-11f1-b39f-6f78cc0524b0
+# ╟─e78bd4a0-ce9b-11f1-b91d-217692321e46
+# ╟─e78bd4aa-ce9b-11f1-a496-af87ed01042d
+# ╠═e78bd4aa-ce9b-11f1-95e9-755fe5ebafd6
+# ╟─e78bd4aa-ce9b-11f1-8ab0-ed0b8ded6c6d
+# ╟─e78bd4b4-ce9b-11f1-9cc2-03275f158a23
+# ╟─e78bd4be-ce9b-11f1-b6df-6fee3f0fcc44
+# ╟─e78bd4be-ce9b-11f1-8ff4-bdf19509cb57
+# ╟─e78bd4ca-ce9b-11f1-8039-c77a5351bd64
+# ╟─e78bd4ca-ce9b-11f1-8410-f5f751df21a1
+# ╟─e78bd4d2-ce9b-11f1-9768-95012eb8dca9
+# ╟─e78bd4dc-ce9b-11f1-9c6a-fba7cfb47592
+# ╟─e78bd4dc-ce9b-11f1-9122-7392f2147a79
+# ╟─e78bd4e6-ce9b-11f1-bd2a-6de9b912e780
+# ╟─e78bd4e6-ce9b-11f1-89a7-a1eff3c842f4
+# ╟─e78bd4f0-ce9b-11f1-973c-275954257fa3
+# ╟─e78bd4f0-ce9b-11f1-ad30-41eb3b03fae0
+# ╟─e78bd4fc-ce9b-11f1-b045-d97c7f998cc2
+# ╟─e78bd4fc-ce9b-11f1-bdf0-0915ed216841
+# ╟─e78bd504-ce9b-11f1-8f81-2f81f803e80a
+# ╠═e78bd504-ce9b-11f1-bda8-4171ce10c7d7
+# ╟─e78bd504-ce9b-11f1-ad0c-97074d3c8621
+# ╟─e78bd50e-ce9b-11f1-b64f-3f647a14a6b7
+# ╠═e78bd50e-ce9b-11f1-bc9d-8322b80270e0
+# ╟─e78bd518-ce9b-11f1-9828-61e507a50535
+# ╟─e78bd518-ce9b-11f1-9f17-f30fc5a81f35
+# ╠═e78bd522-ce9b-11f1-aeaf-ff9d841ecc5c
+# ╟─e78bd522-ce9b-11f1-bb83-6f737ae12cfd
+# ╟─e78bd522-ce9b-11f1-a365-930ffaea094e
+# ╟─e78bd52e-ce9b-11f1-9c3e-75e62ba17d58
+# ╠═e78bd536-ce9b-11f1-9446-49ca1155e028
+# ╠═e78bd536-ce9b-11f1-8876-4103614824ff
+# ╠═e78bd540-ce9b-11f1-8ce9-6bfbdc2a9ff2
+# ╠═e78bd540-ce9b-11f1-9026-07a5f90961e5
+# ╠═e78bd540-ce9b-11f1-a6b8-01e714750015
+# ╠═e78bd54a-ce9b-11f1-b710-2374643d867e
+# ╠═e78bd54a-ce9b-11f1-a93d-5bede1039696
+# ╠═e78bd554-ce9b-11f1-9f8b-ebc5706fe0e8
+# ╠═e78bd55c-ce9b-11f1-b0c8-a7b535fe6d93
+# ╠═e78bd55c-ce9b-11f1-a8d2-211fbfbd8886
+# ╠═e78bd55c-ce9b-11f1-a1cb-b3abcb3f756b

@@ -1,13 +1,18 @@
 # Sesión 1: Por qué optimizar en el tiempo
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s01_optimizar_en_el_tiempo.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s01_optimizar_en_el_tiempo.jl`) y qué queda para leer. En el
+> pizarrón van las ecuaciones y los resultados en recuadro; el texto que las
+> rodea es lo que se explica de palabra. Como todo está aquí, en clase no
+> hace falta copiar. El cuerpo de las notas es la **ruta básica** y se
+> evalúa; las demostraciones y los temas opcionales están al final, en
+> **Para profundizar**, y no se ven en clase.
 >
-> Antes de la sesión, resuelve el [diagnóstico de
-> matemáticas](repaso/diagnostico_inicial.md). Repaso recomendado:
+> En esta sesión se resuelve en clase el [diagnóstico de
+> matemáticas](repaso/diagnostico_inicial.md): te dice qué claves del
+> repaso necesitas. Repaso recomendado:
 > [C.B2](repaso/calculo.md#cb2) (máximos en una variable),
 > [C.B3](repaso/calculo.md#cb3) (exponencial y logaritmo),
 > [A.B2–B3](repaso/analisis.md#ab2) (sucesiones, series y descuento) y
@@ -16,6 +21,24 @@
 >
 > Lecturas: Becerril Fonseca et al. (2002), para el repaso de cálculo en
 > varias variables. Opcional, como adelanto del curso: Chiang (1992), cap. 1.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–10 | Pizarra | Presentación: el curso, la evaluación y el proyecto ligado a la tesis | — |
+| 10–40 | Individual | Diagnóstico de matemáticas, sin calculadora, con la pregunta abierta sobre la tesis | `repaso/diagnostico_inicial.md` |
+| 40–45 | | Pausa | |
+| 45–52 | Proyector | Las brechas entre regiones, 2003–2023 | 0; cuaderno, sección 0 |
+| 52–67 | Pizarra | Estático contra dinámico; el problema de dos periodos y la ecuación de Euler | 1.1–1.3 |
+| 67–82 | Pizarra | Estado, control y ecuación de movimiento en tiempo discreto; la formulación en tiempo continuo; cómo distinguir el estado del control | 2.1, 2.2 (sólo la formulación), 2.3 |
+| 82–95 | Pizarra y proyector | Una región con tasa de inversión fija: el estado estacionario en el pizarrón; la trayectoria y la mejor tasa fija en el proyector; por qué una regla constante no es óptima | 3.1, 3.3; cuaderno, sección 2 |
+| 95–110 | Proyector | El hilo conductor: el modelo de dos regiones y una política con un cambio. Sólo se plantea; se resuelve en la sesión 14 | 4.1, 4.2, 4.4; cuaderno, sección 3 |
+| 110–120 | Pizarra | Tu problema de tesis: estado, control, ecuación de movimiento y objetivo. Qué se entrega en la sesión 12 | 6 |
+| Después | Lectura | El tiempo continuo en detalle (2.2), trayectorias y reglas (2.4), la regla de oro (3.2), políticas sin cambio (4.3), las herramientas del curso (5), el resumen (7) y Para profundizar | |
+
+El cuaderno se proyecta en clase; cada estudiante lo abre después del
+Laboratorio 0 (sesión 4), cuando ya tiene Julia instalado.
 
 **Pregunta de la unidad.** ¿Cómo repartir un fondo de inversión entre dos
 regiones?
@@ -72,31 +95,44 @@ el óptimo es $1/R$. Si $c_0 > y_0$, el gobierno se endeuda.
 **Proposición 1.** El gasto óptimo es
 
 $$
-c_0^\ast = \frac{1}{1 + \beta}\left(y_0 + \frac{y_1}{R}\right),
+\boxed{\ c_0^\ast = \frac{1}{1 + \beta}\left(y_0 + \frac{y_1}{R}\right),
 \qquad
-c_1^\ast = \beta R\thinspace c_0^\ast,
+c_1^\ast = \beta R\thinspace c_0^\ast\ }
 $$
 
 y cumple la **ecuación de Euler**
 
 $$
-\frac{1}{c_0^\ast} = \beta R\thinspace\frac{1}{c_1^\ast}.
+\boxed{\ \frac{1}{c_0^\ast} = \beta R\thinspace\frac{1}{c_1^\ast}\ }
 $$
 
-*Demostración.* Sustituyendo la restricción, el objetivo es
-$U(c_0) = \ln c_0 + \beta\ln\big(y_1 + R(y_0 - c_0)\big)$. La condición de
-primer orden ([C.B2](repaso/calculo.md#cb2)) es
+*Demostración.* Se sustituye la restricción en el objetivo, que queda en
+función de $c_0$ sola, y se deriva ([C.B2](repaso/calculo.md#cb2)):
 
 $$
-U'(c_0) = \frac{1}{c_0} - \frac{\beta R}{c_1} = 0,
+\begin{aligned}
+U(c_0) &= \ln c_0 + \beta\ln\big(y_1 + R(y_0 - c_0)\big), \cr
+U'(c_0) &= \frac{1}{c_0} + \beta\thinspace\frac{-R}{y_1 + R(y_0 - c_0)}
+= \frac{1}{c_0} - \frac{\beta R}{c_1} = 0.
+\end{aligned}
 $$
 
-que es la ecuación de Euler y da $c_1 = \beta R c_0$. Al sustituir en la
-restricción escrita como $c_0 + c_1/R = y_0 + y_1/R$ (el **presupuesto
-intertemporal**: el valor presente del gasto es igual al del ingreso), queda
-$c_0(1 + \beta) = y_0 + y_1/R$. Como $U$ es una suma de logaritmos de
-funciones lineales, es cóncava ($U'' < 0$), así que el punto crítico es el
-máximo global. $\square$
+Es la ecuación de Euler, y da $c_1 = \beta R\thinspace c_0$. La restricción se
+reescribe como el **presupuesto intertemporal** (el valor presente del gasto
+es igual al del ingreso), y se sustituye $c_1$:
+
+$$
+\begin{aligned}
+c_1 = y_1 + R(y_0 - c_0)
+&\iff c_0 + \frac{c_1}{R} = y_0 + \frac{y_1}{R} \cr
+c_0 + \frac{\beta R\thinspace c_0}{R} = c_0(1 + \beta)
+&= y_0 + \frac{y_1}{R}
+\ \Rightarrow\ c_0^\ast = \frac{1}{1 + \beta}\left(y_0 + \frac{y_1}{R}\right).
+\end{aligned}
+$$
+
+Por último, $U''(c_0) = -1/c_0^2 - \beta R^2/c_1^2 < 0$: $U$ es cóncava y el
+punto crítico es el máximo global. $\square$
 
 **Lectura económica.** La ecuación de Euler dice que, en el margen, da lo
 mismo gastar un peso hoy (beneficio $1/c_0$) que invertirlo y gastar $R$
@@ -109,10 +145,21 @@ pesos mañana (beneficio $R/c_1$, descontado con $\beta$). Tres casos:
 - Si $\beta R < 1$, el gasto decrece.
 
 La regla sencilla **gastar lo que entra** ($c_0 = y_0$) sólo es óptima si
-$y_1 = \beta R\thinspace y_0$, es decir, por casualidad (ejercicio F3). Con
-$y_0 = 100$, $y_1 = 50$, $\beta = 0.95$ y $R = 1.05$, el óptimo es
-$c_0^\ast \approx 75.7$ y $c_1^\ast \approx 75.5$: el gobierno ahorra 24.3
-hoy para no tener que recortar el gasto mañana.
+$y_1 = \beta R\thinspace y_0$, es decir, por casualidad (ejercicio F3).
+
+**Ejemplo numérico.** Con $y_0 = 100$, $y_1 = 50$, $\beta = 0.95$ y
+$R = 1.05$:
+
+$$
+y_0 + \frac{y_1}{R} = 100 + \frac{50}{1.05} = 147.62,
+\qquad
+c_0^\ast = \frac{147.62}{1.95} = 75.7,
+\qquad
+c_1^\ast = 0.9975 \times 75.7 = 75.5.
+$$
+
+El gobierno ahorra $100 - 75.7 = 24.3$ hoy para no tener que recortar el
+gasto mañana.
 
 La ecuación de Euler es la condición que más se repite en el curso: en el
 cálculo de variaciones (sesión 10), en la regla de Keynes-Ramsey (sesión
@@ -137,9 +184,9 @@ inicial $x_0$ y un horizonte $T$, se elige una sucesión de controles
 $u_0, u_1, \dots, u_{T-1}$ para resolver
 
 $$
-\max\ \sum_{t=0}^{T-1} \beta^t\thinspace r(x_t, u_t) + \beta^T S(x_T)
+\boxed{\ \max\ \sum_{t=0}^{T-1} \beta^t\thinspace r(x_t, u_t) + \beta^T S(x_T)
 \qquad\text{sujeto a}\qquad
-x_{t+1} = g(x_t, u_t),\quad u_t \in \Gamma(x_t).
+x_{t+1} = g(x_t, u_t),\quad u_t \in \Gamma(x_t)\ }
 $$
 
 | Elemento | Nombre | Qué es |
@@ -234,13 +281,17 @@ Con $s$ fija, la ecuación de movimiento es una ecuación en diferencias no
 lineal. Un **estado estacionario** es un punto fijo, $K_{t+1} = K_t = K^\ast$:
 
 $$
-\delta K^\ast = s(K^\ast)^{\alpha}
+\begin{aligned}
+K^\ast &= (1 - \delta)K^\ast + s(K^\ast)^{\alpha} \cr
+\delta K^\ast &= s(K^\ast)^{\alpha} \cr
+(K^\ast)^{1 - \alpha} &= \frac{s}{\delta}
 \quad\Longrightarrow\quad
-K^\ast = \left(\frac{s}{\delta}\right)^{1/(1-\alpha)}.
+\boxed{\ K^\ast = \left(\frac{s}{\delta}\right)^{1/(1-\alpha)}\ }
+\end{aligned}
 $$
 
-Con $s = 0.2$, $\delta = 0.05$ y $\alpha = 0.3$, $K^\ast = 4^{1/0.7} \approx
-7.25$. Si se empieza en $K_0 = 1$, el capital crece hacia $K^\ast$ sin
+Con $s = 0.2$, $\delta = 0.05$ y $\alpha = 0.3$: $s/\delta = 4$ y
+$K^\ast = 4^{1/0.7} \approx 7.25$. Si se empieza en $K_0 = 1$, el capital crece hacia $K^\ast$ sin
 llegar en 40 años (en el cuaderno llega a 5.4). Por qué converge y a qué
 velocidad es el tema de la Unidad II (sesión 6).
 

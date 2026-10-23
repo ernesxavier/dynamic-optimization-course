@@ -5,32 +5,18 @@ md"""
 **Pregunta de la unidad.** Un gobierno tiene un fondo ``B`` para invertir en
 dos regiones. ¿Cómo debe repartirlo?
 
-**Pregunta de la sesión.** Si cambian los parámetros (la productividad de una
-región, el tamaño del fondo), ¿cuánto cambia el reparto? ¿Cuánto cambia el
-producto que se logra?
-
-**Objetivos de la sesión**
-1. Calcular cómo cambia un óptimo cuando cambia un parámetro, sin resolver el
-   problema: teorema de la función implícita y regla de Cramer.
-2. Reconocer que la función implícita sólo vale dentro de un régimen, y que la
-   solución puede tener picos donde el régimen cambia.
-3. Usar el teorema de la envolvente para saber cuánto cambia el valor óptimo,
-   y leer ``V'(B) = \lambda``.
-4. Comparar el valor de dos políticas con la envolvente.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s03_envolvente.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s03_envolvente.md`, y se desarrolla en el pizarrón; el
+cuaderno sirve para mover los parámetros, ver qué pasa y comprobar las
+fórmulas numéricamente. En clase se proyectan las secciones 0 a 3. Tú lo
+abres después del Laboratorio 0 (sesión 4), cuando ya tengas Julia
+instalado: entonces repasa todas las secciones y resuelve los ejercicios.
+Pluto es reactivo: al mover un deslizador, todo lo que depende de él se
+recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s03_envolvente.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B5 (derivadas
-parciales), L.B3 y L.B4 (determinantes y regla de Cramer), C.I3 (diferencial
-total), C.I4 (función implícita) y L.I6 (jacobiano). Para los puntos
-[Avanzado]: C.A2.
 """
 
 #%% hide
@@ -40,13 +26,10 @@ TableOfContents(title = "Contenido")
 md"""
 ## 0. La pregunta: ¿qué pasa si una región mejora?
 
-Seguimos con el problema de la sesión 2: cada peso invertido en la región
-``i`` produce ``a_i \ln(1 + x_i)``, y el fondo ``B`` se reparte entre las dos.
-La región 1 es la más productiva.
-
-Ahora supón que un programa eleva la productividad ``a_2`` de la región 2.
-La gráfica muestra el reparto óptimo para cada valor de ``a_2``; el punto
-marca el valor del deslizador.
+*En clase, al inicio.* El problema de la sesión 2: cada peso en la región
+``i`` produce ``a_i\ln(1 + x_i)`` y el fondo ``B`` se reparte entre las dos.
+La gráfica muestra el reparto óptimo para cada productividad ``a_2`` de la
+región 2.
 
 ``a_1`` (productividad de la región 1): $(@bind a1 Slider(1.0:0.1:4.0, default = 2.0, show_value = true))
 
@@ -69,32 +52,20 @@ end
 
 #%% hide
 md"""
-Hay dos tramos. Mientras ``a_2`` es bajo, la región 2 no recibe nada y una
-pequeña mejora no cambia el reparto. Después, cada mejora le da más fondos,
-y la región 1 recibe exactamente lo mismo de menos.
-
-En este problema hay fórmula cerrada, pero casi nunca es así. Esta sesión
-responde dos preguntas **sin resolver el problema**, sólo a partir de las
-condiciones de primer orden:
-- ¿cuál es la pendiente de esas curvas? (estática comparativa, secciones 1 y 2);
-- ¿cuánto cambia el producto total? (envolvente, secciones 3 y 4).
+**Observa** los dos tramos: mientras ``a_2`` es bajo, la región 2 no recibe
+nada; después, cada mejora le da más y la región 1 recibe lo mismo de menos.
+¿Cuál es la pendiente de esas curvas, sin resolver el problema? Es la
+pregunta de la clase.
 """
 
 #%% hide
 md"""
 ## 1. Una región: la función implícita
 
-Empecemos con una sola región que paga un precio ``p`` por peso invertido:
-``\max_x a\ln(1 + x) - px``. La condición de primer orden iguala el producto
-marginal con el precio:
-
-```math
-F(x, a, p) = \frac{a}{1 + x} - p = 0 .
-```
-
-En la gráfica, el óptimo está donde la curva del producto marginal cruza la
-recta del precio. La curva punteada es el producto marginal con ``a`` un 20%
-mayor: el cruce se mueve a la derecha.
+*En clase, después de la sección 2.3 de las notas.* En
+``\max_x a\ln(1 + x) - px``, el óptimo está donde el producto marginal
+(azul) cruza el precio (naranja). La curva punteada es el producto marginal
+con ``a`` un 20% mayor.
 
 Productividad ``a``: $(@bind a0 Slider(1.0:0.1:3.0, default = 2.0, show_value = true))
 
@@ -116,14 +87,8 @@ end
 
 #%% hide
 md"""
-¿Cuánto se mueve el cruce? Diferenciando ``F(x(a), a, p) = 0``, el
-**teorema de la función implícita** da
-
-```math
-\frac{dx^\ast}{da} = -\frac{F_a}{F_x}, \qquad \frac{dx^\ast}{dp} = -\frac{F_p}{F_x} .
-```
-
-Symbolics.jl calcula las derivadas parciales y los cocientes:
+Symbolics.jl calcula las derivadas parciales y los cocientes de la función
+implícita:
 """
 
 #%%
@@ -150,7 +115,8 @@ let
             interior.
         """
     md"""
-    Con ``a`` = $(a0) y ``p`` = $(p), el óptimo es ``x^\ast`` = $(r(x0)).
+    **Comprobación numérica**, con ``a`` = $(a0) y ``p`` = $(p)
+    (``x^\ast`` = $(r(x0))):
 
     | Derivada | Función implícita | Diferencia finita |
     |:---|---:|---:|
@@ -159,9 +125,8 @@ let
 
     $(nota)
 
-    Los signos se leen sin calcular nada: en un máximo, ``F_x < 0``, así que el
-    signo de ``dx^\ast/da`` es el de ``F_a = 1/(1 + x) > 0``. **El óptimo se
-    mueve hacia donde el parámetro aumenta el rendimiento marginal.**
+    **Mueve** ``p`` hasta que supere ``a``. **Observa** qué pasa con el óptimo
+    y con las derivadas.
     """
 end
 
@@ -169,24 +134,9 @@ end
 md"""
 ## 2. Dos regiones: un sistema y la regla de Cramer
 
-Con dos regiones y el fondo agotado, las condiciones de primer orden son
-tres ecuaciones en tres incógnitas, ``z = (x_1, x_2, \lambda)``:
-
-```math
-\frac{a_1}{1 + x_1} - \lambda = 0, \qquad
-\frac{a_2}{1 + x_2} - \lambda = 0, \qquad
-B - x_1 - x_2 = 0 .
-```
-
-Al diferenciarlas respecto de un parámetro ``\alpha`` se obtiene un sistema
-lineal en las derivadas,
-
-```math
-D_zF \, \frac{\partial z}{\partial \alpha} = -\frac{\partial F}{\partial \alpha},
-```
-
-donde ``D_zF`` es el **jacobiano** de las condiciones de primer orden. Las
-dos matrices, con Symbolics.jl:
+*En clase, después de la sección 3.3 de las notas.* Symbolics.jl construye
+las dos matrices del sistema, ``D_zF`` y ``\partial F/\partial\alpha``, a
+partir de las condiciones de primer orden:
 """
 
 #%%
@@ -198,15 +148,6 @@ let
 end
 
 #%% hide
-md"""
-Con ``h_i = a_i/(1 + x_i)^2``, el determinante de ``D_zF`` es
-``h_1 + h_2 > 0``, y la **regla de Cramer** da cada derivada como un cociente
-de determinantes (notas, sección 3). La tabla compara esas derivadas con
-diferencias finitas de la solución exacta, para los valores de los
-deslizadores de la sección 0.
-"""
-
-#%% hide
 let
     x1, x2, λ = reparto_ref(a1, a2, B)
     D = estatica_ref(a1, a2, B)
@@ -215,17 +156,11 @@ let
         (a1, a2, B)[j])
     r(v) = round(v, digits = 4) + 0.0
     regimen = x2 > 0 ?
-        md"""
-        Régimen **interior**: las dos regiones reciben. Un aumento de ``a_2``
-        mueve fondos de la región 1 a la 2 (las dos primeras derivadas de la
-        columna ``a_2`` suman cero) y eleva el precio sombra.
-        """ :
-        md"""
-        Régimen de **esquina**: la región 2 no recibe. Las condiciones activas
-        son otras (``x_2 = 0``), y una pequeña mejora de ``a_2`` no cambia nada.
-        """
+        md"Régimen **interior**: las dos regiones reciben." :
+        md"Régimen de **esquina**: la región 2 no recibe, y las condiciones activas son otras (``x_2 = 0``)."
     md"""
-    Reparto: ``x_1`` = $(r(x1)), ``x_2`` = $(r(x2)), ``\lambda`` = $(r(λ)).
+    **Comprobación numérica**, con los deslizadores de la sección 0
+    (``x_1`` = $(r(x1)), ``x_2`` = $(r(x2)), ``\lambda`` = $(r(λ))):
 
     | | ``\partial/\partial a_2`` (Cramer) | ``\partial/\partial a_2`` (numérica) | ``\partial/\partial B`` (Cramer) | ``\partial/\partial B`` (numérica) |
     |:---|---:|---:|---:|---:|
@@ -239,12 +174,9 @@ end
 
 #%% hide
 md"""
-### Cuando cambia el régimen
-
-La gráfica muestra el reparto óptimo según el tamaño del fondo. Los
-segmentos cortos son las rectas tangentes con la pendiente que da la regla de
-Cramer en el ``B`` elegido; la línea punteada marca el umbral
-``\bar B = a_1/a_2 - 1``.
+**El cambio de régimen** (notas, 3.4). Reparto óptimo según el fondo; los
+segmentos cortos tienen la pendiente que da la regla de Cramer en el ``B``
+elegido, y la línea punteada es el umbral ``\bar B``.
 """
 
 #%% hide
@@ -267,34 +199,19 @@ end
 
 #%% hide
 md"""
-Mueve ``B`` a uno y otro lado del umbral. A la izquierda, cada peso
-adicional va completo a la región 1 (pendiente 1); a la derecha, se reparte
-en proporción ``a_1/(a_1 + a_2)`` y ``a_2/(a_1 + a_2)``. En ``\bar B`` la
-curva de ``x_1`` tiene un **pico**: la función implícita vale dentro de cada
-régimen, pero no en la frontera entre ellos.
+**Mueve** ``B`` a uno y otro lado del umbral. **Observa** la pendiente de
+``x_1``: 1 a la izquierda, ``a_1/(a_1 + a_2)`` a la derecha, y un pico en
+``\bar B``, donde la función implícita no vale.
 """
 
 #%% hide
 md"""
 ## 3. El teorema de la envolvente
 
-Ahora la segunda pregunta: ¿cuánto cambia el **valor** óptimo? Con
-``V(\alpha) = \max_x f(x, \alpha)``, un cambio en ``\alpha`` cambia ``V`` por
-dos vías: directamente, y a través del cambio en ``x^\ast``. En el óptimo la
-segunda vía no cuenta, porque ``f_x = 0``:
-
-```math
-V'(\alpha) = \frac{\partial f}{\partial \alpha}\bigg|_{x = x^\ast(\alpha)} .
-```
-
-### Por qué se llama envolvente
-
-En el problema de una región, ``V(p) = \max_x a\ln(1 + x) - px``. Para cada
-inversión fija ``\bar x``, el valor ``a\ln(1 + \bar x) - p\bar x`` es una
-**recta** en ``p``, de pendiente ``-\bar x``. Ninguna recta supera a
-``V(p)``, y cada una la toca en el precio para el que ``\bar x`` es óptima:
-``V`` es la **envolvente superior** de las rectas (gris). En el punto de
-contacto son tangentes, así que ``V'(p) = -x^\ast(p)``.
+*En clase, después de la sección 4.3 de las notas.* En el problema de una
+región, cada inversión fija ``\bar x`` da una recta en ``p`` (gris), de
+pendiente ``-\bar x``. ``V(p)`` (azul) es su envolvente superior, y la recta
+de la inversión óptima (naranja) la toca: ``V'(p) = -x^\ast(p)``.
 """
 
 #%% hide
@@ -314,60 +231,12 @@ end
 
 #%% hide
 md"""
-La recta naranja es la de la inversión óptima con ``p`` = $(p). Mueve
-``p``: la recta tangente cambia, y su pendiente es siempre
-``-x^\ast(p)``. Una envolvente superior de rectas es **convexa**; por eso
-``V(p)`` lo es (notas, Para profundizar, P.2).
-"""
+**Mueve** ``p`` en la sección 1. **Observa** que la recta naranja siempre es
+tangente a ``V``, y que ``V`` es convexa (notas, P.2).
 
-#%% hide
-md"""
-### Con restricciones: el precio sombra
-
-Con restricciones, se deriva el **lagrangiano** respecto del parámetro. En el
-problema de las dos regiones,
-``\mathcal{L} = a_1\ln(1 + x_1) + a_2\ln(1 + x_2) + \lambda (B - x_1 - x_2)``,
-así que
-
-```math
-\frac{\partial V}{\partial B} = \lambda, \qquad
-\frac{\partial V}{\partial a_1} = \ln(1 + x_1^\ast), \qquad
-\frac{\partial V}{\partial a_2} = \ln(1 + x_2^\ast) .
-```
-
-La primera es la que la sesión 2 dejó pendiente: el multiplicador es el valor
-de un peso adicional del fondo. La tabla compara las tres fórmulas con
-diferencias finitas de ``V``.
-"""
-
-#%% hide
-let
-    x1, x2, λ = reparto_ref(a1, a2, B)
-    n1 = derivada_numerica(v -> valor_ref(v, a2, B), a1)
-    n2 = derivada_numerica(v -> valor_ref(a1, v, B), a2)
-    nB = derivada_numerica(v -> valor_ref(a1, a2, v), B)
-    r(v) = round(v, digits = 4) + 0.0
-    md"""
-    | | Envolvente | Diferencia finita |
-    |:---|---:|---:|
-    | ``\partial V/\partial a_1`` | ``\ln(1 + x_1^\ast)`` = $(r(log1p(x1))) | $(r(n1)) |
-    | ``\partial V/\partial a_2`` | ``\ln(1 + x_2^\ast)`` = $(r(log1p(x2))) | $(r(n2)) |
-    | ``\partial V/\partial B`` | ``\lambda`` = $(r(λ)) | $(r(nB)) |
-
-    Ninguna de las tres fórmulas necesita ``\partial x^\ast/\partial \alpha``:
-    el reajuste del reparto no agrega nada al primer orden.
-    """
-end
-
-#%% hide
-md"""
-### La envolvente del reparto
-
-Lo mismo se ve en la gráfica. Para cada reparto fijo
-``(\bar x_1, B - \bar x_1)``, el producto
-``a_1\ln(1 + \bar x_1) + a_2\ln(1 + \bar x_2)`` es una recta en ``a_2``, de
-pendiente ``\ln(1 + \bar x_2)``. ``V(a_2)`` es su envolvente superior. La
-recta naranja es la del reparto óptimo con el ``a_2`` elegido.
+**La envolvente del reparto.** Lo mismo con dos regiones: cada reparto fijo
+da una recta en ``a_2`` de pendiente ``\ln(1 + \bar x_2)``, y ``V(a_2)`` es su
+envolvente.
 """
 
 #%% hide
@@ -385,20 +254,33 @@ let
 end
 
 #%% hide
-md"""
-Reduce ``B`` hasta que la región 2 deje de recibir. La recta tangente se
-vuelve **horizontal**: si la región 2 no recibe fondos, una pequeña mejora
-de su productividad no vale nada al margen, ``\partial V/\partial a_2 = \ln 1 = 0``.
-"""
+let
+    x1, x2, λ = reparto_ref(a1, a2, B)
+    n1 = derivada_numerica(v -> valor_ref(v, a2, B), a1)
+    n2 = derivada_numerica(v -> valor_ref(a1, v, B), a2)
+    nB = derivada_numerica(v -> valor_ref(a1, a2, v), B)
+    r(v) = round(v, digits = 4) + 0.0
+    md"""
+    **Comprobación numérica** de las fórmulas de la sección 4.4 de las notas:
+
+    | | Envolvente | Diferencia finita |
+    |:---|---:|---:|
+    | ``\partial V/\partial a_1`` | ``\ln(1 + x_1^\ast)`` = $(r(log1p(x1))) | $(r(n1)) |
+    | ``\partial V/\partial a_2`` | ``\ln(1 + x_2^\ast)`` = $(r(log1p(x2))) | $(r(n2)) |
+    | ``\partial V/\partial B`` | ``\lambda`` = $(r(λ)) | $(r(nB)) |
+
+    **Mueve** ``B`` hasta que la región 2 deje de recibir. **Observa** que la
+    recta naranja se vuelve horizontal y que ``\partial V/\partial a_2 = 0``.
+    """
+end
 
 #%% hide
 md"""
 ## 4. Comparar políticas
 
-La envolvente da un tipo de cambio entre instrumentos. Un peso adicional del
-fondo vale ``\lambda``; elevar ``a_2`` en ``\Delta`` vale, al primer orden,
-``\Delta \ln(1 + x_2^\ast)``. Dividiendo, se obtiene cuántos pesos del fondo
-vale el programa.
+*Fuera de clase* (notas, 4.5). Cuánto vale un programa que eleva ``a_2`` en
+``\Delta``, en pesos del fondo: la aproximación de la envolvente contra el
+cambio exacto.
 
 Mejora de la productividad de la región 2, ``\Delta``: $(@bind Δ Slider(0.05:0.05:0.5, default = 0.1, show_value = true))
 """
@@ -417,31 +299,18 @@ let
     | Programa, cambio exacto ``V(a_2 + \Delta) - V(a_2)`` | $(r(exacto)) |
     | Equivalente del programa en pesos del fondo, ``\Delta\ln(1 + x_2^\ast)/\lambda`` | $(r(aprox / λ)) |
 
-    Si el programa cuesta menos que su equivalente en pesos, conviene más que
-    agregar esos pesos al fondo. La aproximación es buena para ``\Delta``
-    pequeño; la diferencia con el cambio exacto es de segundo orden. Cuando la
-    región 2 está en la esquina, la aproximación da cero, pero un programa
-    grande puede llevarla al régimen interior y tener un valor exacto
-    positivo.
+    **Mueve** ``\Delta`` y ``B``. **Observa:** ¿cuándo se separan la
+    aproximación y el cambio exacto? ¿Qué pasa cuando la región 2 está en la
+    esquina?
     """
 end
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En el problema de las regiones |
-|---|---|---|
-| Función implícita | ``dx^\ast/d\alpha = -F_\alpha/F_x`` sin despejar ``x^\ast`` | Signo de ``dx^\ast/d\alpha`` = signo del efecto sobre el rendimiento marginal |
-| Regla de Cramer | Resuelve el sistema ``D_zF\,\partial z/\partial\alpha = -\partial F/\partial\alpha`` | Una mejora en ``a_2`` mueve fondos de la región 1 a la 2 |
-| Cambio de régimen | La función implícita vale dentro de cada régimen | ``x^\ast(B)`` tiene un pico en ``\bar B`` |
-| Envolvente | ``V'(\alpha) = \partial\mathcal{L}/\partial\alpha`` en el óptimo | ``V'(B) = \lambda``, ``\partial V/\partial a_i = \ln(1 + x_i^\ast)`` |
-| Envolvente geométrica | ``V`` es la envolvente superior de las curvas con ``x`` fija | Si la región 2 no recibe, mejorar ``a_2`` no vale nada al margen |
-"""
-
-#%% hide
-md"""
 ## Ejercicios
+
+*Después del Laboratorio 0 (sesión 4).* Los ejercicios con demostraciones
+están en las notas (sección 7).
 
 ### Completa el código
 
@@ -513,14 +382,9 @@ md"""
    regiones rezagadas, sin darles fondos?
 7. En la sección 4, ¿por qué el cambio exacto es mayor que la aproximación de
    la envolvente? (Pista: ¿de qué forma es ``V(a_2)``?)
-
-### [Avanzado]
-
-8. Muestra que ``x_1^\ast(B)`` no es diferenciable en ``\bar B`` y que
-   ``V(B)`` sí lo es (notas, ejercicio F6).
-9. Con el resultado del ejercicio 3, ¿una región más impaciente (``\rho``
-   mayor) acumula más o menos capital en el estado estacionario? ¿Y una con
-   más depreciación?
+8. **[Avanzado]** Con el resultado del ejercicio 3, ¿una región más
+   impaciente (``\rho`` mayor) acumula más o menos capital en el estado
+   estacionario? ¿Y una con más depreciación?
 
 ## Para la próxima sesión
 

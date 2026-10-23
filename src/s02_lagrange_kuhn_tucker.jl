@@ -6,27 +6,16 @@ md"""
 dos regiones. ¿Cómo debe repartirlo? ¿Conviene siempre dar algo a cada
 región?
 
-**Objetivos de la sesión**
-1. Plantear el reparto como un problema de optimización con restricciones.
-2. Leer la condición de Lagrange como una tangencia, y el multiplicador como
-   el valor de un peso adicional del fondo.
-3. Usar las condiciones de Kuhn-Tucker para encontrar soluciones de esquina.
-4. Entender por qué la concavidad hace suficientes esas condiciones, y qué
-   pasa cuando falta.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s02_lagrange_kuhn_tucker.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s02_lagrange_kuhn_tucker.md`, y se desarrolla en el pizarrón;
+el cuaderno sirve para mover los parámetros y ver qué pasa. En clase se
+proyectan las secciones 2 a 5; las secciones 0 y 1 se exploran antes, y los
+ejercicios, después. Pluto es reactivo: al mover un deslizador, todo lo que
+depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s02_lagrange_kuhn_tucker.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B2 (máximos en una
-variable), C.B5 (gradiente), C.I1 y C.I2 (hessiana y concavidad), C.I5
-(Lagrange), L.I4 y L.I5 (definitud y hessiana orlada). Para los puntos
-[Avanzado]: C.A1 y L.A3.
 """
 
 #%% hide
@@ -36,68 +25,55 @@ TableOfContents(title = "Contenido")
 md"""
 ## 0. La pregunta: repartir un fondo entre dos regiones
 
-Cada peso invertido en la región ``i`` produce
-
-```math
-f_i(x_i) = a_i \ln(1 + x_i),
-```
-
-donde ``x_i \ge 0`` es la inversión y ``a_i`` la productividad de la región.
-Más inversión da más producto, pero cada peso rinde menos que el anterior.
-La región 1 es la más productiva: ``a_1 \ge a_2``.
-
-Es la versión estática del hilo conductor del curso (sesión 1): se decide
-una sola vez y no hay "después". El fondo se reparte por completo: la región
-1 recibe ``x_1`` y la región 2, ``B - x_1``. Mueve los deslizadores y observa dónde está el mejor reparto.
+*Antes de clase.* Cada región produce ``f_i(x_i) = a_i\ln(1 + x_i)`` y el
+fondo se reparte por completo: la región 1 recibe ``x_1`` y la 2, ``B - x_1``
+(notas, sección 1).
 
 ``a_1`` (productividad de la región 1): $(@bind a1 Slider(1.0:0.1:4.0, default = 2.0, show_value = true))
 
 ``a_2`` (productividad de la región 2): $(@bind a2 Slider(0.2:0.1:1.0, default = 1.0, show_value = true))
 
 Fondo ``B``: $(@bind B Slider(0.1:0.1:10.0, default = 4.0, show_value = true))
+
+Antes de usar la teoría, el mejor reparto se puede encontrar **por fuerza
+bruta**: se prueban 400 repartos y se queda el que da más producto.
 """
+
+#%%
+mejor = let
+    x1s = range(0, B, length = 400)                  # repartos posibles
+    total = producto.(x1s, B .- x1s, a1, a2)         # producto de cada uno
+    i = argmax(total)
+    (x1 = x1s[i], x2 = B - x1s[i], producto = total[i])
+end
 
 #%% hide
 let
     x1s = range(0, B, length = 400)
     total = producto.(x1s, B .- x1s, a1, a2)
-    i = argmax(total)
     p = plot(x1s, total; color = AZUL, lw = 2,
              xlabel = "inversión en la región 1, x₁ (la región 2 recibe B − x₁)",
              ylabel = "producto total",
              title = "Producto total según el reparto del fondo B = $B")
-    scatter!(p, [x1s[i]], [total[i]]; color = NARANJA, ms = 6, msw = 0)
-    annotate!(p, x1s[i], total[i], text("  mejor reparto", 8, :left, NARANJA))
+    scatter!(p, [mejor.x1], [mejor.producto]; color = NARANJA, ms = 6, msw = 0)
+    annotate!(p, mejor.x1, mejor.producto, text("  mejor reparto", 8, :left, NARANJA))
 end
 
 #%% hide
-let
-    x1, x2, λ = reparto_ref(a1, a2, B)
-    md"""
-    Con estos valores, el mejor reparto da ``x_1 = `` $(round(x1, digits = 2))
-    a la región 1 y ``x_2 = `` $(round(x2, digits = 2)) a la región 2.
-
-    Prueba con un fondo pequeño (``B < 1``) y con regiones muy distintas
-    (``a_1 = 4``, ``a_2 = 0.5``). **¿Siempre recibe algo la región menos
-    productiva?** Las condiciones de Kuhn-Tucker (sección 4) dicen exactamente
-    cuándo sí y cuándo no.
-    """
-end
+md"""
+**Mueve** ``B`` por debajo de 1, y prueba regiones muy distintas
+(``a_1 = 4``, ``a_2 = 0.5``). **Observa:** ¿siempre recibe algo la región
+menos productiva? La búsqueda por fuerza bruta da la respuesta para cada
+caso, pero no dice por qué; las condiciones de Kuhn-Tucker sí (sección 4).
+"""
 
 #%% hide
 md"""
 ## 1. Repaso: gradiente, curvas de nivel y hessiana
 
-Con ``f(x_1, x_2) = a_1\ln(1 + x_1) + a_2\ln(1 + x_2)``, el **gradiente**
-
-```math
-\nabla f = \left(\frac{a_1}{1 + x_1},\ \frac{a_2}{1 + x_2}\right)
-```
-
-apunta hacia donde ``f`` crece más rápido y es perpendicular a las **curvas
-de nivel**. Sus entradas son los productos marginales de la inversión en cada
-región. Las flechas se acortan al alejarse del origen: rendimientos
-decrecientes.
+*Antes de clase.* El gradiente de ``f`` (las flechas) es perpendicular a las
+curvas de nivel; sus entradas son los productos marginales. **Observa** que
+las flechas se acortan al alejarse del origen: rendimientos decrecientes.
 """
 
 #%% hide
@@ -116,7 +92,8 @@ end
 
 #%% hide
 md"""
-La **hessiana** se puede calcular a mano o con Symbolics.jl:
+Symbolics.jl calcula el gradiente y la hessiana; compáralos con los que
+obtienes a mano (notas, sección 2):
 """
 
 #%%
@@ -129,34 +106,11 @@ end
 
 #%% hide
 md"""
-La hessiana es diagonal con entradas negativas: es **definida negativa** en
-todo punto, así que ``f`` es estrictamente cóncava (C.I2). Esto será clave
-en la sección 4: con una función cóncava y restricciones lineales, las
-condiciones de primer orden bastan para el máximo global.
-"""
-
-#%% hide
-md"""
 ## 2. Lagrange: el óptimo es una tangencia
 
-Si se exige gastar todo el fondo, ``x_1 + x_2 = B``, y se ignora que la
-inversión no puede ser negativa, el método de Lagrange pide que la curva de
-nivel de ``f`` sea **tangente** a la recta del presupuesto:
-
-```math
-\frac{a_1}{1 + x_1} = \frac{a_2}{1 + x_2} = \lambda .
-```
-
-El último peso debe rendir lo mismo en las dos regiones. Despejando,
-
-```math
-\lambda = \frac{a_1 + a_2}{B + 2}, \qquad
-x_i = \frac{a_i\,(B + 2)}{a_1 + a_2} - 1 .
-```
-
-En la gráfica, la recta naranja es el presupuesto (sólida donde es factible),
-la curva azul es la curva de nivel tangente y el punto es la solución de
-Lagrange.
+*En clase, después de la sección 3.4 de las notas.* La solución de Lagrange
+iguala los productos marginales: la curva de nivel (azul) toca la recta del
+presupuesto (naranja, sólida donde es factible).
 """
 
 #%% hide
@@ -182,21 +136,19 @@ let
         md"""
         !!! danger "No es factible"
             Con ``B`` = $(B), Lagrange recomienda ``x_2`` = $(round(xl2, digits = 2)):
-            **desinvertir** en la región 2 para invertir más en la 1. La inversión
-            no puede ser negativa. Para tratar las restricciones ``x_i \ge 0``
-            hacen falta las condiciones de Kuhn-Tucker (sección 4).
+            **desinvertir** en la región 2. Hacen falta las condiciones de
+            Kuhn-Tucker (sección 4).
         """ :
         md"""
         !!! correct "Factible"
-            Con ``B`` = $(B), las dos inversiones son positivas:
-            ``x_1`` = $(round(xl1, digits = 2)), ``x_2`` = $(round(xl2, digits = 2)),
-            y ``\lambda`` = $(round(λl, digits = 3)).
+            Con ``B`` = $(B): ``x_1`` = $(round(xl1, digits = 2)),
+            ``x_2`` = $(round(xl2, digits = 2)) y ``\lambda`` = $(round(λl, digits = 3)).
         """
     md"""
     $(aviso)
 
-    Reduce ``B`` hasta que el punto salga del cuadrante factible. ¿En qué
-    valor de ``B`` ocurre? (Respuesta en la sección 4.)
+    **Mueve** ``B`` hacia abajo. **Observa** en qué valor el punto sale del
+    cuadrante factible: es el umbral ``\bar B = a_1/a_2 - 1`` de las notas.
     """
 end
 
@@ -204,17 +156,10 @@ end
 md"""
 ## 3. El multiplicador como precio sombra
 
-¿Qué significa ``\lambda``? Si ``V(B)`` es el producto total con el mejor
-reparto del fondo ``B``, entonces
-
-```math
-V'(B) = \lambda :
-```
-
-el multiplicador es el **valor de un peso adicional del fondo**. La
-demostración general es el teorema de la envolvente (sesión 3). Aquí se
-comprueba numéricamente. La línea punteada marca el umbral ``\bar B`` a
-partir del cual la región 2 recibe inversión, y la naranja, el ``B`` elegido.
+*En clase.* Las gráficas muestran el valor óptimo ``V(B)`` y el
+multiplicador ``\lambda(B)`` para cada tamaño del fondo (notas, sección
+3.2). La línea punteada es el umbral ``\bar B``; la naranja, el ``B``
+elegido.
 """
 
 #%% hide
@@ -240,12 +185,11 @@ let
     λ = reparto_ref(a1, a2, B)[3]
     dif = (valor_ref(a1, a2, B + h) - valor_ref(a1, a2, B)) / h
     md"""
-    Con ``B`` = $(B): aumentar el fondo en ``h = 0.01`` aumenta el producto en
-    ``\Delta V / h`` = $(round(dif, digits = 4)), y el multiplicador vale
-    ``\lambda`` = $(round(λ, digits = 4)).
+    **Comprobación numérica:** con ``B`` = $(B), aumentar el fondo en
+    ``h = 0.01`` aumenta el producto en ``\Delta V/h`` = $(round(dif, digits = 4));
+    el multiplicador vale ``\lambda`` = $(round(λ, digits = 4)).
 
-    Observa dos cosas en las gráficas: ``V`` es **cóncava** (cada peso adicional
-    vale menos que el anterior) y ``\lambda`` es **continuo** en el umbral,
+    **Observa** que ``V`` es cóncava y que ``\lambda`` es continuo en el umbral,
     aunque la fórmula del reparto cambia ahí.
     """
 end
@@ -254,22 +198,9 @@ end
 md"""
 ## 4. Kuhn-Tucker: soluciones de esquina
 
-Con las restricciones completas, ``x_1 + x_2 \le B`` y ``x_1, x_2 \ge 0``, y
-el lagrangiano ``\mathcal{L} = f(x) + \lambda (B - x_1 - x_2)``, las
-condiciones de Kuhn-Tucker son:
-
-```math
-\frac{a_i}{1 + x_i} - \lambda \le 0, \qquad x_i \ge 0, \qquad
-x_i \left(\frac{a_i}{1 + x_i} - \lambda\right) = 0,
-```
-
-```math
-B - x_1 - x_2 \ge 0, \qquad \lambda \ge 0, \qquad \lambda\,(B - x_1 - x_2) = 0 .
-```
-
-En cada par, **al menos una de las dos desigualdades se cumple con
-igualdad** (holgura complementaria). La tabla las evalúa en la solución
-óptima para los valores de los deslizadores.
+*En clase, después de la sección 4.4 de las notas.* La tabla evalúa las
+condiciones de Kuhn-Tucker en la solución óptima: en cada renglón, el
+producto de la última columna debe ser cero (holgura complementaria).
 """
 
 #%% hide
@@ -296,21 +227,18 @@ let
     | Fondo | ``\lambda`` = $(r(λ)) | ``B - x_1 - x_2`` = $(r(holgura)) | $(r(λ * holgura)) |
 
     $(mensaje)
+
+    La fórmula de Kuhn-Tucker da ``x_1`` = $(r(x1)); la búsqueda por fuerza
+    bruta de la sección 0 dio $(r(mejor.x1)).
     """
 end
 
 #%% hide
 md"""
-Resolviendo los casos (notas, sección 4.4), la región 2 recibe inversión si
-y sólo si el fondo supera el umbral
-
-```math
-\bar B = \frac{a_1}{a_2} - 1 .
-```
-
-Con un fondo pequeño, todo va a la región más productiva. El mapa muestra los
-dos regímenes según la brecha de productividad ``a_1/a_2`` y el tamaño del
-fondo. El punto es la combinación elegida con los deslizadores.
+**¿Quién recibe inversión?** La región 2 recibe sólo si ``B > \bar B``. El
+mapa muestra los dos regímenes según la brecha de productividad ``a_1/a_2``
+y el tamaño del fondo; el punto es la combinación de los deslizadores.
+**Mueve** ``a_1`` y ``B`` y **observa** cómo el punto cruza la frontera.
 """
 
 #%% hide
@@ -328,11 +256,9 @@ end
 md"""
 ## 5. Sin concavidad, las condiciones no bastan
 
-Supón **rendimientos crecientes**, ``f_i = a_i x_i^\gamma`` con
-``\gamma > 1``, por ejemplo por economías de aglomeración. La gráfica
-muestra el producto total a lo largo del presupuesto, ``x_2 = B - x_1``, y
-marca el punto interior donde los productos marginales se igualan, que
-cumple las condiciones de Kuhn-Tucker.
+*En clase, antes de la sección 5 de las notas.* Con
+``f_i = a_i x_i^\gamma``, la gráfica muestra el producto total a lo largo
+del presupuesto y marca el punto interior que cumple Kuhn-Tucker.
 
 ``\gamma``: $(@bind γ Slider(0.3:0.1:2.0, default = 1.5, show_value = true))
 """
@@ -355,28 +281,19 @@ end
 
 #%% hide
 md"""
-- Con ``\gamma < 1``, ``f`` es cóncava y el punto interior es el **máximo**:
-  conviene repartir.
-- Con ``\gamma > 1``, ``f`` es convexa a lo largo del presupuesto y el punto
-  interior es el **mínimo**. El óptimo está en una esquina: todo el fondo a
-  una sola región.
-
-Las condiciones de Kuhn-Tucker son **necesarias**; sólo con concavidad son
-también **suficientes** (notas, sección 4.3). Para la política regional, la
-lección es que la forma de los rendimientos decide entre repartir y
-concentrar.
+**Mueve** ``\gamma`` de 0.5 a 1.5. **Observa:** ¿cuándo el punto de
+Kuhn-Tucker es el mejor reparto y cuándo el peor? ¿Adónde va el fondo con
+rendimientos crecientes?
 """
 
 #%% hide
 md"""
 ## 6. [Avanzado] Cuando falla la calificación de las restricciones
 
-Maximizar ``x_1`` sujeto a ``x_2 \le (1 - x_1)^3`` y ``x_1, x_2 \ge 0``. El
-conjunto factible (sombreado) termina en una **cúspide** en ``(1, 0)``, que
-es el óptimo. Ahí los gradientes de las dos restricciones activas, ``(0, 1)``
-y ``(0, -1)``, son paralelos: no pueden combinarse para igualar el gradiente
-del objetivo, ``(1, 0)``. Las condiciones de Kuhn-Tucker fallan aunque el
-óptimo existe.
+*Fuera de clase* (notas, P.4). En el problema de maximizar ``x_1`` con
+``x_2 \le (1 - x_1)^3``, el conjunto factible termina en una cúspide en el
+óptimo ``(1, 0)``. Los gradientes de las restricciones activas son
+paralelos y no pueden igualar al del objetivo: no existe ``\lambda``.
 """
 
 #%% hide
@@ -398,27 +315,16 @@ end
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En el problema de las regiones |
-|---|---|---|
-| Primer orden | En un máximo interior, ``\nabla f = 0`` | — |
-| Concavidad | Hessiana semidefinida negativa: el óptimo local es global | ``f`` es estrictamente cóncava |
-| Lagrange | Tangencia: ``\nabla f = \lambda \nabla g`` | Igualar productos marginales |
-| Precio sombra | ``V'(B) = \lambda`` | Valor de un peso adicional del fondo |
-| Kuhn-Tucker | Signos y holgura complementaria | La región 2 recibe sólo si ``B > a_1/a_2 - 1`` |
-| Suficiencia | ``f`` cóncava y restricciones convexas: Kuhn-Tucker basta | Sí; con rendimientos crecientes, no |
-"""
-
-#%% hide
-md"""
 ## Ejercicios
+
+*Fuera de clase.* Los ejercicios con demostraciones están en las notas
+(sección 8).
 
 ### Completa el código
 
 **1.** Escribe `reparto_optimo(a1, a2, B)`, que devuelva el vector
-`[x1, x2, λ]` del reparto óptimo, suponiendo ``a_1 \ge a_2``. Usa el umbral
-``\bar B = a_1/a_2 - 1`` y las dos fórmulas de las secciones 2 y 4.
+`[x1, x2, λ]` del reparto óptimo, suponiendo ``a_1 \ge a_2`` (notas,
+sección 4.4).
 """
 
 #%%
@@ -486,22 +392,14 @@ md"""
 7. Un planificador preocupado por la equidad quiere que la región 2 reciba
    algo aunque el fondo sea pequeño. Propón dos formas de modificar el
    problema para lograrlo y explica su costo en producto total.
-
-### [Avanzado]
-
-8. Demuestra directamente, sin el teorema general, que el reparto de la
-   sección 4 es el máximo global (usa la concavidad de ``f``).
-9. Verifica numéricamente con `llenado_de_agua` que el precio sombra del
-   problema con ``n`` regiones también cumple ``V'(B) = \lambda``.
-10. En la sección 6, reemplaza ``(1 - x_1)^3`` por ``1 - x_1``. ¿Se cumple
-    ahora la calificación de las restricciones? ¿Existe ``\lambda``?
+8. **[Avanzado]** Verifica numéricamente con `llenado_de_agua` que el precio
+   sombra del problema con ``n`` regiones también cumple ``V'(B) = \lambda``.
 
 ## Para la próxima sesión
 
-- **Sesión 3: envolvente y estática comparativa.** Veremos por qué
-  ``V'(B) = \lambda`` siempre (teorema de la envolvente) y cómo cambia el
-  reparto cuando cambia la productividad de una región (estática
-  comparativa con el teorema de la función implícita y la regla de Cramer).
+- **Sesión 3: envolvente y estática comparativa.** Por qué
+  ``V'(B) = \lambda`` siempre, y cómo cambia el reparto cuando cambia la
+  productividad de una región.
 - Lectura: Chiang y Wainwright (2006), caps. 8 y 13.
 - Repaso: C.I3, C.I4 y L.B4.
 """
@@ -601,11 +499,11 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
         return caja("danger", "Tu código produce un error", md"$(sprint(showerror, e))")
     end
     pendiente(x) = x === missing || (x isa AbstractArray && any(pendiente, x))
-    cerca(a, b) = a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)
+    cerca(a, b) = (a isa Number && b isa Number && isapprox(a, b; rtol, atol = 1e-12)) ||
+                  (a isa AbstractArray && b isa AbstractArray && size(a) == size(b) && all(cerca.(a, b)))
     if pendiente(resultado)
         caja("warning", "Pendiente", md"Reemplaza `missing` por tu código.")
-    elseif (resultado isa AbstractArray && size(resultado) == size(esperado) &&
-            all(cerca.(resultado, esperado))) || cerca(resultado, esperado)
+    elseif cerca(resultado, esperado)
         caja("correct", "¡Correcto!", md"Bien hecho.")
     else
         caja("danger", "Todavía no", pista)

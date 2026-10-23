@@ -5,28 +5,17 @@ md"""
 **Pregunta de la unidad.** ¿Cómo repartir un fondo de inversión entre dos
 regiones?
 
-**Objetivos de la sesión**
-1. Distinguir un problema de optimización estático de uno dinámico: en el
-   dinámico, lo que se decide hoy cambia lo que se puede hacer mañana.
-2. Identificar los ingredientes de un problema dinámico: el estado, el
-   control, la ecuación de movimiento y el objetivo.
-3. Conocer el hilo conductor del curso, el reparto de la inversión entre dos
-   regiones, y ver por qué su versión dinámica tiene una respuesta distinta
-   de la estática.
-4. Plantear con estos ingredientes un problema de tu tesis.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las definiciones y las demostraciones están en las notas
-formales, `Class_notes/s01_optimizar_en_el_tiempo.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s01_optimizar_en_el_tiempo.md`, y se desarrolla en el
+pizarrón; el cuaderno sirve para mover los parámetros y ver qué pasa. En
+esta sesión el profesor proyecta las secciones 0, 2 y 3. Tú lo abres después
+del Laboratorio 0 (sesión 4), cuando ya tengas Julia instalado: entonces
+repasa la sección 1 y resuelve los ejercicios. Pluto es reactivo: al mover un
+deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s01_optimizar_en_el_tiempo.jl`.
-
-**Antes de la sesión** resuelve el diagnóstico de matemáticas,
-`Class_notes/repaso/diagnostico_inicial.md`: te dice qué claves del nivel
-básico conviene repasar.
 """
 
 #%% hide
@@ -36,10 +25,9 @@ TableOfContents(title = "Contenido")
 md"""
 ## 0. La pregunta: ¿se cierran solas las brechas entre regiones?
 
-La gráfica muestra el PIB per cápita de cinco entidades entre 2003 y 2023,
-sin contar la extracción de petróleo, en miles de pesos de 2018 por persona.
-Los datos son del INEGI (PIB por entidad) y de la OCDE (población); están en
-`Data/entidades.csv`.
+*En clase* (notas, sección 0). PIB per cápita sin petróleo de cinco
+entidades, en miles de pesos de 2018 por persona (INEGI y OCDE,
+`Data/entidades.csv`).
 """
 
 #%% hide
@@ -55,34 +43,18 @@ end
 
 #%% hide
 md"""
-La brecha entre la Ciudad de México y Chiapas no se cerró en veinte años: se
-abrió. La Unidad II mide esto con todas las entidades (convergencia, sesión
-5). La pregunta de este curso es otra: **si un gobierno puede invertir en
-las regiones, ¿cómo debe hacerlo?** Invertir hoy en una región aumenta su
-capital mañana, y con él lo que se podrá producir e invertir después. Ésa
-es la marca de un problema **dinámico**.
+**Observa:** ¿se acercan las entidades pobres a las ricas? ¿Qué pasa con la
+brecha entre la Ciudad de México y Chiapas?
 """
 
 #%% hide
 md"""
 ## 1. Estático contra dinámico: ahorrar hoy para mañana
 
-Un gobierno regional recibe ``y_0 = 100`` hoy y ``y_1`` mañana. Lo que no
-gasta hoy lo invierte a una tasa bruta ``R`` (cada peso invertido rinde
-``R`` pesos mañana). Gasta ``c_0`` hoy y ``c_1 = y_1 + R(y_0 - c_0)``
-mañana, y valora el gasto con
-
-```math
-U = \ln c_0 + \beta \ln c_1 ,
-```
-
-donde ``\beta < 1`` es el **factor de descuento**: el bienestar de mañana
-pesa menos que el de hoy.
-
-Una regla sencilla es **gastar lo que entra**, ``c_0 = y_0``. Es la mejor
-respuesta del problema estático "maximizar el bienestar de hoy con el
-ingreso de hoy". Pero hoy y mañana están ligados por el ahorro, y la regla
-sencilla no lo aprovecha.
+*Después de clase* (notas, sección 1.2). Un gobierno recibe ``y_0 = 100``
+hoy y ``y_1`` mañana, invierte lo que no gasta a la tasa bruta ``R`` y
+valora el gasto con ``\ln c_0 + \beta\ln c_1``. La gráfica compara el
+óptimo con la regla sencilla de **gastar lo que entra**, ``c_0 = y_0``.
 
 Ingreso de mañana ``y_1``: $(@bind y1 Slider(0:10:200, default = 50, show_value = true))
 
@@ -118,22 +90,12 @@ let
     izq, der = round(1 / c0, digits = 4), round(β * R / c1, digits = 4)
     md"""
     El óptimo gasta ``c_0 = `` $(c0r) hoy y ``c_1 = `` $(c1r) mañana: es
-    decir, $(accion) $(ar).
+    decir, $(accion) $(ar). **Comprobación de la ecuación de Euler:**
+    ``1/c_0`` = $(izq) y ``\beta R/c_1`` = $(der).
 
-    En el óptimo se cumple la **ecuación de Euler**,
-
-    ```math
-    \frac{1}{c_0} = \beta R \frac{1}{c_1},
-    ```
-
-    que aquí vale $(izq) ``=`` $(der):
-    el beneficio de gastar un peso más hoy es igual al de invertirlo y gastar
-    ``R`` pesos mañana, descontados con ``\beta``. Esta condición reaparece en
-    todo el curso (sesiones 10, 12 y 18).
-
-    Prueba con ``\beta R`` cerca de 1 (por ejemplo, ``\beta = 0.95`` y
-    ``R = 1.05``, que dan ``\beta R \approx 0.998``): ¿qué pasa con ``c_0`` y
-    ``c_1``? ¿Y si ``y_1`` es muy grande?
+    **Mueve** ``\beta`` y ``R`` hasta que ``\beta R \approx 1``, y después
+    sube ``y_1``. **Observa:** ¿cuándo ahorra el gobierno y cuándo se
+    endeuda? ¿Cuándo coincide el óptimo con gastar lo que entra?
     """
 end
 
@@ -141,25 +103,11 @@ end
 md"""
 ## 2. Estado, control y ecuación de movimiento
 
-Con más de dos periodos, la decisión de cada año cambia el capital con el
-que empieza el siguiente. Una región produce ``y_t = K_t^{\alpha}`` con su
-capital ``K_t``, invierte una fracción ``s`` del producto y gasta el resto:
-
-```math
-c_t = (1 - s)\thinspace y_t, \qquad
-K_{t+1} = (1 - \delta) K_t + s\thinspace y_t .
-```
-
-| Ingrediente | Aquí | Qué es |
-|---|---|---|
-| **Estado** | ``K_t`` | Lo que se hereda del pasado; no se puede cambiar de golpe |
-| **Control** | ``s`` | Lo que se decide cada periodo |
-| **Ecuación de movimiento** | ``K_{t+1} = (1 - \delta)K_t + s K_t^{\alpha}`` | Cómo el control de hoy cambia el estado de mañana |
-| **Objetivo** | ``\sum_{t=0}^{T-1} \beta^t \ln c_t`` | Lo que se quiere lograr, sumado en el tiempo |
-
-Con ``\alpha = 0.3``, depreciación ``\delta = 0.05``, ``K_0 = 1`` y
-``T = 40`` años, mueve la tasa de inversión. El factor de descuento ``\beta``
-es el de la sección 1.
+*En clase* (notas, secciones 2 y 3). Una región con capital ``K_t``
+(estado) invierte una fracción fija ``s`` de su producto (control):
+``K_{t+1} = (1 - \delta)K_t + sK_t^{\alpha}``, con ``\alpha = 0.3``,
+``\delta = 0.05``, ``K_0 = 1`` y ``T = 40`` años. El objetivo es
+``\sum_t \beta^t\ln c_t``, con el ``\beta`` de la sección 1.
 
 Tasa de inversión ``s``: $(@bind s Slider(0.0:0.01:0.9, default = 0.5, show_value = true))
 """
@@ -193,48 +141,22 @@ end
 
 #%% hide
 md"""
-Invertir poco da más gasto hoy y menos capital después; invertir mucho, lo
-contrario. La mejor tasa **constante** equilibra las dos cosas, y sube cuando
-``\beta`` sube: quien valora más el futuro invierte más.
-
-Pero nada obliga a que la tasa sea constante. Mira el capital al final: en
-el año 40 sobra capital que ya no se va a usar, porque el objetivo termina
-ahí. Una regla que **cambia con el tiempo** (invertir al principio, gastar
-al final) lo haría mejor. Encontrar la mejor regla que cambia con el tiempo
-es exactamente el problema del control óptimo (Unidad III) y de la
-programación dinámica (Unidad IV).
+**Mueve** ``s`` de 0.1 a 0.8, y después ``\beta`` en la sección 1.
+**Observa:** ¿qué se gana y qué se pierde al invertir más? ¿Cómo cambia la
+mejor tasa constante con ``\beta``? Mira el capital en el año 40: ¿sirve de
+algo el que sobra? Por eso una regla que **cambia con el tiempo** puede ser
+mejor que cualquier tasa fija (notas, sección 3.3).
 """
 
 #%% hide
 md"""
 ## 3. El hilo conductor: invertir en una región o en otra
 
-El curso vuelve tres veces a la misma pregunta:
-
-| Sesión | Versión | Herramienta |
-|---|---|---|
-| 2 | Repartir un fondo fijo ``B`` hoy | Lagrange y Kuhn-Tucker |
-| 14 | Repartir la inversión de cada momento durante ``T`` años | Principio del máximo |
-| 17 | Lo mismo, año por año | Programación dinámica (extensión opcional) |
-
-En la versión dinámica (Rahman, 1963; Intriligator, 1964), cada región
-produce ``Y_i = v_i K_i`` y ahorra una fracción ``s_i`` de su producto. Toda
-la inversión ``I = s_1 Y_1 + s_2 Y_2`` se junta, y el planificador manda una
-fracción ``\theta`` a la región 1 y el resto a la región 2:
-
-```math
-\dot K_1 = \theta I, \qquad \dot K_2 = (1 - \theta) I, \qquad 0 \le \theta \le 1 .
-```
-
-El objetivo es el producto total al final del horizonte,
-``Y(T) = v_1 K_1(T) + v_2 K_2(T)``. El **estado** es ``(K_1, K_2)`` y el
-**control** es ``\theta``. Con ``\gamma_i = s_i v_i``, cada peso de capital
-en la región ``i`` genera ``\gamma_i`` pesos de inversión al año.
-
-Abajo, la región 1 **ahorra más** y la región 2 **produce más** con cada
-peso de capital. Las dos empiezan con ``K_i(0) = 1`` y el horizonte es
-``T = 30`` años. La política que se simula invierte todo en la región 1
-hasta el año ``t_c`` y todo en la región 2 después.
+*En clase* (notas, sección 4). Dos regiones con ``Y_i = v_iK_i`` y ahorro
+``s_iY_i``; el planificador manda una fracción ``\theta`` de la inversión
+total a la región 1 y el resto a la 2, y busca el mayor producto en
+``T = 30``. La política que se simula invierte todo en la región 1 hasta el
+año ``t_c`` y todo en la región 2 después.
 
 Ahorro de la región 1, ``s_1``: $(@bind s₁ Slider(0.05:0.05:0.40, default = 0.30, show_value = true))
 
@@ -280,42 +202,23 @@ let
     ytodo2, ytodo1, ymejor = round.((YT[1], YT[end], YT[i]), digits = 2)
     tmejor = tcs[i]
     md"""
-    Los extremos de la curva son las políticas sin cambio. Invertir todo en la
-    región 2 siempre (``t_c = 0``) da un producto final de $(ytodo2); invertir
-    todo en la región 1 siempre (``t_c = 30``) da $(ytodo1). Con estos valores, lo mejor
-    es invertir en la región 1 hasta el año $(tmejor) y en la región 2
-    después: producto final $(ymejor).
+    Todo a la región 2 siempre (``t_c = 0``): $(ytodo2). Todo a la región 1
+    siempre (``t_c = 30``): $(ytodo1). Lo mejor: la región 1 hasta el año
+    $(tmejor) y la región 2 después, con $(ymejor).
 
-    **Primero se crece donde se ahorra más; al final se produce donde rinde
-    más.** Al principio conviene la región que reinvierte más
-    (``\gamma_1 > \gamma_2``), porque su capital genera más inversión para
-    después. Cerca del final ya no hay tiempo de reinvertir, y conviene la
-    región donde el capital produce más (``v_2 > v_1``). Un problema estático
-    no puede ver esta tensión. En la sesión 14 el principio del máximo da la
-    fórmula exacta del momento del cambio.
-
-    Prueba con ``s_1 = s_2``: ¿sigue conviniendo cambiar? ¿Y si la región 1
-    ahorra más **y** produce más?
+    **Mueve** ``t_c`` y busca el máximo. Después iguala ``s_1`` y ``s_2``, y
+    prueba una región 1 que ahorre más **y** produzca más. **Observa:**
+    ¿cuándo deja de convenir el cambio? La sesión 14 da la fórmula exacta del
+    mejor momento.
     """
 end
 
 #%% hide
 md"""
-## Resumen
-
-| Concepto | Qué es | En la sesión |
-|---|---|---|
-| Problema dinámico | Lo que se decide hoy cambia lo que se puede hacer mañana | Ahorro de dos periodos |
-| Estado | Lo que se hereda; no se puede cambiar de golpe | El capital ``K_t`` |
-| Control | Lo que se decide cada periodo | La tasa de inversión ``s``, el reparto ``\theta`` |
-| Ecuación de movimiento | Cómo el control cambia el estado | ``K_{t+1} = (1-\delta)K_t + s y_t``; ``\dot K_1 = \theta I`` |
-| Ecuación de Euler | Gastar hoy o invertir para mañana rinde lo mismo en el margen | ``1/c_0 = \beta R / c_1`` |
-| Reglas que cambian en el tiempo | Pueden ser mejores que cualquier regla fija | Cambiar de región en ``t_c`` |
-"""
-
-#%% hide
-md"""
 ## Ejercicios
+
+*Después del Laboratorio 0 (sesión 4).* Los ejercicios con demostraciones
+están en las notas (sección 8).
 
 ### Completa el código
 
@@ -337,8 +240,7 @@ verificar(() -> [siguiente_capital(K, s) for (K, s) in CASOS_CAPITAL],
 #%% hide
 md"""
 **2.** Escribe `gasto_hoy_optimo(y0, y1, β, R)`, el gasto óptimo de hoy en el
-problema de dos periodos de la sección 1. Despeja ``c_0`` de la ecuación de
-Euler ``1/c_0 = \beta R/c_1``, usando ``c_1 = y_1 + R(y_0 - c_0)``.
+problema de dos periodos (notas, sección 1.2).
 """
 
 #%%
