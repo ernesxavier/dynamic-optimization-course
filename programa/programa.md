@@ -58,7 +58,9 @@ contenido:
   cuaderno tiene más tiempo.
 - **Sesiones con datos** (5, 12 y 14): el cuaderno conduce la clase, con
   pasos guiados; el pizarrón se usa para las derivaciones que el cuaderno
-  necesita.
+  necesita. En la 12 y la 14, que tienen más teoría, la primera mitad es de
+  pizarrón (el modelo y su solución) y la segunda sigue el cuaderno (la
+  calibración y los resultados).
 - **Laboratorios** (4, 9, 17 y 19): se trabaja en el cuaderno de principio a
   fin, con una demostración breve al inicio de cada bloque.
 

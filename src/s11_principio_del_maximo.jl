@@ -5,33 +5,16 @@ md"""
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
 
-**Pregunta de la sesión.** Una región tiene reservas de un recurso no
-renovable. ¿A qué ritmo conviene extraerlo? ¿Cuánto vale una tonelada más
-bajo tierra?
-
-**Objetivos de la sesión**
-1. Escribir el Hamiltoniano ``H = F + \lambda f`` y aplicar las condiciones
-   del principio del máximo, incluidas las soluciones de esquina.
-2. Elegir la condición de transversalidad que corresponde a cada condición
-   final.
-3. Leer el coestado como precio sombra del estado y comprobar que
-   ``\lambda = \partial V/\partial y``.
-4. Derivar la regla de Hotelling y relacionar el precio sombra con la
-   escasez del recurso.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s11_principio_del_maximo.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s11_principio_del_maximo.md`, y se desarrolla en el pizarrón;
+el cuaderno sirve para mover los parámetros, ver qué pasa y comprobar
+numéricamente. En clase se proyectan las secciones 1 a 4; la sección 5 y
+los ejercicios son para después. Pluto es reactivo: al mover un
+deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s11_principio_del_maximo.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B2 y C.B4 (máximos e
-integrales), C.I2 y C.I3 (concavidad y diferencial total), C.I6 (regla de
-Leibniz), D.I2 (lineales de primer orden) y D.I7 (valor inicial y valor en
-la frontera). Para los puntos [Avanzado]: C.A3, D.A3 y N.A1.
 """
 
 #%% hide
@@ -41,22 +24,10 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. Un recurso no renovable
 
-La región extrae ``q(t)`` toneladas por año de reservas ``S(t)``, con
-``S' = -q``, y no puede extraer más de lo que tiene: ``S(T) \ge 0``. El
-beneficio de extraer ``q`` es ``B(q) = aq - q^2/2``, el área bajo la
-demanda ``p = a - q``; ``a`` es el **precio de ahogo**, al que nadie compra.
-El horizonte es ``T = 20`` años:
-
-```math
-\max_{q \ge 0} \int_0^T e^{-\rho t} B(q)\, dt,
-\qquad S' = -q, \quad S(0) = S_0, \quad S(T) \ge 0.
-```
-
-Con ``H = e^{-\rho t}B(q) - \lambda q``, el principio del máximo da
-``\lambda`` constante, ``q(t) = \max\{0,\ a - \lambda e^{\rho t}\}`` y la
-holgura complementaria ``\lambda S(T) = 0`` (notas, sección 5). El cuaderno
-busca por bisección el ``\lambda`` con el que la extracción total es igual a
-las reservas.
+*En clase, minutos 90–105, después de la sección 5.3 de las notas.* El
+recurso de la sección 5.1 de las notas, con ``b = 1`` y ``T = 20`` años. El
+cuaderno busca por bisección el ``\lambda`` con el que la extracción total
+es igual a las reservas.
 
 Reservas iniciales, ``S_0``: $(@bind S0 Slider(10:10:250, default = 100, show_value = true))
 
@@ -101,10 +72,15 @@ let
 
     $caso
 
-    La línea punteada de la derecha es ``\lambda e^{\rho t}``: mientras se
-    extrae, el precio de mercado coincide con ella y **sube a la tasa de
-    descuento** (regla de Hotelling). Baja ``S_0`` de 100 a 30 y súbelo a
-    200: la escasez decide el precio sombra.
+    La línea punteada de la derecha es ``\lambda e^{\rho t}``.
+
+    1. Con ``S_0 = 100``, **observa** que el precio sigue la línea punteada:
+       la regla de Hotelling.
+    2. **Baja** ``S_0`` a 30: ¿cuándo se detiene la extracción? ¿Qué precio
+       tiene el recurso en ese momento?
+    3. **Sube** ``S_0`` a 200 o más: ¿qué pasa con ``\lambda`` y con las
+       reservas al final?
+    4. **Sube** ``\rho``: ¿se extrae más al principio o al final?
     """
 end
 
@@ -112,11 +88,9 @@ end
 md"""
 ## 2. ¿Cuánto vale una tonelada más bajo tierra?
 
-El coestado es el precio sombra del estado: ``\lambda = \partial V/\partial S_0``,
-donde ``V(S_0)`` es el bienestar óptimo. A la izquierda, ``\lambda`` para
-cada nivel de reservas, con los ``\rho`` y ``a`` de la sección 1. A la
-derecha, ``V(S_0)`` y la recta con pendiente ``\lambda`` en las reservas del
-deslizador.
+*En clase, minutos 90–105* (notas, 4.1). A la izquierda, el precio
+sombra para cada nivel de reservas; a la derecha, el valor óptimo
+``V(S_0)`` y la recta con pendiente ``\lambda``.
 """
 
 #%% hide
@@ -148,11 +122,8 @@ let
     | Coestado, ``\lambda`` | $(round(r.λ, sigdigits = 5)) |
     | ``(V(S_0 + 1) - V(S_0 - 1))/2`` | $(round((vmas - vmenos) / 2, sigdigits = 5)) |
 
-    El precio sombra es cero mientras el recurso sobra (a la derecha de la
-    línea punteada, ``S_0 \ge aT``) y crece a medida que escasea. ``V(S_0)``
-    es cóncava: cada tonelada adicional vale menos que la anterior. Un
-    ``\lambda`` positivo dice cuánto bienestar, en valor de hoy, le da a la
-    región una tonelada más en el subsuelo.
+    **Observa:** ¿desde qué nivel de reservas una tonelada más ya no vale
+    nada (línea punteada)? ¿Por qué ``V(S_0)`` se aplana a partir de ahí?
     """
 end
 
@@ -160,10 +131,9 @@ end
 md"""
 ## 3. La condición 1: ``q`` maximiza ``H``
 
-En cada instante, el control maximiza el Hamiltoniano
-``H(q) = e^{-\rho t}B(q) - \lambda q`` sobre ``q \ge 0``. La gráfica muestra
-``H`` como función de ``q`` en el instante elegido, con el ``\lambda`` de la
-sección 1, y marca su máximo.
+*En clase, minutos 90–105* (notas, 2.2 y 5.2). El Hamiltoniano
+``H(q) = e^{-\rho t}B(q) - \lambda q`` en el instante elegido, con el
+``\lambda`` de la sección 1, y su máximo sobre ``q \ge 0``.
 
 Instante ``t``: $(@bind t_h Slider(0.0:0.5:20.0, default = 5.0, show_value = true))
 """
@@ -183,26 +153,20 @@ end
 
 #%% hide
 md"""
-Antes de ``\tau``, el máximo es interior y ahí ``\partial H/\partial q = 0``:
-``e^{-\rho t}B'(q) = \lambda``. Si el recurso es muy escaso (prueba
-``S_0 = 30``) y ``t > \tau``, ``H`` es decreciente desde ``q = 0``: el máximo
-está en la esquina, ``q = 0``, con ``\partial H/\partial q < 0``. La
-ecuación de Euler no encuentra esta solución; el principio del máximo sí.
+1. Con ``S_0 = 100``, **mueve** ``t``: el máximo siempre es interior.
+2. **Pon** ``S_0 = 30`` en la sección 1 y mueve ``t`` después de ``\tau``
+   (unos 12 años): ¿dónde está el máximo? ¿Cuánto vale ahí
+   ``\partial H/\partial q``? Es la solución de esquina que la ecuación de
+   Euler no podía encontrar.
 """
 
 #%% hide
 md"""
 ## 4. Condiciones terminales
 
-El ejemplo de las notas (sección 3): ``\max \int_0^2 (y - u^2/2)\, dt`` con
-``y' = u`` e ``y(0) = 0``. Las condiciones dan ``u = \lambda`` y
-``\lambda(t) = \lambda(2) + 2 - t``. Lo único que cambia con la condición
-final es ``\lambda(2)``:
-
-- ``y(2)`` libre: ``\lambda(2) = 0``.
-- ``y(2) \ge y_{\min}``: ``\lambda(2) \ge 0`` con holgura complementaria.
-- ``y(2) = y_{\min}`` fijo: ``\lambda(2)`` es el que cumple esa condición, sin
-  importar su signo.
+*En clase, minutos 50–57, después de la sección 3 de las notas.* El ejemplo
+de la sección 3 de las notas con las tres condiciones finales: libre (gris),
+``y(2) \ge y_{\min}`` (naranja) y ``y(2) = y_{\min}`` (azul).
 
 Estado mínimo al final, ``y_{\min}``: $(@bind ymin Slider(0.0:0.25:4.0, default = 3.0, show_value = true))
 """
@@ -225,20 +189,19 @@ end
 
 #%% hide
 md"""
-Sin restricción, ``y(2) = 2``. Si ``y_{\min} \le 2``, la restricción
-``y(2) \ge y_{\min}`` no está activa: la curva naranja coincide con la gris
-y ``\lambda(2) = 0``. Si ``y_{\min} > 2``, se activa: ``\lambda(2) =
-(y_{\min} - 2)/2 > 0``, el precio de exigir una unidad más al final. Con
-``y_{\min} < 2`` y el estado final **fijo** (azul), ``\lambda(2) < 0``:
-obligar a terminar con menos de lo que convendría tiene un precio negativo.
-Es Kuhn-Tucker en el instante final (sesión 2).
+1. **Mueve** ``y_{\min}`` por debajo de 2: ¿coinciden la curva naranja y la
+   gris? ¿Cuánto vale ``\lambda(2)``?
+2. **Súbelo** por encima de 2: ¿cuándo se activa la restricción?
+3. **Observa** la curva azul con ``y_{\min} < 2``: ¿qué signo tiene
+   ``\lambda(2)``, y qué significa?
 """
 
 #%% hide
 md"""
 ## 5. [Avanzado] Hamiltoniano lineal: bang-bang
 
-Chiang (sec. 7.2, ejemplo 2): ``\max \int_0^2 (2y - 3u)\, dt`` con
+*Fuera de clase* (notas, ejercicio F5). Chiang (sec. 7.2, ejemplo 2):
+``\max \int_0^2 (2y - 3u)\, dt`` con
 ``y' = y + u``, ``y(0) = 4``, ``y(2)`` libre y ``u \in [0, 2]``. El
 Hamiltoniano ``H = (2 + \lambda)y + (\lambda - 3)u`` es **lineal** en ``u``:
 el máximo está en un extremo, ``u = 2`` si ``\lambda > 3`` y ``u = 0`` si
@@ -266,28 +229,17 @@ end
 
 #%% hide
 md"""
-El control salta de ``u = 2`` a ``u = 0`` en ``t = 2 - \ln 2.5 \approx 1.08``,
-cuando la función de cambio cruza el cero. Al principio, una unidad de
-estado vale mucho (``\lambda`` grande) porque todavía tiene tiempo de
-crecer; cerca del final vale poco, porque ``\lambda(2) = 0``. Es la
-estructura de la sesión 13 y del reparto ``\theta(t) \in [0, 1]`` entre dos
-regiones de la sesión 14.
+**Observa** dónde cruza el cero la función de cambio y qué hace el control
+en ese instante. ¿Por qué vale poco una unidad de estado cerca del final?
+Es la estructura de las sesiones 13 y 14.
 """
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Hamiltoniano | ``H = F + \lambda f``: beneficio de hoy más el valor del cambio del estado | Secciones 1 y 3 |
-| Condición 1 | ``u`` maximiza ``H``; puede haber esquinas | ``q = 0`` después de ``\tau``; bang-bang |
-| Coestado | ``\lambda' = -H_y``; en el recurso, constante | Sección 1 |
-| Hotelling | El precio sube a la tasa ``\rho`` mientras se extrae | Línea punteada, sección 1 |
-| Transversalidad | ``\lambda(T) = 0``, holgura complementaria o estado fijo | Sección 4 |
-| Precio sombra | ``\lambda = \partial V/\partial y``; cero si el recurso sobra | Sección 2 |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 8).
 
 ### Completa el código
 

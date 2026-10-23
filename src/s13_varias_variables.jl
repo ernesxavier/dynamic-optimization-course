@@ -5,30 +5,16 @@ md"""
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
 
-**Pregunta de la sesión.** Una región reparte su producto entre consumir e
-invertir. ¿Hasta cuándo conviene invertir?
-
-**Objetivos de la sesión**
-1. Resolver un problema con Hamiltoniano lineal en el control: función de
-   cambio, solución bang-bang y tiempo de cambio.
-2. Resolver hacia atrás desde la transversalidad.
-3. Plantear un problema con varios estados y leer sus precios sombra
-   encadenados.
-4. Verificar que un candidato es óptimo con las condiciones de Mangasarian
-   y de Arrow.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s13_varias_variables.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s13_varias_variables.md`, y se desarrolla en el pizarrón; el
+cuaderno sirve para mover los parámetros, ver qué pasa y comprobar
+numéricamente. En clase se proyectan las secciones 1 a 4; la sección 5 y los
+ejercicios son para después. Pluto es reactivo: al mover un deslizador,
+todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s13_varias_variables.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B2 (máximos), C.I2
-(concavidad) y L.I4 (formas cuadráticas y definitud). Para los puntos
-[Avanzado]: C.A4 (concavidad y maximización parcial).
 """
 
 #%% hide
@@ -38,18 +24,10 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. Invertir o consumir
 
-Una región produce ``Y = vK``, invierte una fracción ``u \in [0, 1]`` y
-consume el resto. El consumo tiene utilidad lineal:
-
-```math
-\max_{u \in [0, 1]} \int_0^T e^{-\rho t}(1 - u)\, vK\, dt,
-\qquad K' = uvK, \quad K(0) = 1, \quad K(T) \text{ libre}.
-```
-
-El Hamiltoniano a valor presente, ``H_c = vK + vK(\mu - 1)\,u``, es lineal
-en ``u``. La **función de cambio** es ``\sigma = vK(\mu - 1)``: se invierte
-todo si el precio sombra del capital, ``\mu``, es mayor que 1, y se consume
-todo si es menor. El cuaderno resuelve hacia atrás desde ``\mu(T) = 0``.
+*En clase, minutos 40–55, después de la sección 3.2 de las notas.* La
+práctica de la sección 3 de las notas, con ``K(0) = 1``: el precio sombra
+del capital, la fracción invertida y el capital. El cuaderno resuelve hacia
+atrás desde ``\mu(T) = 0``.
 
 Productividad del capital, ``v``: $(@bind v Slider(0.02:0.01:0.40, default = 0.25, show_value = true))
 
@@ -94,9 +72,11 @@ let
 
     $texto
 
-    Baja ``v``: la fase de inversión se acorta. Con ``v < 1/T`` desaparece.
-    Sube ``\rho``: el cambio se adelanta, porque el consumo futuro vale
-    menos.
+    1. Con ``v = 0.25`` y ``T = 20``, **comprueba** ``t^\ast = T - 1/v``.
+       ¿Dónde cruza ``\mu`` la línea punteada?
+    2. **Baja** ``v``: ¿qué pasa con la fase de inversión? ¿Con qué ``v``
+       desaparece?
+    3. **Sube** ``\rho``: ¿el cambio se adelanta o se atrasa?
     """
 end
 
@@ -104,9 +84,8 @@ end
 md"""
 ## 2. ¿Y si se invierte siempre la misma fracción?
 
-Una regla sencilla sería invertir siempre una fracción fija ``u``. La gráfica
-compara el bienestar de cada tasa fija con el del bang-bang (línea
-horizontal).
+*En clase, minutos 40–55.* El bienestar de cada tasa fija de inversión
+contra el del bang-bang (línea horizontal).
 """
 
 #%% hide
@@ -131,10 +110,9 @@ let
     md"""
     La mejor tasa fija es ``u = `` $(round(us[i], digits = 2)) y da
     $(round(Ws[i], digits = 2)), contra $(round(r.valor, digits = 2)) del
-    bang-bang. Con utilidad lineal, al consumidor no le importa cuándo
-    consume: conviene concentrar toda la inversión al principio, cuando
-    todavía queda mucho tiempo para que rinda, y todo el consumo al final.
-    Con utilidad cóncava (sesiones 10 y 12) el óptimo sería más suave.
+    bang-bang. **Mueve** ``v`` y ``T`` en la sección 1: ¿cuándo se parecen
+    la mejor tasa fija y el bang-bang? ¿Qué supuesto del modelo hace que el
+    óptimo sea tan extremo?
     """
 end
 
@@ -142,18 +120,8 @@ end
 md"""
 ## 3. Varios estados: infraestructura y capital privado
 
-Un gobierno regional construye infraestructura ``G`` con un gasto ``u`` que
-cuesta ``u^2/2``; la infraestructura atrae capital privado ``K``, que
-produce:
-
-```math
-\max_u \int_0^T \Big(K - \frac{u^2}{2}\Big)\, dt, \qquad G' = u, \qquad K' = aG.
-```
-
-Hay dos estados y dos coestados. ``\lambda_K' = -1`` da
-``\lambda_K = T - t``; ``\lambda_G' = -a\lambda_K`` da
-``\lambda_G = a(T - t)^2/2``, y el gasto óptimo es ``u = \lambda_G``
-(notas, sección 1.2).
+*En clase, minutos 82–88, después de la sección 1.2 de las notas.* Los dos
+coestados, el gasto en infraestructura y los dos estados, con ``T = 10``.
 
 Cuánto capital privado atrae la infraestructura, ``a``: $(@bind a Slider(0.05:0.05:1.0, default = 0.2, show_value = true))
 """
@@ -179,25 +147,19 @@ end
 
 #%% hide
 md"""
-El precio de la infraestructura sale **sólo** del capital privado que
-atrae: ``\lambda_G' = -a\lambda_K``. Por eso el gasto se concentra al
-principio, cuando queda tiempo para que la infraestructura atraiga capital
-y el capital produzca. Los precios sombra se encadenan: el de ``G`` depende
-del de ``K``. Sube ``a``: el gasto sube en todo el horizonte, pero su forma
-no cambia.
+**Observa** cómo cae ``\lambda_G`` hacia el final, más rápido que
+``\lambda_K``. **Mueve** ``a``: ¿cambia el nivel del gasto, su forma o las
+dos cosas?
 """
 
 #%% hide
 md"""
 ## 4. ¿Es de verdad el óptimo? Una prueba numérica
 
-En la práctica de la sección 1, ``f = uvK`` no es cóncava en ``(K, u)``:
-Mangasarian no aplica. Arrow sí, porque el Hamiltoniano maximizado,
-``H^0 = vK\max\{1, \mu\}``, es lineal en ``K`` (notas, sección 4.3). Una
-prueba numérica con dos familias de competidores: 400 controles al azar,
-constantes por tramos de un año con valores en ``[0, 1]`` (azul), y 400
-controles bang-bang con un tiempo de cambio al azar (gris), que se parecen
-mucho más al óptimo.
+*En clase, minutos 103–108, después de la sección 4.3 de las notas.* Dos
+familias de competidores contra el bang-bang de la sección 1: 400 controles
+al azar, constantes por tramos de un año (azul), y 400 bang-bang con un
+tiempo de cambio al azar (gris).
 """
 
 #%% hide
@@ -216,18 +178,16 @@ end
 
 #%% hide
 md"""
-La línea naranja es el bienestar del bang-bang óptimo. Ningún control la
-supera, como garantiza el teorema de Arrow. Los bang-bang con cambio al azar
-(gris) se acercan, y los mejores son los que cambian cerca de ``t^\ast``.
-No es una demostración (podría haber un control mejor que no se generó),
-pero es una buena verificación de que el candidato no tiene un error.
+**Observa:** ¿algún competidor supera la línea naranja? ¿Cuáles se acercan
+más? ¿Por qué esta prueba no sustituye al teorema de Arrow?
 """
 
 #%% hide
 md"""
 ## 5. [Avanzado] Un arco singular
 
-Sethi (ejemplo 2.5): ``\max \int_0^2 -\tfrac{1}{2}x^2\, dt`` con ``x' = u``,
+*Fuera de clase* (notas, P.2). Sethi (ejemplo 2.5):
+``\max \int_0^2 -\tfrac{1}{2}x^2\, dt`` con ``x' = u``,
 ``x(0) = 1`` y ``u \in [-1, 1]``. La función de cambio es ``\sigma = \lambda``,
 con ``\lambda' = x`` y ``\lambda(2) = 0``. Se baja ``x`` lo más rápido posible
 (``u = -1``) hasta que llega a cero en ``t = 1``. Después, ``\sigma = 0`` en
@@ -253,19 +213,10 @@ end
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Función de cambio | ``\sigma = \partial H/\partial u``; su signo decide el extremo | ``vK(\mu - 1)``, sección 1 |
-| Bang-bang | Todo o nada; el control salta cuando ``\sigma`` cambia de signo | Sección 1 |
-| Resolver hacia atrás | La transversalidad fija la última fase | ``\mu(T) = 0`` |
-| Plazo de recuperación | Se invierte hasta que faltan ``1/v`` años | Tabla de la sección 1 |
-| Varios estados | Un coestado por estado; precios encadenados | Sección 3 |
-| Arrow | ``H^0`` cóncavo en el estado basta | Sección 4 |
-| Arco singular | ``\sigma = 0`` en un intervalo; control interior | Sección 5 |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 7).
 
 ### Completa el código
 

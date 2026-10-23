@@ -1,10 +1,15 @@
 # Sesión 12: Horizonte infinito y descuento
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s12_ramsey.jl`), después se formaliza aquí. El
-> cuerpo de las notas es la **ruta básica**: se ve en clase y se evalúa. Las
+> **Cómo usar estas notas.** Ésta es una sesión mixta. La primera hora se
+> da en el pizarrón y sigue estas notas: el Hamiltoniano a valor presente,
+> la transversalidad y el modelo de Ramsey. La segunda hora sigue el
+> **cuaderno** (`Code/s12_ramsey.jl`), que llega con los datos cargados y
+> la calibración hecha: en clase se interpreta. El **plan de clase** de
+> abajo dice qué se hace en cada momento. En el pizarrón van las ecuaciones
+> y los resultados en recuadro; como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
-> profundizar**; donde estaban queda una línea que los enlaza.
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B3–B4](repaso/calculo.md#cb3) (exponencial e
 > integrales), [A.B3](repaso/analisis.md#ab3) (series y descuento),
@@ -22,6 +27,24 @@
 > [N.A1](repaso/metodos_numericos.md#na1) (disparo).
 >
 > Lecturas: Chiang (1992), sec. 8.2 y cap. 9.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Pizarra | La pregunta: ¿qué velocidad de convergencia predice un modelo de ahorro óptimo? | 0 |
+| 5–12 | Pizarra | Horizonte infinito y descuento | 1 |
+| 12–30 | Pizarra | El Hamiltoniano a valor presente: definición, condiciones y la lectura como arbitraje | 2 |
+| 30–38 | Pizarra | Transversalidad en horizonte infinito | 3 |
+| 38–58 | Pizarra | Ramsey: el problema, la regla de Keynes-Ramsey, el estado estacionario, el punto de silla y cómo la transversalidad elige la rama estable | 4.1–4.5 |
+| 58–63 | | Pausa | |
+| 63–70 | Pizarra | La velocidad de convergencia | 4.6 |
+| 70–80 | Cuaderno | Los datos de México en la Penn World Table | Cuaderno, sección 2; notas, 5.1 (lectura previa) |
+| 80–95 | Cuaderno | La calibración: $\rho$, $s^\ast$ y $\beta$; mover $\alpha$ y $\theta$ | Cuaderno, sección 3; notas, 5.2–5.4 |
+| 95–108 | Cuaderno | El diagrama de fase calibrado y la transición; la transversalidad, numéricamente | Cuaderno, secciones 4 y 5 |
+| 108–118 | Parejas, en el cuaderno | Ejercicios de código 1 a 3 | Cuaderno, ejercicios |
+| 118–120 | Pizarra | Cierre: entrega de la propuesta de proyecto | 6 |
+| Después | Lectura | El resumen (7), la lectura completa de la calibración (5.4) y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -102,7 +125,7 @@ Las condiciones del principio del máximo se vuelven:
 
 1. $u^\ast$ maximiza $H_c(y, u, \mu)$ sobre $u \in U$;
 2. $y' = f(y, u)$;
-3. $\mu' = \rho\mu - \dfrac{\partial H_c}{\partial y}$;
+3. $\boxed{\ \mu' = \rho\mu - \dfrac{\partial H_c}{\partial y}\ }$;
 4. la condición de transversalidad (sección 3).
 
 **De dónde sale la condición 3.** De $\lambda = e^{-\rho t}\mu$,
@@ -149,7 +172,7 @@ Sin fecha final, la condición $\lambda(T) = 0$ no tiene un instante donde
 aplicarse. Su análogo, para un estado que debe ser no negativo, es
 
 $$
-\lim_{t \to \infty} e^{-\rho t}\mu(t)\thinspace y(t) = \lim_{t \to \infty} \lambda(t)\thinspace y(t) = 0.
+\boxed{\ \lim_{t \to \infty} e^{-\rho t}\mu(t)\thinspace y(t) = \lim_{t \to \infty} \lambda(t)\thinspace y(t) = 0\ }
 $$
 
 **Lectura.** $\lambda(t)y(t)$ es el valor del estado en el instante $t$,
@@ -219,19 +242,22 @@ $n$: los dos efectos se cancelan.
 Con $c' = 0$ y $k' = 0$:
 
 $$
-f'(k^\ast) = \delta + \rho,
+\boxed{\ f'(k^\ast) = \delta + \rho,
 \qquad
-c^\ast = f(k^\ast) - (\delta + n)k^\ast.
+c^\ast = f(k^\ast) - (\delta + n)k^\ast\ }
 $$
 
 La primera es la **regla de oro modificada**. La regla de oro, el capital
 que maximiza el consumo de estado estacionario, cumple
 $f'(k_{RO}) = \delta + n$. Como $\rho > n$, $k^\ast < k_{RO}$: por la
 impaciencia no conviene acumular hasta la regla de oro (sesión 8). Con
-$f(k) = Ak^\alpha$, la tasa de ahorro de estado estacionario es
+$f(k) = Ak^\alpha$, $f'(k) = \alpha f(k)/k$, así que en el estado
+estacionario $f(k^\ast)/k^\ast = (\delta + \rho)/\alpha$. El ahorro repone la
+depreciación y la dilución, $(\delta + n)k^\ast$, y la tasa de ahorro de
+estado estacionario es
 
 $$
-s^\ast = \frac{(\delta + n)k^\ast}{f(k^\ast)} = \frac{\alpha(\delta + n)}{\delta + \rho},
+\boxed{\ s^\ast = \frac{(\delta + n)k^\ast}{f(k^\ast)} = \frac{\alpha(\delta + n)}{\delta + \rho}\ }
 $$
 
 menor que la de la regla de oro, $\alpha$.
@@ -302,7 +328,7 @@ varíe, prefiere una transición lenta.
 ### 5.1 Los datos
 
 *Lectura previa: esta sección y la tabla de datos se leen antes de clase;
-en clase se trabaja con el cuaderno desde la sección 5.3.*
+en clase, el cuaderno muestra las series y la calibración.*
 
 El cuaderno carga la Penn World Table 11.0 para México
 (`Data/pwt_mexico.csv`) y calcula promedios de 1990 a 2019 (después de la
@@ -335,7 +361,7 @@ extender un mismo valor hacia atrás. Su efecto en el promedio es pequeño
   $f'(k^\ast) = \alpha Y/K = \delta + \rho$, así que
 
 $$
-\rho = \frac{\alpha}{K/Y} - \delta.
+\boxed{\ \rho = \frac{\alpha}{K/Y} - \delta\ }
 $$
 
 - $\theta$ no se puede obtener de estos datos: se supone $\theta = 2$ y se

@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ ea3b6b9e-ce90-11f1-aef0-371bc9c6d11c
+# ╔═╡ c9d52ca8-cf05-11f1-b7d2-ebcc2393ad1c
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,65 +31,38 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ ea3b6ab8-ce90-11f1-812b-1b190f57b75d
+# ╔═╡ c9d52b04-cf05-11f1-b2a5-e57296650066
 md"""
 # Sesión 10: Del cálculo de variaciones al Hamiltoniano
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
 
-**Pregunta de la sesión.** Un gobierno estatal recibe un fondo
-extraordinario que rinde una tasa ``r`` y tiene ``T`` años para gastarlo.
-¿Le conviene gastarlo pronto, despacio o al final?
-
-**Objetivos de la sesión**
-1. Plantear un problema en el que se elige una trayectoria completa, y
-   resolverlo como un problema estático con muchas variables.
-2. Derivar y leer la ecuación de Euler: en el fondo regional, la regla de
-   Keynes-Ramsey.
-3. Ver por qué la trayectoria óptima cumple la ecuación de Euler:
-   cualquier perturbación que respete los extremos baja el valor.
-4. Resolver el mismo problema con el Hamiltoniano y leer el coestado como
-   el precio de un peso más en el fondo.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s10_calculo_de_variaciones.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s10_calculo_de_variaciones.md`, y se desarrolla en el
+pizarrón; el cuaderno sirve para mover los parámetros, ver qué pasa y
+comprobar numéricamente. En clase se proyectan las secciones 1 a 4; la
+sección 5 y los ejercicios son para después. Pluto es reactivo: al mover un
+deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s10_calculo_de_variaciones.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B1 a C.B4 (derivadas,
-máximos, exponencial e integrales), C.I6 (regla de Leibniz), C.I7 (Taylor) y
-D.I3 (lineales de segundo orden). Para los puntos [Avanzado]: C.A3
-(funcionales y primera variación).
 """
 
-# ╔═╡ ea3b6aea-ce90-11f1-8255-15c809537584
+# ╔═╡ c9d52b4a-cf05-11f1-a30c-83119033688d
 TableOfContents(title = "Contenido")
 
-# ╔═╡ ea3b6af4-ce90-11f1-a8c8-611b3a5ba03a
+# ╔═╡ c9d52b54-cf05-11f1-9f72-bf7d5515d9c0
 md"""
 ## 1. El fondo regional: elegir una trayectoria
 
-El fondo ``W(t)`` crece con sus rendimientos y baja con el gasto ``c(t)``:
-``W' = rW - c``. El gobierno elige la trayectoria del fondo, y con ella la
-del gasto, ``c = rW - W'``:
-
-```math
-\max_W \int_0^T e^{-\rho t}\, u\big(rW - W'\big)\, dt,
-\qquad W(0) = W_0, \quad W(T) = W_T,
-\qquad u(c) = \frac{c^{1-\theta} - 1}{1 - \theta}.
-```
-
-El cuaderno lo resuelve de dos maneras. La **línea** es la solución exacta,
-con la ecuación de Euler (sección 2). Los **puntos** son la solución
-numérica de la versión discreta: se divide ``[0, T]`` en 200 tramos y se
-eligen los 199 saldos intermedios ``W_1, \dots, W_{199}`` con el método de
-Newton, como un problema de la Unidad I con 199 variables. Fondo inicial:
-``W_0 = 100``; horizonte: ``T = 20`` años.
+*En clase, después de la sección 1.1 de las notas, y otra vez después de la
+3.3.* El fondo regional de las notas (sección 1.2), con ``W_0 = 100`` y
+``T = 20`` años. La **línea** es la solución exacta, con la ecuación de
+Euler; los **puntos**, la solución de la versión discreta: 199 saldos
+intermedios elegidos con el método de Newton, como un problema de la
+Unidad I con 199 variables.
 
 Rendimiento del fondo, ``r``: $(@bind r Slider(0.0:0.005:0.08, default = 0.04, show_value = true))
 
@@ -100,24 +73,17 @@ Aversión a la variación del gasto, ``\theta``: $(@bind θ Slider(0.25:0.25:5.0
 Reserva final, ``W_T``: $(@bind WT Slider(0:5:50, default = 0, show_value = true))
 """
 
-# ╔═╡ ea3b6b14-ce90-11f1-b0d6-8b3168cafd6b
+# ╔═╡ c9d52b90-cf05-11f1-9983-3bc496924c21
 md"""
 ## 2. La ecuación de Euler
 
-Para ``J[y] = \int_0^T F(t, y, y')\, dt`` con extremos fijos, la trayectoria
-óptima cumple
-
-```math
-F_y - \frac{d}{dt} F_{y'} = 0.
-```
-
-En la versión discreta, es la condición de primer orden respecto a cada
-``y_n`` (notas, sección 2.2). Para el fondo, ``F = e^{-\rho t}u(rW - W')``.
-Symbolics.jl calcula las dos derivadas parciales, tratando ``W`` y ``W'``
-(aquí `Wp`) como variables independientes:
+*En clase, minutos 75–82.* Symbolics.jl calcula las dos derivadas
+parciales de ``F = e^{-\rho t}u(rW - W')``, tratando ``W`` y ``W'`` (aquí
+`Wp`) como variables independientes; compáralas con las de la sección 3.1
+de las notas:
 """
 
-# ╔═╡ ea3b6b14-ce90-11f1-9633-dd95d419e48b
+# ╔═╡ c9d52b9c-cf05-11f1-bc6a-495a6eb8dd99
 let
     @variables t W Wp r_ ρ_ θ_
     F = exp(-ρ_ * t) * ((r_ * W - Wp)^(1 - θ_) - 1) / (1 - θ_)
@@ -125,116 +91,75 @@ let
      F_Wp = simplify(Symbolics.derivative(F, Wp)))
 end
 
-# ╔═╡ ea3b6b1c-ce90-11f1-9def-a3c9bf34768d
+# ╔═╡ c9d52ba4-cf05-11f1-accb-1f8b8266beae
 md"""
-Es decir, ``F_W = r\, e^{-\rho t} u'(c)`` y ``F_{W'} = -e^{-\rho t}u'(c)``,
-con ``u'(c) = c^{-\theta}``. Al sustituir en la ecuación de Euler y derivar
-respecto al tiempo sale la **regla de Keynes-Ramsey**:
-
-```math
-\frac{c'}{c} = \frac{r - \rho}{\theta}.
-```
-
-**Lectura.** Gastar un peso menos hoy cuesta ``u'(c(t))``. En el fondo, ese
-peso rinde ``r``, y el gobierno descuenta el futuro a la tasa ``\rho``. Si
-``r > \rho``, esperar paga y el gasto crece; si ``r < \rho``, decrece.
-
-La regla dice cómo **cambia** el gasto, pero no cuánto vale al principio.
-El nivel ``c_0`` lo fijan los dos extremos: es el único con el que el fondo
-llega exactamente a ``W_T`` en ``T``. A la izquierda, varias trayectorias
-que cumplen la regla con distintos ``c_0``; sólo una (naranja) cumple la
-condición final.
+A la izquierda, varias trayectorias que cumplen la regla de Keynes-Ramsey
+con distintos ``c_0``; sólo una (naranja) llega a ``W_T`` en ``T``. A la
+derecha, la ecuación de Euler evaluada sobre la trayectoria óptima.
 """
 
-# ╔═╡ ea3b6b26-ce90-11f1-8741-93f603ee587a
+# ╔═╡ c9d52bae-cf05-11f1-a3c3-d79e9dc3938d
 md"""
-A la derecha, ``F_W - \frac{d}{dt}F_{W'}`` evaluado sobre la trayectoria
-óptima: es cero en todo el horizonte (la derivada total se calcula con una
-diferencia numérica, por eso aparece la escala ``10^{-6}``). Un ``c_0``
-mayor agota el fondo antes de ``T``; uno menor deja más de ``W_T``. Es un
-**problema de valor en la frontera**, como el disparo de la sesión 8.
+**Observa:** ¿qué le pasa al fondo con un ``c_0`` mayor que el óptimo? ¿Y
+con uno menor? La ecuación de Euler vale cero en todo el horizonte (la
+escala ``10^{-6}`` viene de la derivada numérica).
 """
 
-# ╔═╡ ea3b6b26-ce90-11f1-8d8a-e7a3cde69968
+# ╔═╡ c9d52bb8-cf05-11f1-a062-5da420fb7c5d
 md"""
 ## 3. Por qué: perturbar la trayectoria óptima
 
-Si ``W^\ast`` es óptima, cualquier trayectoria ``W^\ast + \varepsilon\eta``
-con ``\eta(0) = \eta(T) = 0`` cumple los extremos y no puede dar más
-bienestar. La función ``\varepsilon \mapsto J[W^\ast + \varepsilon\eta]``
-tiene un máximo en ``\varepsilon = 0``, y su derivada ahí es cero: de esa
-condición, para toda ``\eta``, sale la ecuación de Euler (notas, P.1).
+*En clase, después de la sección 2.2 de las notas.* La trayectoria óptima
+más una perturbación ``\varepsilon\eta`` que respeta los dos extremos
+(notas, P.1).
 
 Forma de la perturbación ``\eta``: $(@bind forma Select(["joroba" => "una joroba: adelantar o atrasar el gasto", "onda" => "una onda: gastar más y luego menos", "tres" => "tres ondas"]))
 
 Tamaño de la perturbación, ``\varepsilon``: $(@bind ε Slider(-0.6:0.05:0.6, default = 0.3, show_value = true))
 """
 
-# ╔═╡ ea3b6b30-ce90-11f1-9c83-89d337d75247
+# ╔═╡ c9d52bd6-cf05-11f1-8adb-0b5968ee46de
 md"""
-Con la joroba, ``\varepsilon > 0`` deja más dinero en el fondo a mitad del
-horizonte: se gasta menos al principio y más al final. Cualquier forma y
-cualquier signo de ``\varepsilon`` bajan el bienestar, y la curva de la
-derecha es plana en ``\varepsilon = 0``. La perturbación siempre gasta el
-mismo presupuesto, porque respeta ``W(0)`` y ``W(T)``: lo que cambia es
-**cuándo** se gasta.
+1. **Mueve** ``\varepsilon`` a uno y otro lado de cero: ¿alguna perturbación
+   da más bienestar que la óptima?
+2. **Observa** la curva de la derecha en ``\varepsilon = 0``: ¿qué pendiente
+   tiene?
+3. **Cambia** la forma a «tres ondas»: ¿la curva es más o menos curva? ¿Por
+   qué cambia **cuándo** se gasta, pero no cuánto?
 """
 
-# ╔═╡ ea3b6b3a-ce90-11f1-a2f3-094f3ad30f34
+# ╔═╡ c9d52be0-cf05-11f1-b4c6-6b63d963b426
 md"""
 ## 4. El mismo problema con el Hamiltoniano
 
-Con estado ``W`` y control ``z = W'`` (la letra ``u`` ya es la
-utilidad), el Hamiltoniano es ``H = e^{-\rho t}u(rW - z) + \lambda z``. Sus
-condiciones son:
-
-- ``\partial H/\partial z = 0``: ``\lambda = e^{-\rho t}u'(c)``.
-- ``\lambda' = -\partial H/\partial W = -r\lambda``, así que
-  ``\lambda(t) = \lambda_0 e^{-rt}``.
-
-Juntas, dan otra vez ``c'/c = (r - \rho)/\theta``, sin pasar por una
-ecuación de segundo orden. A la izquierda, ``\lambda(t)`` calculado de las
-dos formas: con el gasto óptimo, ``e^{-\rho t}c(t)^{-\theta}``, y con la
-ecuación del coestado, ``\lambda_0 e^{-rt}``.
+*En clase, después de la sección 4.3 de las notas.* A la izquierda, el
+coestado calculado de dos formas: con el gasto óptimo,
+``e^{-\rho t}c(t)^{-\theta}``, y con la ecuación del coestado,
+``\lambda_0e^{-rt}``. A la derecha, el valor óptimo ``V(W_0)`` y la recta
+con pendiente ``\lambda(0)``.
 """
 
-# ╔═╡ ea3b6b4e-ce90-11f1-b292-91608777ce91
+# ╔═╡ c9d52bfc-cf05-11f1-bcb2-ed9a73854ac9
 md"""
 ## 5. [Avanzado] Cuando el gasto casi no importa cómo se reparte
 
-Con ``\theta`` pequeño, al gobierno casi no le importa que el gasto varíe, y
-la utilidad se acerca a la lineal. La gráfica muestra el gasto óptimo con
-``W_T = 0`` y varios valores de ``\theta``, con los ``r`` y ``\rho`` de la
-sección 1.
+*Fuera de clase* (notas, 4.4). El gasto óptimo con ``W_T = 0`` y varios
+valores de ``\theta``, con los ``r`` y ``\rho`` de la sección 1.
 """
 
-# ╔═╡ ea3b6b58-ce90-11f1-ac1f-5f877bf85ffb
+# ╔═╡ c9d52c12-cf05-11f1-bceb-731b29d6d52a
 md"""
-Si ``r > \rho``, al bajar ``\theta`` el gasto se concentra al final; si
-``r < \rho``, al principio. En el límite lineal (``\theta \to 0``), la
-ecuación de Euler da ``(r - \rho)e^{-\rho t} = 0``, que **ninguna
-trayectoria cumple** si ``r \ne \rho``: el óptimo pide gastarlo todo en un
-instante. Con un gasto acotado, ``0 \le c \le \bar c``, el óptimo es
-**bang-bang**, en las esquinas del intervalo. El cálculo de variaciones no
-encuentra esquinas; el Hamiltoniano sí, cuando ``\partial H/\partial u = 0``
-se reemplaza por "``u`` maximiza ``H``" (sesiones 11 y 13).
+**Mueve** ``r`` y ``\rho`` en la sección 1. **Observa:** al bajar ``\theta``,
+¿dónde se concentra el gasto si ``r > \rho``? ¿Y si ``r < \rho``? ¿Qué
+pasaría en el límite ``\theta \to 0``, con utilidad lineal?
 """
 
-# ╔═╡ ea3b6b62-ce90-11f1-a4ea-6b4702fe0703
+# ╔═╡ c9d52c1c-cf05-11f1-8b87-41badcd721da
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Discretizar | Una trayectoria es una lista de números; el problema se vuelve estático | Puntos de la sección 1 |
-| Ecuación de Euler | ``F_y - \frac{d}{dt}F_{y'} = 0`` en cada instante | Symbolics y residuo, sección 2 |
-| Keynes-Ramsey | ``c'/c = (r - \rho)/\theta`` | Pendiente del gasto |
-| Extremos fijos | Fijan el nivel ``c_0`` | Trayectorias grises, sección 2 |
-| Primera variación | Perturbar la óptima baja el valor; la derivada es cero | Sección 3 |
-| Hamiltoniano | ``H_u = 0`` y ``\lambda' = -H_y`` dan Euler | Sección 4 |
-| Coestado | ``\lambda(0) = V'(W_0)``: precio de un peso más | Tabla de la sección 4 |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 7).
 
 ### Completa el código
 
@@ -243,24 +168,24 @@ md"""
 ``\theta = 2``.
 """
 
-# ╔═╡ ea3b6b62-ce90-11f1-8464-6b2333ab6d85
+# ╔═╡ c9d52c26-cf05-11f1-a992-27c977a20a92
 F_W(t, W, Wp) = missing  # reemplaza missing
 
-# ╔═╡ ea3b6b6c-ce90-11f1-b701-05b67341bba0
+# ╔═╡ c9d52c2e-cf05-11f1-b046-eb592e561047
 F_Wp(t, W, Wp) = missing  # reemplaza missing
 
-# ╔═╡ ea3b6b74-ce90-11f1-8614-83b137531aa0
+# ╔═╡ c9d52c3a-cf05-11f1-818e-8bdec4708fea
 md"""
 **2.** Escribe `gasto_inicial(W0, WT, r, ρ, θ, T)`, el gasto inicial
 óptimo (notas, sección 3.3). Supón ``r \ne g``.
 """
 
-# ╔═╡ ea3b6b74-ce90-11f1-92af-754ecac52ec6
+# ╔═╡ c9d52c44-cf05-11f1-bd9d-a3e582c143d2
 function gasto_inicial(W0, WT, r, ρ, θ, T)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ ea3b6b80-ce90-11f1-9652-9935c799a7a2
+# ╔═╡ c9d52c58-cf05-11f1-914c-e38b023289d7
 md"""
 **3.** Escribe `precio_sombra(W0)`, una aproximación numérica de
 ``V'(W_0)`` con una diferencia centrada. Usa `valor_base(W0)`, que
@@ -268,12 +193,12 @@ devuelve el bienestar óptimo con ``W_T = 0``, ``r = 0.04``, ``\rho = 0.02``,
 ``\theta = 2`` y ``T = 20``.
 """
 
-# ╔═╡ ea3b6b80-ce90-11f1-b593-252bff3f1e3c
+# ╔═╡ c9d52c62-cf05-11f1-9884-ebf3222a5dd2
 function precio_sombra(W0)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ ea3b6b8a-ce90-11f1-9774-b16c0f2fdf58
+# ╔═╡ c9d52c76-cf05-11f1-9b1b-eb1cfbe3442d
 md"""
 **4. [Avanzado]** El problema F1 de las notas es
 ``\int_0^2 \big(12ty + (y')^2\big)\, dt`` con ``y(0) = 0`` e ``y(2) = 8``.
@@ -288,12 +213,12 @@ Escribe `extremal_discreta(N)`, que resuelva ese sistema lineal y devuelva
 el vector ``[y_0, y_1, \dots, y_N]``.
 """
 
-# ╔═╡ ea3b6b8a-ce90-11f1-b169-8da27fc8d115
+# ╔═╡ c9d52c80-cf05-11f1-b5c1-39e770c0f176
 function extremal_discreta(N)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ ea3b6b94-ce90-11f1-8e34-5bd38f34279b
+# ╔═╡ c9d52c94-cf05-11f1-a2f9-21774a5dc28f
 md"""
 ### Interpretación
 
@@ -315,12 +240,9 @@ md"""
 
 ### [Avanzado]
 
-9. En la sección 3, ¿por qué la curva de la derecha es más curva con la
-   perturbación de tres ondas que con la joroba, si las dos tienen el mismo
-   tamaño?
-10. En la sección 1, con ``\theta = 0.25`` y ``r = 0.08``, ``\rho = 0``, los
-    puntos se separan un poco de la línea al final. ¿Por qué la versión
-    discreta pierde precisión cuando el gasto crece rápido?
+9. En la sección 1, con ``\theta = 0.25`` y ``r = 0.08``, ``\rho = 0``, los
+   puntos se separan un poco de la línea al final. ¿Por qué la versión
+   discreta pierde precisión cuando el gasto crece rápido?
 
 ## Para la próxima sesión
 
@@ -334,7 +256,7 @@ md"""
   (existencia y unicidad) y N.A1 (disparo).
 """
 
-# ╔═╡ ea3b6b9e-ce90-11f1-bab3-79b0a26f14a8
+# ╔═╡ c9d52ca0-cf05-11f1-aa87-2ba008f223ff
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -343,7 +265,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ ea3b6ba6-ce90-11f1-91f4-5da568876418
+# ╔═╡ c9d52cb2-cf05-11f1-b943-55993b1ee0da
 begin
     const AZUL    = "#2a78d6"   # fondo, valor óptimo, residuo
     const NARANJA = "#eb6834"   # trayectoria óptima, coestado
@@ -351,21 +273,21 @@ begin
     const TINTA   = "#0b0b0b"   # solución discreta, perturbación
 end;
 
-# ╔═╡ ea3b6ba6-ce90-11f1-ae92-198f58c5a753
+# ╔═╡ c9d52cbc-cf05-11f1-8947-d7e116f683b9
 begin
     "Utilidad CRRA (logarítmica si θ = 1) y utilidad marginal."
     u(c, θ) = θ == 1 ? log(c) : (c^(1 - θ) - 1) / (1 - θ)
     du(c, θ) = c^(-θ)
 end
 
-# ╔═╡ ea3b6bb2-ce90-11f1-8b87-b36c02a471d3
+# ╔═╡ c9d52cc6-cf05-11f1-b909-1b6493b7a6f4
 "Integral de f en [0, T] con la regla de Simpson y n tramos (n par)."
 function integral(f, T; n = 2000)
     h = T / n
     h / 3 * (f(0.0) + f(T) + 4sum(f((2i - 1) * h) for i in 1:n ÷ 2) + 2sum(f(2i * h) for i in 1:n ÷ 2 - 1))
 end
 
-# ╔═╡ ea3b6bb2-ce90-11f1-8e2d-edc8616044db
+# ╔═╡ c9d52cd2-cf05-11f1-a3c2-731970381601
 """
 Solución exacta del fondo regional: crecimiento g, gasto inicial c0 y las
 funciones c(t), W(t) y λ(t) = e^{-ρt}u'(c(t)).
@@ -382,10 +304,10 @@ function solucion_fondo(; W0, WT, r, ρ, θ, T)
     (; W0, WT, r, ρ, θ, T, g, c0, c, W, λ, A)
 end
 
-# ╔═╡ ea3b6af4-ce90-11f1-ad52-03d018cd7443
+# ╔═╡ c9d52b5e-cf05-11f1-9915-9df9b8dc336f
 fondo = solucion_fondo(; W0 = 100.0, WT = float(WT), r, ρ, θ, T = 20.0)
 
-# ╔═╡ ea3b6b58-ce90-11f1-a502-cfc5429b40cd
+# ╔═╡ c9d52c08-cf05-11f1-8b21-bb628a5c0f70
 let
     ts = range(0, 20, length = 300)
     p = plot(; xlabel = "años", ylabel = "gasto c(t)", title = "r = $r, ρ = $ρ", legend = :topleft,
@@ -397,11 +319,11 @@ let
     p
 end
 
-# ╔═╡ ea3b6bbc-ce90-11f1-8673-e30c41417e56
+# ╔═╡ c9d52cda-cf05-11f1-9fe4-23a1197c75a9
 "Saldo del fondo si se sigue la regla de Keynes-Ramsey desde un gasto inicial c0."
 saldo(f, c0) = t -> exp(f.r * t) * (f.W0 - c0 * f.A(t))
 
-# ╔═╡ ea3b6bbc-ce90-11f1-b926-e1561302050f
+# ╔═╡ c9d52ce4-cf05-11f1-84ea-71e1b27a7c74
 begin
     "Bienestar de una trayectoria de gasto c(t) (una función)."
     valor_de(f, c) = integral(t -> exp(-f.ρ * t) * u(max(c(t), 1e-9), f.θ), f.T)
@@ -411,7 +333,7 @@ begin
     valor_base(W0) = valor(solucion_fondo(; W0, WT = 0.0, r = 0.04, ρ = 0.02, θ = 2.0, T = 20.0))
 end
 
-# ╔═╡ ea3b6b42-ce90-11f1-bddd-f7697e946ab6
+# ╔═╡ c9d52bea-cf05-11f1-b4de-87f5121d3f10
 let
     f = fondo
     ts = range(0, f.T, length = 300)
@@ -427,7 +349,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ ea3b6b4e-ce90-11f1-a829-0f9e84ef5561
+# ╔═╡ c9d52bf4-cf05-11f1-96f8-97141c104b74
 let
     f = fondo
     vmas = valor(solucion_fondo(; W0 = f.W0 + 1, WT = f.WT, f.r, f.ρ, f.θ, f.T))
@@ -438,23 +360,21 @@ let
     | Coestado inicial, ``\lambda(0) = u'(c_0)`` | $(round(f.λ(0), sigdigits = 5)) |
     | ``(V(101) - V(99))/2`` | $(round((vmas - vmenos) / 2, sigdigits = 5)) |
 
-    **El coestado es un precio.** ``\lambda(0)`` es cuánto sube el bienestar
-    total con un peso más en el fondo inicial: la pendiente de ``V(W_0)`` (la
-    recta punteada, a la derecha). Es el ``V'(B) = \lambda`` de la sesión 3.
-    ``\lambda(t)`` cae a la tasa ``r``: un peso en el fondo en ``t`` vale lo
-    mismo que ``e^{-rt}`` pesos hoy. Sube ``W_T``: hay menos para gastar, el
-    gasto baja y cada peso vale más.
+    1. **Observa** que las dos curvas de la izquierda coinciden, y que la
+       recta naranja es tangente a ``V(W_0)``.
+    2. **Sube** ``W_T`` en la sección 1: ¿sube o baja ``\lambda(0)``? ¿Por
+       qué un peso vale más cuando hay que dejar una reserva?
     """
 end
 
-# ╔═╡ ea3b6bc6-ce90-11f1-85ab-0dfb220048c8
+# ╔═╡ c9d52cee-cf05-11f1-b8fe-9ff46d8e65f9
 begin
     "Gasto constante que cumple la misma restricción presupuestal."
     anualidad(f) = (f.W0 - exp(-f.r * f.T) * f.WT) / (abs(f.r) < 1e-10 ? f.T : (1 - exp(-f.r * f.T)) / f.r)
     valor_constante(f) = valor_de(f, t -> anualidad(f))
 end
 
-# ╔═╡ ea3b6bc6-ce90-11f1-8746-cf8d8e1f8177
+# ╔═╡ c9d52cf8-cf05-11f1-929f-6b6b9f82e9eb
 """
 Fracción x del gasto que se pierde, cada año, al gastar parejo en lugar de
 óptimamente: el gasto óptimo multiplicado por (1 - x) da el mismo bienestar
@@ -470,7 +390,7 @@ function equivalente_anualidad(f)
     (lo + hi) / 2
 end
 
-# ╔═╡ ea3b6bd0-ce90-11f1-8118-39de3944113b
+# ╔═╡ c9d52d04-cf05-11f1-9f64-a1bbf7fd9be7
 """
 Residuo de la ecuación de Euler, F_W - d/dt F_W′, sobre la trayectoria
 óptima (la derivada total con una diferencia centrada).
@@ -481,7 +401,7 @@ function residuo_euler(f; dt = 1e-4)
     t -> FW(t) - (FWp(t + dt) - FWp(t - dt)) / (2dt)
 end
 
-# ╔═╡ ea3b6b1c-ce90-11f1-b19e-df71eaa81561
+# ╔═╡ c9d52bae-cf05-11f1-8b52-b547f98dd5d6
 let
     f = fondo
     ts = range(0, f.T, length = 300)
@@ -499,7 +419,7 @@ let
     plot(p, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ ea3b6bd0-ce90-11f1-9e49-d7f428d6ea70
+# ╔═╡ c9d52d0c-cf05-11f1-a0f2-197f0c6d1a4d
 """
 Versión discreta del fondo con N tramos: elige W₁, …, W_{N-1} con el método
 de Newton (el hessiano es tridiagonal). Devuelve la malla, los saldos y el
@@ -530,10 +450,10 @@ function resolver_discreto(f; N = 200, tol = 1e-10)
     (; t, W, c = gasto(W))
 end
 
-# ╔═╡ ea3b6afe-ce90-11f1-a994-3b52dcfc2bbc
+# ╔═╡ c9d52b72-cf05-11f1-887a-cd93f33f76e2
 discreto = resolver_discreto(fondo; N = 200)
 
-# ╔═╡ ea3b6b08-ce90-11f1-b04f-2db87d5a6daa
+# ╔═╡ c9d52b7c-cf05-11f1-ae4c-43c8d331d0f3
 let
     ts = range(0, fondo.T, length = 300)
     marcas = 1:10:length(discreto.c)
@@ -547,7 +467,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ ea3b6b08-ce90-11f1-b381-4300a6146d09
+# ╔═╡ c9d52b86-cf05-11f1-b0d1-6db0e7e44fe1
 let
     f = fondo
     rd(v, d = 3) = round(v, digits = d)
@@ -562,22 +482,25 @@ let
     | Bienestar ``V`` con el gasto óptimo / con el gasto constante | $(rd(valor(f), 4)) / $(rd(valor_constante(f), 4)) |
     | Gastar parejo equivale a perder, cada año, | $(rd(100pérdida, 2))% del gasto |
 
-    Los puntos caen sobre la línea: la solución de la versión discreta se
-    acerca a la exacta. Iguala ``r`` y ``\rho``: el gasto óptimo es constante.
-    Con ``r > \rho`` el gasto crece y con ``r < \rho`` decrece; ``\theta``
-    grande aplana la trayectoria. Sube ``W_T``: el gasto baja en todos los
-    años, no sólo en los últimos.
+    **La primera vez** (minutos 18–23): **observa** que los puntos caen sobre
+    la línea. Una trayectoria es una lista de números.
+
+    **La segunda vez** (minutos 75–82):
+    1. **Iguala** ``r`` y ``\rho``: ¿cómo es el gasto?
+    2. **Pon** ``r > \rho`` y después ``r < \rho``: ¿cuándo crece el gasto?
+    3. **Sube** ``\theta``: ¿qué le pasa a la pendiente?
+    4. **Sube** ``W_T``: ¿baja el gasto sólo al final o en todos los años?
     """
 end
 
-# ╔═╡ ea3b6bda-ce90-11f1-a153-05c54cbfc28f
+# ╔═╡ c9d52d16-cf05-11f1-9c47-a353cca6052c
 "Perturbación η(t) con η(0) = η(T) = 0, de tamaño 10, y su derivada."
 function perturbacion(forma, T)
     k = forma == "joroba" ? 1 : forma == "onda" ? 2 : 3
     (t -> 10sin(k * π * t / T), t -> 10k * π / T * cos(k * π * t / T))
 end
 
-# ╔═╡ ea3b6b30-ce90-11f1-b256-5b1b5897d272
+# ╔═╡ c9d52bca-cf05-11f1-b1bf-275ead5eeb33
 let
     f = fondo
     η, dη = perturbacion(forma, f.T)
@@ -595,7 +518,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ ea3b6bda-ce90-11f1-bb08-3f1d4e1ab657
+# ╔═╡ c9d52d20-cf05-11f1-a608-f1f0a6c997f4
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -617,12 +540,12 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ ea3b6b6c-ce90-11f1-a5cc-b10d69f38dc1
+# ╔═╡ c9d52c2e-cf05-11f1-994c-e501df90a2b0
 verificar(() -> [F_W(0.0, 100.0, -2.0), F_W(5.0, 80.0, 1.0), F_Wp(0.0, 100.0, -2.0), F_Wp(5.0, 80.0, 1.0)],
           [0.04 / 36, exp(-0.1) * 0.04 / 4.84, -1 / 36, -exp(-0.1) / 4.84];
           pista = md"Con ``c = rW - W'``: `F_W(t, W, Wp) = exp(-0.02t) * 0.04 * (0.04W - Wp)^(-2)` y `F_Wp(t, W, Wp) = -exp(-0.02t) * (0.04W - Wp)^(-2)`.")
 
-# ╔═╡ ea3b6b74-ce90-11f1-99e6-6315f6402f7b
+# ╔═╡ c9d52c4e-cf05-11f1-a5e2-61cfd6ee50bd
 verificar(() -> [gasto_inicial(100, 0, 0.04, 0.02, 2, 20), gasto_inicial(100, 20, 0.04, 0.02, 2, 20),
                  gasto_inicial(50, 10, 0.03, 0.05, 1, 15)],
           [solucion_fondo(; W0 = 100.0, WT = 0.0, r = 0.04, ρ = 0.02, θ = 2.0, T = 20.0).c0,
@@ -630,65 +553,65 @@ verificar(() -> [gasto_inicial(100, 0, 0.04, 0.02, 2, 20), gasto_inicial(100, 20
            solucion_fondo(; W0 = 50.0, WT = 10.0, r = 0.03, ρ = 0.05, θ = 1.0, T = 15.0).c0];
           pista = md"Con `g = (r - ρ) / θ`: `(r - g) * (W0 - exp(-r * T) * WT) / (1 - exp(-(r - g) * T))`.")
 
-# ╔═╡ ea3b6b8a-ce90-11f1-9ad8-fd250f649a49
+# ╔═╡ c9d52c6c-cf05-11f1-b02f-55dfa34ec2ea
 verificar(() -> precio_sombra.([100.0, 50.0]),
           [solucion_fondo(; W0 = w, WT = 0.0, r = 0.04, ρ = 0.02, θ = 2.0, T = 20.0).λ(0) for w in (100.0, 50.0)];
           rtol = 1e-4,
           pista = md"Con un paso pequeño, por ejemplo `Δ = 0.01`: `(valor_base(W0 + Δ) - valor_base(W0 - Δ)) / (2Δ)`.")
 
-# ╔═╡ ea3b6b94-ce90-11f1-bea8-619a4a8b482e
+# ╔═╡ c9d52c8a-cf05-11f1-b6af-e738a876f040
 verificar(() -> [extremal_discreta(4), extremal_discreta(10)],
           [collect(range(0, 2, length = 5)) .^ 3, collect(range(0, 2, length = 11)) .^ 3];
           rtol = 1e-6,
           pista = md"Con `h = 2 / N` y `t = collect(h .* (1:N-1))` (`collect` vuelve el rango un vector que se puede modificar): la matriz es `SymTridiagonal(fill(-2.0, N - 1), fill(1.0, N - 2))`; el lado derecho es `6h^2 .* t`, con `8` restado en la última entrada (el extremo ``y_N = 8`` pasa al lado derecho). Resuelve con `\`, y agrega ``y_0 = 0`` y ``y_N = 8`` al principio y al final.")
 
 # ╔═╡ Cell order:
-# ╟─ea3b6ab8-ce90-11f1-812b-1b190f57b75d
-# ╟─ea3b6aea-ce90-11f1-8255-15c809537584
-# ╟─ea3b6af4-ce90-11f1-a8c8-611b3a5ba03a
-# ╠═ea3b6af4-ce90-11f1-ad52-03d018cd7443
-# ╠═ea3b6afe-ce90-11f1-a994-3b52dcfc2bbc
-# ╟─ea3b6b08-ce90-11f1-b04f-2db87d5a6daa
-# ╟─ea3b6b08-ce90-11f1-b381-4300a6146d09
-# ╟─ea3b6b14-ce90-11f1-b0d6-8b3168cafd6b
-# ╠═ea3b6b14-ce90-11f1-9633-dd95d419e48b
-# ╟─ea3b6b1c-ce90-11f1-9def-a3c9bf34768d
-# ╟─ea3b6b1c-ce90-11f1-b19e-df71eaa81561
-# ╟─ea3b6b26-ce90-11f1-8741-93f603ee587a
-# ╟─ea3b6b26-ce90-11f1-8d8a-e7a3cde69968
-# ╟─ea3b6b30-ce90-11f1-b256-5b1b5897d272
-# ╟─ea3b6b30-ce90-11f1-9c83-89d337d75247
-# ╟─ea3b6b3a-ce90-11f1-a2f3-094f3ad30f34
-# ╟─ea3b6b42-ce90-11f1-bddd-f7697e946ab6
-# ╟─ea3b6b4e-ce90-11f1-a829-0f9e84ef5561
-# ╟─ea3b6b4e-ce90-11f1-b292-91608777ce91
-# ╟─ea3b6b58-ce90-11f1-a502-cfc5429b40cd
-# ╟─ea3b6b58-ce90-11f1-ac1f-5f877bf85ffb
-# ╟─ea3b6b62-ce90-11f1-a4ea-6b4702fe0703
-# ╠═ea3b6b62-ce90-11f1-8464-6b2333ab6d85
-# ╠═ea3b6b6c-ce90-11f1-b701-05b67341bba0
-# ╟─ea3b6b6c-ce90-11f1-a5cc-b10d69f38dc1
-# ╟─ea3b6b74-ce90-11f1-8614-83b137531aa0
-# ╠═ea3b6b74-ce90-11f1-92af-754ecac52ec6
-# ╟─ea3b6b74-ce90-11f1-99e6-6315f6402f7b
-# ╟─ea3b6b80-ce90-11f1-9652-9935c799a7a2
-# ╠═ea3b6b80-ce90-11f1-b593-252bff3f1e3c
-# ╟─ea3b6b8a-ce90-11f1-9ad8-fd250f649a49
-# ╟─ea3b6b8a-ce90-11f1-9774-b16c0f2fdf58
-# ╠═ea3b6b8a-ce90-11f1-b169-8da27fc8d115
-# ╟─ea3b6b94-ce90-11f1-bea8-619a4a8b482e
-# ╟─ea3b6b94-ce90-11f1-8e34-5bd38f34279b
-# ╟─ea3b6b9e-ce90-11f1-bab3-79b0a26f14a8
-# ╠═ea3b6b9e-ce90-11f1-aef0-371bc9c6d11c
-# ╠═ea3b6ba6-ce90-11f1-91f4-5da568876418
-# ╠═ea3b6ba6-ce90-11f1-ae92-198f58c5a753
-# ╠═ea3b6bb2-ce90-11f1-8b87-b36c02a471d3
-# ╠═ea3b6bb2-ce90-11f1-8e2d-edc8616044db
-# ╠═ea3b6bbc-ce90-11f1-8673-e30c41417e56
-# ╠═ea3b6bbc-ce90-11f1-b926-e1561302050f
-# ╠═ea3b6bc6-ce90-11f1-85ab-0dfb220048c8
-# ╠═ea3b6bc6-ce90-11f1-8746-cf8d8e1f8177
-# ╠═ea3b6bd0-ce90-11f1-8118-39de3944113b
-# ╠═ea3b6bd0-ce90-11f1-9e49-d7f428d6ea70
-# ╠═ea3b6bda-ce90-11f1-a153-05c54cbfc28f
-# ╠═ea3b6bda-ce90-11f1-bb08-3f1d4e1ab657
+# ╟─c9d52b04-cf05-11f1-b2a5-e57296650066
+# ╟─c9d52b4a-cf05-11f1-a30c-83119033688d
+# ╟─c9d52b54-cf05-11f1-9f72-bf7d5515d9c0
+# ╠═c9d52b5e-cf05-11f1-9915-9df9b8dc336f
+# ╠═c9d52b72-cf05-11f1-887a-cd93f33f76e2
+# ╟─c9d52b7c-cf05-11f1-ae4c-43c8d331d0f3
+# ╟─c9d52b86-cf05-11f1-b0d1-6db0e7e44fe1
+# ╟─c9d52b90-cf05-11f1-9983-3bc496924c21
+# ╠═c9d52b9c-cf05-11f1-bc6a-495a6eb8dd99
+# ╟─c9d52ba4-cf05-11f1-accb-1f8b8266beae
+# ╟─c9d52bae-cf05-11f1-8b52-b547f98dd5d6
+# ╟─c9d52bae-cf05-11f1-a3c3-d79e9dc3938d
+# ╟─c9d52bb8-cf05-11f1-a062-5da420fb7c5d
+# ╟─c9d52bca-cf05-11f1-b1bf-275ead5eeb33
+# ╟─c9d52bd6-cf05-11f1-8adb-0b5968ee46de
+# ╟─c9d52be0-cf05-11f1-b4c6-6b63d963b426
+# ╟─c9d52bea-cf05-11f1-b4de-87f5121d3f10
+# ╟─c9d52bf4-cf05-11f1-96f8-97141c104b74
+# ╟─c9d52bfc-cf05-11f1-bcb2-ed9a73854ac9
+# ╟─c9d52c08-cf05-11f1-8b21-bb628a5c0f70
+# ╟─c9d52c12-cf05-11f1-bceb-731b29d6d52a
+# ╟─c9d52c1c-cf05-11f1-8b87-41badcd721da
+# ╠═c9d52c26-cf05-11f1-a992-27c977a20a92
+# ╠═c9d52c2e-cf05-11f1-b046-eb592e561047
+# ╟─c9d52c2e-cf05-11f1-994c-e501df90a2b0
+# ╟─c9d52c3a-cf05-11f1-818e-8bdec4708fea
+# ╠═c9d52c44-cf05-11f1-bd9d-a3e582c143d2
+# ╟─c9d52c4e-cf05-11f1-a5e2-61cfd6ee50bd
+# ╟─c9d52c58-cf05-11f1-914c-e38b023289d7
+# ╠═c9d52c62-cf05-11f1-9884-ebf3222a5dd2
+# ╟─c9d52c6c-cf05-11f1-b02f-55dfa34ec2ea
+# ╟─c9d52c76-cf05-11f1-9b1b-eb1cfbe3442d
+# ╠═c9d52c80-cf05-11f1-b5c1-39e770c0f176
+# ╟─c9d52c8a-cf05-11f1-b6af-e738a876f040
+# ╟─c9d52c94-cf05-11f1-a2f9-21774a5dc28f
+# ╟─c9d52ca0-cf05-11f1-aa87-2ba008f223ff
+# ╠═c9d52ca8-cf05-11f1-b7d2-ebcc2393ad1c
+# ╠═c9d52cb2-cf05-11f1-b943-55993b1ee0da
+# ╠═c9d52cbc-cf05-11f1-8947-d7e116f683b9
+# ╠═c9d52cc6-cf05-11f1-b909-1b6493b7a6f4
+# ╠═c9d52cd2-cf05-11f1-a3c2-731970381601
+# ╠═c9d52cda-cf05-11f1-9fe4-23a1197c75a9
+# ╠═c9d52ce4-cf05-11f1-84ea-71e1b27a7c74
+# ╠═c9d52cee-cf05-11f1-b8fe-9ff46d8e65f9
+# ╠═c9d52cf8-cf05-11f1-929f-6b6b9f82e9eb
+# ╠═c9d52d04-cf05-11f1-9f64-a1bbf7fd9be7
+# ╠═c9d52d0c-cf05-11f1-a0f2-197f0c6d1a4d
+# ╠═c9d52d16-cf05-11f1-9c47-a353cca6052c
+# ╠═c9d52d20-cf05-11f1-a608-f1f0a6c997f4

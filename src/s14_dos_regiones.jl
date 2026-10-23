@@ -5,28 +5,17 @@ md"""
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
 
-**Objetivos de la sesión**
-1. Resolver el modelo de Rahman, Intriligator y Takayama: precios sombra
-   del capital de cada región, función de cambio y solución bang-bang.
-2. Calcular el tiempo de cambio de forma analítica y numérica.
-3. Comparar el reparto óptimo con repartos fijos.
-4. Calibrar el modelo con dos estados de México y medir qué tan sensible es
-   el resultado a las tasas de ahorro, que no se publican.
-5. Cuantificar el costo de la equidad con pesos regionales.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s14_dos_regiones.md`.
+**Cómo usar este cuaderno.** La primera mitad de la clase es de pizarrón:
+el modelo, el Hamiltoniano y la solución hacia atrás con el tiempo de
+cambio, en las notas, `Class_notes/s14_dos_regiones.md`. La segunda mitad
+**sigue este cuaderno**: la solución con deslizadores, la calibración con
+dos estados de México y la discusión de equidad. Cada sección dice en qué
+momento de la clase se usa y qué hacer. Pluto es reactivo: al mover un
+deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s14_dos_regiones.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B2, E.B2 (tasas de
-crecimiento con datos), D.I2 (lineales de primer orden), N.I1 (bisección),
-E.I3 (calibración) y N.I7 (datos en Julia). Para los puntos [Avanzado]:
-E.A2 (sensibilidad de un modelo calibrado).
 """
 
 #%% hide
@@ -36,17 +25,10 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. El modelo
 
-Cada región produce ``Y_i = v_iK_i`` y ahorra ``s_iY_i``. El ahorro nacional,
-``S = \gamma_1K_1 + \gamma_2K_2`` con ``\gamma_i = s_iv_i``, se reparte:
-``K_1' = \theta S`` y ``K_2' = (1 - \theta)S``, con ``\theta \in [0, 1]``. El
-gobierno maximiza el producto nacional al final, ``Y(T) = v_1K_1(T) + v_2K_2(T)``.
-
-El Hamiltoniano es lineal en ``\theta`` y la función de cambio es
-``(p_1 - p_2)S``: se invierte donde el capital vale más. Los precios sombra
-cumplen ``p_i' = -\gamma_i\max\{p_1, p_2\}`` con ``p_i(T) = v_i``. El cuaderno
-los integra **hacia atrás** desde ``T`` y encuentra el cambio donde se
-cruzan; después integra el capital hacia adelante. Ambas regiones empiezan
-con ``K_i(0) = 1``.
+*Minutos 50–58, después de la sección 3.2 de las notas.* El modelo de la
+sección 1 de las notas, con ``K_i(0) = 1``. El cuaderno integra los precios
+sombra **hacia atrás** desde ``p_i(T) = v_i``, encuentra el cambio donde se
+cruzan y después integra el capital hacia adelante.
 
 Productividad del capital, región 1, ``v_1``: $(@bind v1 Slider(0.10:0.01:0.40, default = 0.20, show_value = true))
 
@@ -70,21 +52,22 @@ tabla_plan(plan)
 
 #%% hide
 md"""
-Con los valores iniciales, la región 1 produce menos (``v_1 < v_2``) pero
-ahorra tanto más que genera más ahorro por unidad de capital
-(``\gamma_1 > \gamma_2``). El plan invierte primero en ella, para que el
-fondo crezca, y cuando faltan ``\tau^\ast`` años cambia a la región 2,
-donde el capital produce más. Baja ``s_1`` hasta que ``\gamma_1 < \gamma_2``:
-la primera fase desaparece. Acorta ``T`` por debajo de ``\tau^\ast``: también.
+1. Con los valores iniciales (el ejemplo de la sección 3.3 de las notas),
+   **comprueba** que el tiempo de cambio numérico coincide con el analítico.
+2. **Baja** ``s_1`` hasta que ``\gamma_1 < \gamma_2``: ¿qué pasa con la
+   primera fase?
+3. **Acorta** ``T`` por debajo de ``\tau^\ast``: ¿y ahora?
+4. **Observa** los precios sombra: ¿en qué región vale más el capital al
+   principio y en cuál al final?
 """
 
 #%% hide
 md"""
 ## 2. ¿Cuánto se gana con el reparto óptimo?
 
-La alternativa más simple es un reparto fijo: una misma fracción ``\theta``
-del fondo a la región 1 durante todo el plan. Con ``\theta`` fijo, el
-capital sigue un sistema lineal, ``K' = MK``, y ``Y(T) = v^\top e^{MT}K(0)``
+*Minutos 63–70.* El producto nacional al final con una misma fracción
+``\theta`` fija para la región 1 durante todo el plan, contra el plan óptimo
+(línea naranja). Con ``\theta`` fijo, el capital sigue un sistema lineal
 (sesión 7).
 """
 
@@ -113,8 +96,11 @@ let
     ``Y(T) = `` $(round(Ys[i], digits = 3)); repartir a la mitad da
     $(round(mitad, digits = 3)); el plan óptimo da $(round(p.Y[end], digits = 3))
     (línea naranja), $(round(100 * (p.Y[end] / Ys[i] - 1), digits = 1))% más que
-    el mejor reparto fijo. Cuando hay cambio, ningún reparto fijo alcanza al
-    óptimo: lo que importa no es cuánto recibe cada región, sino **cuándo**.
+    el mejor reparto fijo.
+
+    **Mueve** los parámetros de la sección 1 para que no haya cambio. ¿Qué
+    pasa entonces con la diferencia entre el mejor reparto fijo y el
+    óptimo? ¿Qué importa más, cuánto recibe cada región o **cuándo**?
     """
 end
 
@@ -122,14 +108,10 @@ end
 md"""
 ## 3. Calibración: dos estados de México
 
-Las productividades salen de los datos (INEGI y OCDE, 2023):
-``v_i = \bar v\,(y_i/\bar y)^\phi``, donde ``y_i`` es el PIB sin minería
-petrolera por trabajador y ``\bar v = 1/(K/Y) = 1/3.66`` (Penn World Table,
-sesión 12). Con ``\phi = 1``, el capital por trabajador es el mismo en todos
-los estados; con ``\phi < 1``, los estados ricos tienen más capital por
-trabajador y las diferencias de ``v_i`` se reducen (notas, sección 5.1). Las
-tasas de ahorro **no se publican por entidad**: se fijan con supuestos
-alrededor de la tasa nacional (0.19).
+*Minutos 70–92* (notas, 5). Las productividades salen de los datos (INEGI y
+OCDE, 2023), con ``v_i = \bar v\,(y_i/\bar y)^\phi``; las tasas de ahorro
+**no se publican por entidad** y se suponen alrededor de la nacional
+(0.19).
 
 Región 1: $(@bind e1 Select(OPCIONES_ESTADOS; default = 5))
 
@@ -159,11 +141,9 @@ tabla_plan(mexico)
 
 #%% hide
 md"""
-**¿Qué tan sensible es a las tasas de ahorro?** La gráfica muestra cuántos
-años del plan se invierte en la región 1 según su tasa de ahorro, con la de
-la región 2 fija en el valor del deslizador. La línea punteada es el umbral
-``s_1 = s_2 v_2/v_1``: por debajo, si la región 1 es la menos productiva,
-nunca recibe nada.
+**¿Qué tan sensible es a las tasas de ahorro?** Años del plan en que se
+invierte en la región 1, según su tasa de ahorro, con la de la región 2 fija.
+La línea punteada es el umbral ``s_1 = s_2v_2/v_1``.
 """
 
 #%% hide
@@ -181,26 +161,24 @@ end
 
 #%% hide
 md"""
-Con Coahuila y Nuevo León y ``\phi = 1``, Nuevo León produce 15% más por
-unidad de capital. Coahuila sólo recibe inversión si ahorra más de 1.15
-veces lo que ahorra
-Nuevo León, y cerca de ese umbral la política salta de "nada" a "más de una
-década". **La respuesta depende de un parámetro que no se mide.** Prueba
-Chiapas y la Ciudad de México: Chiapas tendría que ahorrar más de cuatro
-veces lo que ahorra la capital para recibir algo. El supuesto de capital
-por trabajador igual exagera las diferencias de ``v_i`` (notas, sección
-5.1).
+1. Con Coahuila y Nuevo León, **busca** el ahorro de Coahuila a partir del
+   cual recibe inversión. ¿Qué tan rápido pasa de "nada" a "más de una
+   década"?
+2. **Baja** ``\phi`` a 0.5: ¿cómo cambia el umbral? ¿Qué supuesto pesa más,
+   el del ahorro o el del capital por trabajador?
+3. **Elige** Chiapas y la Ciudad de México: ¿cuánto tendría que ahorrar
+   Chiapas para recibir algo?
+4. **Elige** dos estados que te interesen, o los de tu tesis. ¿Qué ahorro
+   supondrías para cada uno, y cómo lo defenderías?
 """
 
 #%% hide
 md"""
 ## 4. Equidad frente a eficiencia
 
-El objetivo ``Y(T)`` sólo mira el total. Para incluir la equidad, se pesa el
-producto de la región **menos productiva** con ``\omega \ge 1``:
-``\max\ \omega Y_{\text{pobre}}(T) + Y_{\text{rica}}(T)``. El único cambio es
-la transversalidad: ``p_i(T) = \omega_iv_i``. Con los estados y supuestos
-de la sección 3:
+*Minutos 92–105* (notas, 6, lectura previa). Se pesa el producto de la
+región menos productiva con ``\omega \ge 1``; con los estados y supuestos de
+la sección 3.
 
 Peso de la región menos productiva, ``\omega``: $(@bind ω Slider(1.0:0.05:3.0, default = 1.0, show_value = true))
 """
@@ -238,11 +216,12 @@ let
     que produce la otra (con eficiencia:
     $(round(100 * m.Yi[end][pobre] / m.Yi[end][3 - pobre], digits = 1))%).
 
-    Un peso mayor sube el precio sombra final del capital de la región menos
-    productiva y mueve el tiempo de cambio a su favor. Cuando
-    ``\omega v_{\text{pobre}} > v_{\text{rica}}``, también la última fase pasa
-    a ella y la política salta. Elegir ``\omega`` es un juicio de valor; el
-    modelo lo hace explícito y le pone precio.
+    1. **Sube** ``\omega`` poco a poco desde 1: ¿cuándo empieza a costar la
+       equidad? ¿En qué valor salta la política?
+    2. **Observa** la brecha al final: ¿se cierra, o se invierte?
+    3. Si fueras el gobierno, ¿qué ``\omega`` elegirías y cómo lo
+       justificarías? El modelo no lo decide: lo hace explícito y le pone
+       precio.
     """
 end
 
@@ -250,7 +229,7 @@ end
 md"""
 ## 5. [Avanzado] El mapa de sensibilidad
 
-Años de inversión en la región 1 para cada combinación de tasas de ahorro,
+*Fuera de clase.* Años de inversión en la región 1 para cada combinación de tasas de ahorro,
 con las productividades y el horizonte de la sección 3. El punto es el
 supuesto actual. La frontera entre "nada" y "algo" es la recta
 ``s_1/s_2 = v_2/v_1``, pero el número de años cambia rápido cerca de ella.
@@ -272,19 +251,10 @@ end
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Tasa interna de crecimiento | ``\gamma_i = s_iv_i``: ahorro por unidad de capital | Tablas |
-| Precios sombra | ``p_i' = -\gamma_i\max\{p_1, p_2\}``, ``p_i(T) = v_i`` | Gráfica de la izquierda |
-| Función de cambio | Se invierte donde el capital vale más | Reparto ``\theta(t)`` |
-| Tiempo de cambio | ``\tau^\ast = \gamma_2^{-1}\ln\big(v_1(s_1 - s_2)/(\gamma_1 - \gamma_2)\big)`` | Analítico contra numérico |
-| Repartos fijos | Ninguno alcanza al óptimo cuando hay cambio | Sección 2 |
-| Calibración | ``v_i`` de los datos; ``s_i`` supuestos | Sección 3 |
-| Equidad | Pesos ``\omega_i`` cambian la transversalidad | Sección 4 |
-
 ## Ejercicios
+
+*Minutos 105–115, en parejas: ejercicios 1 a 3.* Los ejercicios con
+demostraciones están en las notas (sección 9).
 
 ### Completa el código
 

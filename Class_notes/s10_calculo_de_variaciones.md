@@ -1,10 +1,14 @@
 # Sesión 10: Del cálculo de variaciones al Hamiltoniano
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s10_calculo_de_variaciones.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s10_calculo_de_variaciones.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B1–B4](repaso/calculo.md#cb1) (derivadas,
 > máximos, exponencial e integrales), [C.I6](repaso/calculo.md#ci6) (regla
@@ -16,6 +20,25 @@
 > Lecturas: Chiang (1992), caps. 1 y 2. Consulta: Sethi (2021), ejemplos
 > 3.2 y 3.3 (el fondo regional con utilidad logarítmica, resuelto con el
 > Hamiltoniano).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–8 | Pizarra | La pregunta: elegir una trayectoria; el fondo regional | 0, 1.2 |
+| 8–18 | Pizarra | Funcionales y el problema básico; una trayectoria es una lista de números | 1.1 |
+| 18–23 | Proyector | Solución exacta contra la discreta de 200 tramos | Cuaderno, sección 1 |
+| 23–43 | Pizarra | La ecuación de Euler: el teorema, de dónde sale en la versión discreta y por qué es de segundo orden con dos extremos; los casos especiales, de palabra | 2.1–2.4 |
+| 43–48 | Proyector | Perturbar la trayectoria óptima: el valor es máximo en $\varepsilon = 0$ | Cuaderno, sección 3 |
+| 48–53 | | Pausa | |
+| 53–75 | Pizarra | El fondo con la ecuación de Euler: la regla de Keynes-Ramsey, su lectura y cómo los extremos fijan $c_0$ | 3.1–3.3 |
+| 75–82 | Proyector | Misma regla, distinto $c_0$; mover $r$, $\rho$, $\theta$ y $W_T$ | Cuaderno, secciones 1 y 2 |
+| 82–100 | Pizarra | El Hamiltoniano $H = F + \lambda u$; sus condiciones dan la ecuación de Euler; el fondo por el segundo camino y $\lambda(0) = dV/dW_0$ | 4.1–4.3 |
+| 100–105 | Proyector | El coestado calculado de dos formas y la pendiente de $V(W_0)$ | Cuaderno, sección 4 |
+| 105–110 | Pizarra | Por qué el resto del curso usa el Hamiltoniano: la utilidad lineal | 4.4 |
+| 110–118 | Parejas | Ejercicio F3 a mano | 7 |
+| 118–120 | Pizarra | Cierre: el principio del máximo (sesión 11) | 5 |
+| Después | Lectura | Cuándo es un máximo (2.5), la tabla de casos de 3.3, el resumen (6), la sección [Avanzado] del cuaderno y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -122,7 +145,7 @@ trayectorias admisibles y es dos veces derivable, entonces, para todo
 $t \in [0, T]$,
 
 $$
-F_y\big(t, y^\ast, y^{\ast\prime}\big) - \frac{d}{dt}F_{y'}\big(t, y^\ast, y^{\ast\prime}\big) = 0.
+\boxed{\ F_y\big(t, y^\ast, y^{\ast\prime}\big) - \frac{d}{dt}F_{y'}\big(t, y^\ast, y^{\ast\prime}\big) = 0\ }
 $$
 
 Aquí $F_y$ y $F_{y'}$ son las derivadas parciales de $F$ respecto a su
@@ -247,16 +270,23 @@ $\rho$ sean muy distintos.
 
 La regla dice cómo **cambia** el gasto, $c(t) = c_0\thinspace e^{gt}$ con
 $g = (r - \rho)/\theta$, pero no cuánto vale $c_0$. Lo fijan los extremos.
-Integrando $W' = rW - c$ desde $W(0) = W_0$,
+Con el factor integrante $e^{-rt}$ ([D.I2](repaso/ecuaciones_diferenciales.md#di2)),
+la ecuación $W' = rW - c$ se integra desde $W(0) = W_0$:
 
 $$
-W(t) = e^{rt}\Big(W_0 - c_0 \int_0^t e^{(g - r)s}\thinspace ds\Big),
+\begin{aligned}
+\frac{d}{dt}\big(e^{-rt}W\big) &= e^{-rt}(W' - rW) = -e^{-rt}c = -c_0e^{(g - r)t}, \cr
+e^{-rt}W(t) &= W_0 - c_0\int_0^t e^{(g - r)s}\thinspace ds
+= W_0 - c_0\thinspace\frac{1 - e^{-(r - g)t}}{r - g}.
+\end{aligned}
 $$
 
-y la condición $W(T) = W_T$ da, si $r \ne g$,
+En $t = T$, la condición $W(T) = W_T$ da, si $r \ne g$,
 
 $$
-c_0 = \frac{(r - g)\big(W_0 - e^{-rT}W_T\big)}{1 - e^{-(r - g)T}}.
+e^{-rT}W_T = W_0 - c_0\thinspace\frac{1 - e^{-(r - g)T}}{r - g}
+\quad\Longrightarrow\quad
+\boxed{\ c_0 = \frac{(r - g)\big(W_0 - e^{-rT}W_T\big)}{1 - e^{-(r - g)T}}\ }
 $$
 
 Es la **restricción presupuestal**: el valor presente del gasto es igual al
@@ -309,11 +339,11 @@ $$
 Las condiciones son (se derivan en la sesión 11):
 
 $$
-\frac{\partial H}{\partial u} = 0,
+\boxed{\ \frac{\partial H}{\partial u} = 0,
 \qquad
 \lambda' = -\frac{\partial H}{\partial y},
 \qquad
-y' = \frac{\partial H}{\partial \lambda} = u.
+y' = \frac{\partial H}{\partial \lambda} = u\ }
 $$
 
 ### 4.2 Dan la ecuación de Euler
@@ -351,7 +381,7 @@ $\lambda(0) = u'(c_0)$ es cuánto sube el bienestar total si el fondo inicial
 es un peso mayor:
 
 $$
-\lambda(0) = \frac{dV}{dW_0},
+\boxed{\ \lambda(0) = \frac{dV}{dW_0}\ }
 $$
 
 donde $V(W_0)$ es el valor óptimo. Es el $V'(B) = \lambda$ de la sesión 3,

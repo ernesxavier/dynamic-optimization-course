@@ -5,33 +5,16 @@ md"""
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
 
-**Pregunta de la sesión.** Un gobierno estatal recibe un fondo
-extraordinario que rinde una tasa ``r`` y tiene ``T`` años para gastarlo.
-¿Le conviene gastarlo pronto, despacio o al final?
-
-**Objetivos de la sesión**
-1. Plantear un problema en el que se elige una trayectoria completa, y
-   resolverlo como un problema estático con muchas variables.
-2. Derivar y leer la ecuación de Euler: en el fondo regional, la regla de
-   Keynes-Ramsey.
-3. Ver por qué la trayectoria óptima cumple la ecuación de Euler:
-   cualquier perturbación que respete los extremos baja el valor.
-4. Resolver el mismo problema con el Hamiltoniano y leer el coestado como
-   el precio de un peso más en el fondo.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s10_calculo_de_variaciones.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s10_calculo_de_variaciones.md`, y se desarrolla en el
+pizarrón; el cuaderno sirve para mover los parámetros, ver qué pasa y
+comprobar numéricamente. En clase se proyectan las secciones 1 a 4; la
+sección 5 y los ejercicios son para después. Pluto es reactivo: al mover un
+deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s10_calculo_de_variaciones.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B1 a C.B4 (derivadas,
-máximos, exponencial e integrales), C.I6 (regla de Leibniz), C.I7 (Taylor) y
-D.I3 (lineales de segundo orden). Para los puntos [Avanzado]: C.A3
-(funcionales y primera variación).
 """
 
 #%% hide
@@ -41,22 +24,12 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. El fondo regional: elegir una trayectoria
 
-El fondo ``W(t)`` crece con sus rendimientos y baja con el gasto ``c(t)``:
-``W' = rW - c``. El gobierno elige la trayectoria del fondo, y con ella la
-del gasto, ``c = rW - W'``:
-
-```math
-\max_W \int_0^T e^{-\rho t}\, u\big(rW - W'\big)\, dt,
-\qquad W(0) = W_0, \quad W(T) = W_T,
-\qquad u(c) = \frac{c^{1-\theta} - 1}{1 - \theta}.
-```
-
-El cuaderno lo resuelve de dos maneras. La **línea** es la solución exacta,
-con la ecuación de Euler (sección 2). Los **puntos** son la solución
-numérica de la versión discreta: se divide ``[0, T]`` en 200 tramos y se
-eligen los 199 saldos intermedios ``W_1, \dots, W_{199}`` con el método de
-Newton, como un problema de la Unidad I con 199 variables. Fondo inicial:
-``W_0 = 100``; horizonte: ``T = 20`` años.
+*En clase, después de la sección 1.1 de las notas, y otra vez después de la
+3.3.* El fondo regional de las notas (sección 1.2), con ``W_0 = 100`` y
+``T = 20`` años. La **línea** es la solución exacta, con la ecuación de
+Euler; los **puntos**, la solución de la versión discreta: 199 saldos
+intermedios elegidos con el método de Newton, como un problema de la
+Unidad I con 199 variables.
 
 Rendimiento del fondo, ``r``: $(@bind r Slider(0.0:0.005:0.08, default = 0.04, show_value = true))
 
@@ -102,11 +75,14 @@ let
     | Bienestar ``V`` con el gasto óptimo / con el gasto constante | $(rd(valor(f), 4)) / $(rd(valor_constante(f), 4)) |
     | Gastar parejo equivale a perder, cada año, | $(rd(100pérdida, 2))% del gasto |
 
-    Los puntos caen sobre la línea: la solución de la versión discreta se
-    acerca a la exacta. Iguala ``r`` y ``\rho``: el gasto óptimo es constante.
-    Con ``r > \rho`` el gasto crece y con ``r < \rho`` decrece; ``\theta``
-    grande aplana la trayectoria. Sube ``W_T``: el gasto baja en todos los
-    años, no sólo en los últimos.
+    **La primera vez** (minutos 18–23): **observa** que los puntos caen sobre
+    la línea. Una trayectoria es una lista de números.
+
+    **La segunda vez** (minutos 75–82):
+    1. **Iguala** ``r`` y ``\rho``: ¿cómo es el gasto?
+    2. **Pon** ``r > \rho`` y después ``r < \rho``: ¿cuándo crece el gasto?
+    3. **Sube** ``\theta``: ¿qué le pasa a la pendiente?
+    4. **Sube** ``W_T``: ¿baja el gasto sólo al final o en todos los años?
     """
 end
 
@@ -114,17 +90,10 @@ end
 md"""
 ## 2. La ecuación de Euler
 
-Para ``J[y] = \int_0^T F(t, y, y')\, dt`` con extremos fijos, la trayectoria
-óptima cumple
-
-```math
-F_y - \frac{d}{dt} F_{y'} = 0.
-```
-
-En la versión discreta, es la condición de primer orden respecto a cada
-``y_n`` (notas, sección 2.2). Para el fondo, ``F = e^{-\rho t}u(rW - W')``.
-Symbolics.jl calcula las dos derivadas parciales, tratando ``W`` y ``W'``
-(aquí `Wp`) como variables independientes:
+*En clase, minutos 75–82.* Symbolics.jl calcula las dos derivadas
+parciales de ``F = e^{-\rho t}u(rW - W')``, tratando ``W`` y ``W'`` (aquí
+`Wp`) como variables independientes; compáralas con las de la sección 3.1
+de las notas:
 """
 
 #%%
@@ -137,23 +106,9 @@ end
 
 #%% hide
 md"""
-Es decir, ``F_W = r\, e^{-\rho t} u'(c)`` y ``F_{W'} = -e^{-\rho t}u'(c)``,
-con ``u'(c) = c^{-\theta}``. Al sustituir en la ecuación de Euler y derivar
-respecto al tiempo sale la **regla de Keynes-Ramsey**:
-
-```math
-\frac{c'}{c} = \frac{r - \rho}{\theta}.
-```
-
-**Lectura.** Gastar un peso menos hoy cuesta ``u'(c(t))``. En el fondo, ese
-peso rinde ``r``, y el gobierno descuenta el futuro a la tasa ``\rho``. Si
-``r > \rho``, esperar paga y el gasto crece; si ``r < \rho``, decrece.
-
-La regla dice cómo **cambia** el gasto, pero no cuánto vale al principio.
-El nivel ``c_0`` lo fijan los dos extremos: es el único con el que el fondo
-llega exactamente a ``W_T`` en ``T``. A la izquierda, varias trayectorias
-que cumplen la regla con distintos ``c_0``; sólo una (naranja) cumple la
-condición final.
+A la izquierda, varias trayectorias que cumplen la regla de Keynes-Ramsey
+con distintos ``c_0``; sólo una (naranja) llega a ``W_T`` en ``T``. A la
+derecha, la ecuación de Euler evaluada sobre la trayectoria óptima.
 """
 
 #%% hide
@@ -176,22 +131,18 @@ end
 
 #%% hide
 md"""
-A la derecha, ``F_W - \frac{d}{dt}F_{W'}`` evaluado sobre la trayectoria
-óptima: es cero en todo el horizonte (la derivada total se calcula con una
-diferencia numérica, por eso aparece la escala ``10^{-6}``). Un ``c_0``
-mayor agota el fondo antes de ``T``; uno menor deja más de ``W_T``. Es un
-**problema de valor en la frontera**, como el disparo de la sesión 8.
+**Observa:** ¿qué le pasa al fondo con un ``c_0`` mayor que el óptimo? ¿Y
+con uno menor? La ecuación de Euler vale cero en todo el horizonte (la
+escala ``10^{-6}`` viene de la derivada numérica).
 """
 
 #%% hide
 md"""
 ## 3. Por qué: perturbar la trayectoria óptima
 
-Si ``W^\ast`` es óptima, cualquier trayectoria ``W^\ast + \varepsilon\eta``
-con ``\eta(0) = \eta(T) = 0`` cumple los extremos y no puede dar más
-bienestar. La función ``\varepsilon \mapsto J[W^\ast + \varepsilon\eta]``
-tiene un máximo en ``\varepsilon = 0``, y su derivada ahí es cero: de esa
-condición, para toda ``\eta``, sale la ecuación de Euler (notas, P.1).
+*En clase, después de la sección 2.2 de las notas.* La trayectoria óptima
+más una perturbación ``\varepsilon\eta`` que respeta los dos extremos
+(notas, P.1).
 
 Forma de la perturbación ``\eta``: $(@bind forma Select(["joroba" => "una joroba: adelantar o atrasar el gasto", "onda" => "una onda: gastar más y luego menos", "tres" => "tres ondas"]))
 
@@ -218,30 +169,23 @@ end
 
 #%% hide
 md"""
-Con la joroba, ``\varepsilon > 0`` deja más dinero en el fondo a mitad del
-horizonte: se gasta menos al principio y más al final. Cualquier forma y
-cualquier signo de ``\varepsilon`` bajan el bienestar, y la curva de la
-derecha es plana en ``\varepsilon = 0``. La perturbación siempre gasta el
-mismo presupuesto, porque respeta ``W(0)`` y ``W(T)``: lo que cambia es
-**cuándo** se gasta.
+1. **Mueve** ``\varepsilon`` a uno y otro lado de cero: ¿alguna perturbación
+   da más bienestar que la óptima?
+2. **Observa** la curva de la derecha en ``\varepsilon = 0``: ¿qué pendiente
+   tiene?
+3. **Cambia** la forma a «tres ondas»: ¿la curva es más o menos curva? ¿Por
+   qué cambia **cuándo** se gasta, pero no cuánto?
 """
 
 #%% hide
 md"""
 ## 4. El mismo problema con el Hamiltoniano
 
-Con estado ``W`` y control ``z = W'`` (la letra ``u`` ya es la
-utilidad), el Hamiltoniano es ``H = e^{-\rho t}u(rW - z) + \lambda z``. Sus
-condiciones son:
-
-- ``\partial H/\partial z = 0``: ``\lambda = e^{-\rho t}u'(c)``.
-- ``\lambda' = -\partial H/\partial W = -r\lambda``, así que
-  ``\lambda(t) = \lambda_0 e^{-rt}``.
-
-Juntas, dan otra vez ``c'/c = (r - \rho)/\theta``, sin pasar por una
-ecuación de segundo orden. A la izquierda, ``\lambda(t)`` calculado de las
-dos formas: con el gasto óptimo, ``e^{-\rho t}c(t)^{-\theta}``, y con la
-ecuación del coestado, ``\lambda_0 e^{-rt}``.
+*En clase, después de la sección 4.3 de las notas.* A la izquierda, el
+coestado calculado de dos formas: con el gasto óptimo,
+``e^{-\rho t}c(t)^{-\theta}``, y con la ecuación del coestado,
+``\lambda_0e^{-rt}``. A la derecha, el valor óptimo ``V(W_0)`` y la recta
+con pendiente ``\lambda(0)``.
 """
 
 #%% hide
@@ -271,12 +215,10 @@ let
     | Coestado inicial, ``\lambda(0) = u'(c_0)`` | $(round(f.λ(0), sigdigits = 5)) |
     | ``(V(101) - V(99))/2`` | $(round((vmas - vmenos) / 2, sigdigits = 5)) |
 
-    **El coestado es un precio.** ``\lambda(0)`` es cuánto sube el bienestar
-    total con un peso más en el fondo inicial: la pendiente de ``V(W_0)`` (la
-    recta punteada, a la derecha). Es el ``V'(B) = \lambda`` de la sesión 3.
-    ``\lambda(t)`` cae a la tasa ``r``: un peso en el fondo en ``t`` vale lo
-    mismo que ``e^{-rt}`` pesos hoy. Sube ``W_T``: hay menos para gastar, el
-    gasto baja y cada peso vale más.
+    1. **Observa** que las dos curvas de la izquierda coinciden, y que la
+       recta naranja es tangente a ``V(W_0)``.
+    2. **Sube** ``W_T`` en la sección 1: ¿sube o baja ``\lambda(0)``? ¿Por
+       qué un peso vale más cuando hay que dejar una reserva?
     """
 end
 
@@ -284,10 +226,8 @@ end
 md"""
 ## 5. [Avanzado] Cuando el gasto casi no importa cómo se reparte
 
-Con ``\theta`` pequeño, al gobierno casi no le importa que el gasto varíe, y
-la utilidad se acerca a la lineal. La gráfica muestra el gasto óptimo con
-``W_T = 0`` y varios valores de ``\theta``, con los ``r`` y ``\rho`` de la
-sección 1.
+*Fuera de clase* (notas, 4.4). El gasto óptimo con ``W_T = 0`` y varios
+valores de ``\theta``, con los ``r`` y ``\rho`` de la sección 1.
 """
 
 #%% hide
@@ -304,31 +244,17 @@ end
 
 #%% hide
 md"""
-Si ``r > \rho``, al bajar ``\theta`` el gasto se concentra al final; si
-``r < \rho``, al principio. En el límite lineal (``\theta \to 0``), la
-ecuación de Euler da ``(r - \rho)e^{-\rho t} = 0``, que **ninguna
-trayectoria cumple** si ``r \ne \rho``: el óptimo pide gastarlo todo en un
-instante. Con un gasto acotado, ``0 \le c \le \bar c``, el óptimo es
-**bang-bang**, en las esquinas del intervalo. El cálculo de variaciones no
-encuentra esquinas; el Hamiltoniano sí, cuando ``\partial H/\partial u = 0``
-se reemplaza por "``u`` maximiza ``H``" (sesiones 11 y 13).
+**Mueve** ``r`` y ``\rho`` en la sección 1. **Observa:** al bajar ``\theta``,
+¿dónde se concentra el gasto si ``r > \rho``? ¿Y si ``r < \rho``? ¿Qué
+pasaría en el límite ``\theta \to 0``, con utilidad lineal?
 """
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Discretizar | Una trayectoria es una lista de números; el problema se vuelve estático | Puntos de la sección 1 |
-| Ecuación de Euler | ``F_y - \frac{d}{dt}F_{y'} = 0`` en cada instante | Symbolics y residuo, sección 2 |
-| Keynes-Ramsey | ``c'/c = (r - \rho)/\theta`` | Pendiente del gasto |
-| Extremos fijos | Fijan el nivel ``c_0`` | Trayectorias grises, sección 2 |
-| Primera variación | Perturbar la óptima baja el valor; la derivada es cero | Sección 3 |
-| Hamiltoniano | ``H_u = 0`` y ``\lambda' = -H_y`` dan Euler | Sección 4 |
-| Coestado | ``\lambda(0) = V'(W_0)``: precio de un peso más | Tabla de la sección 4 |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 7).
 
 ### Completa el código
 
@@ -434,12 +360,9 @@ md"""
 
 ### [Avanzado]
 
-9. En la sección 3, ¿por qué la curva de la derecha es más curva con la
-   perturbación de tres ondas que con la joroba, si las dos tienen el mismo
-   tamaño?
-10. En la sección 1, con ``\theta = 0.25`` y ``r = 0.08``, ``\rho = 0``, los
-    puntos se separan un poco de la línea al final. ¿Por qué la versión
-    discreta pierde precisión cuando el gasto crece rápido?
+9. En la sección 1, con ``\theta = 0.25`` y ``r = 0.08``, ``\rho = 0``, los
+   puntos se separan un poco de la línea al final. ¿Por qué la versión
+   discreta pierde precisión cuando el gasto crece rápido?
 
 ## Para la próxima sesión
 

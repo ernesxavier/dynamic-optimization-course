@@ -1,10 +1,15 @@
 # Sesión 14: Caso completo: inversión entre dos regiones
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s14_dos_regiones.jl`), después se formaliza aquí.
-> El cuerpo de las notas es la **ruta básica**: se ve en clase y se evalúa.
-> Las demostraciones y los temas opcionales están al final, en **Para
-> profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** Ésta es una sesión mixta. La primera mitad
+> se da en el pizarrón y sigue estas notas: el modelo, el Hamiltoniano y la
+> solución hacia atrás con el tiempo de cambio. La segunda mitad sigue el
+> **cuaderno** (`Code/s14_dos_regiones.jl`): la solución con deslizadores,
+> la calibración con dos estados de México y la discusión de equidad. El
+> **plan de clase** de abajo dice qué se hace en cada momento. En el
+> pizarrón van las ecuaciones y los resultados en recuadro; como todo está
+> aquí, en clase no hace falta copiar. El cuerpo de las notas es la **ruta
+> básica** y se evalúa; las demostraciones y los temas opcionales están al
+> final, en **Para profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [E.B2](repaso/estadistica.md#eb2) (tasas de crecimiento con
@@ -19,6 +24,23 @@
 >
 > Lecturas: Alexiadis (2018), cap. 2. Consulta: Alexiadis (2018), cap. 3;
 > Rahman (1963); Intriligator (1964); Takayama (1967).
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Pizarra | La pregunta: ¿dónde invertir primero? | 0 |
+| 5–15 | Pizarra | El modelo: $\gamma_i = s_iv_i$, el reparto $\theta(t)$ y el objetivo de valor final con su transversalidad | 1 |
+| 15–30 | Pizarra | El Hamiltoniano, la función de cambio y los precios sombra; la suficiencia por Arrow | 2 |
+| 30–50 | Pizarra | Resolver hacia atrás: la última fase, el tiempo de cambio y la matriz de asignación | 3.1, 3.2 |
+| 50–58 | Cuaderno | El modelo con deslizadores: precios sombra, reparto y capital; tiempo de cambio analítico y numérico | Cuaderno, sección 1; notas, 3.3 |
+| 58–63 | | Pausa | |
+| 63–70 | Cuaderno | Los repartos fijos contra el óptimo | Cuaderno, sección 2 |
+| 70–92 | Cuaderno | Dos estados de México: productividades de los datos, ahorros supuestos y la sensibilidad del resultado | Cuaderno, sección 3; notas, 4 y 5 |
+| 92–105 | Cuaderno y discusión | Equidad frente a eficiencia: el costo de la equidad | Cuaderno, sección 4; notas, 6 (lectura previa) |
+| 105–115 | Parejas, en el cuaderno | Ejercicios de código 1 a 3 | Cuaderno, ejercicios |
+| 115–120 | Pizarra | Cierre: de Rahman a Bellman (Unidad IV) | 7 |
+| Después | Lectura | La estática comparativa en detalle (4), la advertencia sobre Alexiadis (3.1), el resumen (8), la sección [Avanzado] del cuaderno y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -58,8 +80,8 @@ $K/Y$). Ahorra una fracción fija $s_i$ de su producto, así que el ahorro
 nacional es
 
 $$
-S = s_1Y_1 + s_2Y_2 = \gamma_1K_1 + \gamma_2K_2,
-\qquad \gamma_i = s_iv_i.
+S = s_1Y_1 + s_2Y_2 = s_1v_1K_1 + s_2v_2K_2 = \gamma_1K_1 + \gamma_2K_2,
+\qquad \boxed{\ \gamma_i = s_iv_i\ }
 $$
 
 $\gamma_i$ es el ahorro que genera una unidad de capital en la región $i$:
@@ -96,7 +118,10 @@ $$
 
 el precio sombra al final es lo que vale una unidad más de estado en el
 objetivo ([Para profundizar, P.1](#pp1)). Aquí,
-$p_i(T) = \partial Y(T)/\partial K_i(T) = v_i$.
+
+$$
+\boxed{\ p_i(T) = \frac{\partial Y(T)}{\partial K_i(T)} = v_i\ }
+$$
 
 ---
 
@@ -115,14 +140,14 @@ $H$ es lineal en $\theta$, y la función de cambio es
 $\sigma = (p_1 - p_2)S$. Como $S > 0$:
 
 $$
-\theta^\ast(t) = \begin{cases} 1 & \text{si } p_1(t) > p_2(t): \text{ todo a la región 1}, \cr 0 & \text{si } p_1(t) < p_2(t): \text{ todo a la región 2}. \end{cases}
+\boxed{\ \theta^\ast(t) = \begin{cases} 1 & \text{si } p_1(t) > p_2(t): \text{ todo a la región 1}, \cr 0 & \text{si } p_1(t) < p_2(t): \text{ todo a la región 2}. \end{cases}}
 $$
 
 **Se invierte en la región donde el capital vale más.** Las ecuaciones de
 los coestados son
 
 $$
-p_i' = -\frac{\partial H}{\partial K_i} = -\gamma_i\big(\theta p_1 + (1 - \theta)p_2\big) = -\gamma_i P,
+\boxed{\ p_i' = -\frac{\partial H}{\partial K_i} = -\gamma_i\big(\theta p_1 + (1 - \theta)p_2\big) = -\gamma_i P\ },
 \qquad P = \max\lbrace p_1, p_2\rbrace,
 $$
 

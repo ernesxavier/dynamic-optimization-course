@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 5e405b04-ce8b-11f1-bf49-e3f5f01d91ac
+# ╔═╡ 5138c7ce-cf06-11f1-b8ff-f9cb4a9915c5
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,65 +31,36 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 5e405a1e-ce8b-11f1-993d-4b88f2e5b5ae
+# ╔═╡ 5138c682-cf06-11f1-882e-4504db18781d
 md"""
 # Sesión 11: Principio del máximo
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
 
-**Pregunta de la sesión.** Una región tiene reservas de un recurso no
-renovable. ¿A qué ritmo conviene extraerlo? ¿Cuánto vale una tonelada más
-bajo tierra?
-
-**Objetivos de la sesión**
-1. Escribir el Hamiltoniano ``H = F + \lambda f`` y aplicar las condiciones
-   del principio del máximo, incluidas las soluciones de esquina.
-2. Elegir la condición de transversalidad que corresponde a cada condición
-   final.
-3. Leer el coestado como precio sombra del estado y comprobar que
-   ``\lambda = \partial V/\partial y``.
-4. Derivar la regla de Hotelling y relacionar el precio sombra con la
-   escasez del recurso.
-
-**Cómo usar este cuaderno.** Pluto es reactivo: al mover un deslizador, todo
-lo que depende de él se recalcula. Las secciones marcadas **[Avanzado]** son
-opcionales. Las demostraciones están en las notas formales,
-`Class_notes/s11_principio_del_maximo.md`.
+**Cómo usar este cuaderno.** La teoría está en las notas,
+`Class_notes/s11_principio_del_maximo.md`, y se desarrolla en el pizarrón;
+el cuaderno sirve para mover los parámetros, ver qué pasa y comprobar
+numéricamente. En clase se proyectan las secciones 1 a 4; la sección 5 y
+los ejercicios son para después. Pluto es reactivo: al mover un
+deslizador, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s11_principio_del_maximo.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B2 y C.B4 (máximos e
-integrales), C.I2 y C.I3 (concavidad y diferencial total), C.I6 (regla de
-Leibniz), D.I2 (lineales de primer orden) y D.I7 (valor inicial y valor en
-la frontera). Para los puntos [Avanzado]: C.A3, D.A3 y N.A1.
 """
 
-# ╔═╡ 5e405a5a-ce8b-11f1-926c-97e47c0b6a19
+# ╔═╡ 5138c6be-cf06-11f1-abb2-4f0dab8b601e
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 5e405a5a-ce8b-11f1-8701-6b853222d486
+# ╔═╡ 5138c6d2-cf06-11f1-a252-3ba97960bb62
 md"""
 ## 1. Un recurso no renovable
 
-La región extrae ``q(t)`` toneladas por año de reservas ``S(t)``, con
-``S' = -q``, y no puede extraer más de lo que tiene: ``S(T) \ge 0``. El
-beneficio de extraer ``q`` es ``B(q) = aq - q^2/2``, el área bajo la
-demanda ``p = a - q``; ``a`` es el **precio de ahogo**, al que nadie compra.
-El horizonte es ``T = 20`` años:
-
-```math
-\max_{q \ge 0} \int_0^T e^{-\rho t} B(q)\, dt,
-\qquad S' = -q, \quad S(0) = S_0, \quad S(T) \ge 0.
-```
-
-Con ``H = e^{-\rho t}B(q) - \lambda q``, el principio del máximo da
-``\lambda`` constante, ``q(t) = \max\{0,\ a - \lambda e^{\rho t}\}`` y la
-holgura complementaria ``\lambda S(T) = 0`` (notas, sección 5). El cuaderno
-busca por bisección el ``\lambda`` con el que la extracción total es igual a
-las reservas.
+*En clase, minutos 90–105, después de la sección 5.3 de las notas.* El
+recurso de la sección 5.1 de las notas, con ``b = 1`` y ``T = 20`` años. El
+cuaderno busca por bisección el ``\lambda`` con el que la extracción total
+es igual a las reservas.
 
 Reservas iniciales, ``S_0``: $(@bind S0 Slider(10:10:250, default = 100, show_value = true))
 
@@ -98,71 +69,61 @@ Tasa de descuento, ``\rho``: $(@bind ρ Slider(0.01:0.01:0.10, default = 0.05, s
 Precio de ahogo, ``a``: $(@bind a Slider(5:1:20, default = 10, show_value = true))
 """
 
-# ╔═╡ 5e405a78-ce8b-11f1-9662-a7bb77c92dbf
+# ╔═╡ 5138c6f0-cf06-11f1-87cf-4f1cddd37890
 md"""
 ## 2. ¿Cuánto vale una tonelada más bajo tierra?
 
-El coestado es el precio sombra del estado: ``\lambda = \partial V/\partial S_0``,
-donde ``V(S_0)`` es el bienestar óptimo. A la izquierda, ``\lambda`` para
-cada nivel de reservas, con los ``\rho`` y ``a`` de la sección 1. A la
-derecha, ``V(S_0)`` y la recta con pendiente ``\lambda`` en las reservas del
-deslizador.
+*En clase, minutos 90–105* (notas, 4.1). A la izquierda, el precio
+sombra para cada nivel de reservas; a la derecha, el valor óptimo
+``V(S_0)`` y la recta con pendiente ``\lambda``.
 """
 
-# ╔═╡ 5e405a8c-ce8b-11f1-92fd-010feae60834
+# ╔═╡ 5138c70e-cf06-11f1-aa45-85a4f3b74bea
 md"""
 ## 3. La condición 1: ``q`` maximiza ``H``
 
-En cada instante, el control maximiza el Hamiltoniano
-``H(q) = e^{-\rho t}B(q) - \lambda q`` sobre ``q \ge 0``. La gráfica muestra
-``H`` como función de ``q`` en el instante elegido, con el ``\lambda`` de la
-sección 1, y marca su máximo.
+*En clase, minutos 90–105* (notas, 2.2 y 5.2). El Hamiltoniano
+``H(q) = e^{-\rho t}B(q) - \lambda q`` en el instante elegido, con el
+``\lambda`` de la sección 1, y su máximo sobre ``q \ge 0``.
 
 Instante ``t``: $(@bind t_h Slider(0.0:0.5:20.0, default = 5.0, show_value = true))
 """
 
-# ╔═╡ 5e405a96-ce8b-11f1-9b39-4fe549a5a772
+# ╔═╡ 5138c722-cf06-11f1-be2e-17f1cc2da6d3
 md"""
-Antes de ``\tau``, el máximo es interior y ahí ``\partial H/\partial q = 0``:
-``e^{-\rho t}B'(q) = \lambda``. Si el recurso es muy escaso (prueba
-``S_0 = 30``) y ``t > \tau``, ``H`` es decreciente desde ``q = 0``: el máximo
-está en la esquina, ``q = 0``, con ``\partial H/\partial q < 0``. La
-ecuación de Euler no encuentra esta solución; el principio del máximo sí.
+1. Con ``S_0 = 100``, **mueve** ``t``: el máximo siempre es interior.
+2. **Pon** ``S_0 = 30`` en la sección 1 y mueve ``t`` después de ``\tau``
+   (unos 12 años): ¿dónde está el máximo? ¿Cuánto vale ahí
+   ``\partial H/\partial q``? Es la solución de esquina que la ecuación de
+   Euler no podía encontrar.
 """
 
-# ╔═╡ 5e405a96-ce8b-11f1-bd75-112419b96c1a
+# ╔═╡ 5138c722-cf06-11f1-a044-573ed5d2b9d0
 md"""
 ## 4. Condiciones terminales
 
-El ejemplo de las notas (sección 3): ``\max \int_0^2 (y - u^2/2)\, dt`` con
-``y' = u`` e ``y(0) = 0``. Las condiciones dan ``u = \lambda`` y
-``\lambda(t) = \lambda(2) + 2 - t``. Lo único que cambia con la condición
-final es ``\lambda(2)``:
-
-- ``y(2)`` libre: ``\lambda(2) = 0``.
-- ``y(2) \ge y_{\min}``: ``\lambda(2) \ge 0`` con holgura complementaria.
-- ``y(2) = y_{\min}`` fijo: ``\lambda(2)`` es el que cumple esa condición, sin
-  importar su signo.
+*En clase, minutos 50–57, después de la sección 3 de las notas.* El ejemplo
+de la sección 3 de las notas con las tres condiciones finales: libre (gris),
+``y(2) \ge y_{\min}`` (naranja) y ``y(2) = y_{\min}`` (azul).
 
 Estado mínimo al final, ``y_{\min}``: $(@bind ymin Slider(0.0:0.25:4.0, default = 3.0, show_value = true))
 """
 
-# ╔═╡ 5e405aaa-ce8b-11f1-bbcf-d9d5c3c15273
+# ╔═╡ 5138c736-cf06-11f1-991b-8ba2b36509cf
 md"""
-Sin restricción, ``y(2) = 2``. Si ``y_{\min} \le 2``, la restricción
-``y(2) \ge y_{\min}`` no está activa: la curva naranja coincide con la gris
-y ``\lambda(2) = 0``. Si ``y_{\min} > 2``, se activa: ``\lambda(2) =
-(y_{\min} - 2)/2 > 0``, el precio de exigir una unidad más al final. Con
-``y_{\min} < 2`` y el estado final **fijo** (azul), ``\lambda(2) < 0``:
-obligar a terminar con menos de lo que convendría tiene un precio negativo.
-Es Kuhn-Tucker en el instante final (sesión 2).
+1. **Mueve** ``y_{\min}`` por debajo de 2: ¿coinciden la curva naranja y la
+   gris? ¿Cuánto vale ``\lambda(2)``?
+2. **Súbelo** por encima de 2: ¿cuándo se activa la restricción?
+3. **Observa** la curva azul con ``y_{\min} < 2``: ¿qué signo tiene
+   ``\lambda(2)``, y qué significa?
 """
 
-# ╔═╡ 5e405aaa-ce8b-11f1-ab58-b54936d2bf48
+# ╔═╡ 5138c736-cf06-11f1-9882-f52ef223b09d
 md"""
 ## 5. [Avanzado] Hamiltoniano lineal: bang-bang
 
-Chiang (sec. 7.2, ejemplo 2): ``\max \int_0^2 (2y - 3u)\, dt`` con
+*Fuera de clase* (notas, ejercicio F5). Chiang (sec. 7.2, ejemplo 2):
+``\max \int_0^2 (2y - 3u)\, dt`` con
 ``y' = y + u``, ``y(0) = 4``, ``y(2)`` libre y ``u \in [0, 2]``. El
 Hamiltoniano ``H = (2 + \lambda)y + (\lambda - 3)u`` es **lineal** en ``u``:
 el máximo está en un extremo, ``u = 2`` si ``\lambda > 3`` y ``u = 0`` si
@@ -171,30 +132,19 @@ Con ``\lambda' = -(2 + \lambda)`` y ``\lambda(2) = 0``,
 ``\lambda(t) = 2e^{2 - t} - 2``.
 """
 
-# ╔═╡ 5e405ab4-ce8b-11f1-ac2a-0d70d5754fa4
+# ╔═╡ 5138c74a-cf06-11f1-b00d-cb6cb8649848
 md"""
-El control salta de ``u = 2`` a ``u = 0`` en ``t = 2 - \ln 2.5 \approx 1.08``,
-cuando la función de cambio cruza el cero. Al principio, una unidad de
-estado vale mucho (``\lambda`` grande) porque todavía tiene tiempo de
-crecer; cerca del final vale poco, porque ``\lambda(2) = 0``. Es la
-estructura de la sesión 13 y del reparto ``\theta(t) \in [0, 1]`` entre dos
-regiones de la sesión 14.
+**Observa** dónde cruza el cero la función de cambio y qué hace el control
+en ese instante. ¿Por qué vale poco una unidad de estado cerca del final?
+Es la estructura de las sesiones 13 y 14.
 """
 
-# ╔═╡ 5e405abe-ce8b-11f1-b16c-5f278c60410a
+# ╔═╡ 5138c754-cf06-11f1-acc9-9924fcb6ca82
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Hamiltoniano | ``H = F + \lambda f``: beneficio de hoy más el valor del cambio del estado | Secciones 1 y 3 |
-| Condición 1 | ``u`` maximiza ``H``; puede haber esquinas | ``q = 0`` después de ``\tau``; bang-bang |
-| Coestado | ``\lambda' = -H_y``; en el recurso, constante | Sección 1 |
-| Hotelling | El precio sube a la tasa ``\rho`` mientras se extrae | Línea punteada, sección 1 |
-| Transversalidad | ``\lambda(T) = 0``, holgura complementaria o estado fijo | Sección 4 |
-| Precio sombra | ``\lambda = \partial V/\partial y``; cero si el recurso sobra | Sección 2 |
-
 ## Ejercicios
+
+*Después de clase.* Los ejercicios con demostraciones están en las notas
+(sección 8).
 
 ### Completa el código
 
@@ -203,12 +153,12 @@ con precio sombra ``\lambda``, para ``a = 10``, ``b = 1`` y ``\rho = 0.05``.
 No olvides que ``q \ge 0``.
 """
 
-# ╔═╡ 5e405ac8-ce8b-11f1-bb97-69f5cac80c37
+# ╔═╡ 5138c75e-cf06-11f1-987a-19dd5fd6865f
 function extraccion(t, λ)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 5e405ad2-ce8b-11f1-a6ab-71a4bd8c724b
+# ╔═╡ 5138c772-cf06-11f1-9c85-339abe773a6e
 md"""
 **2.** Escribe `lambda_recurso(S0)`, que encuentre por bisección el precio
 sombra con ``a = 10``, ``\rho = 0.05`` y ``T = 20``. Usa `extraido(λ)`, que
@@ -217,31 +167,31 @@ devuelve la extracción total ``\int_0^T q\, dt`` con ese ``\lambda``. Si
 0 y 10.
 """
 
-# ╔═╡ 5e405adc-ce8b-11f1-a75c-a36b34868faa
+# ╔═╡ 5138c77c-cf06-11f1-abed-3f29a6d7a985
 function lambda_recurso(S0)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 5e405ae6-ce8b-11f1-aa87-e7c93fcebccf
+# ╔═╡ 5138c790-cf06-11f1-8683-437ed8c9d50d
 md"""
 **3.** Escribe `lambda_final(ymin)`, el valor de ``\lambda(2)`` en el
 ejemplo de la sección 4 con la condición ``y(2) \ge y_{\min}``.
 """
 
-# ╔═╡ 5e405ae6-ce8b-11f1-8183-e1463531829b
+# ╔═╡ 5138c790-cf06-11f1-af36-d5e4f0273517
 lambda_final(ymin) = missing  # reemplaza missing
 
-# ╔═╡ 5e405af0-ce8b-11f1-9ab5-63b989b3de4c
+# ╔═╡ 5138c7a4-cf06-11f1-99c2-51d6e33d0490
 md"""
 **4. [Avanzado]** Escribe `coestado_bb(t)`, la solución de
 ``\lambda' = -(2 + \lambda)`` con ``\lambda(2) = 0`` del problema de la
 sección 5.
 """
 
-# ╔═╡ 5e405af0-ce8b-11f1-bcff-f333b31b3c61
+# ╔═╡ 5138c7ae-cf06-11f1-9138-07485776fdfd
 coestado_bb(t) = missing  # reemplaza missing
 
-# ╔═╡ 5e405afa-ce8b-11f1-baf9-5f36be6d0771
+# ╔═╡ 5138c7b8-cf06-11f1-9627-5dce366285c3
 md"""
 ### Interpretación
 
@@ -278,7 +228,7 @@ md"""
   D.A2, A.A5 y N.A1.
 """
 
-# ╔═╡ 5e405b04-ce8b-11f1-aaf6-b542642fd88e
+# ╔═╡ 5138c7c2-cf06-11f1-a126-db92f8bf0b2c
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -287,7 +237,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 5e405b10-ce8b-11f1-be98-4f74949c5467
+# ╔═╡ 5138c7d6-cf06-11f1-a8dd-b99bb689ed6a
 begin
     const AZUL    = "#2a78d6"   # reservas, valor óptimo, Hamiltoniano
     const NARANJA = "#eb6834"   # extracción, precio sombra, óptimo
@@ -295,7 +245,7 @@ begin
     const TINTA   = "#0b0b0b"   # precio de mercado, estado
 end;
 
-# ╔═╡ 5e405a9e-ce8b-11f1-8cfd-830d20a43219
+# ╔═╡ 5138c72a-cf06-11f1-a0cd-6f342fbd8652
 let
     ts = range(0, 2, length = 200)
     casos = [("libre", 0.0, GRIS), ("y(2) ≥ y_min", max(0, (ymin - 2) / 2), NARANJA),
@@ -311,7 +261,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 5e405ab4-ce8b-11f1-87ad-45e8aa113ebd
+# ╔═╡ 5138c740-cf06-11f1-ac1a-07e2b305e736
 let
     ts = range(0, 2, length = 400)
     ts_c = 2 - log(2.5)
@@ -328,14 +278,14 @@ let
     plot(g1, g2, g3; layout = (1, 3), size = (860, 290))
 end
 
-# ╔═╡ 5e405b10-ce8b-11f1-973d-ab38cf8c4311
+# ╔═╡ 5138c7e0-cf06-11f1-ae1f-ddb9b22ca646
 "Integral de f en [0, T] con la regla de Simpson y n tramos (n par)."
 function integral(f, T; n = 2000)
     h = T / n
     h / 3 * (f(0.0) + f(T) + 4sum(f((2i - 1) * h) for i in 1:n ÷ 2) + 2sum(f(2i * h) for i in 1:n ÷ 2 - 1))
 end
 
-# ╔═╡ 5e405b18-ce8b-11f1-bbb1-dbc0a188ba32
+# ╔═╡ 5138c7e0-cf06-11f1-a59c-5164d622dbf4
 """
 Extracción total en [0, T] con precio sombra λ y demanda p = a - bq: la
 extracción es positiva hasta τ = min(T, ln(a/λ)/ρ).
@@ -346,7 +296,7 @@ function total_extraido(λ; a, b = 1.0, ρ, T)
     (a * τ - λ * (exp(ρ * τ) - 1) / ρ) / b
 end
 
-# ╔═╡ 5e405b18-ce8b-11f1-babe-7bd5adefd52f
+# ╔═╡ 5138c7ea-cf06-11f1-8d6f-6bcf793ecfbe
 """
 Solución del recurso no renovable con B(q) = aq - bq²/2: precio sombra λ
 (por bisección), fin de la extracción τ, y las funciones q(t), S(t) y el
@@ -371,10 +321,10 @@ function hotelling(S0; a, b = 1.0, ρ, T)
     (; S0, a, b, ρ, T, λ, τ, q, S, p)
 end
 
-# ╔═╡ 5e405a64-ce8b-11f1-b8dd-3dfaddf4d7d8
+# ╔═╡ 5138c6dc-cf06-11f1-b26a-09f69fc3f6d8
 recurso = hotelling(float(S0); a = float(a), ρ, T = 20.0)
 
-# ╔═╡ 5e405a6c-ce8b-11f1-a0d4-23a896b2fb22
+# ╔═╡ 5138c6e6-cf06-11f1-a22b-bdabc73a1b7c
 let
     r = recurso
     ts = range(0, r.T, length = 400)
@@ -390,7 +340,7 @@ let
     plot(g1, g2, g3; layout = (1, 3), size = (860, 300))
 end
 
-# ╔═╡ 5e405a6c-ce8b-11f1-8244-f976fcd85b6a
+# ╔═╡ 5138c6f0-cf06-11f1-b8bf-755d16137652
 let
     r = recurso
     rd(v) = round(v, digits = 3)
@@ -407,14 +357,19 @@ let
 
     $caso
 
-    La línea punteada de la derecha es ``\lambda e^{\rho t}``: mientras se
-    extrae, el precio de mercado coincide con ella y **sube a la tasa de
-    descuento** (regla de Hotelling). Baja ``S_0`` de 100 a 30 y súbelo a
-    200: la escasez decide el precio sombra.
+    La línea punteada de la derecha es ``\lambda e^{\rho t}``.
+
+    1. Con ``S_0 = 100``, **observa** que el precio sigue la línea punteada:
+       la regla de Hotelling.
+    2. **Baja** ``S_0`` a 30: ¿cuándo se detiene la extracción? ¿Qué precio
+       tiene el recurso en ese momento?
+    3. **Sube** ``S_0`` a 200 o más: ¿qué pasa con ``\lambda`` y con las
+       reservas al final?
+    4. **Sube** ``\rho``: ¿se extrae más al principio o al final?
     """
 end
 
-# ╔═╡ 5e405a8c-ce8b-11f1-a1e3-d51cd5edf6ed
+# ╔═╡ 5138c718-cf06-11f1-9c31-6f5efdfc2f41
 let
     r = recurso
     qs = range(0, 1.2r.a, length = 300)
@@ -427,11 +382,11 @@ let
     p
 end
 
-# ╔═╡ 5e405b22-ce8b-11f1-9a88-03f5eb01d660
+# ╔═╡ 5138c7f4-cf06-11f1-98ca-0f0923dc794d
 "Bienestar óptimo del recurso: ∫ e^{-ρt} B(q(t)) dt."
 valor(r) = integral(t -> exp(-r.ρ * t) * (r.a * r.q(t) - r.b * r.q(t)^2 / 2), r.T; n = 4000)
 
-# ╔═╡ 5e405a82-ce8b-11f1-a5bd-3b48e705ab33
+# ╔═╡ 5138c6f8-cf06-11f1-840b-636a5c8b1a85
 let
     r = recurso
     Ss = range(5, 250, length = 120)
@@ -449,7 +404,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 5e405a82-ce8b-11f1-a8b2-8b4dfe49a8dc
+# ╔═╡ 5138c704-cf06-11f1-b18b-db2a6ad35258
 let
     r = recurso
     vmas = valor(hotelling(r.S0 + 1; r.a, r.ρ, r.T))
@@ -460,19 +415,16 @@ let
     | Coestado, ``\lambda`` | $(round(r.λ, sigdigits = 5)) |
     | ``(V(S_0 + 1) - V(S_0 - 1))/2`` | $(round((vmas - vmenos) / 2, sigdigits = 5)) |
 
-    El precio sombra es cero mientras el recurso sobra (a la derecha de la
-    línea punteada, ``S_0 \ge aT``) y crece a medida que escasea. ``V(S_0)``
-    es cóncava: cada tonelada adicional vale menos que la anterior. Un
-    ``\lambda`` positivo dice cuánto bienestar, en valor de hoy, le da a la
-    región una tonelada más en el subsuelo.
+    **Observa:** ¿desde qué nivel de reservas una tonelada más ya no vale
+    nada (línea punteada)? ¿Por qué ``V(S_0)`` se aplana a partir de ahí?
     """
 end
 
-# ╔═╡ 5e405b22-ce8b-11f1-a853-530665a902e7
+# ╔═╡ 5138c800-cf06-11f1-a922-efc52d4fb3dd
 "Extracción total con precio sombra λ y los parámetros del ejercicio 2."
 extraido(λ) = total_extraido(λ; a = 10.0, ρ = 0.05, T = 20.0)
 
-# ╔═╡ 5e405b2c-ce8b-11f1-9ffc-6bac339d574a
+# ╔═╡ 5138c800-cf06-11f1-9b0a-cd5943388a33
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -494,63 +446,63 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 5e405ad2-ce8b-11f1-8476-2d62c122d69e
+# ╔═╡ 5138c768-cf06-11f1-8d85-17e59e563018
 verificar(() -> [extraccion(0.0, 2.0), extraccion(10.0, 2.0), extraccion(15.0, 5.0)],
           [8.0, 10 - 2exp(0.5), 0.0];
           pista = md"De ``e^{-\rho t}(a - q) = \lambda``: `max(0.0, 10 - λ * exp(0.05t))`.")
 
-# ╔═╡ 5e405adc-ce8b-11f1-b57a-03bda9319549
+# ╔═╡ 5138c786-cf06-11f1-a303-9d0ecdae9335
 verificar(() -> lambda_recurso.([30.0, 100.0, 150.0, 250.0]),
           [hotelling(s; a = 10.0, ρ = 0.05, T = 20.0).λ for s in (30.0, 100.0, 150.0, 250.0)];
           rtol = 1e-6,
           pista = md"`extraido(0.0) <= S0 && return 0.0`; después, con `lo, hi = 0.0, 10.0`, repite unas 60 veces: `m = (lo + hi) / 2`; si `extraido(m) > S0`, el precio es demasiado bajo (se extrae de más) y `lo = m`; si no, `hi = m`.")
 
-# ╔═╡ 5e405af0-ce8b-11f1-9adf-5b7c2b80985f
+# ╔═╡ 5138c79c-cf06-11f1-aaa5-35c1d4275107
 verificar(() -> lambda_final.([1.0, 2.0, 3.0, 4.0]), [0.0, 0.0, 0.5, 1.0];
           pista = md"Con ``\lambda(2) = k``, ``y(2) = 2k + 2``. Si la solución libre (``k = 0``) cumple ``y(2) \ge y_{\min}``, ``k = 0``; si no, ``2k + 2 = y_{\min}``: `max(0.0, (ymin - 2) / 2)`.")
 
-# ╔═╡ 5e405afa-ce8b-11f1-aa82-fb2b017210f9
+# ╔═╡ 5138c7b8-cf06-11f1-8d39-3b3af65060e4
 verificar(() -> coestado_bb.([0.0, 1.0, 2.0]), [2exp(2) - 2, 2exp(1) - 2, 0.0];
           pista = md"Con ``z = 2 + \lambda``, ``z' = -z``, así que ``z(t) = z(2)e^{2-t} = 2e^{2-t}``: `2exp(2 - t) - 2`.")
 
 # ╔═╡ Cell order:
-# ╟─5e405a1e-ce8b-11f1-993d-4b88f2e5b5ae
-# ╟─5e405a5a-ce8b-11f1-926c-97e47c0b6a19
-# ╟─5e405a5a-ce8b-11f1-8701-6b853222d486
-# ╠═5e405a64-ce8b-11f1-b8dd-3dfaddf4d7d8
-# ╟─5e405a6c-ce8b-11f1-a0d4-23a896b2fb22
-# ╟─5e405a6c-ce8b-11f1-8244-f976fcd85b6a
-# ╟─5e405a78-ce8b-11f1-9662-a7bb77c92dbf
-# ╟─5e405a82-ce8b-11f1-a5bd-3b48e705ab33
-# ╟─5e405a82-ce8b-11f1-a8b2-8b4dfe49a8dc
-# ╟─5e405a8c-ce8b-11f1-92fd-010feae60834
-# ╟─5e405a8c-ce8b-11f1-a1e3-d51cd5edf6ed
-# ╟─5e405a96-ce8b-11f1-9b39-4fe549a5a772
-# ╟─5e405a96-ce8b-11f1-bd75-112419b96c1a
-# ╟─5e405a9e-ce8b-11f1-8cfd-830d20a43219
-# ╟─5e405aaa-ce8b-11f1-bbcf-d9d5c3c15273
-# ╟─5e405aaa-ce8b-11f1-ab58-b54936d2bf48
-# ╟─5e405ab4-ce8b-11f1-87ad-45e8aa113ebd
-# ╟─5e405ab4-ce8b-11f1-ac2a-0d70d5754fa4
-# ╟─5e405abe-ce8b-11f1-b16c-5f278c60410a
-# ╠═5e405ac8-ce8b-11f1-bb97-69f5cac80c37
-# ╟─5e405ad2-ce8b-11f1-8476-2d62c122d69e
-# ╟─5e405ad2-ce8b-11f1-a6ab-71a4bd8c724b
-# ╠═5e405adc-ce8b-11f1-a75c-a36b34868faa
-# ╟─5e405adc-ce8b-11f1-b57a-03bda9319549
-# ╟─5e405ae6-ce8b-11f1-aa87-e7c93fcebccf
-# ╠═5e405ae6-ce8b-11f1-8183-e1463531829b
-# ╟─5e405af0-ce8b-11f1-9adf-5b7c2b80985f
-# ╟─5e405af0-ce8b-11f1-9ab5-63b989b3de4c
-# ╠═5e405af0-ce8b-11f1-bcff-f333b31b3c61
-# ╟─5e405afa-ce8b-11f1-aa82-fb2b017210f9
-# ╟─5e405afa-ce8b-11f1-baf9-5f36be6d0771
-# ╟─5e405b04-ce8b-11f1-aaf6-b542642fd88e
-# ╠═5e405b04-ce8b-11f1-bf49-e3f5f01d91ac
-# ╠═5e405b10-ce8b-11f1-be98-4f74949c5467
-# ╠═5e405b10-ce8b-11f1-973d-ab38cf8c4311
-# ╠═5e405b18-ce8b-11f1-bbb1-dbc0a188ba32
-# ╠═5e405b18-ce8b-11f1-babe-7bd5adefd52f
-# ╠═5e405b22-ce8b-11f1-9a88-03f5eb01d660
-# ╠═5e405b22-ce8b-11f1-a853-530665a902e7
-# ╠═5e405b2c-ce8b-11f1-9ffc-6bac339d574a
+# ╟─5138c682-cf06-11f1-882e-4504db18781d
+# ╟─5138c6be-cf06-11f1-abb2-4f0dab8b601e
+# ╟─5138c6d2-cf06-11f1-a252-3ba97960bb62
+# ╠═5138c6dc-cf06-11f1-b26a-09f69fc3f6d8
+# ╟─5138c6e6-cf06-11f1-a22b-bdabc73a1b7c
+# ╟─5138c6f0-cf06-11f1-b8bf-755d16137652
+# ╟─5138c6f0-cf06-11f1-87cf-4f1cddd37890
+# ╟─5138c6f8-cf06-11f1-840b-636a5c8b1a85
+# ╟─5138c704-cf06-11f1-b18b-db2a6ad35258
+# ╟─5138c70e-cf06-11f1-aa45-85a4f3b74bea
+# ╟─5138c718-cf06-11f1-9c31-6f5efdfc2f41
+# ╟─5138c722-cf06-11f1-be2e-17f1cc2da6d3
+# ╟─5138c722-cf06-11f1-a044-573ed5d2b9d0
+# ╟─5138c72a-cf06-11f1-a0cd-6f342fbd8652
+# ╟─5138c736-cf06-11f1-991b-8ba2b36509cf
+# ╟─5138c736-cf06-11f1-9882-f52ef223b09d
+# ╟─5138c740-cf06-11f1-ac1a-07e2b305e736
+# ╟─5138c74a-cf06-11f1-b00d-cb6cb8649848
+# ╟─5138c754-cf06-11f1-acc9-9924fcb6ca82
+# ╠═5138c75e-cf06-11f1-987a-19dd5fd6865f
+# ╟─5138c768-cf06-11f1-8d85-17e59e563018
+# ╟─5138c772-cf06-11f1-9c85-339abe773a6e
+# ╠═5138c77c-cf06-11f1-abed-3f29a6d7a985
+# ╟─5138c786-cf06-11f1-a303-9d0ecdae9335
+# ╟─5138c790-cf06-11f1-8683-437ed8c9d50d
+# ╠═5138c790-cf06-11f1-af36-d5e4f0273517
+# ╟─5138c79c-cf06-11f1-aaa5-35c1d4275107
+# ╟─5138c7a4-cf06-11f1-99c2-51d6e33d0490
+# ╠═5138c7ae-cf06-11f1-9138-07485776fdfd
+# ╟─5138c7b8-cf06-11f1-8d39-3b3af65060e4
+# ╟─5138c7b8-cf06-11f1-9627-5dce366285c3
+# ╟─5138c7c2-cf06-11f1-a126-db92f8bf0b2c
+# ╠═5138c7ce-cf06-11f1-b8ff-f9cb4a9915c5
+# ╠═5138c7d6-cf06-11f1-a8dd-b99bb689ed6a
+# ╠═5138c7e0-cf06-11f1-ae1f-ddb9b22ca646
+# ╠═5138c7e0-cf06-11f1-a59c-5164d622dbf4
+# ╠═5138c7ea-cf06-11f1-8d6f-6bcf793ecfbe
+# ╠═5138c7f4-cf06-11f1-98ca-0f0923dc794d
+# ╠═5138c800-cf06-11f1-a922-efc52d4fb3dd
+# ╠═5138c800-cf06-11f1-9b0a-cd5943388a33

@@ -9,32 +9,17 @@ donde se produce más?
 ahorraría y a qué velocidad cerraría una brecha de capital? ¿Se parece a
 lo que muestran los datos?
 
-**Objetivos de la sesión**
-1. Usar el Hamiltoniano a valor presente y la transversalidad en horizonte
-   infinito para derivar el modelo de Ramsey.
-2. Calibrar el modelo con la Penn World Table: de dónde sale cada
-   parámetro y cuál se elige para reproducir un dato.
-3. Interpretar el estado estacionario calibrado, compararlo con los datos y
-   ver cómo cambia con los supuestos.
-4. Calcular la velocidad de convergencia que predice el modelo y
-   compararla con la de la sesión 5.
-
-**Cómo usar este cuaderno.** El cuaderno llega con los datos cargados y la
-calibración hecha: en clase se interpreta y se mueven los supuestos. Pluto
-es reactivo: al cambiar un supuesto, todo lo que depende de él se
-recalcula. Las secciones marcadas **[Avanzado]** son opcionales. Las
-demostraciones están en las notas formales,
-`Class_notes/s12_horizonte_infinito.md`.
+**Cómo usar este cuaderno.** La primera hora de la clase es de pizarrón (el
+Hamiltoniano a valor presente, la transversalidad y el modelo de Ramsey,
+en las notas, `Class_notes/s12_horizonte_infinito.md`). La segunda hora
+**sigue este cuaderno**: llega con los datos cargados y la calibración
+hecha, y en clase se interpreta y se mueven los supuestos. Cada sección dice
+en qué momento de la clase se usa y qué hacer. Pluto es reactivo: al
+cambiar un supuesto, todo lo que depende de él se recalcula.
 
 **Cómo abrirlo.** Desde la raíz del repositorio:
 `julia --project=Code -e 'using Pluto; Pluto.run()'` y abrir
 `Code/s12_ramsey.jl`.
-
-**Repaso recomendado** (en `Class_notes/repaso/`): C.B3 y C.B4, A.B3
-(descuento), E.B2 (tasas de crecimiento con datos), L.I1 y L.I2
-(eigenvalores), D.I6 y D.I7 (diagramas de fase y valor en la frontera),
-E.I3 (calibración) y N.I7 (datos en Julia). Para los puntos [Avanzado]:
-D.A2, A.A5 y N.A1.
 """
 
 #%% hide
@@ -44,37 +29,20 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. El modelo
 
-Con capital por trabajador ``k``, producto ``f(k) = Ak^\alpha``, depreciación
-``\delta``, crecimiento del empleo ``n`` y utilidad CRRA, el planificador
-resuelve
-
-```math
-\max_c \int_0^\infty e^{-(\rho - n)t}\, \frac{c^{1-\theta} - 1}{1 - \theta}\, dt,
-\qquad k' = f(k) - (\delta + n)k - c.
-```
-
-El Hamiltoniano a valor presente,
-``H_c = u(c) + \mu\big(f(k) - (\delta + n)k - c\big)``, da
-``u'(c) = \mu`` y ``\mu'/\mu = \rho + \delta - f'(k)``, de donde sale la regla
-de Keynes-Ramsey:
-
-```math
-\frac{c'}{c} = \frac{f'(k) - \delta - \rho}{\theta}.
-```
-
-El estado estacionario cumple ``f'(k^\ast) = \delta + \rho`` y
-``c^\ast = f(k^\ast) - (\delta + n)k^\ast``; la transversalidad,
-``\lim e^{-(\rho - n)t}\mu(t)k(t) = 0``, elige la rama estable del punto de
-silla (notas, sección 4).
+El modelo de Ramsey de la sección 4 de las notas, con producción
+``f(k) = Ak^\alpha``, depreciación ``\delta``, crecimiento del empleo ``n`` y
+utilidad CRRA con parámetro ``\theta``. El cuaderno usa la regla de
+Keynes-Ramsey, el estado estacionario ``f'(k^\ast) = \delta + \rho`` y la
+rama estable del punto de silla, todo derivado en el pizarrón.
 """
 
 #%% hide
 md"""
 ## 2. Los datos: México en la Penn World Table
 
-Las series vienen de `Data/pwt_mexico.csv` (Penn World Table 11.0). La
-calibración usa los promedios del periodo elegido; la línea punteada de
-cada gráfica es el valor que usa el modelo.
+*Minutos 70–80* (notas, 5.1, lectura previa). Las series de
+`Data/pwt_mexico.csv` (Penn World Table 11.0); la línea punteada de cada
+gráfica es el promedio del periodo que usa la calibración.
 
 Periodo de la calibración: $(@bind desde Select([1990 => "1990–2019", 2000 => "2000–2019", 1980 => "1980–2019", 1950 => "1950–2019"]))
 """
@@ -115,12 +83,12 @@ let
     | Inversión entre producto, `csh_i` | $(pct(d.s)) |
     | Crecimiento del producto por trabajador | $(pct(d.gy)) anual |
 
-    Desde 1980, el producto por trabajador casi no crece: por eso el modelo
-    no tiene progreso técnico. El cociente ``K/Y`` sí sube: México acumuló
-    capital sin que el producto por trabajador aumentara. La participación
-    del trabajo es exactamente constante hasta 1993: la PWT parece extender
-    un mismo valor hacia atrás, así que los periodos que empiezan antes de
-    1994 la usan con esa salvedad.
+    1. **Observa** el producto por trabajador desde 1980: ¿crece? ¿Qué
+       implica para el modelo?
+    2. **Compara** ``K/Y`` con el producto por trabajador: ¿qué acumuló
+       México sin que el producto creciera?
+    3. **Cambia** el periodo a 1950–2019: ¿qué pasa con la participación del
+       trabajo antes de 1994? (Notas, 5.1.)
     """
 end
 
@@ -128,13 +96,10 @@ end
 md"""
 ## 3. La calibración
 
-- ``\delta`` y ``n`` salen directamente de los datos.
-- ``\alpha`` es uno menos la participación del trabajo, o el valor
-  convencional ``1/3`` (notas, sección 5.4).
-- ``\rho`` se elige para que el estado estacionario reproduzca el ``K/Y`` de
-  los datos: ``\rho = \alpha/(K/Y) - \delta``.
-- ``\theta`` no se puede obtener de estos datos: se supone.
-- ``A`` sólo fija las unidades: el producto de estado estacionario es 1.
+*Minutos 80–95* (notas, 5.2–5.4). ``\delta`` y ``n`` salen de los datos;
+``\alpha``, de la participación del trabajo o del valor convencional;
+``\rho``, de reproducir el ``K/Y`` de los datos; ``\theta`` se supone; ``A``
+normaliza el producto de estado estacionario a 1.
 
 Participación del capital, ``\alpha``: $(@bind fuente_α Select(["pwt" => "de la PWT: 1 − participación del trabajo", "convencional" => "convencional: 1/3"]))
 
@@ -168,12 +133,14 @@ let
 
     $aviso
 
-    El ahorro del modelo se parece al de los datos, pero es una identidad de
-    cualquier estado estacionario: no prueba que México ahorre de manera
-    óptima. Cambia ``\alpha``: el ``\rho`` calibrado cambia mucho, porque el
-    modelo atribuye a la impaciencia todo el rendimiento del capital. Sube
-    ``\theta``: el estado estacionario no cambia, pero la convergencia se
-    vuelve más lenta.
+    1. **Compara** el ahorro del modelo con el de los datos. ¿Prueba que
+       México ahorra de manera óptima? (Pista: ¿de qué depende ``s^\ast``?)
+    2. **Cambia** ``\alpha`` a 1/3: ¿cuánto cambia el ``\rho`` calibrado? ¿Por
+       qué tanto?
+    3. **Sube** ``\theta``: ¿qué cambia, el estado estacionario o la
+       velocidad de convergencia?
+    4. **Compara** la vida media con la convergencia que se midió entre los
+       estados en la sesión 5.
     """
 end
 
@@ -181,11 +148,10 @@ end
 md"""
 ## 4. Diagrama de fase y transición
 
-Una economía empieza con una fracción de su capital de estado estacionario
-y consume lo que indica la rama estable. En el diagrama, la curva azul es la
-isoclina ``k' = 0``, la recta punteada es ``c' = 0`` y la curva naranja es la
-rama estable. Las unidades son múltiplos del producto de estado
-estacionario.
+*Minutos 95–108.* El diagrama de fase calibrado: la isoclina ``k' = 0``
+(azul), la recta ``c' = 0`` (punteada) y la rama estable (naranja), en
+múltiplos del producto de estado estacionario. La economía empieza con una
+fracción de ``k^\ast`` y consume lo que indica la rama estable.
 
 Capital inicial, como fracción de ``k^\ast``: $(@bind k0_frac Slider(0.3:0.05:1.5, default = 0.5, show_value = true))
 """
@@ -223,24 +189,20 @@ end
 
 #%% hide
 md"""
-La línea vertical marca la vida media: el tiempo en que se cierra la mitad
-de la brecha de capital. Una economía con poco capital **ahorra más** que en
-el estado estacionario, porque ahí el capital rinde más (sesión 8). Con la
-calibración base, la vida media es de 10 a 17 años, según ``\alpha``: el
-modelo predice convergencia rápida. En la sesión 5, entre los estados de
-México no hubo convergencia absoluta. ¿Qué le falta al modelo, o qué
-distingue a los estados? (Notas, sección 5.4.)
+1. **Observa** la tasa de ahorro durante la transición: ¿ahorra más una
+   economía con poco capital? ¿Por qué?
+2. **Mueve** ``k_0`` a 0.3 y a 1.5 de ``k^\ast``: ¿cuánto tarda en cerrarse
+   la mitad de la brecha (línea vertical)?
 """
 
 #%% hide
 md"""
-## 5. [Avanzado] La transversalidad elige la rama
+## 5. La transversalidad elige la rama
 
-Desde el mismo capital inicial, tres consumos iniciales: el de la rama
-estable y uno 2% mayor y otro 2% menor. Las tres trayectorias cumplen la
-regla de Keynes-Ramsey y la ecuación del capital. La gráfica de la derecha
-muestra el valor descontado del capital, ``e^{-(\rho - n)t}\mu(t)k(t)`` con
-``\mu = u'(c) = c^{-\theta}``, en escala logarítmica.
+*Minutos 95–108* (notas, 4.5). Desde el mismo capital inicial, tres
+consumos iniciales: el de la rama estable, uno 2% mayor y otro 2% menor. A
+la derecha, el valor descontado del capital,
+``e^{-(\rho - n)t}\mu(t)k(t)``, en escala logarítmica.
 """
 
 #%% hide
@@ -268,28 +230,16 @@ end
 
 #%% hide
 md"""
-Con 2% más, el capital se agota en pocas décadas y la trayectoria termina:
-no es factible. Con 2% menos, el consumo cae hacia cero, el capital se
-acerca a ``k_{\max}`` y el valor descontado del capital **deja de bajar y
-crece**: viola la transversalidad. Sobre la rama estable tiende a cero. La
-transversalidad es la condición terminal que elige ``c_0`` (notas, sección
-4.5).
+**Observa** qué le pasa a cada trayectoria: ¿cuál deja de ser factible?
+¿Cuál cumple todas las condiciones menos la transversalidad?
 """
 
 #%% hide
 md"""
-## Resumen
-
-| Herramienta | Qué dice | En este cuaderno |
-|---|---|---|
-| Hamiltoniano a valor presente | ``\mu' = \rho\mu - \partial H_c/\partial y``; sistema autónomo | Sección 1 |
-| Regla de oro modificada | ``f'(k^\ast) = \delta + \rho`` | Recta punteada del diagrama |
-| Calibración | ``\rho = \alpha/(K/Y) - \delta`` reproduce el ``K/Y`` de los datos | Sección 3 |
-| Ahorro de estado estacionario | ``s^\ast = (\delta + n)K/Y``: identidad, no prueba de optimalidad | Tabla de la sección 3 |
-| Velocidad de convergencia | ``\beta``, el eigenvalor estable; vida media ``\ln 2/\beta`` | Sección 4 |
-| Transversalidad | Elige la rama estable | Sección 5 |
-
 ## Ejercicios
+
+*Minutos 108–118, en parejas: ejercicios 1 a 3.* Los ejercicios con
+demostraciones están en las notas (sección 8).
 
 ### Completa el código
 

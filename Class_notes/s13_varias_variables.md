@@ -1,10 +1,14 @@
 # Sesión 13: Varias variables de estado y de control
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s13_varias_variables.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s13_varias_variables.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.I2](repaso/calculo.md#ci2) (concavidad) y
@@ -13,6 +17,26 @@
 > maximización parcial).
 >
 > Lecturas: Chiang (1992), secs. 8.3 y 8.4; Sethi (2021), secs. 2.3 y 2.4.
+
+**Plan de clase** (120 minutos). En esta sesión el pizarrón va de lo
+concreto a lo general: primero la función de cambio y la práctica
+(secciones 2 y 3), después varios estados (sección 1).
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Pizarra | La pregunta: las tres piezas que faltan para la sesión 14 | 0 |
+| 5–15 | Pizarra | Hamiltoniano lineal en el control, función de cambio y regla bang-bang | 2.1 |
+| 15–40 | Pizarra | Invertir o consumir: los cinco pasos hasta $t^\ast = T - 1/v$; el plazo de recuperación | 3.1–3.3 (con el procedimiento de 2.2) |
+| 40–55 | Proyector | El bang-bang con deslizadores; las tasas fijas contra el óptimo | Cuaderno, secciones 1 y 2 |
+| 55–60 | | Pausa | |
+| 60–65 | Pizarra | Con descuento: el resultado y por qué la impaciencia adelanta el cambio | 3.3 |
+| 65–82 | Pizarra | Varios estados: el ejemplo de infraestructura y capital privado | 1.1, 1.2 |
+| 82–88 | Proyector | Coestados encadenados y gasto en infraestructura | Cuaderno, sección 3 |
+| 88–103 | Pizarra | Mangasarian y Arrow; por qué en la práctica sólo aplica Arrow | 4.1–4.3 |
+| 103–108 | Proyector | Prueba numérica: ningún control al azar supera al bang-bang | Cuaderno, sección 4 |
+| 108–118 | Parejas | Ejercicio F2 a mano | 7 |
+| 118–120 | Pizarra | Cierre: el caso de dos regiones (sesión 14) | 5 |
+| Después | Lectura | La tabla de 3.3, la suficiencia en horizonte infinito (final de 4.3), el resumen (6), la sección [Avanzado] del cuaderno y Para profundizar (Mangasarian y arcos singulares) | |
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -191,7 +215,7 @@ $$
 **Paso 4.** $\lambda$ llega a 1 cuando $v(T - t) = 1$:
 
 $$
-t^\ast = T - \frac{1}{v}.
+\boxed{\ t^\ast = T - \frac{1}{v}\ }
 $$
 
 **Paso 5.** Antes de $t^\ast$, con $u = 1$, $\lambda' = -v\lambda$, así que
@@ -229,7 +253,10 @@ $\mu(t) = (v/\rho)\big(1 - e^{-\rho(T - t)}\big)$, y el cambio ocurre cuando
 $\mu = 1$:
 
 $$
-T - t^\ast = -\frac{1}{\rho}\ln\Big(1 - \frac{\rho}{v}\Big),
+\frac{v}{\rho}\big(1 - e^{-\rho(T - t^\ast)}\big) = 1
+\iff e^{-\rho(T - t^\ast)} = 1 - \frac{\rho}{v}
+\iff
+\boxed{\ T - t^\ast = -\frac{1}{\rho}\ln\Big(1 - \frac{\rho}{v}\Big)\ }
 $$
 
 si $v > \rho$; si $v \le \rho$, no conviene invertir nunca. Con $\rho \to 0$

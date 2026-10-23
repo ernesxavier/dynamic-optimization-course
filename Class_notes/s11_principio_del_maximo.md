@@ -1,10 +1,14 @@
 # Sesión 11: Principio del máximo
 
-> **Cómo leer estas notas.** Siguen el orden del programa: primero se explora
-> en el cuaderno (`Code/s11_principio_del_maximo.jl`), después se formaliza
-> aquí. El cuerpo de las notas es la **ruta básica**: se ve en clase y se
-> evalúa. Las demostraciones y los temas opcionales están al final, en
-> **Para profundizar**; donde estaban queda una línea que los enlaza.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
+> notas en su orden. El **plan de clase** de abajo dice qué secciones se
+> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s11_principio_del_maximo.jl`) y qué queda para leer. En el pizarrón
+> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
+> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
+> demostraciones y los temas opcionales están al final, en **Para
+> profundizar**, y no se ven en clase.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.B4](repaso/calculo.md#cb4) (integrales),
@@ -20,6 +24,24 @@
 >
 > Lecturas: Chiang (1992), cap. 7 y sec. 8.1; Chiang y Wainwright (2006),
 > cap. 20.
+
+**Plan de clase** (120 minutos)
+
+| Minutos | Dónde | Qué | Secciones |
+|---|---|---|---|
+| 0–5 | Pizarra | La pregunta: un recurso no renovable | 0 |
+| 5–15 | Pizarra | El problema de control óptimo: estado, control y ecuación de movimiento; los dos ejemplos, de palabra | 1 |
+| 15–33 | Pizarra | El principio del máximo; "maximiza" en lugar de "derivada igual a cero"; el fondo con el gasto como control | 2.1–2.3 |
+| 33–50 | Pizarra | Condiciones terminales: la tabla y el ejemplo con $y(T)$ libre y acotado | 3 |
+| 50–57 | Proyector | El mismo ejemplo con un deslizador para $y_{\min}$ | Cuaderno, sección 4 |
+| 57–62 | | Pausa | |
+| 62–72 | Pizarra | El coestado como precio sombra; la condición de arbitraje | 4.1, 4.2 |
+| 72–90 | Pizarra | El recurso: la regla de Hotelling, los tres casos y la fórmula de $\lambda$ | 5.1–5.3 |
+| 90–105 | Proyector | Hotelling con deslizadores; el precio sombra contra las reservas; $H(q)$ y la solución de esquina | Cuaderno, secciones 1 a 3 |
+| 105–110 | Pizarra | Si la región elige cuándo cerrar la mina | 5.4 |
+| 110–118 | Parejas | Ejercicio F4 a mano | 8 |
+| 118–120 | Pizarra | Cierre: horizonte infinito (sesión 12) | 6 |
+| Después | Lectura | La tabla de los tres casos (5.3), el resumen (7), la sección [Avanzado] del cuaderno y Para profundizar | |
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -81,7 +103,7 @@ El cálculo de variaciones es el caso $f = u$ y $U = \mathbb{R}$.
 Se define el **Hamiltoniano**
 
 $$
-H(t, y, u, \lambda) = F(t, y, u) + \lambda\thinspace f(t, y, u),
+\boxed{\ H(t, y, u, \lambda) = F(t, y, u) + \lambda\thinspace f(t, y, u)\ }
 $$
 
 donde $\lambda(t)$ es el **coestado**.
@@ -178,7 +200,7 @@ Sea $V(t, y)$ el valor óptimo del problema que empieza en el instante $t$
 con el estado $y$. Entonces, sobre la trayectoria óptima,
 
 $$
-\lambda(t) = \frac{\partial V}{\partial y}\big(t, y^\ast(t)\big).
+\boxed{\ \lambda(t) = \frac{\partial V}{\partial y}\big(t, y^\ast(t)\big)\ }
 $$
 
 $\lambda(t)$ es cuánto sube el valor total si en el instante $t$ hubiera
@@ -247,7 +269,9 @@ El Hamiltoniano es $H = e^{-\rho t}B(q) - \lambda q$.
 - **Condición 3**: $\lambda' = -\partial H/\partial S = 0$. El coestado es
   una constante, $\lambda$.
 - **Condición 1**: $H$ es cóncava en $q$; su máximo en $q \ge 0$ es
-  $e^{-\rho t}B'(q) = \lambda$ si eso da $q > 0$, y $q = 0$ si no:
+  $e^{-\rho t}B'(q) = \lambda$ si eso da $q > 0$, y $q = 0$ si no. Con
+  $B'(q) = a - bq$, la primera da $a - bq = \lambda e^{\rho t}$, es decir,
+  $q = (a - \lambda e^{\rho t})/b$:
 
 $$
 q(t) = \max\Big\lbrace 0,\ \frac{a - \lambda e^{\rho t}}{b}\Big\rbrace.
@@ -258,7 +282,7 @@ $$
 Mientras se extrae, el precio de mercado es
 
 $$
-p(t) = B'(q(t)) = \lambda\thinspace e^{\rho t}:
+\boxed{\ p(t) = B'(q(t)) = \lambda\thinspace e^{\rho t}\ }
 $$
 
 **el precio del recurso sube a la tasa de descuento**. Es la regla de
@@ -280,7 +304,14 @@ La transversalidad separa dos situaciones.
   hasta $T$, la condición $\int_0^T q\thinspace dt = S_0$ da
 
 $$
-\lambda = \frac{\rho\thinspace(aT - bS_0)}{e^{\rho T} - 1}.
+\begin{aligned}
+S_0 = \int_0^T \frac{a - \lambda e^{\rho t}}{b}\thinspace dt
+&= \frac{1}{b}\Big(aT - \lambda\thinspace\frac{e^{\rho T} - 1}{\rho}\Big) \cr
+\Longrightarrow\quad
+\lambda\thinspace\frac{e^{\rho T} - 1}{\rho} = aT - bS_0
+&\quad\Longrightarrow\quad
+\boxed{\ \lambda = \frac{\rho\thinspace(aT - bS_0)}{e^{\rho T} - 1}\ }
+\end{aligned}
 $$
 
 - **Recurso muy escaso.** Si con ese $\lambda$ el precio $\lambda e^{\rho t}$
