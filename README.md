@@ -45,7 +45,7 @@ CISE, UAdeC), con cuadernos en Julia.
 | 8 | Estabilidad no lineal | `s08_estabilidad_no_lineal.md` | `s08_estabilidad_no_lineal.jl` |
 | 9 | Laboratorio 1: diagramas de fase | | `s09_laboratorio_1.jl` |
 | 10 | Cálculo de variaciones | `s10_calculo_de_variaciones.md` | `s10_calculo_de_variaciones.jl` |
-| 11 | Principio del máximo | `s11_principio_del_maximo.md` | |
+| 11 | Principio del máximo | `s11_principio_del_maximo.md` | `s11_principio_del_maximo.jl` |
 | 12 | Horizonte infinito y Ramsey | `s12_horizonte_infinito.md` | `s12_ramsey.jl` |
 | 13 | Varias variables, bang-bang | `s13_varias_variables.md` | |
 | 14 | Caso: inversión entre dos regiones | `s14_dos_regiones.md` | `s14_dos_regiones.jl` |
