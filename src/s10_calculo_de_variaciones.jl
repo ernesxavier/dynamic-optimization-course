@@ -230,10 +230,11 @@ mismo presupuesto, porque respeta ``W(0)`` y ``W(T)``: lo que cambia es
 md"""
 ## 4. El mismo problema con el Hamiltoniano
 
-Con estado ``W`` y control ``u = W'``, el Hamiltoniano es
-``H = e^{-\rho t}u(rW - u) + \lambda u``. Sus condiciones son:
+Con estado ``W`` y control ``z = W'`` (la letra ``u`` ya es la
+utilidad), el Hamiltoniano es ``H = e^{-\rho t}u(rW - z) + \lambda z``. Sus
+condiciones son:
 
-- ``\partial H/\partial u = 0``: ``\lambda = e^{-\rho t}u'(c)``.
+- ``\partial H/\partial z = 0``: ``\lambda = e^{-\rho t}u'(c)``.
 - ``\lambda' = -\partial H/\partial W = -r\lambda``, así que
   ``\lambda(t) = \lambda_0 e^{-rt}``.
 

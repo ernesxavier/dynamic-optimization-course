@@ -194,28 +194,33 @@ md"""
 En la práctica de la sección 1, ``f = uvK`` no es cóncava en ``(K, u)``:
 Mangasarian no aplica. Arrow sí, porque el Hamiltoniano maximizado,
 ``H^0 = vK\max\{1, \mu\}``, es lineal en ``K`` (notas, sección 4.3). Una
-prueba numérica: se generan 400 controles al azar, constantes por tramos
-de un año con valores en ``[0, 1]``, y se compara su bienestar con el del
-bang-bang.
+prueba numérica con dos familias de competidores: 400 controles al azar,
+constantes por tramos de un año con valores en ``[0, 1]`` (azul), y 400
+controles bang-bang con un tiempo de cambio al azar (gris), que se parecen
+mucho más al óptimo.
 """
 
 #%% hide
 let
     r = region
     Ws = valores_al_azar(r; n = 400)
-    p = histogram(Ws; bins = 30, color = AZUL, alpha = 0.6, xlabel = "bienestar",
+    Wb = valores_cambio_al_azar(r; n = 400)
+    cortes = range(0, r.valor, length = 41)      # las barras terminan en el óptimo
+    p = histogram(Ws; bins = cortes, color = AZUL, alpha = 0.6, xlabel = "bienestar",
                   ylabel = "controles al azar", title = "Ningún control al azar supera al bang-bang",
                   size = (640, 320), linecolor = :white)
+    histogram!(p, Wb; bins = cortes, color = GRIS, alpha = 0.5, linecolor = :white)
     vline!(p, [r.valor]; color = NARANJA, lw = 2.5)
     p
 end
 
 #%% hide
 md"""
-La línea naranja es el bienestar del bang-bang. Ningún control al azar la
-supera, como garantiza el teorema de Arrow. No es una demostración (podría
-haber un control mejor que no se generó), pero es una buena verificación
-de que el candidato no tiene un error.
+La línea naranja es el bienestar del bang-bang óptimo. Ningún control la
+supera, como garantiza el teorema de Arrow. Los bang-bang con cambio al azar
+(gris) se acercan, y los mejores son los que cambian cerca de ``t^\ast``.
+No es una demostración (podría haber un control mejor que no se generó),
+pero es una buena verificación de que el candidato no tiene un error.
 """
 
 #%% hide
@@ -442,6 +447,20 @@ function valores_al_azar(r; n = 400, semilla = 13)
             K *= exp(u * r.v * (b - a))
         end
         W
+    end
+end
+
+#%%
+"""
+Bienestar de n controles bang-bang con un tiempo de cambio al azar en
+[0, T]: se invierte todo antes del cambio y se consume todo después.
+"""
+function valores_cambio_al_azar(r; n = 400, semilla = 31)
+    rng = MersenneTwister(semilla)
+    map(1:n) do _
+        tc = r.T * rand(rng)
+        K = exp(r.v * tc)                 # capital al momento del cambio
+        integral(t -> t < tc ? 0.0 : exp(-r.ρ * t) * r.v * K, r.T; n = 2000)
     end
 end
 

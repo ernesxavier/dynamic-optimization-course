@@ -9,3 +9,6 @@ Data/raw/
 .ipynb_checkpoints/
 .vscode/
 
+
+# Material privado del profesor (soluciones): nunca subir
+privado/

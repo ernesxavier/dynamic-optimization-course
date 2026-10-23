@@ -476,7 +476,7 @@ programación dinámica: el coestado es la derivada de la función valor
 - Chiang, A. C., & Wainwright, K. (2006). *Métodos fundamentales de
   economía matemática* (4.ª ed.). McGraw-Hill.
 - Hotelling, H. (1931). The economics of exhaustible resources. *Journal of
-  Political Economy*, 39(2), 137–175.
+  Political Economy*, 39(2), 137–175. https://doi.org/10.1086/254195
 - Pontryagin, L. S., Boltyanskii, V. G., Gamkrelidze, R. V., & Mishchenko,
   E. F. (1962). *The Mathematical Theory of Optimal Processes*.
   Interscience.

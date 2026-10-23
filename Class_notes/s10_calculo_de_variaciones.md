@@ -13,7 +13,9 @@
 > orden); para Para profundizar, [C.A3](repaso/calculo.md#ca3) (funcionales
 > y primera variación).
 >
-> Lecturas: Chiang (1992), caps. 1 y 2.
+> Lecturas: Chiang (1992), caps. 1 y 2. Consulta: Sethi (2021), ejemplos
+> 3.2 y 3.3 (el fondo regional con utilidad logarítmica, resuelto con el
+> Hamiltoniano).
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -101,7 +103,13 @@ $$
 
 con $u(c) = \ln c$ cuando $\theta = 1$. El parámetro $\theta$ mide cuánto
 le disgusta al gobierno que el gasto varíe en el tiempo: es el mismo de la
-sesión 8.
+sesión 8, y es la letra que usan los libros de crecimiento. **Ojo:** en la
+sesión 14, $\theta(t)$ es otra cosa, el reparto de la inversión entre dos
+regiones. El contexto distingue los dos usos: el de la utilidad es un
+número fijo; el del reparto, un control que cambia en el tiempo.
+
+Con utilidad logarítmica, este es el problema de consumo de Sethi (2021,
+ejemplos 3.2 y 3.3), que lo resuelve con el Hamiltoniano.
 
 ---
 
@@ -324,10 +332,10 @@ ecuaciones de primer orden**, una para el estado y otra para el coestado.
 
 ### 4.3 El fondo regional, por el segundo camino
 
-Con $u = W'$, $H = e^{-\rho t}u(rW - W') + \lambda W'$. Las condiciones
-son:
+Aquí la letra $u$ ya es la utilidad, así que el control se llama
+$z = W'$. Con $H = e^{-\rho t}u(rW - z) + \lambda z$, las condiciones son:
 
-- $\partial H/\partial W' = 0$: $\lambda = e^{-\rho t}u'(c)$.
+- $\partial H/\partial z = 0$: $\lambda = e^{-\rho t}u'(c)$.
 - $\lambda' = -\partial H/\partial W = -r\lambda$, así que
   $\lambda(t) = \lambda_0\thinspace e^{-rt}$.
 
@@ -515,3 +523,6 @@ Legendre es necesaria; la concavidad, suficiente.
 ## Referencias
 
 - Chiang, A. C. (1992). *Elements of Dynamic Optimization*. McGraw-Hill.
+- Sethi, S. P. (2021). *Optimal Control Theory: Applications to Management
+  Science and Economics* (4.ª ed.). Springer.
+  https://doi.org/10.1007/978-3-030-91745-6

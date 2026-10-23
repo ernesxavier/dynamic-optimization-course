@@ -145,4 +145,5 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [ ] Probar la instalación del entorno en una computadora limpia.
 - [ ] Corregir en Zotero: la ficha GZK24M8N es el Vol. 5B del Handbook (ISBN 978-0-444-59531-7); agregar a Henderson y Strange como coeditores; indicar 4.ª ed. en Sethi.
 - [ ] Agregar a Zotero los artículos de Rahman, Intriligator y Takayama, y la bibliografía del plan que falta. El título correcto de Rahman (1963) dice "An Aggregative Study".
+- [ ] Agregar a Zotero (con PDF) las referencias nuevas de la Unidad III, ya con DOI verificado en el programa: Hotelling (1931), Halkin (1974), Michel (1982), Kamihigashi (2001), Pontryagin y otros (1962) y Feenstra, Inklaar y Timmer (2015).
 - [ ] En Zotero, el PDF de Chiang y Wainwright (ZL6E3WVS) está como archivo suelto, sin ficha: crear la ficha del libro.

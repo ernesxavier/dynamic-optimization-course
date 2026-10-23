@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 52ba973c-ce8a-11f1-8738-3344b678747d
+# ╔═╡ ea3b6b9e-ce90-11f1-aef0-371bc9c6d11c
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 52ba9662-ce8a-11f1-ad9a-310c60de89bb
+# ╔═╡ ea3b6ab8-ce90-11f1-812b-1b190f57b75d
 md"""
 # Sesión 10: Del cálculo de variaciones al Hamiltoniano
 
@@ -67,10 +67,10 @@ D.I3 (lineales de segundo orden). Para los puntos [Avanzado]: C.A3
 (funcionales y primera variación).
 """
 
-# ╔═╡ 52ba9694-ce8a-11f1-b148-510c2bd1617b
+# ╔═╡ ea3b6aea-ce90-11f1-8255-15c809537584
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 52ba969c-ce8a-11f1-8ddd-0f57312aba23
+# ╔═╡ ea3b6af4-ce90-11f1-a8c8-611b3a5ba03a
 md"""
 ## 1. El fondo regional: elegir una trayectoria
 
@@ -100,7 +100,7 @@ Aversión a la variación del gasto, ``\theta``: $(@bind θ Slider(0.25:0.25:5.0
 Reserva final, ``W_T``: $(@bind WT Slider(0:5:50, default = 0, show_value = true))
 """
 
-# ╔═╡ 52ba96ba-ce8a-11f1-af13-9358fd1402ce
+# ╔═╡ ea3b6b14-ce90-11f1-b0d6-8b3168cafd6b
 md"""
 ## 2. La ecuación de Euler
 
@@ -117,7 +117,7 @@ Symbolics.jl calcula las dos derivadas parciales, tratando ``W`` y ``W'``
 (aquí `Wp`) como variables independientes:
 """
 
-# ╔═╡ 52ba96ba-ce8a-11f1-ab78-6f4399acef2e
+# ╔═╡ ea3b6b14-ce90-11f1-9633-dd95d419e48b
 let
     @variables t W Wp r_ ρ_ θ_
     F = exp(-ρ_ * t) * ((r_ * W - Wp)^(1 - θ_) - 1) / (1 - θ_)
@@ -125,7 +125,7 @@ let
      F_Wp = simplify(Symbolics.derivative(F, Wp)))
 end
 
-# ╔═╡ 52ba96c2-ce8a-11f1-a0f6-cbfac217393b
+# ╔═╡ ea3b6b1c-ce90-11f1-9def-a3c9bf34768d
 md"""
 Es decir, ``F_W = r\, e^{-\rho t} u'(c)`` y ``F_{W'} = -e^{-\rho t}u'(c)``,
 con ``u'(c) = c^{-\theta}``. Al sustituir en la ecuación de Euler y derivar
@@ -146,7 +146,7 @@ que cumplen la regla con distintos ``c_0``; sólo una (naranja) cumple la
 condición final.
 """
 
-# ╔═╡ 52ba96c2-ce8a-11f1-85ad-13bdef6050f8
+# ╔═╡ ea3b6b26-ce90-11f1-8741-93f603ee587a
 md"""
 A la derecha, ``F_W - \frac{d}{dt}F_{W'}`` evaluado sobre la trayectoria
 óptima: es cero en todo el horizonte (la derivada total se calcula con una
@@ -155,7 +155,7 @@ mayor agota el fondo antes de ``T``; uno menor deja más de ``W_T``. Es un
 **problema de valor en la frontera**, como el disparo de la sesión 8.
 """
 
-# ╔═╡ 52ba96ce-ce8a-11f1-9d4f-5b3c3c4a0eb7
+# ╔═╡ ea3b6b26-ce90-11f1-8d8a-e7a3cde69968
 md"""
 ## 3. Por qué: perturbar la trayectoria óptima
 
@@ -170,7 +170,7 @@ Forma de la perturbación ``\eta``: $(@bind forma Select(["joroba" => "una jorob
 Tamaño de la perturbación, ``\varepsilon``: $(@bind ε Slider(-0.6:0.05:0.6, default = 0.3, show_value = true))
 """
 
-# ╔═╡ 52ba96d8-ce8a-11f1-9e3b-c7482b86345e
+# ╔═╡ ea3b6b30-ce90-11f1-9c83-89d337d75247
 md"""
 Con la joroba, ``\varepsilon > 0`` deja más dinero en el fondo a mitad del
 horizonte: se gasta menos al principio y más al final. Cualquier forma y
@@ -180,14 +180,15 @@ mismo presupuesto, porque respeta ``W(0)`` y ``W(T)``: lo que cambia es
 **cuándo** se gasta.
 """
 
-# ╔═╡ 52ba96d8-ce8a-11f1-b6cc-0f8681fbf68d
+# ╔═╡ ea3b6b3a-ce90-11f1-a2f3-094f3ad30f34
 md"""
 ## 4. El mismo problema con el Hamiltoniano
 
-Con estado ``W`` y control ``u = W'``, el Hamiltoniano es
-``H = e^{-\rho t}u(rW - u) + \lambda u``. Sus condiciones son:
+Con estado ``W`` y control ``z = W'`` (la letra ``u`` ya es la
+utilidad), el Hamiltoniano es ``H = e^{-\rho t}u(rW - z) + \lambda z``. Sus
+condiciones son:
 
-- ``\partial H/\partial u = 0``: ``\lambda = e^{-\rho t}u'(c)``.
+- ``\partial H/\partial z = 0``: ``\lambda = e^{-\rho t}u'(c)``.
 - ``\lambda' = -\partial H/\partial W = -r\lambda``, así que
   ``\lambda(t) = \lambda_0 e^{-rt}``.
 
@@ -197,7 +198,7 @@ dos formas: con el gasto óptimo, ``e^{-\rho t}c(t)^{-\theta}``, y con la
 ecuación del coestado, ``\lambda_0 e^{-rt}``.
 """
 
-# ╔═╡ 52ba96ec-ce8a-11f1-9054-ff600c80b199
+# ╔═╡ ea3b6b4e-ce90-11f1-b292-91608777ce91
 md"""
 ## 5. [Avanzado] Cuando el gasto casi no importa cómo se reparte
 
@@ -207,7 +208,7 @@ la utilidad se acerca a la lineal. La gráfica muestra el gasto óptimo con
 sección 1.
 """
 
-# ╔═╡ 52ba96f4-ce8a-11f1-af04-cd5dac087651
+# ╔═╡ ea3b6b58-ce90-11f1-ac1f-5f877bf85ffb
 md"""
 Si ``r > \rho``, al bajar ``\theta`` el gasto se concentra al final; si
 ``r < \rho``, al principio. En el límite lineal (``\theta \to 0``), la
@@ -219,7 +220,7 @@ encuentra esquinas; el Hamiltoniano sí, cuando ``\partial H/\partial u = 0``
 se reemplaza por "``u`` maximiza ``H``" (sesiones 11 y 13).
 """
 
-# ╔═╡ 52ba9700-ce8a-11f1-bd02-f1411220b6c9
+# ╔═╡ ea3b6b62-ce90-11f1-a4ea-6b4702fe0703
 md"""
 ## Resumen
 
@@ -242,24 +243,24 @@ md"""
 ``\theta = 2``.
 """
 
-# ╔═╡ 52ba9700-ce8a-11f1-bd3c-ffa6fbf4e140
+# ╔═╡ ea3b6b62-ce90-11f1-8464-6b2333ab6d85
 F_W(t, W, Wp) = missing  # reemplaza missing
 
-# ╔═╡ 52ba9700-ce8a-11f1-98de-7b53960928fb
+# ╔═╡ ea3b6b6c-ce90-11f1-b701-05b67341bba0
 F_Wp(t, W, Wp) = missing  # reemplaza missing
 
-# ╔═╡ 52ba970a-ce8a-11f1-8460-6baca9929886
+# ╔═╡ ea3b6b74-ce90-11f1-8614-83b137531aa0
 md"""
 **2.** Escribe `gasto_inicial(W0, WT, r, ρ, θ, T)`, el gasto inicial
 óptimo (notas, sección 3.3). Supón ``r \ne g``.
 """
 
-# ╔═╡ 52ba9714-ce8a-11f1-ad5e-1f0161fda6b7
+# ╔═╡ ea3b6b74-ce90-11f1-92af-754ecac52ec6
 function gasto_inicial(W0, WT, r, ρ, θ, T)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 52ba9714-ce8a-11f1-b167-9d18ed4e6430
+# ╔═╡ ea3b6b80-ce90-11f1-9652-9935c799a7a2
 md"""
 **3.** Escribe `precio_sombra(W0)`, una aproximación numérica de
 ``V'(W_0)`` con una diferencia centrada. Usa `valor_base(W0)`, que
@@ -267,12 +268,12 @@ devuelve el bienestar óptimo con ``W_T = 0``, ``r = 0.04``, ``\rho = 0.02``,
 ``\theta = 2`` y ``T = 20``.
 """
 
-# ╔═╡ 52ba971e-ce8a-11f1-8200-cb4fa8573f10
+# ╔═╡ ea3b6b80-ce90-11f1-b593-252bff3f1e3c
 function precio_sombra(W0)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 52ba9726-ce8a-11f1-9b2e-979f98e6bf29
+# ╔═╡ ea3b6b8a-ce90-11f1-9774-b16c0f2fdf58
 md"""
 **4. [Avanzado]** El problema F1 de las notas es
 ``\int_0^2 \big(12ty + (y')^2\big)\, dt`` con ``y(0) = 0`` e ``y(2) = 8``.
@@ -287,12 +288,12 @@ Escribe `extremal_discreta(N)`, que resuelva ese sistema lineal y devuelva
 el vector ``[y_0, y_1, \dots, y_N]``.
 """
 
-# ╔═╡ 52ba9726-ce8a-11f1-b13b-0ba4ec723f87
+# ╔═╡ ea3b6b8a-ce90-11f1-b169-8da27fc8d115
 function extremal_discreta(N)
     missing  # reemplaza esta línea
 end
 
-# ╔═╡ 52ba9732-ce8a-11f1-accf-816c2babadec
+# ╔═╡ ea3b6b94-ce90-11f1-8e34-5bd38f34279b
 md"""
 ### Interpretación
 
@@ -333,7 +334,7 @@ md"""
   (existencia y unicidad) y N.A1 (disparo).
 """
 
-# ╔═╡ 52ba973c-ce8a-11f1-bcb0-591a363ea684
+# ╔═╡ ea3b6b9e-ce90-11f1-bab3-79b0a26f14a8
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -342,7 +343,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 52ba973c-ce8a-11f1-9784-ab0917d2db9d
+# ╔═╡ ea3b6ba6-ce90-11f1-91f4-5da568876418
 begin
     const AZUL    = "#2a78d6"   # fondo, valor óptimo, residuo
     const NARANJA = "#eb6834"   # trayectoria óptima, coestado
@@ -350,21 +351,21 @@ begin
     const TINTA   = "#0b0b0b"   # solución discreta, perturbación
 end;
 
-# ╔═╡ 52ba9746-ce8a-11f1-9801-fd9d6a26e564
+# ╔═╡ ea3b6ba6-ce90-11f1-ae92-198f58c5a753
 begin
     "Utilidad CRRA (logarítmica si θ = 1) y utilidad marginal."
     u(c, θ) = θ == 1 ? log(c) : (c^(1 - θ) - 1) / (1 - θ)
     du(c, θ) = c^(-θ)
 end
 
-# ╔═╡ 52ba9746-ce8a-11f1-a43a-dfa8699b5fee
+# ╔═╡ ea3b6bb2-ce90-11f1-8b87-b36c02a471d3
 "Integral de f en [0, T] con la regla de Simpson y n tramos (n par)."
 function integral(f, T; n = 2000)
     h = T / n
     h / 3 * (f(0.0) + f(T) + 4sum(f((2i - 1) * h) for i in 1:n ÷ 2) + 2sum(f(2i * h) for i in 1:n ÷ 2 - 1))
 end
 
-# ╔═╡ 52ba9750-ce8a-11f1-bca2-c95075e5f856
+# ╔═╡ ea3b6bb2-ce90-11f1-8e2d-edc8616044db
 """
 Solución exacta del fondo regional: crecimiento g, gasto inicial c0 y las
 funciones c(t), W(t) y λ(t) = e^{-ρt}u'(c(t)).
@@ -381,10 +382,10 @@ function solucion_fondo(; W0, WT, r, ρ, θ, T)
     (; W0, WT, r, ρ, θ, T, g, c0, c, W, λ, A)
 end
 
-# ╔═╡ 52ba969c-ce8a-11f1-adb0-8553b839bc2d
+# ╔═╡ ea3b6af4-ce90-11f1-ad52-03d018cd7443
 fondo = solucion_fondo(; W0 = 100.0, WT = float(WT), r, ρ, θ, T = 20.0)
 
-# ╔═╡ 52ba96ec-ce8a-11f1-9d0b-3b392130a326
+# ╔═╡ ea3b6b58-ce90-11f1-a502-cfc5429b40cd
 let
     ts = range(0, 20, length = 300)
     p = plot(; xlabel = "años", ylabel = "gasto c(t)", title = "r = $r, ρ = $ρ", legend = :topleft,
@@ -396,11 +397,11 @@ let
     p
 end
 
-# ╔═╡ 52ba9750-ce8a-11f1-8553-f970c546add8
+# ╔═╡ ea3b6bbc-ce90-11f1-8673-e30c41417e56
 "Saldo del fondo si se sigue la regla de Keynes-Ramsey desde un gasto inicial c0."
 saldo(f, c0) = t -> exp(f.r * t) * (f.W0 - c0 * f.A(t))
 
-# ╔═╡ 52ba975a-ce8a-11f1-b5d4-33e047006773
+# ╔═╡ ea3b6bbc-ce90-11f1-b926-e1561302050f
 begin
     "Bienestar de una trayectoria de gasto c(t) (una función)."
     valor_de(f, c) = integral(t -> exp(-f.ρ * t) * u(max(c(t), 1e-9), f.θ), f.T)
@@ -410,7 +411,7 @@ begin
     valor_base(W0) = valor(solucion_fondo(; W0, WT = 0.0, r = 0.04, ρ = 0.02, θ = 2.0, T = 20.0))
 end
 
-# ╔═╡ 52ba96e2-ce8a-11f1-9da3-9d8ae6152341
+# ╔═╡ ea3b6b42-ce90-11f1-bddd-f7697e946ab6
 let
     f = fondo
     ts = range(0, f.T, length = 300)
@@ -426,7 +427,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 52ba96e2-ce8a-11f1-8b5e-656dfcd15e8e
+# ╔═╡ ea3b6b4e-ce90-11f1-a829-0f9e84ef5561
 let
     f = fondo
     vmas = valor(solucion_fondo(; W0 = f.W0 + 1, WT = f.WT, f.r, f.ρ, f.θ, f.T))
@@ -446,14 +447,14 @@ let
     """
 end
 
-# ╔═╡ 52ba975a-ce8a-11f1-9875-11cc25251185
+# ╔═╡ ea3b6bc6-ce90-11f1-85ab-0dfb220048c8
 begin
     "Gasto constante que cumple la misma restricción presupuestal."
     anualidad(f) = (f.W0 - exp(-f.r * f.T) * f.WT) / (abs(f.r) < 1e-10 ? f.T : (1 - exp(-f.r * f.T)) / f.r)
     valor_constante(f) = valor_de(f, t -> anualidad(f))
 end
 
-# ╔═╡ 52ba975a-ce8a-11f1-9821-53e7c63d0b8a
+# ╔═╡ ea3b6bc6-ce90-11f1-8746-cf8d8e1f8177
 """
 Fracción x del gasto que se pierde, cada año, al gastar parejo en lugar de
 óptimamente: el gasto óptimo multiplicado por (1 - x) da el mismo bienestar
@@ -469,7 +470,7 @@ function equivalente_anualidad(f)
     (lo + hi) / 2
 end
 
-# ╔═╡ 52ba9764-ce8a-11f1-b023-ad92c8e171a3
+# ╔═╡ ea3b6bd0-ce90-11f1-8118-39de3944113b
 """
 Residuo de la ecuación de Euler, F_W - d/dt F_W′, sobre la trayectoria
 óptima (la derivada total con una diferencia centrada).
@@ -480,7 +481,7 @@ function residuo_euler(f; dt = 1e-4)
     t -> FW(t) - (FWp(t + dt) - FWp(t - dt)) / (2dt)
 end
 
-# ╔═╡ 52ba96c2-ce8a-11f1-bd09-8fd9029cfbb2
+# ╔═╡ ea3b6b1c-ce90-11f1-b19e-df71eaa81561
 let
     f = fondo
     ts = range(0, f.T, length = 300)
@@ -498,7 +499,7 @@ let
     plot(p, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 52ba9764-ce8a-11f1-8da3-ef6f5c5a5d82
+# ╔═╡ ea3b6bd0-ce90-11f1-9e49-d7f428d6ea70
 """
 Versión discreta del fondo con N tramos: elige W₁, …, W_{N-1} con el método
 de Newton (el hessiano es tridiagonal). Devuelve la malla, los saldos y el
@@ -529,10 +530,10 @@ function resolver_discreto(f; N = 200, tol = 1e-10)
     (; t, W, c = gasto(W))
 end
 
-# ╔═╡ 52ba96a6-ce8a-11f1-875d-87dec6237872
+# ╔═╡ ea3b6afe-ce90-11f1-a994-3b52dcfc2bbc
 discreto = resolver_discreto(fondo; N = 200)
 
-# ╔═╡ 52ba96a6-ce8a-11f1-80e0-1799653b573b
+# ╔═╡ ea3b6b08-ce90-11f1-b04f-2db87d5a6daa
 let
     ts = range(0, fondo.T, length = 300)
     marcas = 1:10:length(discreto.c)
@@ -546,7 +547,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 52ba96b0-ce8a-11f1-b29a-5d796d85230d
+# ╔═╡ ea3b6b08-ce90-11f1-b381-4300a6146d09
 let
     f = fondo
     rd(v, d = 3) = round(v, digits = d)
@@ -569,14 +570,14 @@ let
     """
 end
 
-# ╔═╡ 52ba976e-ce8a-11f1-a804-278565d2a103
+# ╔═╡ ea3b6bda-ce90-11f1-a153-05c54cbfc28f
 "Perturbación η(t) con η(0) = η(T) = 0, de tamaño 10, y su derivada."
 function perturbacion(forma, T)
     k = forma == "joroba" ? 1 : forma == "onda" ? 2 : 3
     (t -> 10sin(k * π * t / T), t -> 10k * π / T * cos(k * π * t / T))
 end
 
-# ╔═╡ 52ba96ce-ce8a-11f1-912a-8f44c6fdaeae
+# ╔═╡ ea3b6b30-ce90-11f1-b256-5b1b5897d272
 let
     f = fondo
     η, dη = perturbacion(forma, f.T)
@@ -594,7 +595,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 52ba976e-ce8a-11f1-a2bc-cb562baea4f6
+# ╔═╡ ea3b6bda-ce90-11f1-bb08-3f1d4e1ab657
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -616,12 +617,12 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 52ba970a-ce8a-11f1-9d37-59cf6195f1c7
+# ╔═╡ ea3b6b6c-ce90-11f1-a5cc-b10d69f38dc1
 verificar(() -> [F_W(0.0, 100.0, -2.0), F_W(5.0, 80.0, 1.0), F_Wp(0.0, 100.0, -2.0), F_Wp(5.0, 80.0, 1.0)],
           [0.04 / 36, exp(-0.1) * 0.04 / 4.84, -1 / 36, -exp(-0.1) / 4.84];
           pista = md"Con ``c = rW - W'``: `F_W(t, W, Wp) = exp(-0.02t) * 0.04 * (0.04W - Wp)^(-2)` y `F_Wp(t, W, Wp) = -exp(-0.02t) * (0.04W - Wp)^(-2)`.")
 
-# ╔═╡ 52ba9714-ce8a-11f1-8a20-1f19ff28aa9e
+# ╔═╡ ea3b6b74-ce90-11f1-99e6-6315f6402f7b
 verificar(() -> [gasto_inicial(100, 0, 0.04, 0.02, 2, 20), gasto_inicial(100, 20, 0.04, 0.02, 2, 20),
                  gasto_inicial(50, 10, 0.03, 0.05, 1, 15)],
           [solucion_fondo(; W0 = 100.0, WT = 0.0, r = 0.04, ρ = 0.02, θ = 2.0, T = 20.0).c0,
@@ -629,65 +630,65 @@ verificar(() -> [gasto_inicial(100, 0, 0.04, 0.02, 2, 20), gasto_inicial(100, 20
            solucion_fondo(; W0 = 50.0, WT = 10.0, r = 0.03, ρ = 0.05, θ = 1.0, T = 15.0).c0];
           pista = md"Con `g = (r - ρ) / θ`: `(r - g) * (W0 - exp(-r * T) * WT) / (1 - exp(-(r - g) * T))`.")
 
-# ╔═╡ 52ba971e-ce8a-11f1-8843-5701ac704c2a
+# ╔═╡ ea3b6b8a-ce90-11f1-9ad8-fd250f649a49
 verificar(() -> precio_sombra.([100.0, 50.0]),
           [solucion_fondo(; W0 = w, WT = 0.0, r = 0.04, ρ = 0.02, θ = 2.0, T = 20.0).λ(0) for w in (100.0, 50.0)];
           rtol = 1e-4,
           pista = md"Con un paso pequeño, por ejemplo `Δ = 0.01`: `(valor_base(W0 + Δ) - valor_base(W0 - Δ)) / (2Δ)`.")
 
-# ╔═╡ 52ba9732-ce8a-11f1-a143-b3b9f9856d97
+# ╔═╡ ea3b6b94-ce90-11f1-bea8-619a4a8b482e
 verificar(() -> [extremal_discreta(4), extremal_discreta(10)],
           [collect(range(0, 2, length = 5)) .^ 3, collect(range(0, 2, length = 11)) .^ 3];
           rtol = 1e-6,
           pista = md"Con `h = 2 / N` y `t = collect(h .* (1:N-1))` (`collect` vuelve el rango un vector que se puede modificar): la matriz es `SymTridiagonal(fill(-2.0, N - 1), fill(1.0, N - 2))`; el lado derecho es `6h^2 .* t`, con `8` restado en la última entrada (el extremo ``y_N = 8`` pasa al lado derecho). Resuelve con `\`, y agrega ``y_0 = 0`` y ``y_N = 8`` al principio y al final.")
 
 # ╔═╡ Cell order:
-# ╟─52ba9662-ce8a-11f1-ad9a-310c60de89bb
-# ╟─52ba9694-ce8a-11f1-b148-510c2bd1617b
-# ╟─52ba969c-ce8a-11f1-8ddd-0f57312aba23
-# ╠═52ba969c-ce8a-11f1-adb0-8553b839bc2d
-# ╠═52ba96a6-ce8a-11f1-875d-87dec6237872
-# ╟─52ba96a6-ce8a-11f1-80e0-1799653b573b
-# ╟─52ba96b0-ce8a-11f1-b29a-5d796d85230d
-# ╟─52ba96ba-ce8a-11f1-af13-9358fd1402ce
-# ╠═52ba96ba-ce8a-11f1-ab78-6f4399acef2e
-# ╟─52ba96c2-ce8a-11f1-a0f6-cbfac217393b
-# ╟─52ba96c2-ce8a-11f1-bd09-8fd9029cfbb2
-# ╟─52ba96c2-ce8a-11f1-85ad-13bdef6050f8
-# ╟─52ba96ce-ce8a-11f1-9d4f-5b3c3c4a0eb7
-# ╟─52ba96ce-ce8a-11f1-912a-8f44c6fdaeae
-# ╟─52ba96d8-ce8a-11f1-9e3b-c7482b86345e
-# ╟─52ba96d8-ce8a-11f1-b6cc-0f8681fbf68d
-# ╟─52ba96e2-ce8a-11f1-9da3-9d8ae6152341
-# ╟─52ba96e2-ce8a-11f1-8b5e-656dfcd15e8e
-# ╟─52ba96ec-ce8a-11f1-9054-ff600c80b199
-# ╟─52ba96ec-ce8a-11f1-9d0b-3b392130a326
-# ╟─52ba96f4-ce8a-11f1-af04-cd5dac087651
-# ╟─52ba9700-ce8a-11f1-bd02-f1411220b6c9
-# ╠═52ba9700-ce8a-11f1-bd3c-ffa6fbf4e140
-# ╠═52ba9700-ce8a-11f1-98de-7b53960928fb
-# ╟─52ba970a-ce8a-11f1-9d37-59cf6195f1c7
-# ╟─52ba970a-ce8a-11f1-8460-6baca9929886
-# ╠═52ba9714-ce8a-11f1-ad5e-1f0161fda6b7
-# ╟─52ba9714-ce8a-11f1-8a20-1f19ff28aa9e
-# ╟─52ba9714-ce8a-11f1-b167-9d18ed4e6430
-# ╠═52ba971e-ce8a-11f1-8200-cb4fa8573f10
-# ╟─52ba971e-ce8a-11f1-8843-5701ac704c2a
-# ╟─52ba9726-ce8a-11f1-9b2e-979f98e6bf29
-# ╠═52ba9726-ce8a-11f1-b13b-0ba4ec723f87
-# ╟─52ba9732-ce8a-11f1-a143-b3b9f9856d97
-# ╟─52ba9732-ce8a-11f1-accf-816c2babadec
-# ╟─52ba973c-ce8a-11f1-bcb0-591a363ea684
-# ╠═52ba973c-ce8a-11f1-8738-3344b678747d
-# ╠═52ba973c-ce8a-11f1-9784-ab0917d2db9d
-# ╠═52ba9746-ce8a-11f1-9801-fd9d6a26e564
-# ╠═52ba9746-ce8a-11f1-a43a-dfa8699b5fee
-# ╠═52ba9750-ce8a-11f1-bca2-c95075e5f856
-# ╠═52ba9750-ce8a-11f1-8553-f970c546add8
-# ╠═52ba975a-ce8a-11f1-b5d4-33e047006773
-# ╠═52ba975a-ce8a-11f1-9875-11cc25251185
-# ╠═52ba975a-ce8a-11f1-9821-53e7c63d0b8a
-# ╠═52ba9764-ce8a-11f1-b023-ad92c8e171a3
-# ╠═52ba9764-ce8a-11f1-8da3-ef6f5c5a5d82
-# ╠═52ba976e-ce8a-11f1-a804-278565d2a103
-# ╠═52ba976e-ce8a-11f1-a2bc-cb562baea4f6
+# ╟─ea3b6ab8-ce90-11f1-812b-1b190f57b75d
+# ╟─ea3b6aea-ce90-11f1-8255-15c809537584
+# ╟─ea3b6af4-ce90-11f1-a8c8-611b3a5ba03a
+# ╠═ea3b6af4-ce90-11f1-ad52-03d018cd7443
+# ╠═ea3b6afe-ce90-11f1-a994-3b52dcfc2bbc
+# ╟─ea3b6b08-ce90-11f1-b04f-2db87d5a6daa
+# ╟─ea3b6b08-ce90-11f1-b381-4300a6146d09
+# ╟─ea3b6b14-ce90-11f1-b0d6-8b3168cafd6b
+# ╠═ea3b6b14-ce90-11f1-9633-dd95d419e48b
+# ╟─ea3b6b1c-ce90-11f1-9def-a3c9bf34768d
+# ╟─ea3b6b1c-ce90-11f1-b19e-df71eaa81561
+# ╟─ea3b6b26-ce90-11f1-8741-93f603ee587a
+# ╟─ea3b6b26-ce90-11f1-8d8a-e7a3cde69968
+# ╟─ea3b6b30-ce90-11f1-b256-5b1b5897d272
+# ╟─ea3b6b30-ce90-11f1-9c83-89d337d75247
+# ╟─ea3b6b3a-ce90-11f1-a2f3-094f3ad30f34
+# ╟─ea3b6b42-ce90-11f1-bddd-f7697e946ab6
+# ╟─ea3b6b4e-ce90-11f1-a829-0f9e84ef5561
+# ╟─ea3b6b4e-ce90-11f1-b292-91608777ce91
+# ╟─ea3b6b58-ce90-11f1-a502-cfc5429b40cd
+# ╟─ea3b6b58-ce90-11f1-ac1f-5f877bf85ffb
+# ╟─ea3b6b62-ce90-11f1-a4ea-6b4702fe0703
+# ╠═ea3b6b62-ce90-11f1-8464-6b2333ab6d85
+# ╠═ea3b6b6c-ce90-11f1-b701-05b67341bba0
+# ╟─ea3b6b6c-ce90-11f1-a5cc-b10d69f38dc1
+# ╟─ea3b6b74-ce90-11f1-8614-83b137531aa0
+# ╠═ea3b6b74-ce90-11f1-92af-754ecac52ec6
+# ╟─ea3b6b74-ce90-11f1-99e6-6315f6402f7b
+# ╟─ea3b6b80-ce90-11f1-9652-9935c799a7a2
+# ╠═ea3b6b80-ce90-11f1-b593-252bff3f1e3c
+# ╟─ea3b6b8a-ce90-11f1-9ad8-fd250f649a49
+# ╟─ea3b6b8a-ce90-11f1-9774-b16c0f2fdf58
+# ╠═ea3b6b8a-ce90-11f1-b169-8da27fc8d115
+# ╟─ea3b6b94-ce90-11f1-bea8-619a4a8b482e
+# ╟─ea3b6b94-ce90-11f1-8e34-5bd38f34279b
+# ╟─ea3b6b9e-ce90-11f1-bab3-79b0a26f14a8
+# ╠═ea3b6b9e-ce90-11f1-aef0-371bc9c6d11c
+# ╠═ea3b6ba6-ce90-11f1-91f4-5da568876418
+# ╠═ea3b6ba6-ce90-11f1-ae92-198f58c5a753
+# ╠═ea3b6bb2-ce90-11f1-8b87-b36c02a471d3
+# ╠═ea3b6bb2-ce90-11f1-8e2d-edc8616044db
+# ╠═ea3b6bbc-ce90-11f1-8673-e30c41417e56
+# ╠═ea3b6bbc-ce90-11f1-b926-e1561302050f
+# ╠═ea3b6bc6-ce90-11f1-85ab-0dfb220048c8
+# ╠═ea3b6bc6-ce90-11f1-8746-cf8d8e1f8177
+# ╠═ea3b6bd0-ce90-11f1-8118-39de3944113b
+# ╠═ea3b6bd0-ce90-11f1-9e49-d7f428d6ea70
+# ╠═ea3b6bda-ce90-11f1-a153-05c54cbfc28f
+# ╠═ea3b6bda-ce90-11f1-bb08-3f1d4e1ab657

@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 70669134-ce8d-11f1-a9f5-51791867eb99
+# ╔═╡ 4974ecb6-ce91-11f1-891e-c31cf67aa3b1
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 7066906c-ce8d-11f1-af3d-7b07065ff754
+# ╔═╡ 4974ebda-ce91-11f1-b3ea-33741759067e
 md"""
 # Sesión 13: Varias variables de estado y de control
 
@@ -64,10 +64,10 @@ opcionales. Las demostraciones están en las notas formales,
 [Avanzado]: C.A4 (concavidad y maximización parcial).
 """
 
-# ╔═╡ 7066909e-ce8d-11f1-aac8-35b4d5d7aa1c
+# ╔═╡ 4974ec0c-ce91-11f1-9dab-cf2c45489ae5
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 7066909e-ce8d-11f1-926c-a3ea9ec28f0e
+# ╔═╡ 4974ec16-ce91-11f1-8803-151c81e03da0
 md"""
 ## 1. Invertir o consumir
 
@@ -91,7 +91,7 @@ Horizonte, ``T``: $(@bind T Slider(5:1:40, default = 20, show_value = true))
 Tasa de descuento, ``\rho``: $(@bind ρ Slider(0.0:0.01:0.10, default = 0.0, show_value = true))
 """
 
-# ╔═╡ 706690bc-ce8d-11f1-b596-f7e616fe021a
+# ╔═╡ 4974ec34-ce91-11f1-9a2e-512f837f1f2d
 md"""
 ## 2. ¿Y si se invierte siempre la misma fracción?
 
@@ -100,7 +100,7 @@ compara el bienestar de cada tasa fija con el del bang-bang (línea
 horizontal).
 """
 
-# ╔═╡ 706690d0-ce8d-11f1-83b2-615e2d88c3ea
+# ╔═╡ 4974ec3e-ce91-11f1-80a6-9f55f344a3d6
 md"""
 ## 3. Varios estados: infraestructura y capital privado
 
@@ -120,7 +120,7 @@ Hay dos estados y dos coestados. ``\lambda_K' = -1`` da
 Cuánto capital privado atrae la infraestructura, ``a``: $(@bind a Slider(0.05:0.05:1.0, default = 0.2, show_value = true))
 """
 
-# ╔═╡ 706690d8-ce8d-11f1-b397-1938ab0e2950
+# ╔═╡ 4974ec48-ce91-11f1-bf9c-a997870ae819
 md"""
 El precio de la infraestructura sale **sólo** del capital privado que
 atrae: ``\lambda_G' = -a\lambda_K``. Por eso el gasto se concentra al
@@ -130,27 +130,29 @@ del de ``K``. Sube ``a``: el gasto sube en todo el horizonte, pero su forma
 no cambia.
 """
 
-# ╔═╡ 706690d8-ce8d-11f1-a024-0544552ece86
+# ╔═╡ 4974ec52-ce91-11f1-8ac3-57de9e177123
 md"""
 ## 4. ¿Es de verdad el óptimo? Una prueba numérica
 
 En la práctica de la sección 1, ``f = uvK`` no es cóncava en ``(K, u)``:
 Mangasarian no aplica. Arrow sí, porque el Hamiltoniano maximizado,
 ``H^0 = vK\max\{1, \mu\}``, es lineal en ``K`` (notas, sección 4.3). Una
-prueba numérica: se generan 400 controles al azar, constantes por tramos
-de un año con valores en ``[0, 1]``, y se compara su bienestar con el del
-bang-bang.
+prueba numérica con dos familias de competidores: 400 controles al azar,
+constantes por tramos de un año con valores en ``[0, 1]`` (azul), y 400
+controles bang-bang con un tiempo de cambio al azar (gris), que se parecen
+mucho más al óptimo.
 """
 
-# ╔═╡ 706690e4-ce8d-11f1-a6ad-bd66ba180e95
+# ╔═╡ 4974ec5e-ce91-11f1-8944-89facb67652f
 md"""
-La línea naranja es el bienestar del bang-bang. Ningún control al azar la
-supera, como garantiza el teorema de Arrow. No es una demostración (podría
-haber un control mejor que no se generó), pero es una buena verificación
-de que el candidato no tiene un error.
+La línea naranja es el bienestar del bang-bang óptimo. Ningún control la
+supera, como garantiza el teorema de Arrow. Los bang-bang con cambio al azar
+(gris) se acercan, y los mejores son los que cambian cerca de ``t^\ast``.
+No es una demostración (podría haber un control mejor que no se generó),
+pero es una buena verificación de que el candidato no tiene un error.
 """
 
-# ╔═╡ 706690ee-ce8d-11f1-907a-b5ad4fde186a
+# ╔═╡ 4974ec66-ce91-11f1-8cd2-f928381c6a02
 md"""
 ## 5. [Avanzado] Un arco singular
 
@@ -162,7 +164,7 @@ todo un intervalo: la condición "``u`` maximiza ``H``" no decide, y mantener
 ``\sigma' = \lambda' = x = 0`` exige ``u = 0``, un control **interior**.
 """
 
-# ╔═╡ 706690f8-ce8d-11f1-94c3-e92deda56ad4
+# ╔═╡ 4974ec70-ce91-11f1-9e40-b3286c3eb68d
 md"""
 ## Resumen
 
@@ -184,38 +186,38 @@ md"""
 descuento. No olvides el caso en que nunca conviene invertir.
 """
 
-# ╔═╡ 706690f8-ce8d-11f1-b6bc-01d4f0163102
+# ╔═╡ 4974ec70-ce91-11f1-83a1-f97633bb388a
 tiempo_cambio(v, T) = missing  # reemplaza missing
 
-# ╔═╡ 70669102-ce8d-11f1-b7c2-a3f37c306552
+# ╔═╡ 4974ec84-ce91-11f1-81f8-19c3af83e0e2
 md"""
 **2.** Escribe `tiempo_cambio_desc(v, T, ρ)`, el tiempo de cambio con
 descuento ``\rho > 0`` (notas, sección 3.3).
 """
 
-# ╔═╡ 7066910c-ce8d-11f1-956c-217d81828dfe
+# ╔═╡ 4974ec84-ce91-11f1-9ce8-6757a6690b47
 tiempo_cambio_desc(v, T, ρ) = missing  # reemplaza missing
 
-# ╔═╡ 7066910c-ce8d-11f1-a613-9d68e3a4fbe8
+# ╔═╡ 4974ec90-ce91-11f1-8f4d-bb4aee9b8e1d
 md"""
 **3.** Escribe `consumo_tasa_fija(u, v, T)`, el consumo total
 ``\int_0^T (1 - u)vK\, dt`` cuando se invierte siempre la fracción ``u``,
 sin descuento y con ``K(0) = 1``. Supón ``u > 0``.
 """
 
-# ╔═╡ 70669116-ce8d-11f1-a69b-27b9655aa0e0
+# ╔═╡ 4974ec90-ce91-11f1-a50b-a98b446c36ee
 consumo_tasa_fija(u, v, T) = missing  # reemplaza missing
 
-# ╔═╡ 70669120-ce8d-11f1-8ecd-772579b7783b
+# ╔═╡ 4974ec98-ce91-11f1-a22d-ed42ef86404e
 md"""
 **4. [Avanzado]** Escribe `gasto_infra(t, a, T)`, el gasto óptimo en
 infraestructura de la sección 3.
 """
 
-# ╔═╡ 70669120-ce8d-11f1-8380-61f3d606f912
+# ╔═╡ 4974eca2-ce91-11f1-90e8-8b5ec2bbac02
 gasto_infra(t, a, T) = missing  # reemplaza missing
 
-# ╔═╡ 7066912a-ce8d-11f1-ae74-fff4498c3708
+# ╔═╡ 4974ecac-ce91-11f1-bec1-a1882b85d399
 md"""
 ### Interpretación
 
@@ -254,7 +256,7 @@ md"""
   (sensibilidad de un modelo calibrado).
 """
 
-# ╔═╡ 7066912a-ce8d-11f1-a426-c77dc5e5ed14
+# ╔═╡ 4974ecac-ce91-11f1-b2df-fdd28d75449e
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -263,7 +265,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 70669134-ce8d-11f1-9976-cf0f97ce417f
+# ╔═╡ 4974ecb6-ce91-11f1-87dc-a3e348012ee0
 begin
     const AZUL    = "#2a78d6"   # capital, valores
     const NARANJA = "#eb6834"   # precio sombra, óptimo
@@ -271,7 +273,7 @@ begin
     const TINTA   = "#0b0b0b"   # control
 end;
 
-# ╔═╡ 706690ee-ce8d-11f1-b20b-5bc9620cfe26
+# ╔═╡ 4974ec66-ce91-11f1-9ba8-e71ee8f03870
 let
     ts = range(0, 2, length = 400)
     x(t) = t <= 1 ? 1 - t : 0.0
@@ -287,14 +289,14 @@ let
     plot(g1, g2, g3; layout = (1, 3), size = (860, 290))
 end
 
-# ╔═╡ 7066913e-ce8d-11f1-807e-1f7ed987cb37
+# ╔═╡ 4974ecb6-ce91-11f1-b7a9-ab8535f9764a
 "Integral de f en [0, T] con la regla de Simpson y n tramos (n par)."
 function integral(f, T; n = 2000)
     h = T / n
     h / 3 * (f(0.0) + f(T) + 4sum(f((2i - 1) * h) for i in 1:n ÷ 2) + 2sum(f(2i * h) for i in 1:n ÷ 2 - 1))
 end
 
-# ╔═╡ 7066913e-ce8d-11f1-b778-21522e769557
+# ╔═╡ 4974ecc2-ce91-11f1-b964-fb4b9e0124b1
 """
 Solución de invertir o consumir con K(0) = 1: tiempo de cambio tc, precio
 sombra en valor corriente μ(t), control u(t), capital K(t) y bienestar.
@@ -312,10 +314,10 @@ function invertir_o_consumir(v, T, ρ)
     (; v, T, ρ, tc, μ, u, K, valor)
 end
 
-# ╔═╡ 706690b2-ce8d-11f1-ae19-274a78873bea
+# ╔═╡ 4974ec16-ce91-11f1-9cea-f1caae8f730a
 region = invertir_o_consumir(v, float(T), ρ)
 
-# ╔═╡ 706690b2-ce8d-11f1-9579-89572a546bdb
+# ╔═╡ 4974ec20-ce91-11f1-90c9-b3d881bc1a9c
 let
     r = region
     ts = range(0, r.T, length = 600)
@@ -331,7 +333,7 @@ let
     plot(g1, g2, g3; layout = (1, 3), size = (860, 300))
 end
 
-# ╔═╡ 706690bc-ce8d-11f1-b565-5db15c9a342c
+# ╔═╡ 4974ec2a-ce91-11f1-87f3-d56737754cfe
 let
     r = region
     rd(x) = round(x, digits = 2)
@@ -354,14 +356,14 @@ let
     """
 end
 
-# ╔═╡ 7066914a-ce8d-11f1-9a37-1137bee87e28
+# ╔═╡ 4974ecc2-ce91-11f1-adcd-35bb79efba63
 "Bienestar de invertir siempre la fracción u (con K(0) = 1)."
 function valor_tasa_fija(u, r)
     g = u * r.v - r.ρ
     abs(g) < 1e-12 ? (1 - u) * r.v * r.T : (1 - u) * r.v * (exp(g * r.T) - 1) / g
 end
 
-# ╔═╡ 706690c6-ce8d-11f1-9336-4badd442bc98
+# ╔═╡ 4974ec34-ce91-11f1-ab5d-85d09ba7860c
 let
     r = region
     us = range(0, 1, length = 201)
@@ -374,7 +376,7 @@ let
     p
 end
 
-# ╔═╡ 706690d0-ce8d-11f1-a5ba-696ed8bb9925
+# ╔═╡ 4974ec3e-ce91-11f1-b787-c191fd95bc2a
 let
     r = region
     us = range(0, 1, length = 201)
@@ -390,7 +392,7 @@ let
     """
 end
 
-# ╔═╡ 7066914a-ce8d-11f1-b023-89df9730649c
+# ╔═╡ 4974ecca-ce91-11f1-872b-07dd8b501b57
 """
 Bienestar de n controles al azar, constantes en tramos de un año (el
 último tramo puede ser más corto); el capital se integra exactamente en
@@ -413,22 +415,39 @@ function valores_al_azar(r; n = 400, semilla = 13)
     end
 end
 
-# ╔═╡ 706690e4-ce8d-11f1-8dd0-2f3df41360d6
+# ╔═╡ 4974ecca-ce91-11f1-92bb-9df600b136f7
+"""
+Bienestar de n controles bang-bang con un tiempo de cambio al azar en
+[0, T]: se invierte todo antes del cambio y se consume todo después.
+"""
+function valores_cambio_al_azar(r; n = 400, semilla = 31)
+    rng = MersenneTwister(semilla)
+    map(1:n) do _
+        tc = r.T * rand(rng)
+        K = exp(r.v * tc)                 # capital al momento del cambio
+        integral(t -> t < tc ? 0.0 : exp(-r.ρ * t) * r.v * K, r.T; n = 2000)
+    end
+end
+
+# ╔═╡ 4974ec5e-ce91-11f1-a005-759d8d6b413a
 let
     r = region
     Ws = valores_al_azar(r; n = 400)
-    p = histogram(Ws; bins = 30, color = AZUL, alpha = 0.6, xlabel = "bienestar",
+    Wb = valores_cambio_al_azar(r; n = 400)
+    cortes = range(0, r.valor, length = 41)      # las barras terminan en el óptimo
+    p = histogram(Ws; bins = cortes, color = AZUL, alpha = 0.6, xlabel = "bienestar",
                   ylabel = "controles al azar", title = "Ningún control al azar supera al bang-bang",
                   size = (640, 320), linecolor = :white)
+    histogram!(p, Wb; bins = cortes, color = GRIS, alpha = 0.5, linecolor = :white)
     vline!(p, [r.valor]; color = NARANJA, lw = 2.5)
     p
 end
 
-# ╔═╡ 7066914a-ce8d-11f1-9043-21dfe8e58500
+# ╔═╡ 4974ecd4-ce91-11f1-a9cb-635868a3225d
 "Capital privado del ejemplo de infraestructura con G(0) = K(0) = 0: K(t) = a ∫₀ᵗ G."
 infra_K(t, a, T) = a^2 * (T^3 * t / 6 + ((T - t)^4 - T^4) / 24)
 
-# ╔═╡ 706690d8-ce8d-11f1-a67f-c9292bc2565e
+# ╔═╡ 4974ec48-ce91-11f1-9bcc-51bf8bc3fa23
 let
     Tf = 10.0
     ts = range(0, Tf, length = 300)
@@ -447,7 +466,7 @@ let
     plot(g1, g2, g3; layout = (1, 3), size = (860, 300))
 end
 
-# ╔═╡ 70669152-ce8d-11f1-8246-bf19b0d9bfd6
+# ╔═╡ 4974ecd4-ce91-11f1-aff5-dfe60d5959d8
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -469,63 +488,64 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 70669102-ce8d-11f1-befa-cbeab8de9f46
+# ╔═╡ 4974ec7a-ce91-11f1-b67b-6d17a1567f75
 verificar(() -> [tiempo_cambio(0.25, 20), tiempo_cambio(0.1, 20), tiempo_cambio(0.04, 20)], [16.0, 10.0, 0.0];
           pista = md"Se invierte hasta que faltan ``1/v`` años, pero ``t^\ast`` no puede ser negativo: `max(0.0, T - 1 / v)`.")
 
-# ╔═╡ 7066910c-ce8d-11f1-8d5d-5b3bcd6b3a1e
+# ╔═╡ 4974ec90-ce91-11f1-96fe-03c07cc30e18
 verificar(() -> [tiempo_cambio_desc(0.25, 20, 0.03), tiempo_cambio_desc(0.1, 20, 0.03), tiempo_cambio_desc(0.02, 20, 0.03)],
           [invertir_o_consumir(0.25, 20.0, 0.03).tc, invertir_o_consumir(0.1, 20.0, 0.03).tc, 0.0];
           pista = md"Si `v <= ρ`, nunca se invierte. Si no, `max(0.0, T + log(1 - ρ / v) / ρ)`: el logaritmo es negativo, así que se resta.")
 
-# ╔═╡ 70669116-ce8d-11f1-827b-813c1c8548b5
+# ╔═╡ 4974ec98-ce91-11f1-b452-afd026bc8ce7
 verificar(() -> [consumo_tasa_fija(0.2, 0.25, 20), consumo_tasa_fija(0.73, 0.25, 20), consumo_tasa_fija(0.5, 0.1, 10)],
           [valor_tasa_fija(u, invertir_o_consumir(v, float(T), 0.0)) for (u, v, T) in ((0.2, 0.25, 20), (0.73, 0.25, 20), (0.5, 0.1, 10))];
           rtol = 1e-6,
           pista = md"Con ``K(t) = e^{uvt}``: ``\int_0^T (1 - u)v e^{uvt}\, dt = (1 - u)(e^{uvT} - 1)/u``.")
 
-# ╔═╡ 70669120-ce8d-11f1-bc96-238d5f338ca1
+# ╔═╡ 4974eca2-ce91-11f1-bd2a-09e0f4fdc940
 verificar(() -> [gasto_infra(0.0, 0.2, 10.0), gasto_infra(5.0, 0.2, 10.0), gasto_infra(10.0, 0.5, 10.0)],
           [10.0, 2.5, 0.0];
           pista = md"``u = \lambda_G`` y ``\lambda_G(t) = a(T - t)^2/2``: `a * (T - t)^2 / 2`.")
 
 # ╔═╡ Cell order:
-# ╟─7066906c-ce8d-11f1-af3d-7b07065ff754
-# ╟─7066909e-ce8d-11f1-aac8-35b4d5d7aa1c
-# ╟─7066909e-ce8d-11f1-926c-a3ea9ec28f0e
-# ╠═706690b2-ce8d-11f1-ae19-274a78873bea
-# ╟─706690b2-ce8d-11f1-9579-89572a546bdb
-# ╟─706690bc-ce8d-11f1-b565-5db15c9a342c
-# ╟─706690bc-ce8d-11f1-b596-f7e616fe021a
-# ╟─706690c6-ce8d-11f1-9336-4badd442bc98
-# ╟─706690d0-ce8d-11f1-a5ba-696ed8bb9925
-# ╟─706690d0-ce8d-11f1-83b2-615e2d88c3ea
-# ╟─706690d8-ce8d-11f1-a67f-c9292bc2565e
-# ╟─706690d8-ce8d-11f1-b397-1938ab0e2950
-# ╟─706690d8-ce8d-11f1-a024-0544552ece86
-# ╟─706690e4-ce8d-11f1-8dd0-2f3df41360d6
-# ╟─706690e4-ce8d-11f1-a6ad-bd66ba180e95
-# ╟─706690ee-ce8d-11f1-907a-b5ad4fde186a
-# ╟─706690ee-ce8d-11f1-b20b-5bc9620cfe26
-# ╟─706690f8-ce8d-11f1-94c3-e92deda56ad4
-# ╠═706690f8-ce8d-11f1-b6bc-01d4f0163102
-# ╟─70669102-ce8d-11f1-befa-cbeab8de9f46
-# ╟─70669102-ce8d-11f1-b7c2-a3f37c306552
-# ╠═7066910c-ce8d-11f1-956c-217d81828dfe
-# ╟─7066910c-ce8d-11f1-8d5d-5b3bcd6b3a1e
-# ╟─7066910c-ce8d-11f1-a613-9d68e3a4fbe8
-# ╠═70669116-ce8d-11f1-a69b-27b9655aa0e0
-# ╟─70669116-ce8d-11f1-827b-813c1c8548b5
-# ╟─70669120-ce8d-11f1-8ecd-772579b7783b
-# ╠═70669120-ce8d-11f1-8380-61f3d606f912
-# ╟─70669120-ce8d-11f1-bc96-238d5f338ca1
-# ╟─7066912a-ce8d-11f1-ae74-fff4498c3708
-# ╟─7066912a-ce8d-11f1-a426-c77dc5e5ed14
-# ╠═70669134-ce8d-11f1-a9f5-51791867eb99
-# ╠═70669134-ce8d-11f1-9976-cf0f97ce417f
-# ╠═7066913e-ce8d-11f1-807e-1f7ed987cb37
-# ╠═7066913e-ce8d-11f1-b778-21522e769557
-# ╠═7066914a-ce8d-11f1-9a37-1137bee87e28
-# ╠═7066914a-ce8d-11f1-b023-89df9730649c
-# ╠═7066914a-ce8d-11f1-9043-21dfe8e58500
-# ╠═70669152-ce8d-11f1-8246-bf19b0d9bfd6
+# ╟─4974ebda-ce91-11f1-b3ea-33741759067e
+# ╟─4974ec0c-ce91-11f1-9dab-cf2c45489ae5
+# ╟─4974ec16-ce91-11f1-8803-151c81e03da0
+# ╠═4974ec16-ce91-11f1-9cea-f1caae8f730a
+# ╟─4974ec20-ce91-11f1-90c9-b3d881bc1a9c
+# ╟─4974ec2a-ce91-11f1-87f3-d56737754cfe
+# ╟─4974ec34-ce91-11f1-9a2e-512f837f1f2d
+# ╟─4974ec34-ce91-11f1-ab5d-85d09ba7860c
+# ╟─4974ec3e-ce91-11f1-b787-c191fd95bc2a
+# ╟─4974ec3e-ce91-11f1-80a6-9f55f344a3d6
+# ╟─4974ec48-ce91-11f1-9bcc-51bf8bc3fa23
+# ╟─4974ec48-ce91-11f1-bf9c-a997870ae819
+# ╟─4974ec52-ce91-11f1-8ac3-57de9e177123
+# ╟─4974ec5e-ce91-11f1-a005-759d8d6b413a
+# ╟─4974ec5e-ce91-11f1-8944-89facb67652f
+# ╟─4974ec66-ce91-11f1-8cd2-f928381c6a02
+# ╟─4974ec66-ce91-11f1-9ba8-e71ee8f03870
+# ╟─4974ec70-ce91-11f1-9e40-b3286c3eb68d
+# ╠═4974ec70-ce91-11f1-83a1-f97633bb388a
+# ╟─4974ec7a-ce91-11f1-b67b-6d17a1567f75
+# ╟─4974ec84-ce91-11f1-81f8-19c3af83e0e2
+# ╠═4974ec84-ce91-11f1-9ce8-6757a6690b47
+# ╟─4974ec90-ce91-11f1-96fe-03c07cc30e18
+# ╟─4974ec90-ce91-11f1-8f4d-bb4aee9b8e1d
+# ╠═4974ec90-ce91-11f1-a50b-a98b446c36ee
+# ╟─4974ec98-ce91-11f1-b452-afd026bc8ce7
+# ╟─4974ec98-ce91-11f1-a22d-ed42ef86404e
+# ╠═4974eca2-ce91-11f1-90e8-8b5ec2bbac02
+# ╟─4974eca2-ce91-11f1-bd2a-09e0f4fdc940
+# ╟─4974ecac-ce91-11f1-bec1-a1882b85d399
+# ╟─4974ecac-ce91-11f1-b2df-fdd28d75449e
+# ╠═4974ecb6-ce91-11f1-891e-c31cf67aa3b1
+# ╠═4974ecb6-ce91-11f1-87dc-a3e348012ee0
+# ╠═4974ecb6-ce91-11f1-b7a9-ab8535f9764a
+# ╠═4974ecc2-ce91-11f1-b964-fb4b9e0124b1
+# ╠═4974ecc2-ce91-11f1-adcd-35bb79efba63
+# ╠═4974ecca-ce91-11f1-872b-07dd8b501b57
+# ╠═4974ecca-ce91-11f1-92bb-9df600b136f7
+# ╠═4974ecd4-ce91-11f1-a9cb-635868a3225d
+# ╠═4974ecd4-ce91-11f1-aff5-dfe60d5959d8

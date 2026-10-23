@@ -122,12 +122,14 @@ end
 md"""
 ## 3. Calibración: dos estados de México
 
-Las productividades salen de los datos (INEGI y OCDE, 2023): con el
-supuesto de que el capital por trabajador es el mismo en todos los estados,
-``v_i = \bar v\, y_i/\bar y``, donde ``y_i`` es el PIB sin minería
+Las productividades salen de los datos (INEGI y OCDE, 2023):
+``v_i = \bar v\,(y_i/\bar y)^\phi``, donde ``y_i`` es el PIB sin minería
 petrolera por trabajador y ``\bar v = 1/(K/Y) = 1/3.66`` (Penn World Table,
-sesión 12). Las tasas de ahorro **no se publican por entidad**: se fijan
-con supuestos alrededor de la tasa nacional (0.19).
+sesión 12). Con ``\phi = 1``, el capital por trabajador es el mismo en todos
+los estados; con ``\phi < 1``, los estados ricos tienen más capital por
+trabajador y las diferencias de ``v_i`` se reducen (notas, sección 5.1). Las
+tasas de ahorro **no se publican por entidad**: se fijan con supuestos
+alrededor de la tasa nacional (0.19).
 
 Región 1: $(@bind e1 Select(OPCIONES_ESTADOS; default = 5))
 
@@ -138,10 +140,12 @@ Tasa de ahorro supuesta, región 1: $(@bind σ1 Slider(0.10:0.01:0.40, default =
 Tasa de ahorro supuesta, región 2: $(@bind σ2 Slider(0.10:0.01:0.40, default = 0.19, show_value = true))
 
 Horizonte del plan: $(@bind Tm Slider(5:1:40, default = 20, show_value = true))
+
+Cuánto de la diferencia de PIB por trabajador se atribuye a ``v_i``, ``\phi``: $(@bind φ Slider(0.0:0.1:1.0, default = 1.0, show_value = true))
 """
 
 #%%
-estados = productividades(CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame), 2023)
+estados = productividades(CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame), 2023; φ)
 
 #%%
 mexico = resolver_rit(estados.v[e1], estados.v[e2], σ1, σ2, float(Tm);
@@ -177,8 +181,9 @@ end
 
 #%% hide
 md"""
-Con Coahuila y Nuevo León, Nuevo León produce 15% más por unidad de capital.
-Coahuila sólo recibe inversión si ahorra más de 1.15 veces lo que ahorra
+Con Coahuila y Nuevo León y ``\phi = 1``, Nuevo León produce 15% más por
+unidad de capital. Coahuila sólo recibe inversión si ahorra más de 1.15
+veces lo que ahorra
 Nuevo León, y cerca de ese umbral la política salta de "nada" a "más de una
 década". **La respuesta depende de un parámetro que no se mide.** Prueba
 Chiapas y la Ciudad de México: Chiapas tendría que ahorrar más de cuatro
@@ -411,15 +416,16 @@ end;
 
 #%%
 """
-Productividad del capital por entidad en el año dado: v_i = v̄ y_i/ȳ, con
-y_i el PIB sin minería petrolera por trabajador y v̄ = 1/(K/Y) de la PWT
-(promedio 1990–2019, sesión 12).
+Productividad del capital por entidad en el año dado: v_i = v̄ (y_i/ȳ)^φ,
+con y_i el PIB sin minería petrolera por trabajador y v̄ = 1/(K/Y) de la PWT
+(promedio 1990–2019, sesión 12). Con φ = 1, el capital por trabajador es el
+mismo en todos los estados.
 """
-function productividades(datos, año; KY = 3.66)
+function productividades(datos, año; KY = 3.66, φ = 1.0)
     d = sort(filter(r -> r.año == año, datos), :clave)
     y = (d.pib .- d.pib_petrolero) ./ d.empleo
     ybar = sum(d.pib .- d.pib_petrolero) / sum(d.empleo)
-    (; entidad = String.(d.entidad), v = (y ./ ybar) ./ KY)
+    (; entidad = String.(d.entidad), v = (y ./ ybar) .^ φ ./ KY)
 end
 
 #%%
@@ -455,7 +461,7 @@ function resolver_rit(v1, v2, s1, s2, T; ω = (1.0, 1.0), n = 4000, nombres = ("
     θ = [d > 0 ? 1.0 : 0.0 for d in dif]
     cambios = Float64[]
     for k in 1:n
-        if sign(dif[k]) != sign(dif[k + 1]) && dif[k] != 0
+        if dif[k] * dif[k + 1] < 0          # cambio de signo estricto
             push!(cambios, t[k] + dt * dif[k] / (dif[k] - dif[k + 1]))
         end
     end

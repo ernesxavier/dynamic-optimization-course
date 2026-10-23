@@ -65,7 +65,10 @@ $$
 $\gamma_i$ es el ahorro que genera una unidad de capital en la región $i$:
 su **tasa interna de crecimiento** (si toda la inversión se quedara en la
 región, crecería a la tasa $\gamma_i$). El gobierno reparte el ahorro: una
-fracción $\theta(t) \in [0, 1]$ a la región 1 y el resto a la 2:
+fracción $\theta(t) \in [0, 1]$ a la región 1 y el resto a la 2 (aquí
+$\theta(t)$ es un control, no el parámetro de la utilidad CRRA de las
+sesiones 10 y 12; Alexiadis lo llama $\delta$, que en el curso es la
+depreciación):
 
 $$
 K_1' = \theta S, \qquad K_2' = (1 - \theta)S.
@@ -100,7 +103,9 @@ $p_i(T) = \partial Y(T)/\partial K_i(T) = v_i$.
 ## 2. El Hamiltoniano y la función de cambio
 
 Con coestados $p_1$ y $p_2$ (los precios sombra del capital de cada
-región, en unidades de producto final):
+región, en unidades de producto final). Son los $\lambda_1$ y $\lambda_2$ de
+la sesión 13; se escriben $p_i$, como en Alexiadis (2018), para que las
+notas se puedan leer junto con el libro:
 
 $$
 H = p_1\theta S + p_2(1 - \theta)S = p_2S + \theta\thinspace(p_1 - p_2)\thinspace S.
@@ -177,6 +182,17 @@ El tiempo de cambio es $t^\ast = T - \tau^\ast$. Si $\tau^\ast \ge T$, el
 horizonte es demasiado corto para la primera fase y se invierte siempre en
 la región 2. Coincide con la proposición 7 de Alexiadis (2018).
 
+**Al leer a Alexiadis (2018, secs. 2.4 y 2.5).** Su tiempo de cambio es
+correcto, pero conviene leer con cuidado dos pasos:
+
+- La proposición 1 dice que, antes de $T$, se invierte siempre en la región
+  con mayor $\gamma_i$. Eso sólo vale **antes del tiempo de cambio y si el
+  horizonte alcanza** ($T > \tau^\ast$); si no, se invierte siempre en la
+  región más productiva. Sus tablas 2.1 y 2.2 tienen la misma omisión.
+- Dice que basta la suficiencia de Mangasarian porque las ecuaciones son
+  lineales. No lo son en $(K, \theta)$: $\theta S$ es un producto de control y
+  estado. La suficiencia sale del teorema de Arrow (sección 2).
+
 ### 3.2 La matriz de asignación
 
 Con $v_2 > v_1$ (la región 2 produce más):
@@ -247,6 +263,18 @@ Table (sesión 12). El supuesto exagera las diferencias de $v_i$: los estados
 ricos suelen tener también más capital por trabajador, y su $v_i$ real sería
 menor que el calibrado.
 
+**Una segunda calibración.** Para medir cuánto importa el supuesto, el
+cuaderno permite suponer que el capital por trabajador crece con el
+producto por trabajador, $K_i/L_i \propto y_i^{1 - \phi}$. Entonces
+
+$$
+v_i = \bar v\thinspace\Big(\frac{y_i}{\bar y}\Big)^{\phi}, \qquad 0 \le \phi \le 1.
+$$
+
+Con $\phi = 1$ es el supuesto de arriba; con $\phi = 0$, todos los estados
+tienen la misma $v_i$ y sólo el ahorro decide; con $\phi = 1/2$, las
+diferencias de $v_i$ son la raíz cuadrada de las de $y_i$.
+
 ### 5.2 Ahorro
 
 Las tasas de ahorro por entidad **no se publican**. El cuaderno las fija con
@@ -277,10 +305,18 @@ y un plan de 20 años:
   México ($v = 0.53$), Chiapas tendría que ahorrar 4.6 veces más que la
   capital para recibir algo. El modelo de eficiencia **concentra la
   inversión en la región más productiva**.
+- Con la segunda calibración y $\phi = 1/2$, el umbral para Coahuila baja
+  de 1.15 a $1.15^{1/2} \approx 1.07$ veces el ahorro de Nuevo León: con
+  $s_{\text{NL}} = 0.19$, la fase en Coahuila es posible si ahorra más de 0.204
+  (y dura más cuanto más largo sea el plan). **El
+  supuesto sobre el capital por estado pesa tanto como el del ahorro.**
 
 ---
 
 ## 6. Equidad frente a eficiencia
+
+*Lectura previa: esta sección se lee antes de clase y se discute en la
+última parte de la sesión, con la sección 4 del cuaderno.*
 
 El objetivo $Y(T) = Y_1(T) + Y_2(T)$ sólo mira el total. La política
 óptima suele ensanchar la brecha entre regiones: invierte en la más
@@ -302,7 +338,24 @@ valor que el modelo hace explícito y cuantifica.
 
 ---
 
-## 7. Resumen formal
+## 7. Hacia la programación dinámica
+
+| Idea de esta sesión | Dónde reaparece |
+|---|---|
+| Resolver hacia atrás desde los precios finales | Inducción hacia atrás en la ecuación de Bellman (sesión 15) |
+| Precio sombra del capital de cada región | La derivada de la función valor respecto a cada estado (sesiones 16 y 18) |
+| Política que depende del tiempo que falta ($\tau$) | Políticas que dependen del periodo en horizonte finito (sesión 15) |
+| Supuestos que no se miden y sensibilidad | Calibración y sensibilidad del proyecto final (Unidad V) |
+
+Rahman (1963), el primero en plantear este problema, no usó el principio
+del máximo sino el **principio de optimalidad de Bellman** (Alexiadis,
+2018, sec. 2.1): "cualesquiera que sean el estado y las decisiones
+iniciales, las decisiones restantes deben ser óptimas para el estado que
+resulta de las primeras". Es el punto de partida de la Unidad IV.
+
+---
+
+## 8. Resumen formal
 
 | Concepto | Enunciado | Dónde |
 |---|---|---|
@@ -319,7 +372,7 @@ valor que el modelo hace explícito y cuantifica.
 
 ---
 
-## 8. Ejercicios formales
+## 9. Ejercicios formales
 
 - **F1.** Resuelve el caso $v_1 > v_2$ y $\gamma_1 < \gamma_2$: muestra que
   se invierte primero en la región 2 y al final en la 1, y encuentra el

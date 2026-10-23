@@ -195,7 +195,8 @@ precio sombra del estado.
 	  variación.
 	- *Práctica*: ahorro o consumo en el tiempo, resuelto por los dos
 	  caminos.
-	- Lecturas: CH 1–2.
+	- Lecturas: CH 1–2. Consulta: SE ejemplos 3.2–3.3 (el mismo problema de
+	  consumo, con el Hamiltoniano).
 	- **Entrega**: Tarea 2.
 - **Sesión 11: Principio del máximo**
 	- Hamiltoniano $H = F + \lambda f$. Condiciones: $u^*$ maximiza $H$,
@@ -219,7 +220,7 @@ precio sombra del estado.
 	  capital). El cuaderno llega con los datos cargados y la calibración
 	  hecha: en clase se interpreta el estado estacionario, se compara con
 	  los datos y se mueven los parámetros.
-	- Lecturas: CH 8.2, 9.
+	- Lecturas: CH 8.2, 9. Consulta: SE 3.6 y ejemplo 3.7.
 	- **Entrega**: propuesta de proyecto (1 página): el problema de la tesis
 	  planteado con estado, control, objetivo y restricciones.
 - **Sesión 13: Varias variables de estado y de control**
@@ -233,7 +234,7 @@ precio sombra del estado.
 	  lineal) e inversión, con $u \in [0, 1]$ y horizonte finito: función de
 	  cambio, tiempo de cambio y trayectoria del capital. Es el ensayo de un
 	  solo estado del caso de la sesión 14.
-	- Lecturas: CH 8.3–8.4; SE.
+	- Lecturas: CH 8.3–8.4; SE 2.3–2.4, 3.6.
 - **Sesión 14: Caso completo: inversión entre dos regiones**
 	- Modelo de Rahman, Intriligator y Takayama: producto $Y_i = v_i K_i$, ahorro
 	  $s_i Y_i$; el control $\theta \in [0, 1]$ reparte la inversión total.
@@ -414,6 +415,9 @@ tesis de cada estudiante.
   Resource Economics* [Manuscrito inédito]. University of California,
   Berkeley. Hay un borrador más reciente con el título *Dynamic Environmental
   and Resource Economics* (2024).
+- Pontryagin, L. S., Boltyanskii, V. G., Gamkrelidze, R. V., & Mishchenko,
+  E. F. (1962). *The Mathematical Theory of Optimal Processes*.
+  Interscience. (Consulta histórica, sesión 11.)
 - QuantEcon. Lecciones *Cake Eating I* y *Cake Eating II* (versión en
   Python). https://quantecon.org
 
@@ -427,12 +431,23 @@ tesis de cada estudiante.
 - Desmet, K., & Rossi-Hansberg, E. (2010). On spatial dynamics. *Journal of
   Regional Science*, 50(1), 43–63.
   https://doi.org/10.1111/j.1467-9787.2009.00648.x
+- Halkin, H. (1974). Necessary conditions for optimal control problems with
+  infinite horizons. *Econometrica*, 42(2), 267–272.
+  https://doi.org/10.2307/1911976
+- Hotelling, H. (1931). The economics of exhaustible resources. *Journal of
+  Political Economy*, 39(2), 137–175. https://doi.org/10.1086/254195
 - Intriligator, M. D. (1964). Regional allocation of investment: Comment.
   *Quarterly Journal of Economics*, 78(4), 659–662.
   https://doi.org/10.2307/1879665
+- Kamihigashi, T. (2001). Necessity of transversality conditions for
+  infinite horizon problems. *Econometrica*, 69(4), 995–1012.
+  https://doi.org/10.1111/1468-0262.00227
 - Kennan, J., & Walker, J. R. (2011). The effect of expected income on
   individual migration decisions. *Econometrica*, 79(1), 211–251.
   https://doi.org/10.3982/ECTA4657
+- Michel, P. (1982). On the transversality condition in infinite horizon
+  optimal problems. *Econometrica*, 50(4), 975–985.
+  https://doi.org/10.2307/1912772
 - Neumark, D., & Simpson, H. (2015). Place-based policies. En *Handbook of
   Regional and Urban Economics* (Vol. 5B, pp. 1197–1287). Elsevier.
   https://doi.org/10.1016/B978-0-444-59531-7.00018-1

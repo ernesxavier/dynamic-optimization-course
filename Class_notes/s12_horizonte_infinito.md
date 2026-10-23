@@ -91,6 +91,13 @@ $$
 H_c(y, u, \mu) = e^{\rho t}H = F(y, u) + \mu\thinspace f(y, u).
 $$
 
+**Sobre el nombre.** "Hamiltoniano a valor presente" es el término de
+Chiang y Wainwright (2006, cap. 20) en español. En inglés, Chiang (1992,
+sec. 8.2) y Sethi (2021, sec. 3.3) lo llaman *current-value Hamiltonian*:
+mide los valores en unidades del instante $t$ (valor corriente), no
+descontados a $t = 0$. Por eso aquí se dice que $\mu$ es un precio "en valor
+corriente". Es el mismo objeto con dos nombres.
+
 Las condiciones del principio del máximo se vuelven:
 
 1. $u^\ast$ maximiza $H_c(y, u, \mu)$ sobre $u \in U$;
@@ -182,7 +189,8 @@ $$
 $$
 
 con $\rho > n$ para que la integral converja. La tasa de descuento efectiva
-es $\rho - n$.
+es $\rho - n$. $\theta$ es el parámetro de la utilidad CRRA de las sesiones 8
+y 10, no el reparto $\theta(t)$ de la sesión 14.
 
 ### 4.2 La regla de Keynes-Ramsey
 
@@ -276,7 +284,8 @@ $$
 
 La **vida media**, el tiempo en que se cierra la mitad de la brecha, es
 $\ln 2/\beta$. Es el $\beta$ de la convergencia de la sesión 5, ahora
-derivado de un modelo de ahorro óptimo. Con Cobb-Douglas se puede escribir
+derivado de un modelo de ahorro óptimo. (En la Unidad IV, $\beta$ será otra
+cosa: el factor de descuento en tiempo discreto.) Con Cobb-Douglas se puede escribir
 sin $A$ ([P.2](#pp2)):
 
 $$
@@ -291,6 +300,9 @@ varíe, prefiere una transición lenta.
 ## 5. Práctica con datos: Ramsey calibrado para México
 
 ### 5.1 Los datos
+
+*Lectura previa: esta sección y la tabla de datos se leen antes de clase;
+en clase se trabaja con el cuaderno desde la sección 5.3.*
 
 El cuaderno carga la Penn World Table 11.0 para México
 (`Data/pwt_mexico.csv`) y calcula promedios de 1990 a 2019 (después de la
@@ -377,11 +389,11 @@ $$
 
 | Idea de esta sesión | Dónde reaparece |
 |---|---|
-| Hamiltoniano a valor presente | Caso de dos regiones (sesión 14) |
-| Sistema autónomo en $(y, \mu)$ | Diagramas de fase con coestado (sesión 13) |
+| Hamiltoniano a valor presente | Invertir o consumir con descuento (sesión 13) |
+| Sistema autónomo en $(y, \mu)$ | El diagrama de fase de Ramsey en $(k, c)$, que es el de $(k, \mu)$ con $\mu = u'(c)$ (sesiones 8 y 12) |
 | La transversalidad elige la rama estable | Programación dinámica: la función valor elige la política sin condición terminal (sesión 16) |
 | Rama estable $c = \sigma(k)$ | Función de política calculada por iteración de la función valor (sesión 17) |
-| Calibración por momentos de estado estacionario | Calibración del caso de dos regiones (sesión 14) y del proyecto final |
+| Calibración con un dato de los datos ($K/Y$) | Calibración del caso de dos regiones con el PIB por trabajador (sesión 14) y del proyecto final |
 
 ---
 
@@ -408,7 +420,8 @@ $$
   $\max \int_0^\infty e^{-\rho t}\ln c\thinspace dt$ con $W' = rW - c$ y
   $\lim_{t \to \infty} e^{-rt}W(t) = 0$. Con el Hamiltoniano a valor
   presente, muestra que $c(t) = \rho W(t)$: se gasta cada año una fracción
-  $\rho$ del fondo, sin importar $r$.
+  $\rho$ del fondo, sin importar $r$. (Es el fondo perpetuo de Sethi, 2021,
+  ejemplo 3.7.)
 - **F2.** Con $f(k) = k^{0.3}$, $\delta = 0.05$, $\rho = 0.03$ y $n = 0.01$,
   calcula $k^\ast$, $c^\ast$, $k_{RO}$ y $s^\ast$.
 - **F3.** Muestra que $s^\ast = \alpha(\delta + n)/(\delta + \rho)$ con
@@ -490,12 +503,21 @@ $\theta$ divide al término dentro de la raíz, $\beta$ baja con $\theta$.
 ## Referencias
 
 - Chiang, A. C. (1992). *Elements of Dynamic Optimization*. McGraw-Hill.
+- Chiang, A. C., & Wainwright, K. (2006). *Métodos fundamentales de
+  economía matemática* (4.ª ed.). McGraw-Hill.
 - Feenstra, R. C., Inklaar, R., & Timmer, M. P. (2015). The next
   generation of the Penn World Table. *American Economic Review*, 105(10),
-  3150–3182. Datos: Penn World Table 11.0, https://doi.org/10.34894/FABVLR.
+  3150–3182. https://doi.org/10.1257/aer.20130954. Datos: Penn World Table
+  11.0, https://doi.org/10.34894/FABVLR.
 - Halkin, H. (1974). Necessary conditions for optimal control problems with
   infinite horizons. *Econometrica*, 42(2), 267–272.
+  https://doi.org/10.2307/1911976
 - Kamihigashi, T. (2001). Necessity of transversality conditions for
   infinite horizon problems. *Econometrica*, 69(4), 995–1012.
+  https://doi.org/10.1111/1468-0262.00227
 - Michel, P. (1982). On the transversality condition in infinite horizon
   optimal problems. *Econometrica*, 50(4), 975–985.
+  https://doi.org/10.2307/1912772
+- Sethi, S. P. (2021). *Optimal Control Theory: Applications to Management
+  Science and Economics* (4.ª ed.). Springer.
+  https://doi.org/10.1007/978-3-030-91745-6

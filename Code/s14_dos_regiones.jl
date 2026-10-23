@@ -16,7 +16,7 @@ macro bind(def, element)
     #! format: on
 end
 
-# ╔═╡ 9e4b909e-ce8e-11f1-bfaa-2563a0b86e1d
+# ╔═╡ 06baffa2-ce91-11f1-ab2b-3390dc1197fe
 begin
     # Usa el entorno del curso (Code/Project.toml) en lugar del gestor de
     # paquetes propio de Pluto: un solo entorno para todo el repositorio.
@@ -31,7 +31,7 @@ begin
             background_color_legend = nothing, margin = 3Plots.mm)
 end
 
-# ╔═╡ 9e4b8fb8-ce8e-11f1-bfa6-1f07247e097f
+# ╔═╡ 06bafeb0-ce91-11f1-9df2-9d7284ce1764
 md"""
 # Sesión 14: Caso completo: inversión entre dos regiones
 
@@ -62,10 +62,10 @@ E.I3 (calibración) y N.I7 (datos en Julia). Para los puntos [Avanzado]:
 E.A2 (sensibilidad de un modelo calibrado).
 """
 
-# ╔═╡ 9e4b8fec-ce8e-11f1-8d6d-e11e50fe5847
+# ╔═╡ 06bafee2-ce91-11f1-b9e1-3fd47c8a75e7
 TableOfContents(title = "Contenido")
 
-# ╔═╡ 9e4b8fec-ce8e-11f1-89db-333924f190b7
+# ╔═╡ 06bafee2-ce91-11f1-b073-bfea2f8bd834
 md"""
 ## 1. El modelo
 
@@ -92,7 +92,7 @@ Tasa de ahorro, región 2, ``s_2``: $(@bind s2 Slider(0.05:0.01:0.50, default = 
 Horizonte del plan, ``T``: $(@bind T Slider(5:1:50, default = 30, show_value = true))
 """
 
-# ╔═╡ 9e4b9008-ce8e-11f1-82ee-d36ab917a088
+# ╔═╡ 06bafefe-ce91-11f1-bf2a-95ee0621e851
 md"""
 Con los valores iniciales, la región 1 produce menos (``v_1 < v_2``) pero
 ahorra tanto más que genera más ahorro por unidad de capital
@@ -102,7 +102,7 @@ donde el capital produce más. Baja ``s_1`` hasta que ``\gamma_1 < \gamma_2``:
 la primera fase desaparece. Acorta ``T`` por debajo de ``\tau^\ast``: también.
 """
 
-# ╔═╡ 9e4b9008-ce8e-11f1-9db2-378edc1cb692
+# ╔═╡ 06bafefe-ce91-11f1-8425-695e354ad720
 md"""
 ## 2. ¿Cuánto se gana con el reparto óptimo?
 
@@ -112,7 +112,7 @@ capital sigue un sistema lineal, ``K' = MK``, y ``Y(T) = v^\top e^{MT}K(0)``
 (sesión 7).
 """
 
-# ╔═╡ 9e4b9030-ce8e-11f1-9c87-97deaee20130
+# ╔═╡ 06baff28-ce91-11f1-8cfc-4d9716e19fbc
 md"""
 **¿Qué tan sensible es a las tasas de ahorro?** La gráfica muestra cuántos
 años del plan se invierte en la región 1 según su tasa de ahorro, con la de
@@ -121,10 +121,11 @@ la región 2 fija en el valor del deslizador. La línea punteada es el umbral
 nunca recibe nada.
 """
 
-# ╔═╡ 9e4b903a-ce8e-11f1-b26e-efbc6ddfda52
+# ╔═╡ 06baff3c-ce91-11f1-9057-4f60cb443821
 md"""
-Con Coahuila y Nuevo León, Nuevo León produce 15% más por unidad de capital.
-Coahuila sólo recibe inversión si ahorra más de 1.15 veces lo que ahorra
+Con Coahuila y Nuevo León y ``\phi = 1``, Nuevo León produce 15% más por
+unidad de capital. Coahuila sólo recibe inversión si ahorra más de 1.15
+veces lo que ahorra
 Nuevo León, y cerca de ese umbral la política salta de "nada" a "más de una
 década". **La respuesta depende de un parámetro que no se mide.** Prueba
 Chiapas y la Ciudad de México: Chiapas tendría que ahorrar más de cuatro
@@ -133,7 +134,7 @@ por trabajador igual exagera las diferencias de ``v_i`` (notas, sección
 5.1).
 """
 
-# ╔═╡ 9e4b9044-ce8e-11f1-ab6d-f793dd5eee83
+# ╔═╡ 06baff3c-ce91-11f1-9bd1-35dc7292651c
 md"""
 ## 4. Equidad frente a eficiencia
 
@@ -146,7 +147,7 @@ de la sección 3:
 Peso de la región menos productiva, ``\omega``: $(@bind ω Slider(1.0:0.05:3.0, default = 1.0, show_value = true))
 """
 
-# ╔═╡ 9e4b9058-ce8e-11f1-bdca-3332d43f2dcf
+# ╔═╡ 06baff50-ce91-11f1-8c79-a156b24175a8
 md"""
 ## 5. [Avanzado] El mapa de sensibilidad
 
@@ -156,7 +157,7 @@ supuesto actual. La frontera entre "nada" y "algo" es la recta
 ``s_1/s_2 = v_2/v_1``, pero el número de años cambia rápido cerca de ella.
 """
 
-# ╔═╡ 9e4b9062-ce8e-11f1-99ad-4f8627d99dcf
+# ╔═╡ 06baff5a-ce91-11f1-9905-efc49c7fb700
 md"""
 ## Resumen
 
@@ -178,39 +179,39 @@ md"""
 ocurre el cambio, suponiendo ``v_2 > v_1`` y ``\gamma_1 > \gamma_2``.
 """
 
-# ╔═╡ 9e4b906c-ce8e-11f1-99c9-d3819496e8f9
+# ╔═╡ 06baff64-ce91-11f1-a003-6bdd703bdb49
 tau_cambio(v1, v2, s1, s2) = missing  # reemplaza missing
 
-# ╔═╡ 9e4b906c-ce8e-11f1-ace0-95b961b2f9c3
+# ╔═╡ 06baff6e-ce91-11f1-ad91-bb72a67a628d
 md"""
 **2.** Escribe `s_umbral(v1, v2, s2)`, la tasa de ahorro mínima de la región
 1 para que, siendo menos productiva, reciba inversión en algún momento.
 """
 
-# ╔═╡ 9e4b9076-ce8e-11f1-b9db-97c185975d89
+# ╔═╡ 06baff6e-ce91-11f1-abd2-3dc0eb444f01
 s_umbral(v1, v2, s2) = missing  # reemplaza missing
 
-# ╔═╡ 9e4b907e-ce8e-11f1-8892-c761d7778435
+# ╔═╡ 06baff78-ce91-11f1-a173-4d3ada16b2bb
 md"""
 **3.** Escribe `producto_fijo(θ, v1, v2, s1, s2, T)`, el producto nacional
 al final con un reparto fijo ``\theta`` y ``K_1(0) = K_2(0) = 1``. Usa la
 exponencial de una matriz, `exp(M * T)`.
 """
 
-# ╔═╡ 9e4b907e-ce8e-11f1-8881-956692e3bb08
+# ╔═╡ 06baff78-ce91-11f1-a77d-3dd522156187
 producto_fijo(θ, v1, v2, s1, s2, T) = missing  # reemplaza missing
 
-# ╔═╡ 9e4b908a-ce8e-11f1-9b07-fb2a94bdac39
+# ╔═╡ 06baff82-ce91-11f1-a8c8-23e802be45d0
 md"""
 **4. [Avanzado]** Escribe `tau_ponderado(v1, v2, s1, s2, ω1, ω2)`, el tiempo
 de cambio con pesos (notas, ejercicio F4), suponiendo que la última fase es
 en la región 2 (``\omega_2v_2 > \omega_1v_1``) y ``\gamma_1 > \gamma_2``.
 """
 
-# ╔═╡ 9e4b908a-ce8e-11f1-8b03-f7434e326626
+# ╔═╡ 06baff8c-ce91-11f1-a19d-bf59d35af9a2
 tau_ponderado(v1, v2, s1, s2, ω1, ω2) = missing  # reemplaza missing
 
-# ╔═╡ 9e4b9094-ce8e-11f1-a5d0-3978963aabdd
+# ╔═╡ 06baff96-ce91-11f1-9c23-e34622ff9138
 md"""
 ### Interpretación
 
@@ -246,7 +247,7 @@ md"""
   Markov).
 """
 
-# ╔═╡ 9e4b909e-ce8e-11f1-a2bb-310e8a958f93
+# ╔═╡ 06baff96-ce91-11f1-85e6-eb2ca55f9551
 md"""
 ---
 ## Apéndice: paquetes y funciones auxiliares
@@ -255,7 +256,7 @@ Estas celdas definen herramientas que usa el cuaderno. No es necesario
 leerlas para seguir la sesión.
 """
 
-# ╔═╡ 9e4b90a8-ce8e-11f1-9caa-891c7844143b
+# ╔═╡ 06baffa2-ce91-11f1-a736-e74017580fc8
 begin
     const AZUL    = "#2a78d6"   # región 1
     const NARANJA = "#eb6834"   # región 2
@@ -263,23 +264,21 @@ begin
     const TINTA   = "#0b0b0b"   # reparto, producto total
 end;
 
-# ╔═╡ 9e4b90a8-ce8e-11f1-977b-3ff3a414406c
+# ╔═╡ 06baffaa-ce91-11f1-a42e-bb1c54678e2d
 """
-Productividad del capital por entidad en el año dado: v_i = v̄ y_i/ȳ, con
-y_i el PIB sin minería petrolera por trabajador y v̄ = 1/(K/Y) de la PWT
-(promedio 1990–2019, sesión 12).
+Productividad del capital por entidad en el año dado: v_i = v̄ (y_i/ȳ)^φ,
+con y_i el PIB sin minería petrolera por trabajador y v̄ = 1/(K/Y) de la PWT
+(promedio 1990–2019, sesión 12). Con φ = 1, el capital por trabajador es el
+mismo en todos los estados.
 """
-function productividades(datos, año; KY = 3.66)
+function productividades(datos, año; KY = 3.66, φ = 1.0)
     d = sort(filter(r -> r.año == año, datos), :clave)
     y = (d.pib .- d.pib_petrolero) ./ d.empleo
     ybar = sum(d.pib .- d.pib_petrolero) / sum(d.empleo)
-    (; entidad = String.(d.entidad), v = (y ./ ybar) ./ KY)
+    (; entidad = String.(d.entidad), v = (y ./ ybar) .^ φ ./ KY)
 end
 
-# ╔═╡ 9e4b901e-ce8e-11f1-a990-2dc47a04acf5
-estados = productividades(CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame), 2023)
-
-# ╔═╡ 9e4b90b0-ce8e-11f1-bb01-95b07ef0b5bc
+# ╔═╡ 06baffaa-ce91-11f1-8d64-3b96e9ad7ef0
 "Opciones del selector de estados: clave => nombre, en el orden de las claves del INEGI."
 const OPCIONES_ESTADOS = let
     d = CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame)
@@ -288,16 +287,18 @@ const OPCIONES_ESTADOS = let
     [c => String(e) for (c, e) in zip(u.clave, u.entidad)]
 end
 
-# ╔═╡ 9e4b901e-ce8e-11f1-b373-cde5791d9d15
+# ╔═╡ 06baff14-ce91-11f1-ad92-1923deb60d7a
 md"""
 ## 3. Calibración: dos estados de México
 
-Las productividades salen de los datos (INEGI y OCDE, 2023): con el
-supuesto de que el capital por trabajador es el mismo en todos los estados,
-``v_i = \bar v\, y_i/\bar y``, donde ``y_i`` es el PIB sin minería
+Las productividades salen de los datos (INEGI y OCDE, 2023):
+``v_i = \bar v\,(y_i/\bar y)^\phi``, donde ``y_i`` es el PIB sin minería
 petrolera por trabajador y ``\bar v = 1/(K/Y) = 1/3.66`` (Penn World Table,
-sesión 12). Las tasas de ahorro **no se publican por entidad**: se fijan
-con supuestos alrededor de la tasa nacional (0.19).
+sesión 12). Con ``\phi = 1``, el capital por trabajador es el mismo en todos
+los estados; con ``\phi < 1``, los estados ricos tienen más capital por
+trabajador y las diferencias de ``v_i`` se reducen (notas, sección 5.1). Las
+tasas de ahorro **no se publican por entidad**: se fijan con supuestos
+alrededor de la tasa nacional (0.19).
 
 Región 1: $(@bind e1 Select(OPCIONES_ESTADOS; default = 5))
 
@@ -308,9 +309,14 @@ Tasa de ahorro supuesta, región 1: $(@bind σ1 Slider(0.10:0.01:0.40, default =
 Tasa de ahorro supuesta, región 2: $(@bind σ2 Slider(0.10:0.01:0.40, default = 0.19, show_value = true))
 
 Horizonte del plan: $(@bind Tm Slider(5:1:40, default = 20, show_value = true))
+
+Cuánto de la diferencia de PIB por trabajador se atribuye a ``v_i``, ``\phi``: $(@bind φ Slider(0.0:0.1:1.0, default = 1.0, show_value = true))
 """
 
-# ╔═╡ 9e4b90b0-ce8e-11f1-a534-437bccc89675
+# ╔═╡ 06baff14-ce91-11f1-86fa-df62c2a44614
+estados = productividades(CSV.read(joinpath(@__DIR__, "..", "Data", "entidades.csv"), DataFrame), 2023; φ)
+
+# ╔═╡ 06baffb4-ce91-11f1-a6b9-f92dbb4e3717
 """
 Resuelve el modelo de dos regiones. Los precios sombra se integran hacia
 atrás desde p_i(T) = ω_i v_i con p_i' = -γ_i max(p₁, p₂) (RK4 por tramos); los
@@ -334,7 +340,7 @@ function resolver_rit(v1, v2, s1, s2, T; ω = (1.0, 1.0), n = 4000, nombres = ("
     θ = [d > 0 ? 1.0 : 0.0 for d in dif]
     cambios = Float64[]
     for k in 1:n
-        if sign(dif[k]) != sign(dif[k + 1]) && dif[k] != 0
+        if dif[k] * dif[k + 1] < 0          # cambio de signo estricto
             push!(cambios, t[k] + dt * dif[k] / (dif[k] - dif[k + 1]))
         end
     end
@@ -357,14 +363,14 @@ function resolver_rit(v1, v2, s1, s2, T; ω = (1.0, 1.0), n = 4000, nombres = ("
     (; v1, v2, s1, s2, T, γ, ω, nombres, t, p, θ, cambios, τ, K, Yi, Y = sum.(Yi))
 end
 
-# ╔═╡ 9e4b8ff4-ce8e-11f1-b8d9-3dbf195a6271
+# ╔═╡ 06bafeec-ce91-11f1-9f72-c1cb1e3429ec
 plan = resolver_rit(v1, v2, s1, s2, float(T))
 
-# ╔═╡ 9e4b9026-ce8e-11f1-ae3f-ff3d902ea412
+# ╔═╡ 06baff1e-ce91-11f1-b7b0-755f07e1f73c
 mexico = resolver_rit(estados.v[e1], estados.v[e2], σ1, σ2, float(Tm);
                       nombres = (estados.entidad[e1], estados.entidad[e2]))
 
-# ╔═╡ 9e4b9044-ce8e-11f1-a6c8-5b1e7b3fc0b4
+# ╔═╡ 06baff46-ce91-11f1-8d74-21a8fb0d4593
 let
     m = mexico
     pobre = m.v1 <= m.v2 ? 1 : 2
@@ -383,7 +389,7 @@ let
     plot(g1, g2; layout = (1, 2), size = (780, 320))
 end
 
-# ╔═╡ 9e4b90bc-ce8e-11f1-b3fc-e5f92fd94dcd
+# ╔═╡ 06baffbe-ce91-11f1-ba3a-d575a741139b
 """
 Años del plan en que se invierte en la región 1, con la solución analítica
 (notas, sección 3): la última fase es en la región con mayor v; antes, en la
@@ -402,7 +408,7 @@ function años_region1(v1, v2, s1, s2, T)
     end
 end
 
-# ╔═╡ 9e4b9030-ce8e-11f1-992e-09d269496061
+# ╔═╡ 06baff30-ce91-11f1-88e2-f93f8a805ad8
 let
     m = mexico
     ss = range(0.10, 0.45, length = 141)
@@ -415,7 +421,7 @@ let
     g
 end
 
-# ╔═╡ 9e4b9062-ce8e-11f1-a06b-49179618d154
+# ╔═╡ 06baff5a-ce91-11f1-9e3a-290ade67596b
 let
     m = mexico
     ss = range(0.10, 0.40, length = 61)
@@ -429,7 +435,7 @@ let
     g
 end
 
-# ╔═╡ 9e4b90bc-ce8e-11f1-9305-67d5efa1c963
+# ╔═╡ 06baffc8-ce91-11f1-a451-73e9853dc9b7
 "Descripción en palabras de la política óptima."
 function describir_politica(r)
     a, b = r.nombres
@@ -442,7 +448,7 @@ function describir_politica(r)
     end
 end
 
-# ╔═╡ 9e4b9050-ce8e-11f1-b66e-bb7de33f0732
+# ╔═╡ 06baff50-ce91-11f1-ace9-cb3009823563
 let
     m = mexico
     pobre = m.v1 <= m.v2 ? 1 : 2
@@ -464,7 +470,7 @@ let
     """
 end
 
-# ╔═╡ 9e4b90c6-ce8e-11f1-bb1d-e17d21c08a27
+# ╔═╡ 06baffc8-ce91-11f1-91ff-554c498a4d3b
 "Gráficas de un plan: precios sombra, reparto y capital."
 function graficar_plan(r)
     a, b = r.nombres
@@ -482,13 +488,13 @@ function graficar_plan(r)
     plot(g1, g2, g3; layout = (1, 3), size = (880, 310))
 end
 
-# ╔═╡ 9e4b8ffe-ce8e-11f1-b74d-69a718adafb7
+# ╔═╡ 06bafef6-ce91-11f1-94aa-b75e5a5b2fa1
 graficar_plan(plan)
 
-# ╔═╡ 9e4b9026-ce8e-11f1-9dae-97d9d469a297
+# ╔═╡ 06baff1e-ce91-11f1-ba99-e966c4518247
 graficar_plan(mexico)
 
-# ╔═╡ 9e4b90d0-ce8e-11f1-a61c-37db81145914
+# ╔═╡ 06baffd4-ce91-11f1-a00b-ed34cc2d09c7
 "Tabla de resultados de un plan."
 function tabla_plan(r)
     a, b = r.nombres
@@ -510,20 +516,20 @@ function tabla_plan(r)
     """)
 end
 
-# ╔═╡ 9e4b8ffe-ce8e-11f1-aa11-4506fdeb2a9e
+# ╔═╡ 06bafef6-ce91-11f1-af36-bf0c557ab60d
 tabla_plan(plan)
 
-# ╔═╡ 9e4b9026-ce8e-11f1-9d54-23f3c19aaeb9
+# ╔═╡ 06baff28-ce91-11f1-b187-a118b79ca0da
 tabla_plan(mexico)
 
-# ╔═╡ 9e4b90d0-ce8e-11f1-a5d6-4ff84fd08b75
+# ╔═╡ 06baffdc-ce91-11f1-8074-c712eb650730
 "Producto nacional al final con un reparto fijo θ y K(0) = (1, 1)."
 function producto_fijo_ref(θ, v1, v2, s1, s2, T)
     M = [θ * s1 * v1 θ * s2 * v2; (1 - θ) * s1 * v1 (1 - θ) * s2 * v2]
     dot([v1, v2], exp(M * T) * [1.0, 1.0])
 end
 
-# ╔═╡ 9e4b9008-ce8e-11f1-bb99-813ba3ab5328
+# ╔═╡ 06baff0a-ce91-11f1-a230-bdea850bfbca
 let
     p = plan
     θs = range(0, 1, length = 101)
@@ -536,7 +542,7 @@ let
     g
 end
 
-# ╔═╡ 9e4b9012-ce8e-11f1-8709-09e52ae30e7c
+# ╔═╡ 06baff0a-ce91-11f1-b83c-b9c2dc716179
 let
     p = plan
     θs = range(0, 1, length = 101)
@@ -553,7 +559,7 @@ let
     """
 end
 
-# ╔═╡ 9e4b90da-ce8e-11f1-8628-b5435a404569
+# ╔═╡ 06baffdc-ce91-11f1-ba68-b7afe9a948d2
 "Muestra si la respuesta de un ejercicio es correcta."
 function verificar(f, esperado; rtol = 1e-8, pista = md"")
     caja(tipo, titulo, texto) = Markdown.MD(Markdown.Admonition(tipo, titulo, [texto]))
@@ -575,74 +581,74 @@ function verificar(f, esperado; rtol = 1e-8, pista = md"")
     end
 end
 
-# ╔═╡ 9e4b906c-ce8e-11f1-80af-a387e1e8a055
+# ╔═╡ 06baff64-ce91-11f1-86a2-315bbf6f6766
 verificar(() -> [tau_cambio(0.20, 0.25, 0.30, 0.20), tau_cambio(0.40, 0.461, 0.25, 0.19)],
           [20log(2), log(0.40 * 0.06 / (0.25 * 0.40 - 0.19 * 0.461)) / (0.19 * 0.461)];
           pista = md"Con `γ1 = s1 * v1` y `γ2 = s2 * v2`: `log(v1 * (s1 - s2) / (γ1 - γ2)) / γ2`.")
 
-# ╔═╡ 9e4b9076-ce8e-11f1-8f69-eba36533a44b
+# ╔═╡ 06baff78-ce91-11f1-a51a-934e1abc2fe3
 verificar(() -> [s_umbral(0.40, 0.461, 0.19), s_umbral(0.114, 0.530, 0.19)],
           [0.19 * 0.461 / 0.40, 0.19 * 0.530 / 0.114];
           pista = md"Hace falta ``\gamma_1 > \gamma_2``, es decir, ``s_1v_1 > s_2v_2``: `s2 * v2 / v1`.")
 
-# ╔═╡ 9e4b908a-ce8e-11f1-9b4e-33972f129d82
+# ╔═╡ 06baff82-ce91-11f1-a1c4-d959ac908696
 verificar(() -> [producto_fijo(0.5, 0.20, 0.25, 0.30, 0.20, 30.0), producto_fijo(1.0, 0.40, 0.461, 0.25, 0.19, 20.0)],
           [producto_fijo_ref(0.5, 0.20, 0.25, 0.30, 0.20, 30.0), producto_fijo_ref(1.0, 0.40, 0.461, 0.25, 0.19, 20.0)];
           rtol = 1e-6,
           pista = md"`M = [θ*s1*v1  θ*s2*v2; (1-θ)*s1*v1  (1-θ)*s2*v2]`; después `[v1 v2] * exp(M * T) * [1.0, 1.0]`, y toma el único elemento con `only` o `[1]`.")
 
-# ╔═╡ 9e4b9094-ce8e-11f1-9b6f-e30cf9d2bdcd
+# ╔═╡ 06baff8c-ce91-11f1-a1f5-2b0d50776bc8
 verificar(() -> [tau_ponderado(0.20, 0.25, 0.30, 0.20, 1.0, 1.0), tau_ponderado(0.20, 0.25, 0.30, 0.20, 1.1, 1.0)],
           [resolver_rit(0.20, 0.25, 0.30, 0.20, 60.0).τ, resolver_rit(0.20, 0.25, 0.30, 0.20, 60.0; ω = (1.1, 1.0)).τ];
           rtol = 1e-3,
           pista = md"Igualando ``p_1 = p_2`` en la última fase: ``e^{\gamma_2\tau} = (\gamma_1\omega_2v_2 - \gamma_2\omega_1v_1)/(\omega_2v_2(\gamma_1 - \gamma_2))``.")
 
 # ╔═╡ Cell order:
-# ╟─9e4b8fb8-ce8e-11f1-bfa6-1f07247e097f
-# ╟─9e4b8fec-ce8e-11f1-8d6d-e11e50fe5847
-# ╟─9e4b8fec-ce8e-11f1-89db-333924f190b7
-# ╠═9e4b8ff4-ce8e-11f1-b8d9-3dbf195a6271
-# ╟─9e4b8ffe-ce8e-11f1-b74d-69a718adafb7
-# ╟─9e4b8ffe-ce8e-11f1-aa11-4506fdeb2a9e
-# ╟─9e4b9008-ce8e-11f1-82ee-d36ab917a088
-# ╟─9e4b9008-ce8e-11f1-9db2-378edc1cb692
-# ╟─9e4b9008-ce8e-11f1-bb99-813ba3ab5328
-# ╟─9e4b9012-ce8e-11f1-8709-09e52ae30e7c
-# ╟─9e4b901e-ce8e-11f1-b373-cde5791d9d15
-# ╠═9e4b901e-ce8e-11f1-a990-2dc47a04acf5
-# ╠═9e4b9026-ce8e-11f1-ae3f-ff3d902ea412
-# ╟─9e4b9026-ce8e-11f1-9dae-97d9d469a297
-# ╟─9e4b9026-ce8e-11f1-9d54-23f3c19aaeb9
-# ╟─9e4b9030-ce8e-11f1-9c87-97deaee20130
-# ╟─9e4b9030-ce8e-11f1-992e-09d269496061
-# ╟─9e4b903a-ce8e-11f1-b26e-efbc6ddfda52
-# ╟─9e4b9044-ce8e-11f1-ab6d-f793dd5eee83
-# ╟─9e4b9044-ce8e-11f1-a6c8-5b1e7b3fc0b4
-# ╟─9e4b9050-ce8e-11f1-b66e-bb7de33f0732
-# ╟─9e4b9058-ce8e-11f1-bdca-3332d43f2dcf
-# ╟─9e4b9062-ce8e-11f1-a06b-49179618d154
-# ╟─9e4b9062-ce8e-11f1-99ad-4f8627d99dcf
-# ╠═9e4b906c-ce8e-11f1-99c9-d3819496e8f9
-# ╟─9e4b906c-ce8e-11f1-80af-a387e1e8a055
-# ╟─9e4b906c-ce8e-11f1-ace0-95b961b2f9c3
-# ╠═9e4b9076-ce8e-11f1-b9db-97c185975d89
-# ╟─9e4b9076-ce8e-11f1-8f69-eba36533a44b
-# ╟─9e4b907e-ce8e-11f1-8892-c761d7778435
-# ╠═9e4b907e-ce8e-11f1-8881-956692e3bb08
-# ╟─9e4b908a-ce8e-11f1-9b4e-33972f129d82
-# ╟─9e4b908a-ce8e-11f1-9b07-fb2a94bdac39
-# ╠═9e4b908a-ce8e-11f1-8b03-f7434e326626
-# ╟─9e4b9094-ce8e-11f1-9b6f-e30cf9d2bdcd
-# ╟─9e4b9094-ce8e-11f1-a5d0-3978963aabdd
-# ╟─9e4b909e-ce8e-11f1-a2bb-310e8a958f93
-# ╠═9e4b909e-ce8e-11f1-bfaa-2563a0b86e1d
-# ╠═9e4b90a8-ce8e-11f1-9caa-891c7844143b
-# ╠═9e4b90a8-ce8e-11f1-977b-3ff3a414406c
-# ╠═9e4b90b0-ce8e-11f1-bb01-95b07ef0b5bc
-# ╠═9e4b90b0-ce8e-11f1-a534-437bccc89675
-# ╠═9e4b90bc-ce8e-11f1-b3fc-e5f92fd94dcd
-# ╠═9e4b90bc-ce8e-11f1-9305-67d5efa1c963
-# ╠═9e4b90c6-ce8e-11f1-bb1d-e17d21c08a27
-# ╠═9e4b90d0-ce8e-11f1-a61c-37db81145914
-# ╠═9e4b90d0-ce8e-11f1-a5d6-4ff84fd08b75
-# ╠═9e4b90da-ce8e-11f1-8628-b5435a404569
+# ╟─06bafeb0-ce91-11f1-9df2-9d7284ce1764
+# ╟─06bafee2-ce91-11f1-b9e1-3fd47c8a75e7
+# ╟─06bafee2-ce91-11f1-b073-bfea2f8bd834
+# ╠═06bafeec-ce91-11f1-9f72-c1cb1e3429ec
+# ╟─06bafef6-ce91-11f1-94aa-b75e5a5b2fa1
+# ╟─06bafef6-ce91-11f1-af36-bf0c557ab60d
+# ╟─06bafefe-ce91-11f1-bf2a-95ee0621e851
+# ╟─06bafefe-ce91-11f1-8425-695e354ad720
+# ╟─06baff0a-ce91-11f1-a230-bdea850bfbca
+# ╟─06baff0a-ce91-11f1-b83c-b9c2dc716179
+# ╟─06baff14-ce91-11f1-ad92-1923deb60d7a
+# ╠═06baff14-ce91-11f1-86fa-df62c2a44614
+# ╠═06baff1e-ce91-11f1-b7b0-755f07e1f73c
+# ╟─06baff1e-ce91-11f1-ba99-e966c4518247
+# ╟─06baff28-ce91-11f1-b187-a118b79ca0da
+# ╟─06baff28-ce91-11f1-8cfc-4d9716e19fbc
+# ╟─06baff30-ce91-11f1-88e2-f93f8a805ad8
+# ╟─06baff3c-ce91-11f1-9057-4f60cb443821
+# ╟─06baff3c-ce91-11f1-9bd1-35dc7292651c
+# ╟─06baff46-ce91-11f1-8d74-21a8fb0d4593
+# ╟─06baff50-ce91-11f1-ace9-cb3009823563
+# ╟─06baff50-ce91-11f1-8c79-a156b24175a8
+# ╟─06baff5a-ce91-11f1-9e3a-290ade67596b
+# ╟─06baff5a-ce91-11f1-9905-efc49c7fb700
+# ╠═06baff64-ce91-11f1-a003-6bdd703bdb49
+# ╟─06baff64-ce91-11f1-86a2-315bbf6f6766
+# ╟─06baff6e-ce91-11f1-ad91-bb72a67a628d
+# ╠═06baff6e-ce91-11f1-abd2-3dc0eb444f01
+# ╟─06baff78-ce91-11f1-a51a-934e1abc2fe3
+# ╟─06baff78-ce91-11f1-a173-4d3ada16b2bb
+# ╠═06baff78-ce91-11f1-a77d-3dd522156187
+# ╟─06baff82-ce91-11f1-a1c4-d959ac908696
+# ╟─06baff82-ce91-11f1-a8c8-23e802be45d0
+# ╠═06baff8c-ce91-11f1-a19d-bf59d35af9a2
+# ╟─06baff8c-ce91-11f1-a1f5-2b0d50776bc8
+# ╟─06baff96-ce91-11f1-9c23-e34622ff9138
+# ╟─06baff96-ce91-11f1-85e6-eb2ca55f9551
+# ╠═06baffa2-ce91-11f1-ab2b-3390dc1197fe
+# ╠═06baffa2-ce91-11f1-a736-e74017580fc8
+# ╠═06baffaa-ce91-11f1-a42e-bb1c54678e2d
+# ╠═06baffaa-ce91-11f1-8d64-3b96e9ad7ef0
+# ╠═06baffb4-ce91-11f1-a6b9-f92dbb4e3717
+# ╠═06baffbe-ce91-11f1-ba3a-d575a741139b
+# ╠═06baffc8-ce91-11f1-a451-73e9853dc9b7
+# ╠═06baffc8-ce91-11f1-91ff-554c498a4d3b
+# ╠═06baffd4-ce91-11f1-a00b-ed34cc2d09c7
+# ╠═06baffdc-ce91-11f1-8074-c712eb650730
+# ╠═06baffdc-ce91-11f1-ba68-b7afe9a948d2
