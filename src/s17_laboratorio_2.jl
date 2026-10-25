@@ -263,7 +263,9 @@ estacionario cumple ``f'(k^\ast) = \delta + \rho``, como en la sesión 12.
 La calibración es la de la sesión 12 (notas, sección 5.2): ``\delta = 0.035``,
 ``n = 0.023``, ``K/Y = 3.66`` y ``\rho = \alpha/(K/Y) - \delta``; ``A``
 normaliza el producto de estado estacionario a 1, así que ``k^\ast = 3.66``.
-La malla tiene 200 puntos entre ``0.3k^\ast`` y ``1.6k^\ast``.
+La malla tiene 200 puntos entre ``0.3k^\ast`` y ``1.6k^\ast``, más juntos
+cerca de ``k^\ast``: ahí la convergencia es lenta y un error pequeño de la
+política pesa mucho (pregunta 3 de esta sección).
 
 Participación del capital, ``\alpha``: $(@bind α Select([1/3 => "1/3 (convencional)", 0.646 => "0.646 (PWT)"]))
 
@@ -396,11 +398,10 @@ let
        sesión 12. Usar periodos de un año en lugar de tiempo continuo la
        alarga medio año con ``\\alpha = 1/3`` y unos dos años con
        ``\\alpha = 0.646`` (11.0 y 18.7 años en el modelo discreto
-       linealizado): ¿por qué pesa más con un ``\\rho`` más alto? Con
-       ``\\alpha = 0.646`` el cuaderno da todavía más (unos 23 años con ``\\theta = 2``): ¿qué
-       parte es error de la malla? (Pista: cerca de ``k^\\ast`` la brecha es
-       pequeña y la convergencia es lenta, así que un error pequeño de la
-       política pesa mucho.)
+       linealizado; el cuaderno cuenta años completos): ¿por qué pesa más
+       con un ``\\rho`` más alto? Con una malla uniforme de 200 puntos, el
+       cuaderno daría unos 23 años con ``\\alpha = 0.646``: por eso la malla
+       de esta sección concentra los puntos cerca de ``k^\\ast``.
     4. ¿Por qué la vida media desde ``0.5k^\\ast`` no es igual a la de
        ``0.95k^\\ast``? ¿Cuál es la que linealiza la sesión 12?
     """)
@@ -482,8 +483,8 @@ md"""
    uniforme? ¿Por qué esa prueba detecta errores de código aunque la malla
    no sea perfecta?
 2. En la sección 2, explica con tus palabras por qué la malla logarítmica es
-   mucho mejor para la torta. ¿Qué malla elegirías para el crecimiento, y
-   por qué ahí la uniforme funciona bien?
+   mucho mejor para la torta. En el crecimiento, ¿por qué conviene
+   concentrar los puntos cerca de ``k^\ast`` y no cerca de cero?
 3. Con la regla de paro, ¿cuántas iteraciones hicieron falta en la torta y
    en el crecimiento? ¿Por qué tan distintas? (Pista: ``\hat\beta``.)
 4. **La pregunta del laboratorio.** Con los parámetros de México, ¿qué
@@ -541,8 +542,13 @@ begin
     const MALLA_UNIFORME = collect(range(0.001, 100, length = 200))
     "Malla pequeña para el ejercicio 1."
     const MALLA_PRUEBA = exp.(range(log(0.01), log(10), length = 30))
-    "Malla del capital: 200 puntos entre 0.3k* y 1.6k*, con k* = 3.66."
-    const MALLA_K = collect(range(0.3 * 3.66, 1.6 * 3.66, length = 200))
+    # Malla del capital: 200 puntos entre 0.3k* y 1.6k*, con k* = 3.66, más
+    # juntos cerca de k*: k = k* + (extremo − k*) sinh(2.5|z|)/sinh(2.5), con z
+    # uniforme en [−1, 1]. Con una malla uniforme, la vida media cerca de k*
+    # sale varios años más larga por el error de la política.
+    const MALLA_K = let ks = 3.66
+        [ks + ((z < 0 ? 0.3ks : 1.6ks) - ks) * sinh(2.5abs(z)) / sinh(2.5) for z in range(-1, 1, length = 200)]
+    end
     "Ofertas de salario y sus probabilidades (sección 4)."
     const OFERTAS = collect(10.0:5.0:60.0)
     const PROB = fill(1 / length(OFERTAS), length(OFERTAS))
