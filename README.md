@@ -13,6 +13,7 @@ CISE, UAdeC), con cuadernos en Julia.
 │   └── guia-de-repaso.md      → Repaso del profesor antes del curso
 ├── Class_notes/
 │   ├── sNN_tema.md            → Notas por sesión, con su plan de clase (ver tabla abajo)
+│   ├── tareaN_tema.md         → Enunciado de la tarea de la unidad N (partes analítica y de código)
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
 │       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
@@ -21,6 +22,7 @@ CISE, UAdeC), con cuadernos en Julia.
 │   └── pwt_mexico.csv         → Penn World Table 11.0, México, 1950–2023
 ├── Code/                      → Todo el código Julia, un solo entorno
 │   ├── sNN_tema.jl            → Cuadernos de Pluto (ver tabla abajo)
+│   ├── tareaN_tema.jl         → Parte de código de la tarea N, con comprobaciones
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   ├── descargar_datos.jl     → Regenera los CSV de Data/ (INEGI, OCDE y Penn World Table)
 │   ├── Project.toml
@@ -55,6 +57,10 @@ CISE, UAdeC), con cuadernos en Julia.
 | 18 | Control óptimo frente a programación dinámica | `s18_control_vs_pd.md` | |
 | 19 | Laboratorio 3: comparación numérica | | `s19_laboratorio_3.jl` |
 | 20–24 | Proyecto: avances, taller y presentaciones | `s20_proyecto.md` | |
+
+| Tarea | Unidad | Se entrega | Enunciado (`Class_notes/`) | Cuaderno (`Code/`) |
+|---|---|---|---|---|
+| 1 | I: optimización estática | Sesión 5 | `tarea1_optimizacion_estatica.md` | `tarea1_optimizacion_estatica.jl` |
 
 ## Requisitos
 
@@ -142,7 +148,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 - [x] Redactar el cuestionario diagnóstico (`Class_notes/repaso/diagnostico_inicial.md`).
 - [ ] Material de repaso de la semana previa para estudiantes (ver `docs/guia-de-repaso.md`).
 - [ ] Preparar el syllabus en el formato institucional de la UAdeC.
-- [ ] Redactar las cuatro tareas.
+- [ ] Redactar las cuatro tareas. Lista la Tarea 1 (solucionario en `privado/`); faltan las tareas 2 a 4.
 - [ ] Probar la instalación del entorno en una computadora limpia.
 - [ ] Corregir en Zotero: la ficha GZK24M8N es el Vol. 5B del Handbook (ISBN 978-0-444-59531-7); agregar a Henderson y Strange como coeditores; indicar 4.ª ed. en Sethi.
 - [ ] Agregar a Zotero los artículos de Rahman, Intriligator y Takayama, y la bibliografía del plan que falta. El título correcto de Rahman (1963) dice "An Aggregative Study".
