@@ -332,13 +332,16 @@ control óptimo y de la programación dinámica.
 
 ## 4. El hilo conductor: invertir en una región o en otra
 
-### 4.1 Tres versiones del mismo problema
+### 4.1 Dos versiones del mismo problema
 
 | Sesión | Versión | Herramienta |
 |---|---|---|
 | 2 | Repartir un fondo fijo $B$ hoy | Lagrange y Kuhn-Tucker |
 | 14 | Repartir la inversión de cada momento durante $T$ años | Principio del máximo |
-| 17 | Lo mismo, año por año | Programación dinámica (extensión opcional) |
+
+La programación dinámica (Unidad IV) también podría resolverlo año por año,
+pero con dos regiones el estado tiene dos dimensiones y el cálculo crece muy
+rápido: la sesión 15 explica por qué conviene el principio del máximo.
 
 ### 4.2 El modelo de Rahman, Intriligator y Takayama
 

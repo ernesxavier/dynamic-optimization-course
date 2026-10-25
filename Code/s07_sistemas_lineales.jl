@@ -495,8 +495,8 @@ let
     | Vida media de la brecha | $(round(log(2) / -r.λs, digits = 1)) años |
 
     La recta naranja es la aproximación lineal de la rama estable. **Mueve**
-    ``\rho`` y ``\theta``. **Observa** cuál cambia el estado estacionario y
-    cuál la velocidad de convergencia. La sesión 8 dibuja la rama completa.
+    ``\rho`` y ``\theta``. **Observa** cuál cambia el estado estacionario y la
+    velocidad de convergencia, y cuál sólo la velocidad. La sesión 8 dibuja la rama completa.
     """
 end
 

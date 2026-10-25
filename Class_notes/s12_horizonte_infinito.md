@@ -119,7 +119,9 @@ Chiang y Wainwright (2006, cap. 20) en español. En inglés, Chiang (1992,
 sec. 8.2) y Sethi (2021, sec. 3.3) lo llaman *current-value Hamiltonian*:
 mide los valores en unidades del instante $t$ (valor corriente), no
 descontados a $t = 0$. Por eso aquí se dice que $\mu$ es un precio "en valor
-corriente". Es el mismo objeto con dos nombres.
+corriente". Es el mismo objeto con dos nombres. **Cuidado al leer en
+inglés:** allá, *present-value Hamiltonian* es el $H$ descontado de la
+sesión 11, no $H_c$.
 
 Las condiciones del principio del máximo se vuelven:
 

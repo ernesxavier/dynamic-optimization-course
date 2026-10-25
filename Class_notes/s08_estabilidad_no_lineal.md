@@ -166,7 +166,8 @@ $$
 J(x, y) = \begin{pmatrix} 1 - 2x - ay & -ax \cr -by & 1 - 2y - bx \end{pmatrix}.
 $$
 
-- En $(0, 0)$, $J = I$: nodo inestable. Ninguna región se queda vacía.
+- En $(0, 0)$, $J = I$: nodo inestable. Las dos regiones nunca se vacían a
+  la vez.
 - En $(1, 0)$, $J = \begin{pmatrix} -1 & -a \cr 0 & 1 - b \end{pmatrix}$, con
   eigenvalores $-1$ y $1 - b$: estable si $b > 1$, punto de silla si
   $b < 1$.

@@ -393,9 +393,14 @@ let
     2. ¿Por qué el capital de largo plazo no es exactamente ``k^\\ast``?
        (Pista: ¿qué pasa con la política entre los puntos de la malla?)
     3. **Compara** la vida media cerca del estado estacionario con la de la
-       sesión 12. La diferencia de uno a dos años viene de usar periodos de
-       un año en lugar de tiempo continuo: ¿por qué es mayor con
-       ``\\alpha = 0.646``, que tiene un ``\\rho`` más alto?
+       sesión 12. Usar periodos de un año en lugar de tiempo continuo la
+       alarga medio año con ``\\alpha = 1/3`` y unos dos años con
+       ``\\alpha = 0.646`` (11.0 y 18.7 años en el modelo discreto
+       linealizado): ¿por qué pesa más con un ``\\rho`` más alto? Con
+       ``\\alpha = 0.646`` el cuaderno da todavía más (unos 23 años con ``\\theta = 2``): ¿qué
+       parte es error de la malla? (Pista: cerca de ``k^\\ast`` la brecha es
+       pequeña y la convergencia es lenta, así que un error pequeño de la
+       política pesa mucho.)
     4. ¿Por qué la vida media desde ``0.5k^\\ast`` no es igual a la de
        ``0.95k^\\ast``? ¿Cuál es la que linealiza la sesión 12?
     """)

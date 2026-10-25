@@ -160,8 +160,9 @@ $\nabla f = \lambda\nabla g$.
 
 *Demostración para $n = 2$, $m = 1$*: en [Para profundizar, P.2](#pp2).
 
-La condición de rango es necesaria. Sin ella el teorema puede fallar: ver
-[Para profundizar, P.4](#pp4).
+La hipótesis de rango no se puede omitir: sin ella, un óptimo puede no
+cumplir la condición de Lagrange. Ver [Para profundizar, P.4](#pp4), con el
+caso análogo de las desigualdades.
 
 ### 3.2 El multiplicador como precio sombra
 

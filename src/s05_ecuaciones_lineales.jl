@@ -99,7 +99,7 @@ puntos naranjas, el método de Euler con paso ``\Delta t``.
 
 ``y_0``: $(@bind y0 Slider(0.0:0.5:8.0, default = 1.0, show_value = true))
 
-Paso de Euler ``\Delta t``: $(@bind Δt Slider([0.05, 0.1, 0.25, 0.5, 1.0, 2.0], default = 0.5, show_value = true))
+Paso de Euler ``\Delta t``: $(@bind Δt Slider([0.05, 0.1, 0.25, 0.5, 1.0, 1.5, 2.0, 2.5], default = 0.5, show_value = true))
 """
 
 #%% hide
@@ -141,8 +141,10 @@ let
 
     1. **Mueve** ``y_0`` y ``b``: ¿cambia la vida media?
     2. **Mueve** ``a`` a un valor negativo: ¿qué pasa con el equilibrio?
-    3. Con ``a = 0.5``, **agranda** ``\Delta t`` hasta 2: ¿cuándo empieza
-       Euler a oscilar y cuándo diverge? La razón se ve en la sesión 6.
+    3. Con ``a = 1``, **agranda** ``\Delta t`` de 0.5 a 2.5: ¿con qué paso
+       empieza Euler a oscilar y con cuál diverge, aunque la ecuación no
+       oscile? La razón (comparar ``a\,\Delta t`` con 1 y con 2) se ve en la
+       sesión 6.
     """
 end
 

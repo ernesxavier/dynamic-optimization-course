@@ -333,8 +333,8 @@ seccion_dorada(f, 0.01, 9.99), 10 / 1.9    # ≈ 5.263 y 5.263
 
 El viejo punto interior sirve como nuevo punto interior porque
 $\varphi^2 = 1 - \varphi$: así, cada iteración cuesta una sola evaluación de
-`f`. Para reducir el intervalo de 10 a $10^{-8}$ hacen falta unas 43
-iteraciones.
+`f`. Para reducir el intervalo de 10 a $10^{-8}$ hacen falta unas 44
+iteraciones ($\varphi^n \le 10^{-9}$).
 
 La sección dorada necesita que el objetivo sea unimodal (un solo máximo), lo
 que está garantizado si es cóncavo en el control ([C.I2](calculo.md#ci2)).

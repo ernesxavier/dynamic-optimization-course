@@ -96,8 +96,8 @@ md"""
 *En clase, minutos 90–100, después de la sección 4 de las notas.* Una región
 con ``k_{t+1} = k_t^\alpha - c_t`` y ``r = \ln c``. La misma función
 `induccion_atras` resuelve el problema; sólo cambia la recompensa. La región
-empieza con la mitad del capital de largo plazo de la regla de la sección
-4.3 de las notas.
+empieza con la mitad del capital de largo plazo de la regla límite (notas,
+ejercicio F7).
 
 Participación del capital, ``\alpha``: $(@bind α Slider(0.2:0.05:0.5, default = 0.3, show_value = true))
 

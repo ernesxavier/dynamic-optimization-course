@@ -178,7 +178,7 @@ Partir el paso a la mitad parte el error a la mitad: Euler es de **orden
 1**. Su error en ``T = 50`` es de unos ``0.022\,h``. `Tsit5()` es de orden 5 y
 elige el paso solo: con la tolerancia por omisión y apenas unos diez
 pasos, su error es de unos ``3 \times 10^{-5}``. Para igualarlo, Euler
-necesitaría ``h \approx 0.001``: 50 000 pasos.
+necesitaría ``h \approx 0.0013``: unos 40 000 pasos.
 """
 
 #%% hide

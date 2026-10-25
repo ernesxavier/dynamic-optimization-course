@@ -298,7 +298,7 @@ lo más posible, $gK/4$, el **rendimiento máximo sostenible**. ¿Es eso lo
 
 ### 5.2 Por el principio del máximo
 
-El Hamiltoniano en valor corriente es
+El Hamiltoniano a valor presente (sesión 12) es
 
 $$
 H_c = p\thinspace h + \mu\big(G(x) - h\big) = (p - \mu)\thinspace h + \mu\thinspace G(x).

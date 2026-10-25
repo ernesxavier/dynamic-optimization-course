@@ -116,9 +116,10 @@ $$
 \frac{d}{dt}\Big(e^{-\rho t}x(t)\Big) = e^{-\rho t}\big(\dot x - \rho x\big).
 $$
 
-Esta identidad pasa del hamiltoniano a valor presente al hamiltoniano a
-valor corriente (sesión 12) y de la restricción dinámica a la restricción en
-valor presente ([D.I2](ecuaciones_diferenciales.md#di2)).
+Esta identidad pasa del hamiltoniano con el beneficio descontado (sesión 11)
+al hamiltoniano a valor presente $H_c$, con el coestado $\mu = e^{\rho t}\lambda$
+(sesión 12), y de la restricción dinámica a la restricción en valor presente
+([D.I2](ecuaciones_diferenciales.md#di2)).
 
 <a id="cb4"></a>
 

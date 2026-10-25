@@ -516,8 +516,8 @@ Las dos herramientas de esta sesión se usan en todo el curso:
   $\partial\lambda/\partial a_1$. Evalúa en $a_1 = 2$, $a_2 = 1$, $B = 4$ y
   verifica con la fórmula cerrada.
 - **F3.** En el modelo de Ramsey (sesión 12), el capital de estado
-  estacionario cumple $f'(k^\ast) = \rho + \delta$, con $f(k) = k^\theta$ y
-  $0 < \theta < 1$. Sin despejar $k^\ast$, calcula $dk^\ast/d\rho$ y su
+  estacionario cumple $f'(k^\ast) = \rho + \delta$, con $f(k) = k^\alpha$ y
+  $0 < \alpha < 1$. Sin despejar $k^\ast$, calcula $dk^\ast/d\rho$ y su
   signo. ¿Qué dice sobre una región más impaciente?
 - **F4.** Con $a_1 = 2$ y $a_2 = 1$, ¿cuánto estaría dispuesto a pagar el
   planificador, en pesos del fondo, por un programa que eleve $a_2$ en

@@ -130,7 +130,7 @@ curso con un cuaderno que se puede adaptar.
 | Control acotado, bang-bang, varias regiones | Sesiones 13 y 14 | `s13`, `s14` (tiempo de cambio) |
 | Programación dinámica, horizonte finito | Sesión 15 | `s15` (inducción hacia atrás en una malla) |
 | Programación dinámica, horizonte infinito, estado continuo | Sesión 16 | Laboratorio 2 (`s17`): `bellman` con interpolación e `iterar_valor` |
-| Decisiones con incertidumbre, estados discretos | Sesión 18 | Laboratorio 3 (`s19`): cadena de Markov y política |
+| Decisiones con incertidumbre, estados discretos | Sesiones 15 (P.2) y 18 (sección 4) | Laboratorio 2 (`s17`, sección 4) y Laboratorio 3 (`s19`): cadena de Markov y política |
 | Recurso natural renovable | Sesión 18, sección 5 | La ecuación de Bellman de la sección 5.3 con el código del Laboratorio 2 |
 
 Los cuadernos están en `Code/` y sus fuentes en `src/`. Para empezar el

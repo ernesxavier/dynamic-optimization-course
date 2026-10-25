@@ -72,8 +72,8 @@ let
     | Pendiente ``f'(k^\ast)`` | $(r(fp)) |
     | Vida media de una desviación pequeña | $(round(log(2) / abs(fp), digits = 1)) años |
 
-    **Mueve** ``s`` y después ``\alpha``. **Observa:** ¿cuál de los dos cambia
-    ``k^\ast`` y cuál la velocidad de convergencia? ¿Se cruzan o oscilan las
+    **Mueve** ``s`` y después ``\alpha``. **Observa:** ¿cuál cambia sólo
+    ``k^\ast`` y cuál también la velocidad de convergencia? ¿Se cruzan o oscilan las
     trayectorias?
     """
 end
@@ -122,7 +122,7 @@ let
         """
     elseif length(eqs) == 2
         md"""
-        Con ``a`` = $(a_agl) > 0, ``L = 0`` es **inestable**: cualquier región
+        Con ``a`` = $(a_agl) ``\ge 0``, ``L = 0`` es **inestable**: cualquier región
         con algo de población crece hasta ``L_2`` = $(r(eqs[2])). Ya no hay
         umbral.
         """

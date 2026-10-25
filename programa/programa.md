@@ -21,8 +21,9 @@ y de aplicar estas herramientas a un problema de economía regional.
 **Hilo conductor**: el reparto de la inversión entre dos regiones. El curso lo
 plantea primero como un problema estático con Lagrange y Kuhn-Tucker
 (sesión 2), lo resuelve en el tiempo con el principio del máximo en el modelo
-de Rahman, Intriligator y Takayama (sesión 14) y lo vuelve a resolver en
-tiempo discreto con programación dinámica (sesión 17, extensión opcional).
+de Rahman, Intriligator y Takayama (sesión 14). En la Unidad IV, la sesión 15
+muestra por qué ese caso, con dos estados, conviene resolverlo con control
+óptimo y no con programación dinámica.
 
 **Datos de México**: tres sesiones trabajan con datos reales: la
 convergencia entre estados con el PIB por entidad del INEGI (sesión 5), la
