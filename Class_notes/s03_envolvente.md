@@ -347,8 +347,8 @@ un cambio en $\alpha$ tiene dos efectos sobre $V$:
 
 $$
 V'(\alpha) =
-\underbrace{f_x\big(x^\ast, \alpha\big)\thinspace\frac{dx^\ast}{d\alpha}}_{\text{efecto indirecto}}
-+ \underbrace{f_\alpha\big(x^\ast, \alpha\big)}_{\text{efecto directo}}.
+\underset{\text{efecto indirecto}}{\underbrace{f_x\big(x^\ast, \alpha\big)\thinspace\frac{dx^\ast}{d\alpha}}} +
+\underset{\text{efecto directo}}{\underbrace{f_\alpha\big(x^\ast, \alpha\big)}}.
 $$
 
 En el óptimo, $f_x = 0$: el efecto indirecto desaparece.

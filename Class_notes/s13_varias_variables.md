@@ -156,7 +156,7 @@ $$
 El control **salta** de un extremo al otro cada vez que $\sigma$ cambia de
 signo: es una solución **bang-bang**, y los instantes donde $\sigma = 0$ son
 los **tiempos de cambio**. La condición $\partial H/\partial u = 0$ no sirve
-aquí (no hay máximo interior); "$u$ maximiza $H$" sí. Es el caso que la
+aquí (no hay máximo interior); la de que $u$ maximice $H$, sí. Es el caso que la
 ecuación de Euler no podía resolver (sesión 10, sección 4.4).
 
 ### 2.2 Cómo se resuelve

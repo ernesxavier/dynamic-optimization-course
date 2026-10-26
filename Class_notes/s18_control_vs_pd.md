@@ -122,11 +122,9 @@ la ecuación sólo tiene consumos y capitales.
 - **El crecimiento con $\ln c$ y $\delta = 1$** (sesión 16, sección 4):
   $R_{t+1} = \alpha Ak_{t+1}^{\alpha - 1}$ y $c_t = (1 - \alpha\beta)Ak_t^\alpha$.
   El lado derecho es
-  $$
-  \beta\thinspace\alpha Ak_{t+1}^{\alpha - 1}\thinspace\frac{1}{(1 - \alpha\beta)Ak_{t+1}^\alpha}
-  = \frac{\alpha\beta}{(1 - \alpha\beta)\thinspace k_{t+1}}
-  = \frac{1}{(1 - \alpha\beta)Ak_t^\alpha},
-  $$
+
+  $$\beta\thinspace\alpha Ak_{t+1}^{\alpha - 1}\thinspace\frac{1}{(1 - \alpha\beta)Ak_{t+1}^\alpha} = \frac{\alpha\beta}{(1 - \alpha\beta)\thinspace k_{t+1}} = \frac{1}{(1 - \alpha\beta)Ak_t^\alpha},$$
+
   usando $k_{t+1} = \alpha\beta Ak_t^\alpha$. Es $1/c_t$. ✓
 
 **El estado estacionario.** Con $c_t = c_{t+1}$, la ecuación de Euler pide

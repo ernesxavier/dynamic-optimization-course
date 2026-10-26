@@ -217,8 +217,8 @@ Dividiendo entre $T$, el **crecimiento promedio** de la región es
 
 $$
 g_i = \frac{1}{T}\ln\frac{y_i(T)}{y_i(0)}
-= \underbrace{x + \frac{1 - e^{-\beta T}}{T}\ln y_0^\ast}_{a}\
-\underbrace{-\ \frac{1 - e^{-\beta T}}{T}}_{b}\ \ln y_i(0).
+= \underset{a}{\underbrace{x + \frac{1 - e^{-\beta T}}{T}\ln y_0^\ast}}
+\thinspace\underset{b}{\underbrace{-\ \frac{1 - e^{-\beta T}}{T}}}\ \ln y_i(0).
 $$
 
 Es una recta en $\ln y_i(0)$. Con datos de muchas regiones se estima por

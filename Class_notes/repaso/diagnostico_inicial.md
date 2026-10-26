@@ -37,7 +37,7 @@ en 35 años.
 <details>
 <summary>Respuesta</summary>
 
-(a) $g = \ln 2/35 \approx 0.69/35 \approx 2\%$ anual.
+(a) $g = \ln 2/35 \approx 0.69/35 \approx 0.02$, un 2% anual.
 (b) $\ln y(t) = \ln y_0 + gt$, así que la derivada es $g$: la derivada del
 logaritmo es la tasa de crecimiento.
 </details>
@@ -70,11 +70,15 @@ de $K$.
 $\beta \approx e^{-\rho}$.
 </details>
 
-**5. Matrices.** Sea $A = \begin{pmatrix} 2 & 1 \cr 1 & 3 \end{pmatrix}$.
+**5. Matrices.** Sea
 
-- (a) Calcula $A\begin{pmatrix} 1 \cr 1 \end{pmatrix}$ y el determinante de
+$$
+A = \begin{pmatrix} 2 & 1 \cr 1 & 3 \end{pmatrix}.
+$$
+
+- (a) Calcula $A(1, 1)^\top$ y el determinante de
   $A$.
-- (b) Resuelve $A\begin{pmatrix} x \cr y \end{pmatrix} = \begin{pmatrix} 5 \cr 5 \end{pmatrix}$.
+- (b) Resuelve $A(x, y)^\top = (5, 5)^\top$.
 
 <details>
 <summary>Respuesta</summary>

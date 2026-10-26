@@ -251,8 +251,8 @@ frecuente en problemas de elección discreta (sesión 19).
 
 Una solución puede darse de dos maneras:
 
-- Como **trayectoria**: la lista de controles $u_0, u_1, \dots$ (o la
-  función $u(t)$), calculada desde el inicio.
+- Como **trayectoria**: la lista de controles $u_0, u_1, \dots$ o la
+  función $u(t)$, calculada desde el inicio.
 - Como **regla** o **política**: una función $u_t = \sigma(x_t)$ que dice
   qué hacer en cada estado.
 

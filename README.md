@@ -29,6 +29,8 @@ CISE, UAdeC), con cuadernos en Julia.
 │   └── Manifest.toml
 ├── src/                       → Fuentes de los cuadernos de Pluto (formato #%%)
 │   ├── construir_cuaderno.jl  → Genera y ejecuta un cuaderno a partir de su fuente
+│   ├── revisar_material.jl    → Revisa claves del repaso, enlaces y números de sesión
+│   ├── revisar_formulas.jl    → Revisa que GitHub muestre bien las fórmulas de los .md
 │   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl
 └── README.md
 ```
@@ -117,11 +119,15 @@ dos minutos):
 julia --project=Code Code/descargar_datos.jl
 ```
 
-**Revisar la consistencia del material** (claves del repaso, enlaces y
-números de sesión) antes de cada commit:
+**Revisar el material** antes de cada commit: la consistencia (claves del
+repaso, enlaces y números de sesión) y las fórmulas tal como las muestra
+GitHub. La segunda revisión usa `gh` con sesión iniciada y tarda unos
+20 segundos; también acepta archivos sueltos.
 
 ```
 julia src/revisar_material.jl
+julia src/revisar_formulas.jl
+julia src/revisar_formulas.jl Class_notes/s08_estabilidad_no_lineal.md
 ```
 
 **Actualizar paquetes** (por ejemplo, al cambiar de versión de Julia):

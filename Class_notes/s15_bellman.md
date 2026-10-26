@@ -395,12 +395,12 @@ Sea $W_t(x)$ el valor máximo del problema que empieza en $t$ con estado $x$,
 definido como en la sección 2.1 (un máximo sobre toda la sucesión de
 controles). Hay que mostrar que $W_t$ cumple la ecuación de Bellman.
 
-*Desigualdad $\le$.* Sea $(u_t, u_{t+1}, \dots)$ óptima desde $(t, x)$ y
+*Desigualdad* $\le$. Sea $(u_t, u_{t+1}, \dots)$ óptima desde $(t, x)$ y
 $x' = g(x, u_t)$. La cola $(u_{t+1}, \dots)$ es una sucesión factible desde
 $(t + 1, x')$, así que su valor es a lo más $W_{t+1}(x')$. Entonces
 $W_t(x) \le r(x, u_t) + \beta W_{t+1}(x') \le \max_u\lbrace r(x, u) + \beta W_{t+1}(g(x, u))\rbrace$.
 
-*Desigualdad $\ge$.* Para cualquier $u \in \Gamma(x)$, se elige $u$ hoy y,
+*Desigualdad* $\ge$. Para cualquier $u \in \Gamma(x)$, se elige $u$ hoy y,
 desde $(t + 1, g(x, u))$, una sucesión óptima. Es una sucesión factible desde
 $(t, x)$ con valor $r(x, u) + \beta W_{t+1}(g(x, u))$, así que $W_t(x)$ es al
 menos eso para todo $u$, y en particular al menos el máximo. $\square$

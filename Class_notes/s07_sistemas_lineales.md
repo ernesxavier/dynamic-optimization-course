@@ -459,11 +459,15 @@ de manera óptima en lugar de fijo.
 
 ## 8. Ejercicios formales
 
-- **F1.** Clasifica el origen para
-  $A = \begin{pmatrix} -1 & 2 \cr 0 & -3\end{pmatrix}$,
-  $\begin{pmatrix} 1 & 2 \cr 2 & 1\end{pmatrix}$ y
-  $\begin{pmatrix} -1 & -4 \cr 1 & -1\end{pmatrix}$. Para la segunda,
-  encuentra la recta estable.
+- **F1.** Clasifica el origen para las tres matrices siguientes y, para la
+  segunda, encuentra la recta estable:
+
+$$
+\begin{pmatrix} -1 & 2 \cr 0 & -3\end{pmatrix}, \qquad
+\begin{pmatrix} 1 & 2 \cr 2 & 1\end{pmatrix}, \qquad
+\begin{pmatrix} -1 & -4 \cr 1 & -1\end{pmatrix}.
+$$
+
 - **F2.** En el modelo de derrames, ¿qué valor de $\mu$ hace que una
   diferencia entre las regiones se cierre a la mitad en 5 años, con
   $\beta = 0.02$? ¿Cambia la vida media de un choque común?
@@ -476,7 +480,7 @@ de manera óptima en lugar de fijo.
 **Para profundizar** (opcionales)
 
 - **F5.** Clasifica el origen de $x_{t+1} = Ax_t$ con
-  $A = \begin{pmatrix} 0.5 & 0.4 \cr 0.3 & 0.6\end{pmatrix}$, primero con
+  $A$ de filas $(0.5, 0.4)$ y $(0.3, 0.6)$, primero con
   los eigenvalores y después con el triángulo de [P.3](#pp3).
 - **F6.** En el modelo de Ramsey, muestra que la pendiente de la rama
   estable cerca de $(k^\ast, c^\ast)$ es $dc/dk = \rho - \lambda_s$, donde
@@ -531,7 +535,12 @@ $$
 \dot y = x + \mu y(x^2 + y^2)
 $$
 
-tiene en el origen el jacobiano $\begin{pmatrix} 0 & -1 \cr 1 & 0\end{pmatrix}$,
+tiene en el origen el jacobiano
+
+$$
+\begin{pmatrix} 0 & -1 \cr 1 & 0\end{pmatrix},
+$$
+
 un centro. En coordenadas polares, $\dot r = \mu r^3$: si $\mu < 0$, las
 trayectorias se acercan en espiral (foco estable); si $\mu > 0$, se alejan.
 La linealización es la misma en los dos casos y no puede distinguirlos.

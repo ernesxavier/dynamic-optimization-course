@@ -168,7 +168,7 @@ $$
 
 - En $(0, 0)$, $J = I$: nodo inestable. Las dos regiones nunca se vacían a
   la vez.
-- En $(1, 0)$, $J = \begin{pmatrix} -1 & -a \cr 0 & 1 - b \end{pmatrix}$, con
+- En $(1, 0)$, $J$ es triangular, con filas $(-1, -a)$ y $(0, 1 - b)$ y
   eigenvalores $-1$ y $1 - b$: estable si $b > 1$, punto de silla si
   $b < 1$.
 - En $(0, 1)$, por simetría: estable si $a > 1$.
@@ -302,8 +302,8 @@ ahorro óptima, $1 - c/f(k)$, sobre la rama estable es:
 
 Una región pobre **ahorra una fracción mayor** de su producto: el capital
 rinde más donde escasea. En el estado estacionario, la tasa de ahorro es
-$\alpha\delta/(\delta + \rho) = 18.75\%$, menor que la de la regla de oro,
-$\alpha = 30\%$. A diferencia del modelo de Solow, donde la tasa de ahorro
+$\alpha\delta/(\delta + \rho) = 0.1875$ (18.75%), menor que la de la regla de oro,
+$\alpha = 0.3$ (30%). A diferencia del modelo de Solow, donde la tasa de ahorro
 era fija, aquí se elige y cambia a lo largo de la transición. Los valores de
 la tabla se obtienen numéricamente con el método de disparo del cuaderno.
 

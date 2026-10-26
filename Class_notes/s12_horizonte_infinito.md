@@ -356,7 +356,7 @@ extender un mismo valor hacia atrás. Su efecto en el promedio es pequeño
 
 ### 5.2 La calibración
 
-- $\alpha = 1 - $ participación del trabajo $= 0.646$.
+- $\alpha = 1 - s_L = 0.646$, donde $s_L$ es la participación del trabajo.
 - $\delta = 0.035$ y $n = 0.023$, directamente de los datos.
 - $\rho$ se elige para que el estado estacionario reproduzca el $K/Y$ de
   los datos. En el estado estacionario,
@@ -384,7 +384,7 @@ $$
 
 ### 5.4 Lectura
 
-- **El ahorro coincide con los datos.** El modelo pide $s^\ast = 21.3\%$, y la
+- **El ahorro coincide con los datos.** El modelo pide $s^\ast = 0.213$ (21.3%), y la
   inversión observada es 19.2%. Ojo: $s^\ast = (\delta + n)K/Y$ es una
   identidad de cualquier estado estacionario, también del modelo de Solow.
   Que coincida dice que México está cerca de un estado estacionario, no que

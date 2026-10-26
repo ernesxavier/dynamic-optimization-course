@@ -318,7 +318,7 @@ $$
   llega al de ahogo $a$ antes de $T$, la extracción se detiene antes: en
   $\tau < T$, con $\lambda e^{\rho\tau} = a$, y desde ahí $q = 0$. Es una
   **solución de esquina**: la condición $\partial H/\partial q = 0$ ya no
-  vale, pero "$q$ maximiza $H$" sí.
+  vale, pero la de que $q$ maximice $H$ sí.
 
 Con $a = 10$, $b = 1$, $\rho = 0.05$ y $T = 20$:
 
@@ -366,7 +366,7 @@ llega a cero**, es decir, cuando el precio alcanza el de ahogo. Es el caso
 |---|---|
 | $\mu = e^{\rho t}\lambda$, el precio en valor corriente | Hamiltoniano a valor presente (sesión 12) |
 | Transversalidad con $y(T)$ libre o acotado | Transversalidad en horizonte infinito; selecciona la rama estable (sesión 12) |
-| "$u$ maximiza $H$" con soluciones de esquina | Control acotado y bang-bang (sesiones 13 y 14) |
+| La condición de que $u$ maximice $H$, con soluciones de esquina | Control acotado y bang-bang (sesiones 13 y 14) |
 | $\lambda = \partial V/\partial y$ | La derivada de la función valor en la ecuación de Bellman (sesiones 15, 16 y 18) |
 | Precio sombra de un recurso | Precio sombra del capital de cada región, que decide dónde invertir (sesión 14) |
 
@@ -438,8 +438,8 @@ J = \int_0^T \Big(F + \lambda\big(f - y'\big)\Big)\thinspace dt
 = \int_0^T \big(H - \lambda y'\big)\thinspace dt.
 $$
 
-**Paso 2: integrar por partes.** $\int_0^T \lambda y'\thinspace dt
-= \lambda(T)y(T) - \lambda(0)y_0 - \int_0^T \lambda' y\thinspace dt$, así
+**Paso 2: integrar por partes.**
+$\int_0^T \lambda y'\thinspace dt = \lambda(T)y(T) - \lambda(0)y_0 - \int_0^T \lambda' y\thinspace dt$, así
 que
 
 $$
@@ -452,8 +452,8 @@ también $T^\ast + \varepsilon\thinspace\Delta T$. Derivando respecto a
 $\varepsilon$ en $\varepsilon = 0$ ([C.I6](repaso/calculo.md#ci6)):
 
 $$
-\frac{dJ}{d\varepsilon} = \int_0^T \Big(\big(H_y + \lambda'\big)q + H_u\thinspace p\Big)\thinspace dt
-- \lambda(T)\thinspace\Delta y_T + H(T)\thinspace\Delta T,
+\frac{dJ}{d\varepsilon} = \int_0^T \Big(\big(H_y + \lambda'\big)q + H_u\thinspace p\Big)\thinspace dt -
+\lambda(T)\thinspace\Delta y_T + H(T)\thinspace\Delta T,
 $$
 
 donde $\Delta y_T$ es el cambio total del estado final.

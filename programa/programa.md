@@ -202,7 +202,7 @@ tiempo continuo con el principio del máximo, e interpretar el coestado como
 precio sombra del estado.
 
 - **Sesión 10: Del cálculo de variaciones al Hamiltoniano**
-	- Primera hora: el problema básico, maximizar $\int_0^T F(t, y, y')\, dt$
+	- Primera hora: el problema básico, maximizar $\int_0^T F(t, y, y')\thinspace dt$
 	  con extremos fijos. Ecuación de Euler: $F_y - \frac{d}{dt} F_{y'} = 0$,
 	  y su lectura económica: el beneficio de consumir hoy contra el de
 	  consumir mañana.
@@ -314,7 +314,7 @@ opcional (SE 12).
 	  estado discreto (salario de reserva y seguro de desempleo).
 	- Lecturas: SS 1.3 y 5.2.2.
 - **Sesión 18: Control óptimo frente a programación dinámica (flexible)**
-	- La ecuación de Euler en tiempo discreto, $u'(c_t) = \beta R\, u'(c_{t+1})$, y su
+	- La ecuación de Euler en tiempo discreto, $u'(c_t) = \beta R\thinspace u'(c_{t+1})$, y su
 	  relación con el principio del máximo.
 	- Segundo caso breve: recurso natural renovable en una región.
 	- Lecturas: CR.
@@ -326,7 +326,7 @@ opcional (SE 12).
 	  dos regiones. El salario de cada región sigue una cadena de Markov de
 	  dos estados (alto y bajo), y mudarse tiene un costo fijo $c$. Cada
 	  periodo elige dónde vivir:
-	  $V(r, w) = \max_{r'} \{ u(w_{r'}) - c\,\mathbb{1}[r' \neq r] + \beta\, \mathbb{E}[V(r', w') \mid w] \}$.
+	  $V(r, w) = \max_{r'} \lbrace u(w_{r'}) - c\thinspace \mathbb{1}[r' \neq r] + \beta\thinspace \mathbb{E}[V(r', w') \mid w] \rbrace$.
 	  Se resuelve con iteración de función valor y se lee la política: ¿a
 	  partir de qué brecha salarial conviene mudarse? Deslizadores para el
 	  costo de mudanza y la persistencia de los salarios. Pregunta para la

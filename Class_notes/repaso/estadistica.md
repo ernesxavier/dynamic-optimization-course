@@ -52,8 +52,8 @@ sum(p .* log.(w))        # ≈ -0.0204: utilidad esperada
 log(sum(p .* w))         # 0.0: utilidad del salario esperado
 ```
 
-Como $\ln$ es cóncava ([C.I2](calculo.md#ci2)), $\mathbb{E}[\ln w] < \ln
-\mathbb{E}[w]$ (desigualdad de Jensen): a quien tiene aversión al riesgo le
+Como $\ln$ es cóncava ([C.I2](calculo.md#ci2)),
+$\mathbb{E}[\ln w] < \ln \mathbb{E}[w]$ (desigualdad de Jensen): a quien tiene aversión al riesgo le
 importa la incertidumbre, no sólo el promedio. Por eso la ecuación de Bellman
 con incertidumbre lleva $\mathbb{E}[V(x')]$ y no $V(\mathbb{E}[x'])$.
 
@@ -71,8 +71,8 @@ Si una variable pasa de $y_0$ a $y_T$ en $T$ años:
 | Simple de un año | $(y_{t+1} - y_t)/y_t$ | Variaciones anuales |
 
 Para tasas pequeñas las tres casi coinciden. Si el PIB per cápita pasa de
-100 a 150 en 20 años, la tasa logarítmica es $\ln(1.5)/20 \approx 2.03\%$ y
-la compuesta, $1.5^{1/20} - 1 \approx 2.05\%$.
+100 a 150 en 20 años, la tasa logarítmica es $\ln(1.5)/20 \approx 0.0203$ (2.03%) y
+la compuesta, $1.5^{1/20} - 1 \approx 0.0205$ (2.05%).
 
 Tres cuidados con los datos económicos:
 
@@ -166,8 +166,8 @@ $$
 
 que con los números de arriba vale $0.2/0.3 = 2/3$. Se obtiene de
 $\psi^\ast = \psi^\ast P$: en el largo plazo, los que salen de alto
-($\psi^\ast_{\text{alto}}(1 - p)$) son tantos como los que entran
-($\psi^\ast_{\text{bajo}}(1 - q)$).
+($(1 - p)\psi^\ast_{\text{alto}}$) son tantos como los que entran
+($(1 - q)\psi^\ast_{\text{bajo}}$).
 
 **Dos regiones.** Si cada región tiene su propia cadena y los salarios son
 independientes, el estado conjunto tiene 4 combinaciones (alto-alto,
@@ -283,8 +283,8 @@ Por eso se distinguen:
   disminuye con el tiempo.
 
 La convergencia β es necesaria para la σ, pero no suficiente: hay que
-revisar las dos. El **error de medición** en el ingreso inicial empuja $\hat
-b$ hacia valores negativos por la misma razón.
+revisar las dos. El **error de medición** en el ingreso inicial empuja
+$\hat b$ hacia valores negativos por la misma razón.
 
 <a id="ea2"></a>
 
@@ -296,7 +296,7 @@ reporta con su sensibilidad. Dos maneras:
 
 - **Elasticidad**: $\varepsilon = \frac{\partial \ln R}{\partial \ln \theta}$.
   Si $\theta$ tiene un error del 10%, $R$ tiene un error de aproximadamente
-  $\varepsilon \times 10\%$. Se calcula con diferencias finitas
+  $\varepsilon$ veces 10%. Se calcula con diferencias finitas
   ([N.A4](metodos_numericos.md#na4)).
 - **Barrido**: recalcular $R$ en un rango plausible de $\theta$ y reportar
   el rango del resultado. Es la forma natural en un cuaderno con
@@ -331,7 +331,7 @@ incertidumbre reduce la utilidad esperada.
 <details>
 <summary><b>2 (B).</b> El PIB per cápita de una entidad pasa de 100 a 150 en 20 años. ¿Cuál es su tasa de crecimiento logarítmica promedio? ¿Y la compuesta anual?</summary>
 
-$\ln(1.5)/20 \approx 2.03\%$ y $1.5^{1/20} - 1 \approx 2.05\%$.
+$\ln(1.5)/20 \approx 0.0203$ (2.03%) y $1.5^{1/20} - 1 \approx 0.0205$ (2.05%).
 </details>
 
 <details>
@@ -359,8 +359,8 @@ produce.
 <details>
 <summary><b>6 (I).</b> Con <i>P</i> = [0.9 0.1; 0.2 0.8] (alto primero) y valores <i>V</i> = (10, 6), ¿cuánto vale E[<i>V</i>(<i>w</i>′) | <i>w</i>] en cada estado? ¿Qué fracción del tiempo el salario es alto a largo plazo?</summary>
 
-$PV = (9.6, 6.8)$. A largo plazo, $(1 - 0.8)/[(1 - 0.9) + (1 - 0.8)] =
-0.2/0.3 = 2/3$ del tiempo.
+$PV = (9.6, 6.8)$. A largo plazo,
+$(1 - 0.8)/[(1 - 0.9) + (1 - 0.8)] = 0.2/0.3 = 2/3$ del tiempo.
 </details>
 
 <details>

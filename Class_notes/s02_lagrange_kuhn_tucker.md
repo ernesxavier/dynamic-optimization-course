@@ -158,7 +158,7 @@ tangente a la restricción: si no lo fuera, moverse a lo largo de la
 restricción aumentaría $f$. Tangencia significa gradientes paralelos,
 $\nabla f = \lambda\nabla g$.
 
-*Demostración para $n = 2$, $m = 1$*: en [Para profundizar, P.2](#pp2).
+*Demostración* para $n = 2$, $m = 1$: en [Para profundizar, P.2](#pp2).
 
 La hipótesis de rango no se puede omitir: sin ella, un óptimo puede no
 cumplir la condición de Lagrange. Ver [Para profundizar, P.4](#pp4), con el
@@ -402,16 +402,16 @@ Se resuelve por casos.
 3. **Sólo la región 1 recibe** ($x_2 = 0$, $x_1 = B$). Las condiciones de
    cada región:
 
-   $$
-   \begin{aligned}
-   x_1 = B > 0: &\quad \frac{a_1}{1 + B} - \lambda = 0
-   \ \Rightarrow\ \lambda = \frac{a_1}{1 + B}, \cr
-   x_2 = 0: &\quad \frac{a_2}{1 + 0} - \lambda \le 0
-   \iff a_2 \le \frac{a_1}{1 + B}
-   \iff 1 + B \le \frac{a_1}{a_2}
-   \iff B \le \bar B.
-   \end{aligned}
-   $$
+$$
+\begin{aligned}
+x_1 = B > 0: &\quad \frac{a_1}{1 + B} - \lambda = 0
+\ \Rightarrow\ \lambda = \frac{a_1}{1 + B}, \cr
+x_2 = 0: &\quad \frac{a_2}{1 + 0} - \lambda \le 0
+\iff a_2 \le \frac{a_1}{1 + B}
+\iff 1 + B \le \frac{a_1}{a_2}
+\iff B \le \bar B.
+\end{aligned}
+$$
 
 4. **Sólo la región 2 recibe** ($x_1 = 0$, $x_2 = B$). Igual que en el caso
    3, $\lambda = a_2/(1 + B)$, y $x_1 = 0$ pide

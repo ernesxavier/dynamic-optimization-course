@@ -412,8 +412,8 @@ $0 \le c \le \bar c$: con $r > \rho$, no gastar nada al principio y gastar
 $\bar c$ al final; con $r < \rho$, gastar $\bar c$ desde el principio y
 después nada. El momento del cambio lo fija la reserva $W_T$. Son
 soluciones **bang-bang**, en las esquinas del intervalo permitido. En la
-sesión 11, la condición $\partial H/\partial u = 0$ se reemplaza por "$u$
-**maximiza** $H$ en el conjunto permitido", que sí encuentra las esquinas. En
+sesión 11, la condición $\partial H/\partial u = 0$ se reemplaza por la de que $u$
+**maximice** $H$ en el conjunto permitido, que sí encuentra las esquinas. En
 la sesión 13 se resuelve este caso, y en la sesión 14 el reparto
 $\theta(t) \in [0, 1]$ de la inversión entre dos regiones, que tiene la
 misma estructura.
