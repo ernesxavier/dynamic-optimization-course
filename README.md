@@ -8,9 +8,6 @@ CISE, UAdeC), con cuadernos en Julia.
 ```
 ├── programa/
 │   └── programa.md            → Programa del curso (24 sesiones)
-├── docs/
-│   ├── planeacion.md          → Decisiones de diseño y plan B
-│   └── guia-de-repaso.md      → Repaso del profesor antes del curso
 ├── Class_notes/
 │   ├── sNN_tema.md            → Notas por sesión, con su plan de clase (ver tabla abajo)
 │   ├── tareaN_tema.md         → Enunciado de la tarea de la unidad N (partes analítica y de código)
@@ -18,6 +15,7 @@ CISE, UAdeC), con cuadernos en Julia.
 │       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
 ├── Data/                      → Datos de los casos aplicados, en CSV
+│   ├── README.md              → Fuentes, columnas y licencias de los datos
 │   ├── entidades.csv          → PIB (INEGI), población y empleo (OCDE) de las 32 entidades, 2003–2023
 │   └── pwt_mexico.csv         → Penn World Table 11.0, México, 1950–2023
 ├── Code/                      → Todo el código Julia, un solo entorno
@@ -32,6 +30,8 @@ CISE, UAdeC), con cuadernos en Julia.
 │   ├── revisar_material.jl    → Revisa claves del repaso, enlaces y números de sesión
 │   ├── revisar_formulas.jl    → Revisa que GitHub muestre bien las fórmulas de los .md
 │   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl
+├── LICENSE                    → CC BY 4.0 (notas y demás material)
+├── LICENSE-CODE               → MIT (código)
 └── README.md
 ```
 
@@ -136,27 +136,16 @@ julia src/revisar_formulas.jl Class_notes/s08_estabilidad_no_lineal.md
 julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 ```
 
-## Pendientes
+## Licencia
 
-- [x] Decidir el lenguaje del curso (Julia con Pluto.jl).
-- [x] Verificar los capítulos de Chiang y Wainwright y de Chiang (1992) citados en el temario.
-- [x] Programa con el formato del curso de Econofísica.
-- [x] Estructura del repositorio y entorno de Julia (`Code/Project.toml`).
-- [ ] Repaso del profesor en 5 semanas (14 oct a 17 nov): ver `docs/guia-de-repaso.md`.
-- [x] Piloto: notas y cuaderno de la sesión 2 (Lagrange y Kuhn-Tucker).
-- [ ] Notas formales y cuadernos del resto de las sesiones (tabla de arriba).
-- [x] Notas de repaso por áreas (C, L, D, A, N, E) con autodiagnósticos; tabla de claves por sesión.
-- [x] Orientación aplicada en el programa: preguntas regionales, datos del INEGI en las sesiones 5, 12 y 14, proyecto ligado a la tesis.
-- [x] Script `Code/descargar_datos.jl` y CSV en `Data/`: PIB por entidad (INEGI), población y empleo (OCDE) y Penn World Table 11.0.
-- [x] Definir con qué datos se aproximan las tasas de ahorro sᵢ y las productividades vᵢ de dos regiones (sesión 14), y los parámetros de Ramsey para México (sesión 12): PIB por trabajador (INEGI y ENOE), supuestos explícitos para sᵢ y Penn World Table.
-- [x] Agregar una referencia sobre convergencia regional en México para la sesión 5: Barceinas y Raymond (2005), verificada en el PDF. En Zotero, la ficha WT2RNH4V no tiene autores, revista ni año: completarla.
-- [ ] Armar el calendario sesión por sesión (requiere las fechas del trimestre y los días sin clase).
-- [x] Redactar el cuestionario diagnóstico (`Class_notes/repaso/diagnostico_inicial.md`).
-- [ ] Material de repaso de la semana previa para estudiantes (ver `docs/guia-de-repaso.md`).
-- [ ] Preparar el syllabus en el formato institucional de la UAdeC.
-- [ ] Redactar las cuatro tareas. Lista la Tarea 1 (solucionario en `privado/`); faltan las tareas 2 a 4.
-- [ ] Probar la instalación del entorno en una computadora limpia.
-- [ ] Corregir en Zotero: la ficha GZK24M8N es el Vol. 5B del Handbook (ISBN 978-0-444-59531-7); agregar a Henderson y Strange como coeditores; indicar 4.ª ed. en Sethi.
-- [ ] Agregar a Zotero los artículos de Rahman, Intriligator y Takayama, y la bibliografía del plan que falta. El título correcto de Rahman (1963) dice "An Aggregative Study".
-- [ ] Agregar a Zotero (con PDF) las referencias nuevas de la Unidad III, ya con DOI verificado en el programa: Hotelling (1931), Halkin (1974), Michel (1982), Kamihigashi (2001), Pontryagin y otros (1962) y Feenstra, Inklaar y Timmer (2015).
-- [ ] En Zotero, el PDF de Chiang y Wainwright (ZL6E3WVS) está como archivo suelto, sin ficha: crear la ficha del libro.
+© 2026 Ernesto X. Vera Gómez.
+
+- **Código**: los archivos `.jl` de `Code/` y `src/`, incluidos los cuadernos
+  de Pluto, tienen licencia [MIT](LICENSE-CODE).
+- **Material del curso**: las notas (`Class_notes/`), el programa
+  (`programa/`), las figuras y el resto del texto tienen licencia
+  [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](LICENSE).
+  Se pueden copiar, adaptar y redistribuir con cualquier fin, siempre que se
+  cite al autor y se indique si hubo cambios.
+- **Datos**: los archivos de `Data/` conservan la licencia de su fuente
+  (INEGI, OCDE y Penn World Table); ver [`Data/README.md`](Data/README.md).

@@ -25,8 +25,7 @@ sobre la región?
 
 Si el curso va atrasado, las sesiones 21 y 22 se usan primero para
 recuperar la unidad pendiente, y el proyecto pasa a trabajo en casa con
-asesoría ([planeación](../docs/planeacion.md)). Las sesiones 23 y 24 no se
-recortan.
+asesoría. Las sesiones 23 y 24 no se recortan.
 
 ---
 

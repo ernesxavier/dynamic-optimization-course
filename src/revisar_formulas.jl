@@ -14,7 +14,7 @@
 # fórmulas en línea.
 # Termina con código 1 si encuentra algún problema.
 
-const DIRECTORIOS = ["programa", "docs", "Class_notes", joinpath("Class_notes", "repaso")]
+const DIRECTORIOS = ["programa", "Class_notes", joinpath("Class_notes", "repaso")]
 
 problemas = String[]
 reportar(msg) = push!(problemas, msg)

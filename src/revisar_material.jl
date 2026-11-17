@@ -108,7 +108,7 @@ end
 
 # --- 3. Enlaces relativos ---------------------------------------------------
 anclas(ruta) = Set(m[1] for m in eachmatch(r"<a id=\"([^\"]+)\"></a>", read(ruta, String)))
-for dir in ("Class_notes", REPASO, "docs", "programa", ".")
+for dir in ("Class_notes", REPASO, "Data", "programa", ".")
     for nombre in readdir(dir)
         endswith(nombre, ".md") || continue
         ruta = joinpath(dir, nombre)
