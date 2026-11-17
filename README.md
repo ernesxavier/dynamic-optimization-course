@@ -3,6 +3,8 @@
 Material del curso de Optimización Dinámica (Doctorado en Economía Regional,
 CISE, UAdeC), con cuadernos en Julia.
 
+**Autor:** Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
+
 ## Estructura
 
 ```
@@ -30,8 +32,9 @@ CISE, UAdeC), con cuadernos en Julia.
 │   ├── revisar_material.jl    → Revisa claves del repaso, enlaces y números de sesión
 │   ├── revisar_formulas.jl    → Revisa que GitHub muestre bien las fórmulas de los .md
 │   └── sNN_tema.jl            → Fuente de Code/sNN_tema.jl
-├── LICENSE                    → CC BY 4.0 (notas y demás material)
-├── LICENSE-CODE               → MIT (código)
+├── CITATION.cff               → Cómo citar el curso (botón "Cite this repository" de GitHub)
+├── LICENSE                    → Licencia MIT (código)
+├── LICENSE-CC-BY-4.0          → Licencia CC BY 4.0 (notas, programa y demás material)
 └── README.md
 ```
 
@@ -66,7 +69,7 @@ CISE, UAdeC), con cuadernos en Julia.
 
 ## Requisitos
 
-- Julia 1.13
+- Julia 1.13 (cuadernos de Pluto probados con Pluto 1.0.4)
 
 ## Entorno de Julia
 
@@ -138,13 +141,13 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 
 ## Licencia
 
-© 2026 Ernesto X. Vera Gómez.
+© 2026 Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
 
 - **Código**: los archivos `.jl` de `Code/` y `src/`, incluidos los cuadernos
-  de Pluto, tienen licencia [MIT](LICENSE-CODE).
+  de Pluto, tienen licencia [MIT](LICENSE).
 - **Material del curso**: las notas (`Class_notes/`), el programa
   (`programa/`), las figuras y el resto del texto tienen licencia
-  [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](LICENSE).
+  [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](LICENSE-CC-BY-4.0).
   Se pueden copiar, adaptar y redistribuir con cualquier fin, siempre que se
   cite al autor y se indique si hubo cambios.
 - **Datos**: los archivos de `Data/` conservan la licencia de su fuente
