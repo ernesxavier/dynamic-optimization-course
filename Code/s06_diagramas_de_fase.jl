@@ -99,7 +99,7 @@ end
 md"""
 ## 2. Aglomeración: dos equilibrios estables y un umbral
 
-*En clase, antes de la sección 1.5 de las notas.* Recta de fase y
+*En clase, después de la sección 1.5 de las notas.* Recta de fase y
 trayectorias de ``\dot L = L\,u(L)``, con ``u(L) = a + 2L - 1.5L^2``.
 
 Ventaja de partida ``a``: $(@bind a_agl Slider(-0.6:0.05:0.1, default = -0.3, show_value = true))

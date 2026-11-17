@@ -569,7 +569,10 @@ let
        ¿Es proporcional a ``\Delta``? ¿Cuánto sube el número de iteraciones,
        y por qué? (Pista: ``\hat\beta``.)
     2. ¿Dónde es mayor la diferencia: lejos o cerca del estado estacionario?
-       ¿Por qué coinciden exactamente en ``k^\ast``?
+       ¿Por qué casi coinciden en ``k^\ast``? ¿De dónde salen los escalones
+       de la gráfica de la derecha? (Pista: con interpolación lineal, ``v``
+       tiene un quiebre en cada nodo de la malla, y para algunos capitales el
+       ``k'`` óptimo cae justo en un nodo.)
     3. **Mueve** ``\theta``: ¿se mantiene la coincidencia?
     4. El principio del máximo resolvió dos trayectorias; la función valor,
        la regla para todos los capitales de la malla. Si mañana un choque
@@ -624,7 +627,7 @@ let
     3. **Baja** la persistencia a 0.5: los salarios cambian como volados.
        ¿Por qué ya casi nadie se muda por un salario bajo de hoy?
     4. Con costos intermedios, quien vive en la región 2 se queda incluso
-       en bajo-alto, cuando la región 1 paga más. ¿Por qué no hace la misma
+       en alto-bajo, cuando la región 1 paga más. ¿Por qué no hace la misma
        cuenta que quien vive en la 1? Es **histéresis**: dónde vives hoy
        depende de dónde vivías ayer.
     """)

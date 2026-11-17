@@ -20,10 +20,10 @@ y de aplicar estas herramientas a un problema de economía regional.
 
 **Hilo conductor**: el reparto de la inversión entre dos regiones. El curso lo
 plantea primero como un problema estático con Lagrange y Kuhn-Tucker
-(sesión 2), lo resuelve en el tiempo con el principio del máximo en el modelo
-de Rahman, Intriligator y Takayama (sesión 14). En la Unidad IV, la sesión 15
-muestra por qué ese caso, con dos estados, conviene resolverlo con control
-óptimo y no con programación dinámica.
+(sesión 2) y lo resuelve en el tiempo con el principio del máximo en el
+modelo de Rahman, Intriligator y Takayama (sesión 14). En la Unidad IV, la
+sesión 15 muestra por qué ese caso, con dos estados, conviene resolverlo con
+control óptimo y no con programación dinámica.
 
 **Datos de México**: tres sesiones trabajan con datos reales: la
 convergencia entre estados con el PIB por entidad del INEGI (sesión 5), la
@@ -507,5 +507,6 @@ tesis de cada estudiante.
 - OCDE. *Regional Database* (regiones TL2): población y empleo por entidad,
   para el PIB per cápita de la sesión 5 y el PIB por trabajador de la
   sesión 14.
-- Las series concretas se documentan en `Code/descargar_datos.jl`, que
-  descarga los datos y genera los CSV de `Data/`.
+- Las series concretas, sus columnas y sus licencias se documentan en
+  `Data/README.md`; `Code/descargar_datos.jl` descarga los datos y genera los
+  CSV de `Data/`.

@@ -143,7 +143,8 @@ parámetros, conservando la verificación.
 | [`Data/entidades.csv`](../Data/entidades.csv) | PIB (total y petrolero), población y empleo de las 32 entidades, por año (INEGI y OCDE) | Sesiones 5 y 14 |
 | [`Data/pwt_mexico.csv`](../Data/pwt_mexico.csv) | Penn World Table 11.0 para México: capital, producto, empleo, depreciación, participación del trabajo | Sesión 12 |
 
-Las fuentes y la forma de actualizarlos están en
+Las fuentes, las columnas y las licencias están en
+[`Data/README.md`](../Data/README.md), y la forma de actualizarlos, en
 [`Code/descargar_datos.jl`](../Code/descargar_datos.jl). Otros datos del
 INEGI (por ejemplo, la ENOE o los censos económicos) se agregan a `Data/`
 con su fuente y fecha de descarga en el cuaderno. Las tasas de ahorro por

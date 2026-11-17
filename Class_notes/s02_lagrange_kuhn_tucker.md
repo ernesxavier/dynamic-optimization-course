@@ -397,7 +397,7 @@ Se resuelve por casos.
    y la holgura complementaria da $x_1 + x_2 = B$.
 2. **Las dos regiones reciben inversión** ($x_1, x_2 > 0$). Las dos
    condiciones se cumplen con igualdad: es la solución de Lagrange de la
-   sección 3.4. Es válida si $x_2 \ge 0$, es decir, si $B \ge \bar B$ (y
+   sección 3.4. Es válida si $x_2 > 0$, es decir, si $B > \bar B$ (y
    entonces también $x_1 > 0$, porque $a_1 \ge a_2$).
 3. **Sólo la región 1 recibe** ($x_2 = 0$, $x_1 = B$). Las condiciones de
    cada región:

@@ -287,9 +287,9 @@ md"""
 ### [Avanzado]
 
 9. En la sección 3, el error del gasto baja a la mitad al duplicar la malla,
-   pero el del valor baja a la cuarta parte. ¿Por qué? (Pista: en el óptimo,
-   la derivada del lado derecho de la ecuación de Bellman respecto del
-   control es cero.)
+   pero el del valor baja más o menos a la cuarta parte. ¿Por qué? (Pista:
+   en el óptimo, la derivada del lado derecho de la ecuación de Bellman
+   respecto del control es cero.)
 10. Con dos regiones y 401 puntos por dimensión, ¿cuántos estados tendría la
     malla? ¿Cuántas evaluaciones costaría un periodo?
 
