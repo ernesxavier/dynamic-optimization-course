@@ -145,7 +145,7 @@ julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 
 ## Uso de inteligencia artificial
 
-Se utilizó Claude (Anthropic) como apoyo en la redacción y la revisión del
+Se utilizó Claude (Anthropic) como apoyo en la revisión del
 código y del material del curso. El contenido, las decisiones y cualquier
 error son responsabilidad del autor.
 
