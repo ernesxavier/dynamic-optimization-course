@@ -161,7 +161,7 @@ md"""
 brecha de cada entidad cumple ``\dot z = -\beta z``, su crecimiento promedio
 es una recta en ``\ln y_i(0)``: ``g_i = a + b\ln y_i(0)``. La celda siguiente
 la estima por mínimos cuadrados (E.B3) con su error estándar (E.I2).
-**Léela con calma**: es el tipo de código de las tareas.
+**Léela con calma**: es el tipo de código del proyecto.
 """
 
 # ╔═╡ e2dcd1a8-cf03-11f1-bec2-7d569960e0f0

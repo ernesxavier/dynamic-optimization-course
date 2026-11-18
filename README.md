@@ -12,7 +12,7 @@ CISE, UAdeC), con cuadernos en Julia.
 │   └── programa.md            → Programa del curso (24 sesiones)
 ├── Class_notes/
 │   ├── sNN_tema.md            → Notas por sesión, con su plan de clase (ver tabla abajo)
-│   ├── tareaN_tema.md         → Enunciado de la tarea de la unidad N (partes analítica y de código)
+│   ├── tareaN_tema.md         → Enunciado de la tarea de la unidad N (ejercicios; la 1 tiene además código)
 │   └── repaso/                → Repaso de matemáticas por niveles (índice por sesión)
 │       ├── diagnostico_inicial.md → Diagnóstico de matemáticas de la sesión 1
 │       └── figuras/           → Figuras de las notas (generadas con Code/figuras_repaso.jl)
@@ -22,7 +22,7 @@ CISE, UAdeC), con cuadernos en Julia.
 │   └── pwt_mexico.csv         → Penn World Table 11.0, México, 1950–2023
 ├── Code/                      → Todo el código Julia, un solo entorno
 │   ├── sNN_tema.jl            → Cuadernos de Pluto (ver tabla abajo)
-│   ├── tareaN_tema.jl         → Parte de código de la tarea N, con comprobaciones
+│   ├── tareaN_tema.jl         → Parte de código de la Tarea 1, con comprobaciones
 │   ├── figuras_repaso.jl      → Regenera las figuras de Class_notes/repaso/figuras/
 │   ├── descargar_datos.jl     → Regenera los CSV de Data/ (INEGI, OCDE y Penn World Table)
 │   ├── Project.toml
@@ -66,6 +66,9 @@ CISE, UAdeC), con cuadernos en Julia.
 | Tarea | Unidad | Se entrega | Enunciado (`Class_notes/`) | Cuaderno (`Code/`) |
 |---|---|---|---|---|
 | 1 | I: optimización estática | Sesión 5 | `tarea1_optimizacion_estatica.md` | `tarea1_optimizacion_estatica.jl` |
+| 2 | II: sistemas dinámicos | Sesión 10 | `tarea2_sistemas_dinamicos.md` | |
+| 3 | III: control óptimo | Sesión 15 | `tarea3_control_optimo.md` | |
+| 4 | IV: programación dinámica | Sesión 21 | `tarea4_programacion_dinamica.md` | |
 
 ## Requisitos
 

@@ -110,7 +110,8 @@ Lo que debe quedar al final de la sesión 22:
 - Las tres respuestas de la revisión por pares atendidas, o una razón para
   no hacerlo.
 
-La Tarea 4 se entrega en la sesión 21; su código alimenta el proyecto.
+La Tarea 4 se entrega en la sesión 21; su último problema plantea el proyecto
+en forma recursiva, el primer paso de su solución numérica.
 
 ---
 

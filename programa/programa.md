@@ -70,8 +70,9 @@ contenido:
 - **Cuadernos de Pluto.jl**: los laboratorios y el caso regional usan
   deslizadores para mover parámetros y ver cómo cambian las trayectorias, los
   diagramas de fase y las políticas óptimas.
-- **Tareas**: una por unidad, cada una con una parte analítica y una parte en
-  código. Cada tarea se entrega en la sesión siguiente al cierre de su unidad
+- **Tareas**: una por unidad. La Tarea 1 tiene una parte analítica y una
+  parte en código; las tareas 2 a 4 son de ejercicios para resolver a mano (el
+  código se practica en los laboratorios y en el proyecto). Cada tarea se entrega en la sesión siguiente al cierre de su unidad
   (sesiones 5, 10, 15 y 21), para que cubra la unidad completa.
 - **Proyecto ligado a la tesis**: desde la sesión 1, cada estudiante
   identifica un problema de su tesis con dimensión temporal; la propuesta
@@ -343,8 +344,8 @@ opcional (SE 12).
 	  INEGI y revisión de que el cuaderno reproduzca todos los resultados.
 	- Si hay atraso: se recupera primero la unidad pendiente y el resto del
 	  tiempo se dedica al proyecto.
-	- **Entrega** (sesión 21): Tarea 4 (corta; su código alimenta el
-	  proyecto).
+	- **Entrega** (sesión 21): Tarea 4 (corta; su último problema plantea
+	  el proyecto en forma recursiva).
 - **Sesiones 23 y 24: Presentaciones y cierre**
 	- Presentaciones finales.
 
@@ -354,7 +355,7 @@ opcional (SE 12).
 
 | Componente | Peso |
 |---|---|
-| Tareas (4), una por unidad, con parte analítica y parte en código | 50% |
+| Tareas (4), una por unidad: ejercicios analíticos (la Tarea 1 incluye una parte en código) | 50% |
 | Ejercicios en sesión | 10% |
 | Avance del proyecto (sesión 20; si se pierde el taller, se entrega por escrito) | 10% |
 | Proyecto aplicado: reporte y presentación | 30% |
@@ -390,10 +391,10 @@ listado. Además:
 **Las tareas piden resolver e interpretar.** Ejemplos de preguntas:
 - "Encuentra el reparto óptimo del presupuesto entre las dos regiones y el
   multiplicador. ¿Cuánto vale aumentar el presupuesto en una unidad?"
-- "Clasifica el equilibrio de este sistema y dibuja su diagrama de fase.
-  Comprueba tu dibujo con una simulación."
+- "Clasifica el equilibrio de este sistema y dibuja su diagrama de fase:
+  isoclinas, equilibrios y dirección del flujo."
 - "¿Cómo cambia el tiempo de cambio si la región 1 ahorra más? Justifica con
-  la fórmula y con el cuaderno."
+  la fórmula del tiempo de cambio."
 - "Con la velocidad de convergencia estimada para los estados de México,
   ¿cuántos años tarda en cerrarse la mitad de la brecha?"
 
