@@ -5,14 +5,15 @@ title: "Optimización Dinámica: curso con cuadernos en Julia"
 abstract: >-
   Material de un curso de doctorado de Optimización Dinámica en 24 sesiones:
   notas por sesión con plan de clase, repaso de matemáticas por niveles,
-  cuadernos de Pluto en Julia, tarea de la Unidad I y guía del proyecto final.
+  cuadernos de Pluto en Julia, cuatro tareas (una por unidad) y guía del
+  proyecto final.
   Cubre optimización estática, ecuaciones diferenciales y diagramas de fase,
   cálculo de variaciones, principio del máximo y programación dinámica, con
   aplicaciones a economía regional.
 authors:
   - family-names: "Vera Gómez"
     given-names: "Ernesto X."
-    affiliation: "Universidad Autónoma de Coahuila"
+    affiliation: "Centro de Investigaciones Socioeconómicas (CISE), Universidad Autónoma de Coahuila"
 repository-code: "https://github.com/ernesxavier/dynamic-optimization-course"
 license:
   - MIT

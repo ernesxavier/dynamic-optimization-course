@@ -3,7 +3,8 @@
 Material del curso de Optimización Dinámica (Doctorado en Economía Regional,
 CISE, UAdeC), con cuadernos en Julia.
 
-**Autor:** Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
+**Autor:** Ernesto X. Vera Gómez, Centro de Investigaciones Socioeconómicas (CISE),
+Universidad Autónoma de Coahuila.
 
 ## Estructura
 
@@ -142,9 +143,16 @@ julia src/revisar_formulas.jl Class_notes/s08_estabilidad_no_lineal.md
 julia -e 'using Pkg; Pkg.activate("Code"); Pkg.update()'
 ```
 
+## Uso de inteligencia artificial
+
+Se utilizó Claude (Anthropic) como apoyo en la redacción y la revisión del
+código y del material del curso. El contenido, las decisiones y cualquier
+error son responsabilidad del autor.
+
 ## Licencia
 
-© 2026 Ernesto X. Vera Gómez, Universidad Autónoma de Coahuila.
+© 2026 Ernesto X. Vera Gómez, Centro de Investigaciones Socioeconómicas (CISE),
+Universidad Autónoma de Coahuila.
 
 - **Código**: los archivos `.jl` de `Code/` y `src/`, incluidos los cuadernos
   de Pluto, tienen licencia [MIT](LICENSE).
