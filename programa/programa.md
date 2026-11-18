@@ -9,6 +9,8 @@ diferenciales básicas. Las primeras cuatro sesiones repasan lo necesario.
 semana). La sesión 18 es flexible, y las sesiones 21 y 22 son de colchón:
 se dedican al proyecto o a recuperar una unidad atrasada.
 **Lenguaje**: Julia, con cuadernos de `Pluto.jl`. Se aceptan entregas en Python.
+**Material del curso**: las notas, los cuadernos, las tareas y los datos están
+en <https://github.com/ernesxavier/dynamic-optimization-course>.
 
 **Objetivo**: Que las y los estudiantes planteen y resuelvan problemas
 económicos de decisión en el tiempo con las tres herramientas centrales de la
