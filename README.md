@@ -39,7 +39,7 @@ Universidad Autónoma de Coahuila.
 └── README.md
 ```
 
-## Notas y cuadernos previstos
+## Notas y cuadernos
 
 | Ses. | Tema | Notas (`Class_notes/`) | Cuaderno (`Code/`) |
 |---|---|---|---|
