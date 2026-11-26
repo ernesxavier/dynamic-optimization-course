@@ -34,13 +34,13 @@ Lagrange se ve rápido para dejar a Kuhn-Tucker su tiempo completo.
 |---|---|---|---|
 | 0–10 | Pizarra | La pregunta y el problema de las dos regiones; por qué importan la concavidad y $f_i'(0)$ | 1 |
 | 10–22 | Pizarra | Repaso rápido: condición de primer orden y concavidad da un máximo global (enunciados); el ejemplo de una región; el segundo orden, de palabra | 2.1, 2.3 (2.2, de palabra) |
-| 22–45 | Pizarra | Teorema de Lagrange y tangencia; el multiplicador como precio sombra, $V'(c) = \lambda$; las dos regiones con el presupuesto agotado y la falla $x_2 < 0$ | 3.1, 3.2, 3.4 |
+| 22–45 | Pizarra | Teorema de Lagrange y tangencia; el multiplicador como precio sombra, $V'(c) = \lambda$; la condición de la hessiana orlada (enunciado); las dos regiones con el presupuesto agotado y la falla $x_2 < 0$ | 3.1–3.4 |
 | 45–50 | | Pausa | |
 | 50–85 | Pizarra | Condiciones de Kuhn-Tucker; la tabla de holgura complementaria, de palabra; el teorema de suficiencia (enunciado); solución por casos y el ejemplo numérico | 4.1–4.4 (sin la cuasiconcavidad) |
 | 85–100 | Parejas | Ejercicio F1 a mano | 8 |
 | 100–105 | Pizarra | Cierre: el multiplicador será el coestado | 6 |
 | 105–120 | Margen | Si alcanza, en este orden: la solución de esquina en el cuaderno (sección 4); rendimientos crecientes, $\varphi'' > 0$ y el punto de Kuhn-Tucker es un mínimo (5; cuaderno, sección 5); tangencia y precio sombra con deslizadores (cuaderno, secciones 2 y 3) | |
-| Después | Lectura | Lo que no entró del margen; las condiciones de segundo orden (2.2), la hessiana orlada (3.3), la cuasiconcavidad y el teorema de Arrow y Enthoven (4.3), la calificación de las restricciones (4.5), el resumen (7) y Para profundizar | |
+| Después | Lectura | Lo que no entró del margen; las condiciones de segundo orden (2.2), el criterio general de la hessiana orlada ([L.I5](repaso/algebra_lineal.md#li5)), la cuasiconcavidad y el teorema de Arrow y Enthoven (4.3), la calificación de las restricciones (4.5), el resumen (7) y Para profundizar | |
 
 Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
 que no se vea pasa a la lectura y se evalúa igual.
@@ -140,7 +140,7 @@ $a > p$. Si $a \le p$, el óptimo con $x \ge 0$ es la esquina $x^\ast = 0$
 
 ---
 
-## 3. Restricciones de igualdad: el método de Lagrange
+## 3. Restricciones de igualdad: el método de Lagrange ★
 
 ### 3.1 El teorema ★
 
@@ -185,7 +185,7 @@ se relaja en una unidad. En el problema de las regiones, $\lambda$ es el
 teorema de la envolvente, que se ve en la sesión 3; aquí se verifica en el
 ejemplo de la sección 3.4.
 
-### 3.3 Condición de segundo orden
+### 3.3 Condición de segundo orden ★
 
 Para $n = 2$ y $m = 1$, un punto crítico del lagrangiano es un máximo local
 estricto si

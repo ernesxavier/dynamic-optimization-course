@@ -34,7 +34,7 @@ función de cambio y la práctica (secciones 2 y 3), después varios estados
 | 40–50 | Proyector | El bang-bang con deslizadores; las tasas fijas contra el óptimo | Cuaderno, secciones 1 y 2 |
 | 50–55 | | Pausa | |
 | 55–75 | Pizarra | Varios estados: el ejemplo de infraestructura y capital privado | 1.1, 1.2 |
-| 75–88 | Pizarra | Arrow, y por qué en la práctica es la condición que se usa; Mangasarian, de palabra | 4.1–4.3 |
+| 75–88 | Pizarra | Mangasarian y Arrow (enunciados); por qué en la práctica se usa Arrow | 4.1–4.3 |
 | 88–102 | Parejas | Ejercicio F2 a mano | 7 |
 | 102–105 | Pizarra | Cierre: el caso de dos regiones (sesión 14) | 5 |
 | 105–120 | Margen | Si alcanza, en este orden: con descuento, por qué la impaciencia adelanta el cambio (3.3); coestados encadenados y gasto en infraestructura (cuaderno, sección 3); ningún control al azar supera al bang-bang (cuaderno, sección 4) | |
@@ -275,9 +275,9 @@ orden de las fases dice dónde invertir primero.
 
 ---
 
-## 4. Condiciones suficientes
+## 4. Condiciones suficientes ★
 
-### 4.1 Mangasarian
+### 4.1 Mangasarian ★
 
 **Teorema (Mangasarian).** En el problema con $T$ fijo, supón que $u^\ast$,
 $y^\ast$ y $\lambda$ cumplen el principio del máximo y la transversalidad, y

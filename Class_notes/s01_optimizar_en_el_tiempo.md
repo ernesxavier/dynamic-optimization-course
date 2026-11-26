@@ -37,11 +37,11 @@ dos periodos y terminando con el problema de tesis de cada estudiante.
 | 40–45 | | Pausa | |
 | 45–50 | Proyector | Las brechas entre regiones, 2003–2023 | 0; cuaderno, sección 0 |
 | 50–70 | Pizarra | Estático contra dinámico; el problema de dos periodos y la ecuación de Euler | 1.1–1.3 |
-| 70–87 | Pizarra | Estado, control y ecuación de movimiento en tiempo discreto; la formulación en tiempo continuo, sólo enunciada; cómo distinguir el estado del control | 2.1, 2.2 (sólo la formulación), 2.3 |
+| 70–87 | Pizarra | Estado, control y ecuación de movimiento en tiempo discreto; la formulación en tiempo continuo; cómo distinguir el estado del control | 2.1–2.3 |
 | 87–102 | Pizarra | Tu problema de tesis: estado, control, ecuación de movimiento y objetivo. Qué se entrega en la sesión 12 | 6 |
 | 102–105 | Pizarra | Cierre: el hilo conductor, invertir en una región o en otra, sólo como pregunta; se resuelve en la sesión 14 | 4.1 |
 | 105–120 | Margen | Si alcanza, en este orden: una región con tasa de inversión fija, su estado estacionario y por qué una regla constante no es óptima (3.1, 3.3; cuaderno, sección 2); el modelo de dos regiones y una política con un cambio (4.2, 4.4; cuaderno, sección 3) | |
-| Después | Lectura | Lo que no entró del margen; el tiempo continuo en detalle (2.2), trayectorias y reglas (2.4), la regla de oro (3.2), políticas sin cambio (4.3), las herramientas del curso (5), el resumen (7) y Para profundizar | |
+| Después | Lectura | Lo que no entró del margen; trayectorias y reglas (2.4), la regla de oro (3.2), políticas sin cambio (4.3), las herramientas del curso (5), el resumen (7) y Para profundizar | |
 
 Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
 que no se vea pasa a la lectura y se evalúa igual.
@@ -213,7 +213,7 @@ La ecuación de movimiento es una **ecuación en diferencias**
 ([D.B1](repaso/ecuaciones_diferenciales.md#db1)): conocida la regla para
 elegir el control, determina toda la trayectoria del estado.
 
-### 2.2 Tiempo continuo
+### 2.2 Tiempo continuo ★
 
 En tiempo continuo, el control es una función $u(t)$ y el estado cumple una
 **ecuación diferencial**:
