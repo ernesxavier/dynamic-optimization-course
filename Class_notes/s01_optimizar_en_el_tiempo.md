@@ -1,14 +1,17 @@
 # Sesión 1: Por qué optimizar en el tiempo
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s01_optimizar_en_el_tiempo.jl`) y qué queda para leer. En el
 > pizarrón van las ecuaciones y los resultados en recuadro; el texto que las
 > rodea es lo que se explica de palabra. Como todo está aquí, en clase no
 > hace falta copiar. El cuerpo de las notas es la **ruta básica** y se
 > evalúa; las demostraciones y los temas opcionales están al final, en
 > **Para profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > En esta sesión se resuelve en clase el [diagnóstico de
 > matemáticas](repaso/diagnostico_inicial.md): te dice qué claves del
@@ -22,20 +25,26 @@
 > Lecturas: Becerril Fonseca et al. (2002), para el repaso de cálculo en
 > varias variables. Opcional, como adelanto del curso: Chiang (1992), cap. 1.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+reconocer un problema dinámico y escribirlo con sus cuatro piezas (estado,
+control, ecuación de movimiento y objetivo), empezando por el problema de
+dos periodos y terminando con el problema de tesis de cada estudiante.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
 | 0–10 | Pizarra | Presentación: el curso, la evaluación y el proyecto ligado a la tesis | — |
 | 10–40 | Individual | Diagnóstico de matemáticas, sin calculadora, con la pregunta abierta sobre la tesis | `repaso/diagnostico_inicial.md` |
 | 40–45 | | Pausa | |
-| 45–52 | Proyector | Las brechas entre regiones, 2003–2023 | 0; cuaderno, sección 0 |
-| 52–67 | Pizarra | Estático contra dinámico; el problema de dos periodos y la ecuación de Euler | 1.1–1.3 |
-| 67–82 | Pizarra | Estado, control y ecuación de movimiento en tiempo discreto; la formulación en tiempo continuo; cómo distinguir el estado del control | 2.1, 2.2 (sólo la formulación), 2.3 |
-| 82–95 | Pizarra y proyector | Una región con tasa de inversión fija: el estado estacionario en el pizarrón; la trayectoria y la mejor tasa fija en el proyector; por qué una regla constante no es óptima | 3.1, 3.3; cuaderno, sección 2 |
-| 95–110 | Proyector | El hilo conductor: el modelo de dos regiones y una política con un cambio. Sólo se plantea; se resuelve en la sesión 14 | 4.1, 4.2, 4.4; cuaderno, sección 3 |
-| 110–120 | Pizarra | Tu problema de tesis: estado, control, ecuación de movimiento y objetivo. Qué se entrega en la sesión 12 | 6 |
-| Después | Lectura | El tiempo continuo en detalle (2.2), trayectorias y reglas (2.4), la regla de oro (3.2), políticas sin cambio (4.3), las herramientas del curso (5), el resumen (7) y Para profundizar | |
+| 45–50 | Proyector | Las brechas entre regiones, 2003–2023 | 0; cuaderno, sección 0 |
+| 50–70 | Pizarra | Estático contra dinámico; el problema de dos periodos y la ecuación de Euler | 1.1–1.3 |
+| 70–87 | Pizarra | Estado, control y ecuación de movimiento en tiempo discreto; la formulación en tiempo continuo, sólo enunciada; cómo distinguir el estado del control | 2.1, 2.2 (sólo la formulación), 2.3 |
+| 87–102 | Pizarra | Tu problema de tesis: estado, control, ecuación de movimiento y objetivo. Qué se entrega en la sesión 12 | 6 |
+| 102–105 | Pizarra | Cierre: el hilo conductor, invertir en una región o en otra, sólo como pregunta; se resuelve en la sesión 14 | 4.1 |
+| 105–120 | Margen | Si alcanza, en este orden: una región con tasa de inversión fija, su estado estacionario y por qué una regla constante no es óptima (3.1, 3.3; cuaderno, sección 2); el modelo de dos regiones y una política con un cambio (4.2, 4.4; cuaderno, sección 3) | |
+| Después | Lectura | Lo que no entró del margen; el tiempo continuo en detalle (2.2), trayectorias y reglas (2.4), la regla de oro (3.2), políticas sin cambio (4.3), las herramientas del curso (5), el resumen (7) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 El cuaderno se proyecta en clase; cada estudiante lo abre después del
 Laboratorio 0 (sesión 4), cuando ya tiene Julia instalado.
@@ -61,9 +70,9 @@ decisión que cambia las posibilidades futuras es la marca de un problema
 
 ---
 
-## 1. Optimización estática y dinámica
+## 1. Optimización estática y dinámica ★
 
-### 1.1 El problema estático
+### 1.1 El problema estático ★
 
 Un problema de optimización **estático** elige un punto $x$ de un conjunto
 factible $X$:
@@ -76,7 +85,7 @@ La sesión 2 resuelve uno: repartir un fondo $B$ entre dos regiones, con
 $X = \lbrace (x_1, x_2) \ge 0 : x_1 + x_2 \le B\rbrace$. Se decide una sola
 vez y el conjunto factible no depende de decisiones anteriores.
 
-### 1.2 Un problema de dos periodos
+### 1.2 Un problema de dos periodos ★
 
 Un gobierno regional recibe $y_0$ hoy y $y_1$ mañana. Lo que no gasta hoy lo
 invierte a una tasa bruta $R > 0$: cada peso rinde $R$ pesos mañana. Gasta
@@ -165,7 +174,7 @@ La ecuación de Euler es la condición que más se repite en el curso: en el
 cálculo de variaciones (sesión 10), en la regla de Keynes-Ramsey (sesión
 12) y en tiempo discreto (sesión 18).
 
-### 1.3 Qué hace dinámico a un problema
+### 1.3 Qué hace dinámico a un problema ★
 
 En el problema de dos periodos, la decisión de hoy cambia lo que se puede
 gastar mañana. Con muchos periodos, esa liga se resume en una variable que
@@ -177,7 +186,7 @@ dinámico a un problema.
 
 ## 2. Los ingredientes de un problema dinámico
 
-### 2.1 Tiempo discreto
+### 2.1 Tiempo discreto ★
 
 **Definición (problema de control en tiempo discreto).** Dados un estado
 inicial $x_0$ y un horizonte $T$, se elige una sucesión de controles
@@ -225,7 +234,7 @@ máximo** (Unidad III); la discreta, a la **ecuación de Bellman** (Unidad
 IV). Muchos problemas se pueden escribir de las dos formas, y la sesión 19
 compara las soluciones.
 
-### 2.3 Cómo distinguir el estado del control
+### 2.3 Cómo distinguir el estado del control ★
 
 Tres preguntas ayudan:
 
@@ -437,7 +446,7 @@ los dos miden cuánto vale una unidad más del recurso escaso.
 
 ---
 
-## 6. Tu problema de tesis
+## 6. Tu problema de tesis ★
 
 El proyecto final resuelve un problema de tu tesis (o uno del listado del
 programa). Para plantearlo, responde:

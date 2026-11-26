@@ -128,7 +128,7 @@ Duración ``T_s`` (años): $(@bind T_sub Slider(0:1:20, default = 5, show_value 
 md"""
 ## 3. Ecuaciones en diferencias lineales
 
-*En clase, después de la sección 2.1 de las notas.* Trayectoria de
+*Si alcanza (margen de la clase), después de la sección 2.1 de las notas.* Trayectoria de
 ``y_{t+1} = ay_t + b``; la línea punteada es el punto fijo.
 
 ``a``: $(@bind a_d Slider(-1.5:0.1:1.5, default = -0.5, show_value = true))
@@ -155,7 +155,7 @@ end
 md"""
 ## 4. Ecuaciones no lineales: el diagrama de telaraña
 
-*En clase, después de la sección 2.2 de las notas.* Telaraña y trayectoria
+*Si alcanza (margen de la clase), después de la sección 2.2 de las notas.* Telaraña y trayectoria
 de tres mapas.
 
 Mapa: $(@bind mapa Select(["mercado" => "Telaraña de un mercado regional", "solow" => "Solow discreto (sesión 1)", "logistico" => "Mapa logístico"]))
@@ -171,7 +171,7 @@ Punto de partida (fracción del rango): $(@bind x0_frac Slider(0.05:0.05:0.95, d
 md"""
 ## 5. El método de Euler es una ecuación en diferencias
 
-*En clase* (notas, 2.6). El método de Euler para ``\dot y = -a(y - y^\ast)``
+*Si alcanza (margen de la clase)* (notas, 2.6). El método de Euler para ``\dot y = -a(y - y^\ast)``
 es una ecuación lineal en diferencias con coeficiente ``1 - a\,\Delta t``.
 **Mueve** ``a\,\Delta t`` de 0.5 a 2.5 y **observa** cuándo la aproximación
 oscila o diverge, aunque la ecuación diferencial sea estable.

@@ -10,6 +10,9 @@
 > básica** y se evalúa; las demostraciones y los temas opcionales están al
 > final, en **Para profundizar**, y no se ven en clase.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (exponencial y
 > logaritmo), [D.B1–B4](repaso/ecuaciones_diferenciales.md#db1) (ecuaciones
 > diferenciales, crecimiento exponencial, método de Euler y variables
@@ -23,21 +26,24 @@
 > Lecturas: Chiang y Wainwright (2006), cap. 15; Barro y Sala-i-Martin
 > (1992). Para el caso de México: Barceinas y Raymond (2005).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: la
+solución de la ecuación lineal y la estimación de la velocidad de
+convergencia con los datos.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–8 | Cuaderno | La pregunta: las 32 entidades, 2003–2023 | 0; cuaderno, sección 0 |
-| 8–30 | Pizarra | $\dot y = ay$ y $\dot y + ay = b$: equilibrio, solución, estabilidad y vida media; el ejemplo del capital | 1, 2.1–2.4 |
-| 30–38 | Cuaderno | Las dos ecuaciones con deslizadores; el método de Euler con pasos grandes | Cuaderno, secciones 1 y 2 |
-| 38–50 | Pizarra | Del modelo a la regresión; de la pendiente a la velocidad | 3.1, 3.2 |
-| 50–55 | | Pausa | |
-| 55–80 | Cuaderno | Leer la función que estima la convergencia; estimar sin y con petróleo y en otros periodos; convergencia absoluta y condicional, de palabra | Cuaderno, sección 3; notas, 3.3 y 4 |
-| 80–90 | Cuaderno | Convergencia σ | Cuaderno, sección 4; notas, 3.4 |
-| 90–100 | Cuaderno | ¿Cuánto tardaría en cerrarse la brecha? | Cuaderno, sección 5 |
-| 100–115 | Parejas, en el cuaderno | Ejercicios de código 3 y 4 | Cuaderno, ejercicios |
-| 115–120 | Pizarra | Cierre: qué dicen los datos; entrega de la Tarea 1 | 4 |
-| Después | Lectura | Simular (2.5), la lectura completa de los resultados de México (4), el resumen (6), Para profundizar y Barceinas y Raymond (2005) | |
+| 0–25 | Cuaderno y pizarra | La pregunta: las 32 entidades, 2003–2023 (cuaderno); $\dot y = ay$ y $\dot y + ay = b$: equilibrio, solución, estabilidad y vida media (pizarra) | 0, 1, 2.1–2.3; cuaderno, sección 0 |
+| 25–40 | Pizarra | Del modelo a la regresión; de la pendiente a la velocidad | 3.1, 3.2 |
+| 40–45 | | Pausa | |
+| 45–75 | Cuaderno | Leer la función que estima la convergencia; estimar sin y con petróleo; convergencia absoluta y condicional, de palabra | Cuaderno, sección 3; notas, 3.3 y 4 |
+| 75–88 | Cuaderno | ¿Cuánto tardaría en cerrarse la brecha? | Cuaderno, sección 5 |
+| 88–100 | Parejas, en el cuaderno | Ejercicio de código 3 | Cuaderno, ejercicios |
+| 100–105 | Pizarra | Cierre: qué dicen los datos; entrega de la Tarea 1 | 4 |
+| 105–120 | Margen | Si alcanza, en este orden: convergencia σ (cuaderno, sección 4; notas, 3.4); las dos ecuaciones con deslizadores y el método de Euler (cuaderno, secciones 1 y 2); estimar en otros periodos | |
+| Después | Lectura | Lo que no entró del margen; el ejemplo del capital (2.4); simular (2.5); el ejercicio de código 4; la lectura completa de los resultados de México (4), el resumen (6), Para profundizar y Barceinas y Raymond (2005) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -71,7 +77,7 @@ Keynes-Ramsey (sesión 12) y en la ecuación del coestado (sesión 11).
 
 ---
 
-## 1. La ecuación $\dot y = ay$
+## 1. La ecuación $\dot y = ay$ ★
 
 **Proposición.** Para cada $y_0$, la única solución de $\dot y = ay$ con
 $y(0) = y_0$ es
@@ -100,7 +106,7 @@ años; si decae al 2%, la mitad desaparece en el mismo tiempo.
 
 ## 2. Lineales de primer orden con coeficientes constantes
 
-### 2.1 Equilibrio
+### 2.1 Equilibrio ★
 
 Considera
 
@@ -118,7 +124,7 @@ $$
 y^\ast = \frac{b}{a}.
 $$
 
-### 2.2 Solución
+### 2.2 Solución ★
 
 **Proposición.** La solución con $y(0) = y_0$ es
 
@@ -139,7 +145,7 @@ Si $a = 0$, no hay equilibrio y $y(t) = y_0 + bt$ crece linealmente. Si los
 coeficientes dependen del tiempo, la solución usa un factor integrante: ver
 [Para profundizar, P.1](#pp1).
 
-### 2.3 Estabilidad y velocidad
+### 2.3 Estabilidad y velocidad ★
 
 **Definición.** El equilibrio $y^\ast$ es **asintóticamente estable** si
 $y(t) \to y^\ast$ para toda condición inicial.
@@ -196,7 +202,7 @@ diferencias**, el tema de la sesión 6.
 
 ## 3. Convergencia β
 
-### 3.1 Del modelo a la regresión
+### 3.1 Del modelo a la regresión ★
 
 Supón que el ingreso de estado estacionario crece a una tasa $x$ común a
 todas las regiones, $\ln y^\ast(t) = \ln y_0^\ast + xt$, y que la brecha
@@ -231,7 +237,7 @@ $$
 **Convergencia β**: $b < 0$, las regiones que empezaron más pobres crecen
 más rápido.
 
-### 3.2 De la pendiente a la velocidad
+### 3.2 De la pendiente a la velocidad ★
 
 La pendiente **no** es $-\beta$. Se despeja de $b = -(1 - e^{-\beta T})/T$:
 
@@ -251,7 +257,7 @@ Barro y Sala-i-Martin (1992) estimaron $\beta \approx 0.02$ para los 48
 estados contiguos de Estados Unidos, con datos de ingreso personal desde
 1840: la mitad de una brecha tarda unos 35 años en cerrarse. Es la "regla del 2%" de la literatura de convergencia.
 
-### 3.3 Convergencia absoluta y condicional
+### 3.3 Convergencia absoluta y condicional ★
 
 La regresión supone que todas las regiones van al **mismo** $y^\ast$.
 Entonces se habla de **convergencia absoluta**. Si cada región tiene su
@@ -273,7 +279,7 @@ $b < 0$ sin que la dispersión baje. Ver [Para profundizar, P.2](#pp2).
 
 ---
 
-## 4. Los estados de México, 2003–2023
+## 4. Los estados de México, 2003–2023 ★
 
 Con el PIB per cápita de las 32 entidades (INEGI y OCDE,
 `Data/entidades.csv`, en pesos de 2018) y $T = 20$:

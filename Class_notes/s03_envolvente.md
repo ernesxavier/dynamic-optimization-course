@@ -1,14 +1,17 @@
 # Sesión 3: Envolvente y estática comparativa
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s03_envolvente.jl`) y qué queda para leer. En el pizarrón van las
 > ecuaciones y los resultados en recuadro; el texto que las rodea es lo que
 > se explica de palabra. Como todo está aquí, en clase no hace falta copiar.
 > El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B1](repaso/calculo.md#cb1) (derivadas),
 > [C.B5](repaso/calculo.md#cb5) (derivadas parciales),
@@ -22,23 +25,24 @@
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 8 y 13.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+cómo cambian el óptimo y su valor cuando cambia un parámetro, y el teorema
+de la envolvente.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Proyector | La pregunta: cómo cambia el reparto cuando mejora la región 2 | Cuaderno, sección 0 |
-| 5–12 | Pizarra | Variables y parámetros; la solución y la función de valor; la solución de la sesión 2 | 1 |
-| 12–30 | Pizarra | Diferencial total; teorema de la función implícita; estática comparativa de un óptimo y el ejemplo de una región | 2.1–2.3 |
-| 30–35 | Proyector | El cruce del producto marginal con el precio; función implícita contra diferencia finita | Cuaderno, sección 1 |
-| 35–58 | Pizarra | Sistemas y el método de cuatro pasos; las dos regiones: el sistema, su determinante, y un aumento del fondo y de la productividad por la regla de Cramer | 2.4, 3.1–3.3 |
-| 58–63 | Proyector | Cramer contra diferencia finita; el pico de $x^\ast(B)$ en $\bar B$ | Cuaderno, sección 2; notas, 3.4 |
-| 63–68 | | Pausa | |
-| 68–88 | Pizarra | Envolvente sin restricciones (efecto directo e indirecto) y su ejemplo; con restricciones; $V'(c) = \lambda$ | 4.1, 4.3 |
-| 88–95 | Proyector | Por qué se llama envolvente; la envolvente del reparto | Cuaderno, sección 3; notas, 4.2 |
-| 95–105 | Pizarra | La envolvente en el problema de las regiones; comparar políticas | 4.4, 4.5 |
-| 105–118 | Parejas | Ejercicio F4 a mano | 7 |
-| 118–120 | Pizarra | Cierre: el Laboratorio 0 | — |
-| Después | Lectura | El cambio de régimen en detalle (3.4), por qué se llama envolvente (4.2), las verificaciones con la fórmula cerrada, el resumen (6) y Para profundizar, con la demostración del teorema de la envolvente (P.1) | |
+| 0–10 | Proyector y pizarra | La pregunta: cómo cambia el reparto cuando mejora la región 2; variables, parámetros y función de valor, a partir de la solución de la sesión 2 | 1; cuaderno, sección 0 |
+| 10–35 | Pizarra | Diferencial total; teorema de la función implícita; estática comparativa de un óptimo y el ejemplo de una región | 2.1–2.3 |
+| 35–55 | Pizarra | Las dos regiones: el sistema, su determinante y un aumento del fondo por la regla de Cramer | 2.4, 3.1, 3.2 |
+| 55–60 | | Pausa | |
+| 60–85 | Pizarra | Envolvente sin restricciones (efecto directo e indirecto) y con restricciones; $V'(c) = \lambda$; la envolvente en el problema de las regiones | 4.1, 4.3, 4.4 |
+| 85–100 | Parejas | Ejercicio F4 a mano | 7 |
+| 100–105 | Pizarra | Cierre: el Laboratorio 0 | — |
+| 105–120 | Margen | Si alcanza, en este orden: por qué se llama envolvente (cuaderno, sección 3; notas, 4.2); un aumento de la productividad (3.3); comparar políticas (4.5) | |
+| Después | Lectura | Lo que no entró del margen; el cambio de régimen (3.4); las verificaciones del cuaderno (secciones 1 y 2); el resumen (6) y Para profundizar, con la demostración del teorema de la envolvente (P.1) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 El cuaderno se proyecta en clase; cada estudiante lo abre después del
 Laboratorio 0 (sesión 4), cuando ya tiene Julia instalado.
@@ -54,7 +58,7 @@ productividad de la región 2?
 
 ---
 
-## 1. Del óptimo a las funciones del óptimo
+## 1. Del óptimo a las funciones del óptimo ★
 
 Un problema de optimización depende de **variables**, que se eligen, y de
 **parámetros**, que están dados. En el problema de las dos regiones,
@@ -98,9 +102,9 @@ las condiciones de primer orden.
 
 ---
 
-## 2. Diferencial total y función implícita
+## 2. Diferencial total y función implícita ★
 
-### 2.1 Diferencial total
+### 2.1 Diferencial total ★
 
 Si $z = F(x, \alpha)$, su **diferencial total**
 ([C.I3](repaso/calculo.md#ci3)) es
@@ -112,7 +116,7 @@ $$
 el cambio de $z$ cuando $x$ y $\alpha$ cambian poco al mismo tiempo. Con
 varias variables, se suma un término por cada una.
 
-### 2.2 El teorema de la función implícita
+### 2.2 El teorema de la función implícita ★
 
 Considera una ecuación $F(x, \alpha) = 0$ que define $x$ en función de
 $\alpha$, aunque no se pueda despejar.
@@ -131,7 +135,7 @@ cambia, así que $0 = F_x\thinspace dx + F_\alpha\thinspace d\alpha$
 ([C.I4](repaso/calculo.md#ci4)). Lo que el teorema agrega es que $x(\alpha)$
 **existe** y es diferenciable, y para eso hace falta $F_x \ne 0$.
 
-### 2.3 Estática comparativa de un óptimo
+### 2.3 Estática comparativa de un óptimo ★
 
 En $\max_x f(x, \alpha)$ con óptimo interior, la condición de primer orden
 $f_x(x, \alpha) = 0$ es una ecuación $F(x, \alpha) = 0$ con $F = f_x$.
@@ -166,7 +170,7 @@ Con la fórmula cerrada $x^\ast = a/p - 1$ se obtiene lo mismo:
 $dx^\ast/da = 1/p = (1 + x^\ast)/a$ y
 $dx^\ast/dp = -a/p^2 = -(1 + x^\ast)^2/a$.
 
-### 2.4 Sistemas de ecuaciones
+### 2.4 Sistemas de ecuaciones ★
 
 Con $n$ variables y $n$ condiciones de primer orden,
 $F(z, \alpha) = 0$ con $F, z \in \mathbb{R}^n$, el diferencial total de
@@ -205,7 +209,7 @@ derivada es el del numerador.
 
 ## 3. Estática comparativa del reparto entre regiones
 
-### 3.1 El sistema
+### 3.1 El sistema ★
 
 En el régimen interior ($B > \bar B$), las condiciones de primer orden son
 tres ecuaciones en $z = (x_1, x_2, \lambda)$:
@@ -250,7 +254,7 @@ Salvo el orden y el signo de la orla, la matriz es la hessiana orlada de la
 sesión 2, y su determinante es positivo por la condición de segundo orden. El teorema de la función
 implícita se aplica en todo el régimen interior.
 
-### 3.2 Un aumento del fondo
+### 3.2 Un aumento del fondo ★
 
 Con $dB = 1$ y $da_1 = da_2 = 0$, el lado derecho es $(0, 0, -1)$. Por la
 regla de Cramer, se reemplaza cada columna por ese vector:
@@ -339,7 +343,7 @@ diferencian sus condiciones.
 
 ## 4. El teorema de la envolvente
 
-### 4.1 Sin restricciones
+### 4.1 Sin restricciones ★
 
 Sea $V(\alpha) = \max_x f(x, \alpha)$, con maximizador interior y
 diferenciable $x^\ast(\alpha)$. Como $V(\alpha) = f\big(x^\ast(\alpha), \alpha\big)$,
@@ -390,7 +394,7 @@ convexa, así que $V(p)$ es convexa. El cuaderno lo dibuja. La relación
 entre la convexidad de $V$ y la estática comparativa está en [Para
 profundizar, P.2](#pp2).
 
-### 4.3 Con restricciones
+### 4.3 Con restricciones ★
 
 **Teorema (envolvente, con restricciones).** Sea
 $V(\alpha) = \max_x f(x, \alpha)$ sujeto a $g_j(x, \alpha) = c_j$,
@@ -419,7 +423,7 @@ $$
 Es el resultado que la sesión 2 dejó pendiente: el multiplicador es el
 valor de relajar la restricción en una unidad.
 
-### 4.4 La envolvente en el problema de las regiones
+### 4.4 La envolvente en el problema de las regiones ★
 
 El lagrangiano es
 $\mathcal L = a_1\ln(1 + x_1) + a_2\ln(1 + x_2) + \lambda(B - x_1 - x_2)$.

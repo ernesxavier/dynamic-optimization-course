@@ -89,7 +89,7 @@ Factor de descuento ``\beta``: $(@bind β Slider(0.80:0.01:0.99, default = 0.95,
 md"""
 ## 2. Estado, control y ecuación de movimiento
 
-*En clase* (notas, secciones 2 y 3). Una región con capital ``K_t``
+*Si alcanza (margen de la clase)* (notas, secciones 2 y 3). Una región con capital ``K_t``
 (estado) invierte una fracción fija ``s`` de su producto (control):
 ``K_{t+1} = (1 - \delta)K_t + sK_t^{\alpha}``, con ``\alpha = 0.3``,
 ``\delta = 0.05``, ``K_0 = 1`` y ``T = 40`` años. El objetivo es
@@ -111,7 +111,7 @@ mejor que cualquier tasa fija (notas, sección 3.3).
 md"""
 ## 3. El hilo conductor: invertir en una región o en otra
 
-*En clase* (notas, sección 4). Dos regiones con ``Y_i = v_iK_i`` y ahorro
+*Si alcanza (margen de la clase)* (notas, sección 4). Dos regiones con ``Y_i = v_iK_i`` y ahorro
 ``s_iY_i``; el planificador manda una fracción ``\theta`` de la inversión
 total a la región 1 y el resto a la 2, y busca el mayor producto en
 ``T = 30``. La política que se simula invierte todo en la región 1 hasta el

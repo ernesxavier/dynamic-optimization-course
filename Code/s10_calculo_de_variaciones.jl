@@ -57,8 +57,7 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. El fondo regional: elegir una trayectoria
 
-*En clase, después de la sección 1.1 de las notas, y otra vez después de la
-3.3.* El fondo regional de las notas (sección 1.2), con ``W_0 = 100`` y
+*Si alcanza (margen de la clase), después de la sección 3.3 de las notas.* El fondo regional de las notas (sección 1.2), con ``W_0 = 100`` y
 ``T = 20`` años. La **línea** es la solución exacta, con la ecuación de
 Euler; los **puntos**, la solución de la versión discreta: 199 saldos
 intermedios elegidos con el método de Newton, como un problema de la
@@ -77,7 +76,7 @@ Reserva final, ``W_T``: $(@bind WT Slider(0:5:50, default = 0, show_value = true
 md"""
 ## 2. La ecuación de Euler
 
-*En clase, minutos 75–82.* Symbolics.jl calcula las dos derivadas
+*Si alcanza (margen de la clase).* Symbolics.jl calcula las dos derivadas
 parciales de ``F = e^{-\rho t}u(rW - W')``, tratando ``W`` y ``W'`` (aquí
 `Wp`) como variables independientes; compáralas con las de la sección 3.1
 de las notas:
@@ -109,7 +108,7 @@ escala ``10^{-6}`` viene de la derivada numérica).
 md"""
 ## 3. Por qué: perturbar la trayectoria óptima
 
-*En clase, después de la sección 2.2 de las notas.* La trayectoria óptima
+*Si alcanza (margen de la clase), después de la sección 2.2 de las notas.* La trayectoria óptima
 más una perturbación ``\varepsilon\eta`` que respeta los dos extremos
 (notas, P.1).
 
@@ -132,7 +131,7 @@ md"""
 md"""
 ## 4. El mismo problema con el Hamiltoniano
 
-*En clase, después de la sección 4.3 de las notas.* A la izquierda, el
+*Si alcanza (margen de la clase), después de la sección 4.3 de las notas.* A la izquierda, el
 coestado calculado de dos formas: con el gasto óptimo,
 ``e^{-\rho t}c(t)^{-\theta}``, y con la ecuación del coestado,
 ``\lambda_0e^{-rt}``. A la derecha, el valor óptimo ``V(W_0)`` y la recta
@@ -482,10 +481,10 @@ let
     | Bienestar ``V`` con el gasto óptimo / con el gasto constante | $(rd(valor(f), 4)) / $(rd(valor_constante(f), 4)) |
     | Gastar parejo equivale a perder, cada año, | $(rd(100pérdida, 2))% del gasto |
 
-    **La primera vez** (minutos 18–23): **observa** que los puntos caen sobre
+    **Primero**, **observa** que los puntos caen sobre
     la línea. Una trayectoria es una lista de números.
 
-    **La segunda vez** (minutos 75–82):
+    **Después**:
     1. **Iguala** ``r`` y ``\rho``: ¿cómo es el gasto?
     2. **Pon** ``r > \rho`` y después ``r < \rho``: ¿cuándo crece el gasto?
     3. **Sube** ``\theta``: ¿qué le pasa a la pendiente?

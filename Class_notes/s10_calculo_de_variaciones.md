@@ -1,14 +1,17 @@
 # Sesión 10: Del cálculo de variaciones al Hamiltoniano
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
-> (`Code/s10_calculo_de_variaciones.jl`) y qué queda para leer. En el pizarrón
-> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
-> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
-> copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
-> demostraciones y los temas opcionales están al final, en **Para
-> profundizar**, y no se ven en clase.
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s10_calculo_de_variaciones.jl`) y qué queda para leer. En el
+> pizarrón van las ecuaciones y los resultados en recuadro; el texto que las
+> rodea es lo que se explica de palabra. Como todo está aquí, en clase no
+> hace falta copiar. El cuerpo de las notas es la **ruta básica** y se
+> evalúa; las demostraciones y los temas opcionales están al final, en
+> **Para profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B1–B4](repaso/calculo.md#cb1) (derivadas,
 > máximos, exponencial e integrales), [C.I6](repaso/calculo.md#ci6) (regla
@@ -21,24 +24,24 @@
 > 3.2 y 3.3 (el fondo regional con utilidad logarítmica, resuelto con el
 > Hamiltoniano).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: la
+ecuación de Euler, la regla de Keynes-Ramsey que da en el fondo regional y
+el Hamiltoniano como segundo camino.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–8 | Pizarra | La pregunta: elegir una trayectoria; el fondo regional | 0, 1.2 |
-| 8–18 | Pizarra | Funcionales y el problema básico; una trayectoria es una lista de números | 1.1 |
-| 18–23 | Proyector | Solución exacta contra la discreta de 200 tramos | Cuaderno, sección 1 |
-| 23–43 | Pizarra | La ecuación de Euler: el teorema, de dónde sale en la versión discreta y por qué es de segundo orden con dos extremos; los casos especiales, de palabra | 2.1–2.4 |
-| 43–48 | Proyector | Perturbar la trayectoria óptima: el valor es máximo en $\varepsilon = 0$ | Cuaderno, sección 3 |
-| 48–53 | | Pausa | |
-| 53–75 | Pizarra | El fondo con la ecuación de Euler: la regla de Keynes-Ramsey, su lectura y cómo los extremos fijan $c_0$ | 3.1–3.3 |
-| 75–82 | Proyector | Misma regla, distinto $c_0$; mover $r$, $\rho$, $\theta$ y $W_T$ | Cuaderno, secciones 1 y 2 |
-| 82–100 | Pizarra | El Hamiltoniano $H = F + \lambda u$; sus condiciones dan la ecuación de Euler; el fondo por el segundo camino y $\lambda(0) = dV/dW_0$ | 4.1–4.3 |
-| 100–105 | Proyector | El coestado calculado de dos formas y la pendiente de $V(W_0)$ | Cuaderno, sección 4 |
-| 105–110 | Pizarra | Por qué el resto del curso usa el Hamiltoniano: la utilidad lineal | 4.4 |
-| 110–118 | Parejas | Ejercicio F3 a mano | 7 |
-| 118–120 | Pizarra | Cierre: el principio del máximo (sesión 11) | 5 |
-| Después | Lectura | Cuándo es un máximo (2.5), la tabla de casos de 3.3, el resumen (6), la sección [Avanzado] del cuaderno y Para profundizar | |
+| 0–15 | Pizarra | La pregunta: elegir una trayectoria; funcionales, el problema básico y el fondo regional | 0, 1.1, 1.2 |
+| 15–40 | Pizarra | La ecuación de Euler: el teorema, de dónde sale en la versión discreta y por qué es de segundo orden con dos extremos; los casos especiales, de palabra | 2.1–2.4 |
+| 40–45 | | Pausa | |
+| 45–68 | Pizarra | El fondo con la ecuación de Euler: la regla de Keynes-Ramsey, su lectura y cómo los extremos fijan $c_0$ | 3.1–3.3 |
+| 68–90 | Pizarra | El Hamiltoniano $H = F + \lambda u$; sus condiciones dan la ecuación de Euler; el fondo por el segundo camino y $\lambda(0) = dV/dW_0$ | 4.1–4.3 |
+| 90–102 | Parejas | Ejercicio F3 a mano | 7 |
+| 102–105 | Pizarra | Cierre: por qué el resto del curso usa el Hamiltoniano, de palabra; el principio del máximo (sesión 11) | 4.4, 5 |
+| 105–120 | Margen | Si alcanza, en este orden: misma regla, distinto $c_0$, y mover $r$, $\rho$, $\theta$ y $W_T$ (cuaderno, secciones 1 y 2); perturbar la trayectoria óptima (cuaderno, sección 3); el coestado calculado de dos formas (cuaderno, sección 4) | |
+| Después | Lectura | Lo que no entró del margen; la utilidad lineal en detalle (4.4), cuándo es un máximo (2.5), la tabla de casos de 3.3, el resumen (6), la sección [Avanzado] del cuaderno y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -66,9 +69,9 @@ resto del curso, porque admite restricciones sobre las decisiones.
 
 ---
 
-## 1. El problema básico
+## 1. El problema básico ★
 
-### 1.1 Funcionales
+### 1.1 Funcionales ★
 
 Un **funcional** asigna un número a cada función. El problema básico del
 cálculo de variaciones es
@@ -96,7 +99,7 @@ Es un problema de la Unidad I con $N - 1$ variables. El cuaderno lo
 resuelve así, con $N = 200$, y lo compara con la solución exacta. La sección
 2.2 usa esta idea para entender la ecuación de Euler.
 
-### 1.2 El ejemplo: el fondo regional
+### 1.2 El ejemplo: el fondo regional ★
 
 Sea $W(t)$ el saldo del fondo y $c(t)$ el gasto. El fondo crece con sus
 rendimientos y baja con el gasto:
@@ -138,7 +141,7 @@ ejemplos 3.2 y 3.3), que lo resuelve con el Hamiltoniano.
 
 ## 2. La ecuación de Euler
 
-### 2.1 El teorema
+### 2.1 El teorema ★
 
 **Teorema (ecuación de Euler).** Si $y^\ast$ maximiza $J[y]$ entre las
 trayectorias admisibles y es dos veces derivable, entonces, para todo
@@ -158,7 +161,7 @@ cumplen el máximo, el mínimo y otros puntos estacionarios. Las trayectorias
 que la cumplen se llaman **extremales**. La demostración está en [Para
 profundizar, P.1](#pp1).
 
-### 2.2 De dónde sale: la condición de primer orden en cada instante
+### 2.2 De dónde sale: la condición de primer orden en cada instante ★
 
 En la versión discreta de la sección 1.1, $y_n$ aparece en dos términos: en
 el tramo $n$, como nivel y en la pendiente $(y_{n+1} - y_n)/h$, y en el
@@ -178,7 +181,7 @@ beneficio directo $F_y\thinspace h$, y además cambia dos pendientes, la del
 tramo anterior (que sube) y la del siguiente (que baja). En el óptimo, la
 suma de los tres efectos es cero.
 
-### 2.3 Una ecuación de segundo orden con dos extremos
+### 2.3 Una ecuación de segundo orden con dos extremos ★
 
 Al desarrollar la derivada total,
 
@@ -216,9 +219,9 @@ se ve la versión para el Hamiltoniano (Mangasarian).
 
 ---
 
-## 3. El fondo regional resuelto con la ecuación de Euler
+## 3. El fondo regional resuelto con la ecuación de Euler ★
 
-### 3.1 La regla de Keynes-Ramsey
+### 3.1 La regla de Keynes-Ramsey ★
 
 Con $F = e^{-\rho t}u(rW - W')$ y $c = rW - W'$:
 
@@ -246,7 +249,7 @@ Es la **regla de Keynes-Ramsey** de la sesión 8, con el rendimiento fijo
 $r$ en lugar de $f'(k) - \delta$. La ecuación de Euler, que era de segundo
 orden en $W$, quedó de primer orden en $c$.
 
-### 3.2 Lectura económica: gastar hoy o gastar mañana
+### 3.2 Lectura económica: gastar hoy o gastar mañana ★
 
 La regla compara dos cosas. Gastar un peso menos hoy cuesta $u'(c(t))$.
 Ese peso, en el fondo, se vuelve $e^{r\Delta}$ pesos dentro de $\Delta$
@@ -266,7 +269,7 @@ $\theta$ decide qué tan fuerte es la respuesta: con $\theta$ grande, al
 gobierno le disgusta la variación y el gasto casi no cambia, aunque $r$ y
 $\rho$ sean muy distintos.
 
-### 3.3 Los extremos fijan el nivel
+### 3.3 Los extremos fijan el nivel ★
 
 La regla dice cómo **cambia** el gasto, $c(t) = c_0\thinspace e^{gt}$ con
 $g = (r - \rho)/\theta$, pero no cuánto vale $c_0$. Lo fijan los extremos.
@@ -318,7 +321,7 @@ Con $W_0 = 100$, $W_T = 0$ y $T = 20$:
 
 ## 4. El mismo problema como control óptimo
 
-### 4.1 El Hamiltoniano
+### 4.1 El Hamiltoniano ★
 
 Se llama **estado** a $y$ y **control** a su velocidad, $u = y'$. El
 problema básico se escribe
@@ -346,7 +349,7 @@ $$
 y' = \frac{\partial H}{\partial \lambda} = u\ }
 $$
 
-### 4.2 Dan la ecuación de Euler
+### 4.2 Dan la ecuación de Euler ★
 
 La primera condición es $F_u + \lambda = 0$, es decir,
 $\lambda = -F_{y'}$. Derivando respecto al tiempo,
@@ -360,7 +363,7 @@ $$
 **Las condiciones del Hamiltoniano son la ecuación de Euler partida en dos
 ecuaciones de primer orden**, una para el estado y otra para el coestado.
 
-### 4.3 El fondo regional, por el segundo camino
+### 4.3 El fondo regional, por el segundo camino ★
 
 Aquí la letra $u$ ya es la utilidad, así que el control se llama
 $z = W'$. Con $H = e^{-\rho t}u(rW - z) + \lambda z$, las condiciones son:

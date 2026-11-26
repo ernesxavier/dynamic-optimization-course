@@ -57,7 +57,7 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. Un recurso no renovable
 
-*En clase, minutos 90–105, después de la sección 5.3 de las notas.* El
+*Si alcanza (margen de la clase), después de la sección 5.3 de las notas.* El
 recurso de la sección 5.1 de las notas, con ``b = 1`` y ``T = 20`` años. El
 cuaderno busca por bisección el ``\lambda`` con el que la extracción total
 es igual a las reservas.
@@ -73,7 +73,7 @@ Precio de ahogo, ``a``: $(@bind a Slider(5:1:20, default = 10, show_value = true
 md"""
 ## 2. ¿Cuánto vale una tonelada más bajo tierra?
 
-*En clase, minutos 90–105* (notas, 4.1). A la izquierda, el precio
+*Si alcanza (margen de la clase)* (notas, 4.1). A la izquierda, el precio
 sombra para cada nivel de reservas; a la derecha, el valor óptimo
 ``V(S_0)`` y la recta con pendiente ``\lambda``.
 """
@@ -82,7 +82,7 @@ sombra para cada nivel de reservas; a la derecha, el valor óptimo
 md"""
 ## 3. La condición 1: ``q`` maximiza ``H``
 
-*En clase, minutos 90–105* (notas, 2.2 y 5.2). El Hamiltoniano
+*Si alcanza (margen de la clase)* (notas, 2.2 y 5.2). El Hamiltoniano
 ``H(q) = e^{-\rho t}B(q) - \lambda q`` en el instante elegido, con el
 ``\lambda`` de la sección 1, y su máximo sobre ``q \ge 0``.
 
@@ -102,7 +102,7 @@ md"""
 md"""
 ## 4. Condiciones terminales
 
-*En clase, minutos 50–57, después de la sección 3 de las notas.* El ejemplo
+*Si alcanza (margen de la clase), después de la sección 3 de las notas.* El ejemplo
 de la sección 3 de las notas con las tres condiciones finales: libre (gris),
 ``y(2) \ge y_{\min}`` (naranja) y ``y(2) = y_{\min}`` (azul).
 

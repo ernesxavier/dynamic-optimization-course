@@ -1,14 +1,17 @@
 # Sesión 7: Sistemas de ecuaciones diferenciales y linealización
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s07_sistemas_lineales.jl`) y qué queda para leer. En el pizarrón
 > van las ecuaciones y los resultados en recuadro; el texto que las rodea es
 > lo que se explica de palabra. Como todo está aquí, en clase no hace falta
 > copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [L.B1–B3](repaso/algebra_lineal.md#lb1) (matrices,
 > sistemas y determinantes), [L.I1–I3](repaso/algebra_lineal.md#li1)
@@ -23,24 +26,24 @@
 > Lecturas: Chiang y Wainwright (2006), cap. 16 y secs. 19.5–19.6; Strogatz
 > (2015), caps. 5–6.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+clasificar un sistema lineal por la traza y el determinante, y linealizar
+uno no lineal hasta el punto de silla de Ramsey.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: dos regiones que se afectan entre sí | 0 |
-| 5–15 | Pizarra | Repaso: eigenvalores, traza y determinante | 1 |
-| 15–30 | Pizarra | La solución por modos; los casos complejo y repetido, de palabra | 2.1 |
-| 30–42 | Pizarra | Clasificación por la traza y el determinante; la Proposición 2 | 2.2 |
-| 42–50 | Proyector | El explorador de $A$: retrato de fase y plano traza-determinante | Cuaderno, sección 1 |
-| 50–62 | Pizarra | Dos regiones con derrames (nodo); el primer punto de silla, $\ddot y = y$ | 2.3, 2.4 |
-| 62–67 | | Pausa | |
-| 67–74 | Proyector | Tres sistemas regionales, incluido el ciclo inmobiliario (foco) | Cuaderno, sección 2; notas, 2.5 |
-| 74–82 | Pizarra | Ecuaciones de segundo orden como sistemas | 3 |
-| 82–92 | Pizarra y proyector | Sistemas en tiempo discreto: $\lvert\lambda\rvert < 1$; continuo contra discreto | 4; cuaderno, sección 3 |
-| 92–108 | Pizarra y proyector | Linealización con el jacobiano; el punto de silla de Ramsey | 5.1, 5.2; cuaderno, sección 4 |
-| 108–118 | Parejas | Ejercicio F1 a mano | 8 |
-| 118–120 | Pizarra | Cierre: diagramas de fase no lineales (sesión 8) | 6 |
-| Después | Lectura | El ciclo inmobiliario en detalle (2.5), el centro (2.6), el término constante (2.7), el triángulo de estabilidad (P.3), Hartman-Grobman (P.2), el resumen (7) y Para profundizar | |
+| 0–20 | Pizarra | La pregunta; repaso de eigenvalores, traza y determinante; la solución por modos (los casos complejo y repetido, de palabra) | 0, 1, 2.1 |
+| 20–38 | Pizarra y proyector | Clasificación por la traza y el determinante; la Proposición 2; el explorador de $A$ | 2.2; cuaderno, sección 1 |
+| 38–55 | Pizarra | Dos regiones con derrames (nodo); el primer punto de silla, $\ddot y = y$ | 2.3, 2.4 |
+| 55–60 | | Pausa | |
+| 60–85 | Pizarra y proyector | Linealización con el jacobiano; el punto de silla de Ramsey | 5.1, 5.2; cuaderno, sección 4 |
+| 85–100 | Parejas | Ejercicio F1 a mano | 8 |
+| 100–105 | Pizarra | Cierre: diagramas de fase no lineales (sesión 8) | 6 |
+| 105–120 | Margen | Si alcanza, en este orden: ecuaciones de segundo orden como sistemas (3); sistemas en tiempo discreto, $\lvert\lambda\rvert < 1$ (4; cuaderno, sección 3); tres sistemas regionales, incluido el ciclo inmobiliario (cuaderno, sección 2) | |
+| Después | Lectura | Lo que no entró del margen; el ciclo inmobiliario (2.5), el centro (2.6), el término constante (2.7), el resumen (7) y Para profundizar (Hartman-Grobman y el triángulo de estabilidad) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -63,7 +66,7 @@ aparece en todos los modelos de crecimiento óptimo (sesiones 10 y 12).
 
 ---
 
-## 1. Repaso: eigenvalores, traza y determinante
+## 1. Repaso: eigenvalores, traza y determinante ★
 
 Para una matriz $A$ de $2 \times 2$, un **eigenvector** $v \ne 0$ con
 **eigenvalor** $\lambda$ cumple $Av = \lambda v$: en la dirección de $v$,
@@ -92,7 +95,7 @@ Estas dos relaciones bastan para casi todo lo que sigue.
 
 ## 2. Sistemas lineales $\dot x = Ax$
 
-### 2.1 La solución por modos
+### 2.1 La solución por modos ★
 
 **Proposición 1.** Si $A$ tiene dos eigenvalores reales distintos
 $\lambda_1, \lambda_2$ con eigenvectores $v_1, v_2$, la solución de
@@ -136,7 +139,7 @@ El factor $t$ aparece como en la ecuación de segundo orden con raíz doble
 sigue decidiendo el signo de $\lambda$: no hay giro, y es el caso frontera
 entre un nodo y un foco.
 
-### 2.2 Clasificación por la traza y el determinante
+### 2.2 Clasificación por la traza y el determinante ★
 
 El origen es un equilibrio de $\dot x = Ax$. Su tipo depende sólo de $\tau$ y
 $\Delta$ ([D.I5](repaso/ecuaciones_diferenciales.md#di5)):
@@ -167,7 +170,7 @@ semieje $\tau = 0$, $\Delta > 0$ son los centros, y todo el semiplano
 $\Delta < 0$ son puntos de silla. La región estable es el cuadrante
 $\tau < 0$, $\Delta > 0$. El cuaderno lo dibuja.
 
-### 2.3 Ejemplo: dos regiones con derrames (nodo estable)
+### 2.3 Ejemplo: dos regiones con derrames (nodo estable) ★
 
 *Modelo ilustrativo, construido para esta sesión.*
 
@@ -209,7 +212,7 @@ Con $\beta = 0.02$ y $\mu = 0.03$: un choque común tarda $\ln 2/0.02 \approx 35
 años en reducirse a la mitad; una diferencia entre regiones, sólo
 $\ln 2/0.08 \approx 9$ años.
 
-### 2.4 Ejemplo: el primer punto de silla del curso
+### 2.4 Ejemplo: el primer punto de silla del curso ★
 
 Minimizar $\int_0^T(\dot y^2 + y^2)\thinspace dt$ lleva (sesión 10) a la
 ecuación $\ddot y = y$ ([D.I3](repaso/ecuaciones_diferenciales.md#di3)).
@@ -351,9 +354,9 @@ $\mathrm{Re}\thinspace\lambda < 0$.
 
 ---
 
-## 5. Linealización
+## 5. Linealización ★
 
-### 5.1 El jacobiano en el equilibrio
+### 5.1 El jacobiano en el equilibrio ★
 
 Sea $\dot x = F(x)$ con $F: \mathbb{R}^2 \to \mathbb{R}^2$ suave y
 $F(x^\ast) = 0$. Cerca de $x^\ast$, por el desarrollo de Taylor
@@ -377,7 +380,7 @@ opuestos. Es el teorema de Hartman-Grobman: ver [Para profundizar,
 P.2](#pp2). Si algún eigenvalor tiene parte real cero (un centro, por
 ejemplo), la linealización **no decide**.
 
-### 5.2 Ejemplo: el modelo de Ramsey
+### 5.2 Ejemplo: el modelo de Ramsey ★
 
 En la sesión 12 se deriva el sistema del modelo de Ramsey para el capital
 $k$ y el consumo $c$ de una economía:

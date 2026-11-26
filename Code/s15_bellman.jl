@@ -57,7 +57,7 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. La torta: inducción hacia atrás en una malla
 
-*En clase, minutos 60–68, después de la sección 3 de las notas.* Un fondo
+*Si alcanza (margen de la clase), después de la sección 3 de las notas.* Un fondo
 de 100 se gasta en ``T`` periodos con ``r = \ln c`` y ``S = 0``. El estado se
 discretiza en una malla de 401 puntos entre 0 y 100, y en cada punto se elige
 el fondo que se deja para el periodo siguiente, también en la malla.
@@ -93,7 +93,7 @@ end
 md"""
 ## 2. Crecimiento óptimo de una región
 
-*En clase, minutos 90–100, después de la sección 4 de las notas.* Una región
+*Si alcanza (margen de la clase), después de la sección 4 de las notas.* Una región
 con ``k_{t+1} = k_t^\alpha - c_t`` y ``r = \ln c``. La misma función
 `induccion_atras` resuelve el problema; sólo cambia la recompensa. La región
 empieza con la mitad del capital de largo plazo de la regla límite (notas,

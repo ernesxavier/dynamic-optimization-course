@@ -1,14 +1,17 @@
 # Sesión 11: Principio del máximo
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s11_principio_del_maximo.jl`) y qué queda para leer. En el pizarrón
 > van las ecuaciones y los resultados en recuadro; el texto que las rodea es
 > lo que se explica de palabra. Como todo está aquí, en clase no hace falta
 > copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.B4](repaso/calculo.md#cb4) (integrales),
@@ -25,23 +28,24 @@
 > Lecturas: Chiang (1992), cap. 7 y sec. 8.1; Chiang y Wainwright (2006),
 > cap. 20.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: el
+principio del máximo, las condiciones terminales y el coestado como precio
+sombra, aplicados a la regla de Hotelling.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: un recurso no renovable | 0 |
-| 5–15 | Pizarra | El problema de control óptimo: estado, control y ecuación de movimiento; los dos ejemplos, de palabra | 1 |
-| 15–33 | Pizarra | El principio del máximo; "maximiza" en lugar de "derivada igual a cero"; el fondo con el gasto como control | 2.1–2.3 |
-| 33–50 | Pizarra | Condiciones terminales: la tabla y el ejemplo con $y(T)$ libre y acotado | 3 |
-| 50–57 | Proyector | El mismo ejemplo con un deslizador para $y_{\min}$ | Cuaderno, sección 4 |
-| 57–62 | | Pausa | |
-| 62–72 | Pizarra | El coestado como precio sombra; la condición de arbitraje | 4.1, 4.2 |
-| 72–90 | Pizarra | El recurso: la regla de Hotelling, los tres casos y la fórmula de $\lambda$ | 5.1–5.3 |
-| 90–105 | Proyector | Hotelling con deslizadores; el precio sombra contra las reservas; $H(q)$ y la solución de esquina | Cuaderno, secciones 1 a 3 |
-| 105–110 | Pizarra | Si la región elige cuándo cerrar la mina | 5.4 |
-| 110–118 | Parejas | Ejercicio F4 a mano | 8 |
-| 118–120 | Pizarra | Cierre: horizonte infinito (sesión 12) | 6 |
-| Después | Lectura | La tabla de los tres casos (5.3), el resumen (7), la sección [Avanzado] del cuaderno y Para profundizar | |
+| 0–15 | Pizarra | La pregunta: un recurso no renovable; el problema de control óptimo: estado, control y ecuación de movimiento | 0, 1 |
+| 15–35 | Pizarra | El principio del máximo; "maximiza" en lugar de "derivada igual a cero"; el fondo con el gasto como control | 2.1–2.3 |
+| 35–50 | Pizarra | Condiciones terminales: la tabla y el ejemplo con $y(T)$ libre y acotado | 3 |
+| 50–55 | | Pausa | |
+| 55–88 | Pizarra | El coestado como precio sombra y la condición de arbitraje; el recurso: la regla de Hotelling, los tres casos y la fórmula de $\lambda$ | 4.1, 4.2, 5.1–5.3 |
+| 88–100 | Parejas | Ejercicio F4 a mano | 8 |
+| 100–105 | Pizarra | Cierre: horizonte infinito (sesión 12) | 6 |
+| 105–120 | Margen | Si alcanza, en este orden: Hotelling con deslizadores y el precio sombra contra las reservas (cuaderno, secciones 1 a 3); el ejemplo de 3 con un deslizador para $y_{\min}$ (cuaderno, sección 4); si la región elige cuándo cerrar la mina (5.4) | |
+| Después | Lectura | Lo que no entró del margen; la tabla de los tres casos (5.3), el resumen (7), la sección [Avanzado] del cuaderno y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -65,7 +69,7 @@ sube a la tasa de descuento.
 
 ---
 
-## 1. El problema de control óptimo
+## 1. El problema de control óptimo ★
 
 $$
 \max_{u}\ \int_0^T F\big(t, y(t), u(t)\big)\thinspace dt
@@ -96,9 +100,9 @@ El cálculo de variaciones es el caso $f = u$ y $U = \mathbb{R}$.
 
 ---
 
-## 2. El principio del máximo
+## 2. El principio del máximo ★
 
-### 2.1 El enunciado
+### 2.1 El enunciado ★
 
 Se define el **Hamiltoniano**
 
@@ -123,7 +127,7 @@ Es una condición **necesaria**, como la ecuación de Euler. Las condiciones
 suficientes (Mangasarian y Arrow) se ven en la sesión 13. Una derivación
 está en [Para profundizar, P.1](#pp1).
 
-### 2.2 Qué cambia respecto a la sesión 10
+### 2.2 Qué cambia respecto a la sesión 10 ★
 
 **La condición 1 dice "maximiza", no "derivada igual a cero".** Si el
 máximo de $H$ en $u$ es interior, la condición 1 implica
@@ -140,7 +144,7 @@ función de $(t, y, \lambda)$. Necesita dos condiciones: $y(0) = y_0$ al
 principio y la condición terminal al final. Es otra vez un problema de
 **valor en la frontera** ([D.I7](repaso/ecuaciones_diferenciales.md#di7)).
 
-### 2.3 El fondo regional, con el gasto como control
+### 2.3 El fondo regional, con el gasto como control ★
 
 Con $H = e^{-\rho t}u(c) + \lambda(rW - c)$:
 
@@ -156,7 +160,7 @@ facilidad para leerla.
 
 ---
 
-## 3. Condiciones terminales
+## 3. Condiciones terminales ★
 
 Las condiciones 1 a 3 son las mismas en todos los problemas. Lo que cambia
 con la condición final es la condición 4:
@@ -192,9 +196,9 @@ cuaderno lo muestra con un deslizador para $y_{\min}$.
 
 ---
 
-## 4. El coestado como precio sombra
+## 4. El coestado como precio sombra ★
 
-### 4.1 Lo que mide
+### 4.1 Lo que mide ★
 
 Sea $V(t, y)$ el valor óptimo del problema que empieza en el instante $t$
 con el estado $y$. Entonces, sobre la trayectoria óptima,
@@ -213,7 +217,7 @@ Como $F$ suele estar descontada ($e^{-\rho t}$), $\lambda(t)$ es un precio
 en valor de $t = 0$. El precio en valor del instante $t$ es
 $\mu(t) = e^{\rho t}\lambda(t)$; la sesión 12 trabaja con él directamente.
 
-### 4.2 Las tres condiciones, leídas con precios
+### 4.2 Las tres condiciones, leídas con precios ★
 
 **El Hamiltoniano es el beneficio total del instante.** $H = F + \lambda f$
 suma lo que se obtiene ahora, $F$, y lo que vale el cambio del estado,
@@ -243,7 +247,7 @@ unidad más de estado no sirve para nada, y $\lambda(T) = 0$.
 
 ## 5. Práctica: el precio sombra de un recurso
 
-### 5.1 El modelo
+### 5.1 El modelo ★
 
 Una región tiene reservas $S_0$ de un recurso no renovable. Extrae $q(t)$
 por año; las reservas bajan, $S' = -q$, y no pueden ser negativas,
@@ -262,7 +266,7 @@ $$
 \qquad \text{sujeto a} \qquad S' = -q, \quad S(0) = S_0, \quad S(T) \ge 0.
 $$
 
-### 5.2 La regla de Hotelling
+### 5.2 La regla de Hotelling ★
 
 El Hamiltoniano es $H = e^{-\rho t}B(q) - \lambda q$.
 
@@ -291,7 +295,7 @@ es una inversión. Si su precio subiera más rápido que $\rho$, convendría
 extraer menos hoy y más mañana; si subiera más lento, extraer más hoy. Sólo
 con $p'/p = \rho$ a la región le da igual.
 
-### 5.3 Tres casos: la escasez decide el precio
+### 5.3 Tres casos: la escasez decide el precio ★
 
 La transversalidad separa dos situaciones.
 

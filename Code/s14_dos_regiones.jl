@@ -58,7 +58,7 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. El modelo
 
-*Minutos 50–58, después de la sección 3.2 de las notas.* El modelo de la
+*Minutos 55–65, después de la sección 3.2 de las notas.* El modelo de la
 sección 1 de las notas, con ``K_i(0) = 1``. El cuaderno integra los precios
 sombra **hacia atrás** desde ``p_i(T) = v_i``, encuentra el cambio donde se
 cruzan y después integra el capital hacia adelante.
@@ -89,7 +89,7 @@ md"""
 md"""
 ## 2. ¿Cuánto se gana con el reparto óptimo?
 
-*Minutos 63–70.* El producto nacional al final con una misma fracción
+*Si alcanza (margen de la clase).* El producto nacional al final con una misma fracción
 ``\theta`` fija para la región 1 durante todo el plan, contra el plan óptimo
 (línea naranja). Con ``\theta`` fijo, el capital sigue un sistema lineal
 (sesión 7).
@@ -119,7 +119,7 @@ md"""
 md"""
 ## 4. Equidad frente a eficiencia
 
-*Minutos 92–105* (notas, 6, lectura previa). Se pesa el producto de la
+*Minutos 88–102* (notas, 6, lectura previa). Se pesa el producto de la
 región menos productiva con ``\omega \ge 1``; con los estados y supuestos de
 la sección 3.
 
@@ -140,7 +140,7 @@ supuesto actual. La frontera entre "nada" y "algo" es la recta
 md"""
 ## Ejercicios
 
-*Minutos 105–115, en parejas: ejercicios 1 a 3.* Los ejercicios con
+*Si alcanza (margen de la clase), en parejas: ejercicio 1; el resto, después de clase.* Los ejercicios con
 demostraciones están en las notas (sección 9).
 
 ### Completa el código
@@ -261,7 +261,7 @@ end
 md"""
 ## 3. Calibración: dos estados de México
 
-*Minutos 70–92* (notas, 5). Las productividades salen de los datos (INEGI y
+*Minutos 65–88* (notas, 5). Las productividades salen de los datos (INEGI y
 OCDE, 2023), con ``v_i = \bar v\,(y_i/\bar y)^\phi``; las tasas de ahorro
 **no se publican por entidad** y se suponen alrededor de la nacional
 (0.19).

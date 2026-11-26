@@ -1,14 +1,17 @@
 # Sesión 18: Control óptimo frente a programación dinámica
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón y qué queda para leer; esta sesión no tiene
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón y qué queda para leer; esta sesión no tiene
 > cuaderno, porque la comparación numérica es el Laboratorio 3. En el
 > pizarrón van las ecuaciones y los resultados en recuadro; el texto que las
 > rodea es lo que se explica de palabra. Como todo está aquí, en clase no
 > hace falta copiar. El cuerpo de las notas es la **ruta básica** y se
 > evalúa; las demostraciones y los temas opcionales están al final, en
 > **Para profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (exponencial y
 > logaritmo); para Para profundizar, [C.A2](repaso/calculo.md#ca2) (teorema
@@ -21,20 +24,23 @@
 > **Sesión flexible.** Si el calendario se atrasa, las secciones 1 a 3 son
 > el núcleo; el caso del recurso renovable (5) puede quedar como lectura.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+los dos métodos dan las mismas condiciones, porque el coestado es la
+derivada de la función valor; se ve en un recurso renovable.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: dos caminos, ¿el mismo resultado? | 0 |
-| 5–30 | Pizarra | La ecuación de Euler a partir de la ecuación de Bellman | 1 |
-| 30–50 | Pizarra | El precio sombra: $V'(k)$ y el coestado | 2 |
+| 0–28 | Pizarra | La pregunta: dos caminos, ¿el mismo resultado?; la ecuación de Euler a partir de la ecuación de Bellman | 0, 1 |
+| 28–50 | Pizarra | El precio sombra: $V'(k)$ y el coestado | 2 |
 | 50–55 | | Pausa | |
-| 55–75 | Pizarra | El límite continuo: de Euler a Keynes-Ramsey | 3 |
-| 75–85 | Pizarra | Qué da cada método | 4 |
-| 85–110 | Pizarra | Un recurso renovable en una región, por los dos caminos | 5 |
-| 110–118 | Parejas | Ejercicio F1 a mano | 8 |
-| 118–120 | Pizarra | Cierre: Laboratorio 3 | 6 |
-| Después | Lectura | El resumen (7) y Para profundizar (el punto de silla discreto y cuándo es derivable $V$) | |
+| 55–85 | Pizarra | Un recurso renovable en una región, por los dos caminos | 5 |
+| 85–100 | Parejas | Ejercicio F1 a mano | 8 |
+| 100–105 | Pizarra | Cierre: qué da cada método, con la tabla; Laboratorio 3 | 4, 6 |
+| 105–120 | Margen | Si alcanza: el límite continuo, de la ecuación de Euler a la regla de Keynes-Ramsey (3) | |
+| Después | Lectura | Lo que no entró del margen; qué da cada método en detalle (4), el resumen (7) y Para profundizar (el punto de silla discreto y cuándo es derivable $V$) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Cómo debe crecer una región que decide cada año
 cuánto invertir?
@@ -52,9 +58,9 @@ uno y cuándo el otro?
 
 ---
 
-## 1. La ecuación de Euler a partir de la ecuación de Bellman
+## 1. La ecuación de Euler a partir de la ecuación de Bellman ★
 
-### 1.1 El problema
+### 1.1 El problema ★
 
 Una región con capital $k_t$ produce $f(k_t)$, el capital se deprecia a la
 tasa $\delta$, y lo que no se consume se invierte:
@@ -69,7 +75,7 @@ Con $\delta = 1$ y $u = \ln c$ es el problema de la sesión 16, sección 4.
 Ahora $u$ y $f$ son generales y no hay solución cerrada. Lo que sí se
 puede obtener es una condición que cumple la trayectoria óptima.
 
-### 1.2 Dos condiciones
+### 1.2 Dos condiciones ★
 
 **Primer orden.** Con $k' = f(k) + (1 - \delta)k - c$, derivar respecto de
 $c$ e igualar a cero:
@@ -92,7 +98,7 @@ $$
 
 Es la **fórmula de Benveniste-Scheinkman** (1979).
 
-### 1.3 Juntar las dos
+### 1.3 Juntar las dos ★
 
 Por la condición de primer orden, $\beta V'(k') = u'(c)$, así que la
 envolvente queda
@@ -115,7 +121,7 @@ da $R_{t+1}$ unidades mañana, que valen $\beta R_{t+1}u'(c_{t+1})$ hoy. En el
 ahora deducida de la ecuación de Bellman. La función valor **desapareció**:
 la ecuación sólo tiene consumos y capitales.
 
-### 1.4 Comprobaciones
+### 1.4 Comprobaciones ★
 
 - **La torta** (sesión 15): $k' = k - c$, así que $R = 1$ y
   $1/c_t = \beta/c_{t+1}$: $c_{t+1} = \beta c_t$. ✓
@@ -145,9 +151,9 @@ transversalidad, $\lim_{t\to\infty}\beta^t u'(c_t)k_{t+1} = 0$, que elige la
 
 ---
 
-## 2. El precio sombra: $V'(k)$ y el coestado
+## 2. El precio sombra: $V'(k)$ y el coestado ★
 
-### 2.1 El lagrangiano en tiempo discreto
+### 2.1 El lagrangiano en tiempo discreto ★
 
 El mismo problema se puede resolver sin ecuación de Bellman, con un
 multiplicador $\mu_t$ por periodo para la restricción de recursos:
@@ -176,7 +182,7 @@ $$
 
 Con $\mu_t = u'(c_t)$, es otra vez la ecuación de Euler.
 
-### 2.2 El coestado es la derivada de la función valor
+### 2.2 El coestado es la derivada de la función valor ★
 
 Las dos derivaciones dicen
 
@@ -269,9 +275,9 @@ problema por los dos caminos y compara.
 
 ---
 
-## 5. Un recurso renovable en una región
+## 5. Un recurso renovable en una región ★
 
-### 5.1 El problema
+### 5.1 El problema ★
 
 Una región administra un recurso que se regenera: un bosque, una pesquería,
 un acuífero. El acervo $x$ crece de forma **logística**,
@@ -294,7 +300,7 @@ El crecimiento $G$ es máximo en $x = K/2$: ahí se puede cosechar para siempre
 lo más posible, $gK/4$, el **rendimiento máximo sostenible**. ¿Es eso lo
 óptimo?
 
-### 5.2 Por el principio del máximo
+### 5.2 Por el principio del máximo ★
 
 El Hamiltoniano a valor presente (sesión 12) es
 
@@ -328,7 +334,7 @@ $x_0 > x^\ast$, se cosecha $h_{\max}$ hasta bajar a $x^\ast$. Después se
 cosecha $h^\ast$, justo lo que crece. Es una **aproximación más rápida**: se
 va al acervo objetivo lo más rápido posible y ahí se queda.
 
-### 5.3 Por programación dinámica
+### 5.3 Por programación dinámica ★
 
 En tiempo discreto, con $\beta = 1/(1 + \rho)$,
 
@@ -352,7 +358,7 @@ $$
 **El mismo acervo objetivo por los dos caminos.** Es la sección 1 con
 $R = 1 + G'(x)$: el recurso es un capital que rinde lo que crece.
 
-### 5.4 La lectura
+### 5.4 La lectura ★
 
 - **El recurso es un activo.** Dejar una unidad sin cosechar rinde $G'(x)$
   al año; venderla y prestar el dinero rinde $\rho$. Se conserva el acervo

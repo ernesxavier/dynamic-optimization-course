@@ -1,14 +1,17 @@
 # Sesión 6: Equilibrio, diagramas de fase y ecuaciones en diferencias
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s06_diagramas_de_fase.jl`) y qué queda para leer. En el pizarrón
 > van las ecuaciones y los resultados en recuadro; el texto que las rodea es
 > lo que se explica de palabra. Como todo está aquí, en clase no hace falta
 > copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [D.B1–B2](repaso/ecuaciones_diferenciales.md#db1)
 > (ecuaciones diferenciales y en diferencias, crecimiento exponencial),
@@ -20,25 +23,24 @@
 >
 > Lecturas: Strogatz (2015), cap. 2; Chiang y Wainwright (2006), cap. 17.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: el
+criterio de la derivada para la estabilidad, en tiempo continuo y en tiempo
+discreto.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Proyector | La pregunta: ¿a dónde va una región? | 0; cuaderno, sección 0 |
-| 5–22 | Pizarra | Equilibrios; la recta de fase; el criterio de la derivada y la linealización; el caso $f'(x^\ast) = 0$, de palabra | 1.1–1.3 |
-| 22–32 | Pizarra | Solow: los equilibrios y $f'(k^\ast)$ | 1.4 |
-| 32–40 | Proyector | Solow: recta de fase y trayectorias; qué cambia $k^\ast$ y qué cambia la velocidad | Cuaderno, sección 1 |
-| 40–47 | Pizarra | Aglomeración: los tres equilibrios y el umbral | 1.5 |
-| 47–57 | Proyector | Aglomeración: el umbral al mover $a$; el gran impulso más barato | Cuaderno, sección 2 |
-| 57–62 | | Pausa | |
-| 62–72 | Pizarra | La ecuación lineal en diferencias: solución, estabilidad si $\lvert a\rvert < 1$ y oscilación si $a < 0$ | 2.1 |
-| 72–78 | Proyector | Las seis zonas de $a$ | Cuaderno, sección 3 |
-| 78–88 | Pizarra | La ecuación no lineal: el criterio $\lvert g'(x^\ast)\rvert < 1$ y la telaraña; Solow en tiempo discreto | 2.2, 2.4 |
-| 88–100 | Proyector | Telarañas de tres mapas; el método de Euler como ecuación en diferencias | Cuaderno, secciones 4 y 5; notas, 2.5 y 2.6 |
-| 100–103 | Pizarra | Continuo y discreto, lado a lado, con la tabla | 3 |
-| 103–118 | Parejas | Ejercicio F3 a mano | 6 |
-| 118–120 | Pizarra | Cierre: sistemas en el plano (sesión 7) | 4 |
-| Después | Lectura | Contracciones (2.3), la telaraña de un mercado regional (2.5) y del tiempo continuo al discreto (2.6) en detalle, el resumen (5) y Para profundizar | |
+| 0–20 | Proyector y pizarra | La pregunta: ¿a dónde va una región? (cuaderno, sección 0); equilibrios, la recta de fase, el criterio de la derivada y la linealización; el caso $f'(x^\ast) = 0$, de palabra | 0, 1.1–1.3 |
+| 20–40 | Pizarra y proyector | Solow: los equilibrios y $f'(k^\ast)$ en el pizarrón; la recta de fase y las trayectorias en el cuaderno | 1.4; cuaderno, sección 1 |
+| 40–55 | Pizarra y proyector | Aglomeración: los tres equilibrios y el umbral; el umbral al mover $a$ | 1.5; cuaderno, sección 2 |
+| 55–60 | | Pausa | |
+| 60–85 | Pizarra | Ecuaciones en diferencias: la lineal (estable si $\lvert a\rvert < 1$, oscila si $a < 0$) y la no lineal ($\lvert g'(x^\ast)\rvert < 1$ y la telaraña); Solow en tiempo discreto | 2.1, 2.2, 2.4 |
+| 85–100 | Parejas | Ejercicio F3 a mano | 6 |
+| 100–105 | Pizarra | Cierre: continuo y discreto, lado a lado, con la tabla; sistemas en el plano (sesión 7) | 3, 4 |
+| 105–120 | Margen | Si alcanza, en este orden: las seis zonas de $a$ (cuaderno, sección 3); telarañas de tres mapas y el método de Euler como ecuación en diferencias (cuaderno, secciones 4 y 5); el gran impulso más barato (cuaderno, sección 2) | |
+| Después | Lectura | Lo que no entró del margen; contracciones (2.3), la telaraña de un mercado regional (2.5), del tiempo continuo al discreto (2.6), el resumen (5) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Convergen los estados de México? ¿A qué
 velocidad?
@@ -63,17 +65,17 @@ plano. El modelo de Ramsey de la sesión 12 se resuelve así.
 
 ---
 
-## 1. Tiempo continuo: $\dot x = f(x)$
+## 1. Tiempo continuo: $\dot x = f(x)$ ★
 
 Sea $f$ con derivada continua. La ecuación es **autónoma**: $f$ no depende
 de $t$ ([D.B1](repaso/ecuaciones_diferenciales.md#db1)).
 
-### 1.1 Equilibrios
+### 1.1 Equilibrios ★
 
 Un **equilibrio** (o punto fijo) es un $x^\ast$ con $f(x^\ast) = 0$: si el
 sistema empieza ahí, se queda ahí.
 
-### 1.2 El diagrama de fase en la recta
+### 1.2 El diagrama de fase en la recta ★
 
 Se grafica $f(x)$ contra $x$. Donde $f > 0$, $x$ crece: flecha a la
 derecha. Donde $f < 0$, decrece: flecha a la izquierda. Los equilibrios son
@@ -92,7 +94,7 @@ solución se queda. Ver [Para profundizar, P.1](#pp1).
 **Consecuencia.** Con el dibujo de $f$ se sabe todo el comportamiento
 cualitativo: a dónde va cada condición inicial, sin resolver nada.
 
-### 1.3 Estabilidad
+### 1.3 Estabilidad ★
 
 **Definición.** Un equilibrio $x^\ast$ es **localmente asintóticamente
 estable** si las soluciones que empiezan suficientemente cerca de $x^\ast$
@@ -126,7 +128,7 @@ decide el signo de $f$ a cada lado:
 | $\dot x = x^3$ | $-$, $+$ | Inestable |
 | $\dot x = x^2$ | $+$, $+$ | **Semiestable**: atrae por la izquierda y repele por la derecha |
 
-### 1.4 Ejemplo: Solow
+### 1.4 Ejemplo: Solow ★
 
 El capital por trabajador de una región cumple
 
@@ -173,7 +175,7 @@ $\delta$, convergen al mismo $k^\ast$: convergencia absoluta. Si difieren en
 $s$ o en $n$, cada una va a su propio $k^\ast$: convergencia condicional,
 y las brechas no se cierran (sesión 5, sección 3.3).
 
-### 1.5 Ejemplo: aglomeración y umbrales
+### 1.5 Ejemplo: aglomeración y umbrales ★
 
 Una región atrae población según cuánto mejor se vive ahí que en el resto
 del país. Con aglomeración, vivir en la región mejora con su tamaño al
@@ -231,7 +233,7 @@ simple posible. El modelo es ilustrativo, construido para esta sesión.
 
 ## 2. Tiempo discreto: ecuaciones en diferencias
 
-### 2.1 La ecuación lineal $y_{t+1} = ay_t + b$
+### 2.1 La ecuación lineal $y_{t+1} = ay_t + b$ ★
 
 Con $a \ne 1$, el punto fijo cumple $y^\ast = ay^\ast + b$, así que
 $y^\ast = b/(1 - a)$. Restando las dos ecuaciones, la desviación
@@ -274,7 +276,7 @@ primer orden sí puede: en tiempo discreto, el estado salta de un valor a
 otro sin pasar por los intermedios, y puede brincar al otro lado del
 equilibrio.
 
-### 2.2 La ecuación no lineal $x_{t+1} = g(x_t)$
+### 2.2 La ecuación no lineal $x_{t+1} = g(x_t)$ ★
 
 Un **punto fijo** cumple $g(x^\ast) = x^\ast$: gráficamente, es un cruce de
 $y = g(x)$ con la diagonal $y = x$. Cerca de él,
@@ -319,7 +321,7 @@ Es la versión en una dimensión del teorema del punto fijo de Banach, que
 garantiza que la iteración de la función valor converge (sesión 16).
 *Demostración*: en [Para profundizar, P.3](#pp3).
 
-### 2.4 Ejemplo: Solow en tiempo discreto
+### 2.4 Ejemplo: Solow en tiempo discreto ★
 
 En la sesión 1, el capital de una región con tasa de inversión constante
 cumplía
@@ -376,7 +378,7 @@ velocidad del sistema.
 
 ---
 
-## 3. Continuo y discreto, lado a lado
+## 3. Continuo y discreto, lado a lado ★
 
 | | Tiempo continuo, $\dot x = f(x)$ | Tiempo discreto, $x_{t+1} = g(x_t)$ |
 |---|---|---|

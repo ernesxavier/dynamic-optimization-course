@@ -77,7 +77,7 @@ md"""
 
 ### 2.1 Dos regiones con derrames: un nodo estable
 
-*En clase, después de la sección 2.3 de las notas.* La región 1 empieza
+*Si alcanza (margen de la clase), después de la sección 2.3 de las notas.* La región 1 empieza
 100% arriba de su estado estacionario y la región 2, 50% abajo, con
 ``\beta = 0.02``.
 
@@ -94,7 +94,7 @@ velocidad, el promedio (modo común) o la diferencia (modo diferencial)?
 md"""
 ### 2.2 El primer punto de silla: ``\ddot y = y``
 
-*En clase, después de la sección 2.4 de las notas.* Con ``y(0) = 1`` dado,
+*Si alcanza (margen de la clase), después de la sección 2.4 de las notas.* Con ``y(0) = 1`` dado,
 **elige ``\dot y(0)``**: ¿cuál lleva al origen?
 
 ``\dot y(0)``: $(@bind dy0 Slider(-2.0:0.05:0.0, default = -0.8, show_value = true))
@@ -110,7 +110,7 @@ punto de partida sobre el eigenvector estable.
 md"""
 ### 2.3 El ciclo inmobiliario regional: un foco
 
-*En clase* (notas, 2.5). Precio ``p`` y acervo de vivienda ``H`` después de
+*Si alcanza (margen de la clase)* (notas, 2.5). Precio ``p`` y acervo de vivienda ``H`` después de
 un choque al precio, con ``\delta = 0.05``.
 
 Respuesta de la construcción al precio ``\psi``: $(@bind ψ Slider(0.0:0.05:1.0, default = 0.5, show_value = true))
@@ -144,7 +144,7 @@ end
 md"""
 ## 3. Tiempo continuo y tiempo discreto
 
-*En clase, después de la sección 4 de las notas.* Los eigenvalores de la
+*Si alcanza (margen de la clase), después de la sección 4 de las notas.* Los eigenvalores de la
 matriz ``A`` de la sección 1 en el plano complejo: a la izquierda del eje
 azul, ``\dot x = Ax`` es estable; dentro del círculo naranja,
 ``x_{t+1} = Ax_t`` lo es.

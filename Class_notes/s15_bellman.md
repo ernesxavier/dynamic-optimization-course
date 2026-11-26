@@ -1,14 +1,17 @@
 # Sesión 15: Ecuación de Bellman en horizonte finito
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s15_bellman.jl`) y qué queda para leer. En el pizarrón van las
 > ecuaciones y los resultados en recuadro; el texto que las rodea es lo que
 > se explica de palabra. Como todo está aquí, en clase no hace falta copiar.
 > El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B3](repaso/calculo.md#cb3) (logaritmo),
 > [A.B3](repaso/analisis.md#ab3) (series y descuento),
@@ -20,22 +23,24 @@
 > Lecturas: Sargent y Stachurski, Vol. I, sec. 1.1; QuantEcon, *Cake
 > Eating I*.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: la
+ecuación de Bellman y la inducción hacia atrás, en la torta y en el
+crecimiento de una región.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: decidir cada año; trayectorias y reglas | 0 |
-| 5–15 | Pizarra | El problema en tiempo discreto (sesión 1) | 1 |
+| 0–15 | Pizarra | La pregunta: decidir cada año; trayectorias y reglas; el problema en tiempo discreto (sesión 1) | 0, 1 |
 | 15–35 | Pizarra | La función valor, la ecuación de Bellman y la política; el principio de optimalidad | 2 |
 | 35–55 | Pizarra | Inducción hacia atrás: la torta en tres periodos | 3 |
 | 55–60 | | Pausa | |
-| 60–68 | Proyector | La inducción hacia atrás en una malla, contra la fórmula | Cuaderno, sección 1 |
-| 68–90 | Pizarra | Crecimiento óptimo de una región: la función valor y la política por periodos restantes | 4 |
-| 90–100 | Proyector | Las políticas según los periodos que faltan; una trayectoria completa | Cuaderno, sección 2 |
-| 100–108 | Pizarra | Lo que cuesta: mallas y la maldición de la dimensionalidad | 5 |
-| 108–118 | Parejas | Ejercicio F1 a mano | 8 |
-| 118–120 | Pizarra | Cierre: horizonte infinito (sesión 16) | 6 |
-| Después | Lectura | El resumen (7), la sección [Avanzado] del cuaderno y Para profundizar (el principio de optimalidad y la búsqueda de empleo de la lectura) | |
+| 60–85 | Pizarra | Crecimiento óptimo de una región: la función valor y la política por periodos restantes | 4 |
+| 85–100 | Parejas | Ejercicio F1 a mano | 8 |
+| 100–105 | Pizarra | Cierre: lo que cuesta, la maldición de la dimensionalidad, de palabra; horizonte infinito (sesión 16) | 5, 6 |
+| 105–120 | Margen | Si alcanza, en este orden: las políticas según los periodos que faltan y una trayectoria completa (cuaderno, sección 2); la inducción hacia atrás en una malla, contra la fórmula (cuaderno, sección 1) | |
+| Después | Lectura | Lo que no entró del margen; mallas y dimensiones en detalle (5), el resumen (7), la sección [Avanzado] del cuaderno y Para profundizar (el principio de optimalidad y la búsqueda de empleo de la lectura) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Cómo debe crecer una región que decide cada año
 cuánto invertir?
@@ -58,7 +63,7 @@ tiempo discreto, donde se vuelve un método de cálculo directo.
 
 ---
 
-## 1. El problema en tiempo discreto
+## 1. El problema en tiempo discreto ★
 
 Es la formulación de la sesión 1 (sección 2.1). Dados un estado inicial
 $x_0$ y un horizonte $T$, se eligen controles $u_0, \dots, u_{T-1}$ para
@@ -90,9 +95,9 @@ siguiente. Con esos supuestos, los dos problemas tienen solución cerrada.
 
 ---
 
-## 2. La función valor y la ecuación de Bellman
+## 2. La función valor y la ecuación de Bellman ★
 
-### 2.1 La función valor
+### 2.1 La función valor ★
 
 Sea $V_t(x)$ el **mejor valor que se puede obtener desde el periodo $t$ con
 el estado $x$**, si de ahí en adelante se decide de forma óptima:
@@ -104,7 +109,7 @@ $$
 
 En el último periodo no queda nada por decidir: $V_T(x) = S(x)$.
 
-### 2.2 La ecuación de Bellman
+### 2.2 La ecuación de Bellman ★
 
 **Proposición (principio de optimalidad).** Para $t = 0, \dots, T - 1$,
 
@@ -119,7 +124,7 @@ las decisiones futuras a la vez: $V_{t+1}$ ya las resume. Un problema de $T$
 periodos se vuelve una sucesión de problemas de **un** periodo. La
 justificación está en [Para profundizar, P.1](#pp1).
 
-### 2.3 La política
+### 2.3 La política ★
 
 El control que alcanza el máximo es la **política** del periodo $t$:
 
@@ -138,9 +143,9 @@ llaves es continua en $u$, el máximo existe por el teorema de Weierstrass
 
 ---
 
-## 3. Inducción hacia atrás
+## 3. Inducción hacia atrás ★
 
-### 3.1 El procedimiento
+### 3.1 El procedimiento ★
 
 La ecuación de Bellman se resuelve **desde el final**:
 
@@ -154,7 +159,7 @@ La ecuación de Bellman se resuelve **desde el final**:
 Es el mismo orden que en la sesión 13 ("empezar por el final"), pero aquí
 lo que se arrastra hacia atrás no es un coestado sino una función entera.
 
-### 3.2 La torta en tres periodos
+### 3.2 La torta en tres periodos ★
 
 Un fondo $x_0$ se gasta en los periodos 0, 1 y 2, con $r = \ln c$ y $S = 0$.
 Se cuentan los **periodos que faltan**, $n$: en el periodo 2 falta uno.
@@ -224,9 +229,9 @@ la sesión 18 deriva en general a partir de la ecuación de Bellman.
 
 ---
 
-## 4. Crecimiento óptimo de una región
+## 4. Crecimiento óptimo de una región ★
 
-### 4.1 El problema
+### 4.1 El problema ★
 
 Una región con capital $k_t$ produce $Ak_t^\alpha$, consume $c_t$ e invierte
 el resto, que es su capital del periodo siguiente:
@@ -239,7 +244,7 @@ $$
 
 Es la versión discreta, con horizonte finito, del modelo de la sesión 12.
 
-### 4.2 Inducción hacia atrás
+### 4.2 Inducción hacia atrás ★
 
 Se propone que, con $n$ periodos por delante, $V_n(k) = a_n + b_n\ln k$, y
 se comprueba que la ecuación de Bellman mantiene esa forma. Sea
@@ -284,7 +289,7 @@ $$
 k' = \alpha\beta\thinspace\frac{1 - (\alpha\beta)^{n-1}}{1 - (\alpha\beta)^n}\thinspace Ak^\alpha\ }
 $$
 
-### 4.3 Lectura
+### 4.3 Lectura ★
 
 - **La región consume una fracción del producto, y la fracción depende del
   tiempo que falta.** Con mucho futuro por delante ($n$ grande), la

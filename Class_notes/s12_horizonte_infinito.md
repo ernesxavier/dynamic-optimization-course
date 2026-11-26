@@ -11,6 +11,9 @@
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B3–B4](repaso/calculo.md#cb3) (exponencial e
 > integrales), [A.B3](repaso/analisis.md#ab3) (series y descuento),
 > [E.B2](repaso/estadistica.md#eb2) (tasas de crecimiento con datos),
@@ -28,23 +31,25 @@
 >
 > Lecturas: Chiang (1992), sec. 8.2 y cap. 9.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: la
+transversalidad elige la rama estable, y la velocidad de convergencia que
+predice Ramsey calibrado para México. Ramsey ya se vio en las sesiones 7, 8
+y 10: en el pizarrón se junta, no se rehace.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: ¿qué velocidad de convergencia predice un modelo de ahorro óptimo? | 0 |
-| 5–12 | Pizarra | Horizonte infinito y descuento | 1 |
-| 12–30 | Pizarra | El Hamiltoniano a valor presente: definición, condiciones y la lectura como arbitraje | 2 |
-| 30–38 | Pizarra | Transversalidad en horizonte infinito | 3 |
-| 38–58 | Pizarra | Ramsey: el problema, la regla de Keynes-Ramsey, el estado estacionario, el punto de silla y cómo la transversalidad elige la rama estable | 4.1–4.5 |
-| 58–63 | | Pausa | |
-| 63–70 | Pizarra | La velocidad de convergencia | 4.6 |
-| 70–80 | Cuaderno | Los datos de México en la Penn World Table | Cuaderno, sección 2; notas, 5.1 (lectura previa) |
-| 80–95 | Cuaderno | La calibración: $\rho$, $s^\ast$ y $\beta$; mover $\alpha$ y $\theta$ | Cuaderno, sección 3; notas, 5.2–5.4 |
-| 95–108 | Cuaderno | El diagrama de fase calibrado y la transición; la transversalidad, numéricamente | Cuaderno, secciones 4 y 5 |
-| 108–118 | Parejas, en el cuaderno | Ejercicios de código 1 a 3 | Cuaderno, ejercicios |
-| 118–120 | Pizarra | Cierre: entrega de la propuesta de proyecto | 6 |
-| Después | Lectura | El resumen (7), la lectura completa de la calibración (5.4) y Para profundizar | |
+| 0–25 | Pizarra | La pregunta; horizonte infinito y descuento; el Hamiltoniano a valor presente: definición, condiciones y la lectura como arbitraje | 0, 1, 2 |
+| 25–52 | Pizarra | Transversalidad en horizonte infinito; Ramsey: la regla de Keynes-Ramsey, el estado estacionario, el punto de silla y cómo la transversalidad elige la rama estable | 3, 4.1–4.5 |
+| 52–57 | | Pausa | |
+| 57–65 | Pizarra | La velocidad de convergencia | 4.6 |
+| 65–92 | Cuaderno | Los datos de México en la Penn World Table; la calibración: $\rho$, $s^\ast$ y $\beta$; el diagrama de fase calibrado y la transición | Cuaderno, secciones 2 a 4; notas, 5.1 (lectura previa) y 5.2–5.4 |
+| 92–102 | Parejas, en el cuaderno | Ejercicio de código 1 | Cuaderno, ejercicios |
+| 102–105 | Pizarra | Cierre: entrega de la propuesta de proyecto | 6 |
+| 105–120 | Margen | Si alcanza, en este orden: mover $\alpha$ y $\theta$ (cuaderno, sección 3); la transversalidad, numéricamente (cuaderno, sección 5); ejercicios de código 2 y 3 | |
+| Después | Lectura | Lo que no entró del margen; el resumen (7), la lectura completa de la calibración (5.4) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -67,9 +72,9 @@ los precios en valor corriente, con el **Hamiltoniano a valor presente**.
 
 ---
 
-## 1. Horizonte infinito
+## 1. Horizonte infinito ★
 
-### 1.1 El problema
+### 1.1 El problema ★
 
 $$
 \max_{u}\ \int_0^\infty e^{-\rho t}F\big(y(t), u(t)\big)\thinspace dt
@@ -85,7 +90,7 @@ modelo pide consumirlo todo antes del final; los resultados dependerían de
 una fecha que nadie elige. Con horizonte infinito, el problema que empieza
 en cualquier instante tiene la misma forma que el original.
 
-### 1.2 El descuento hace que la integral converja
+### 1.2 El descuento hace que la integral converja ★
 
 Si $F$ está acotada, $|F| \le M$, y $\rho > 0$, la integral converge:
 $\int_0^\infty e^{-\rho t}M\thinspace dt = M/\rho$
@@ -96,9 +101,9 @@ Es la versión continua de la serie geométrica del descuento
 
 ---
 
-## 2. El Hamiltoniano a valor presente
+## 2. El Hamiltoniano a valor presente ★
 
-### 2.1 Definición y condiciones
+### 2.1 Definición y condiciones ★
 
 En la sesión 11, con $F$ descontada, $H = e^{-\rho t}F + \lambda f$ y
 $\lambda(t)$ es un precio en valor de $t = 0$. Se define el precio en valor
@@ -137,7 +142,7 @@ da $\mu' - \rho\mu = -\partial H_c/\partial y$. Las condiciones 1 y 2 no
 cambian, porque multiplicar $H$ por $e^{\rho t} > 0$ no cambia dónde está su
 máximo.
 
-### 2.2 Por qué conviene
+### 2.2 Por qué conviene ★
 
 En $H_c$ no aparece $t$. Si la condición 1 da $u$ como función de $(y, \mu)$,
 las condiciones 2 y 3 forman un **sistema autónomo** en $(y, \mu)$: tiene
@@ -145,7 +150,7 @@ estados estacionarios y diagrama de fase (sesiones 6 a 8). Con $\lambda$ no
 pasa eso, porque $\lambda$ cae a la tasa $\rho$ aun en el estado
 estacionario.
 
-### 2.3 Lectura: una condición de arbitraje
+### 2.3 Lectura: una condición de arbitraje ★
 
 Escrita como
 
@@ -168,7 +173,7 @@ exactamente $\rho$.
 
 ---
 
-## 3. Transversalidad en horizonte infinito
+## 3. Transversalidad en horizonte infinito ★
 
 Sin fecha final, la condición $\lambda(T) = 0$ no tiene un instante donde
 aplicarse. Su análogo, para un estado que debe ser no negativo, es
@@ -190,9 +195,9 @@ P.1](#pp1). En el modelo de Ramsey, la forma de arriba sí es necesaria.
 
 ---
 
-## 4. El modelo de Ramsey
+## 4. El modelo de Ramsey ★
 
-### 4.1 El problema
+### 4.1 El problema ★
 
 La población trabajadora crece a la tasa $n$, $L(t) = L_0e^{nt}$. Con capital
 por trabajador $k$, producto por trabajador $f(k) = Ak^\alpha$,
@@ -217,7 +222,7 @@ con $\rho > n$ para que la integral converja. La tasa de descuento efectiva
 es $\rho - n$. $\theta$ es el parámetro de la utilidad CRRA de las sesiones 8
 y 10, no el reparto $\theta(t)$ de la sesión 14.
 
-### 4.2 La regla de Keynes-Ramsey
+### 4.2 La regla de Keynes-Ramsey ★
 
 Con $H_c = u(c) + \mu\big(f(k) - (\delta + n)k - c\big)$ y la tasa de
 descuento $\rho - n$:
@@ -239,7 +244,7 @@ por el rendimiento neto del capital, $f'(k) - \delta$. El crecimiento de la
 población no aparece porque se descuenta con $\rho - n$ y se diluye con
 $n$: los dos efectos se cancelan.
 
-### 4.3 El estado estacionario
+### 4.3 El estado estacionario ★
 
 Con $c' = 0$ y $k' = 0$:
 
@@ -264,7 +269,7 @@ $$
 
 menor que la de la regla de oro, $\alpha$.
 
-### 4.4 Punto de silla
+### 4.4 Punto de silla ★
 
 El jacobiano del sistema $(k, c)$ en el estado estacionario es
 
@@ -278,7 +283,7 @@ un punto de silla (sesión 7), con un eigenvalor negativo y uno positivo.
 El diagrama de fase es el de la sesión 8, ahora con la isoclina
 $k' = 0$ en $c = f(k) - (\delta + n)k$.
 
-### 4.5 La transversalidad elige la rama estable
+### 4.5 La transversalidad elige la rama estable ★
 
 Dado $k_0$, el consumo inicial $c_0$ no está dado: es un control. Las
 condiciones 1 a 3 se cumplen en cualquier trayectoria que empiece en
@@ -300,7 +305,7 @@ $(k_0, c_0)$. ¿Cuál es la óptima? En la sesión 8 había tres destinos:
 problema de valor en la frontera con horizonte infinito: con $k(0) = k_0$,
 fija el $c_0$ de la rama estable. El cuaderno lo comprueba numéricamente.
 
-### 4.6 La velocidad de convergencia
+### 4.6 La velocidad de convergencia ★
 
 Cerca de $k^\ast$, sobre la rama estable,
 $k(t) - k^\ast \approx (k_0 - k^\ast)e^{-\beta t}$, donde $-\beta$ es el
@@ -325,9 +330,9 @@ varíe, prefiere una transición lenta.
 
 ---
 
-## 5. Práctica con datos: Ramsey calibrado para México
+## 5. Práctica con datos: Ramsey calibrado para México ★
 
-### 5.1 Los datos
+### 5.1 Los datos ★
 
 *Lectura previa: esta sección y la tabla de datos se leen antes de clase;
 en clase, el cuaderno muestra las series y la calibración.*
@@ -354,7 +359,7 @@ trabajo es exactamente constante (0.395) de 1950 a 1993: la PWT parece
 extender un mismo valor hacia atrás. Su efecto en el promedio es pequeño
 (0.346 si se promedia desde 1995).
 
-### 5.2 La calibración
+### 5.2 La calibración ★
 
 - $\alpha = 1 - s_L = 0.646$, donde $s_L$ es la participación del trabajo.
 - $\delta = 0.035$ y $n = 0.023$, directamente de los datos.
@@ -371,7 +376,7 @@ $$
 - $A$ sólo fija las unidades; el cuaderno normaliza el producto de estado
   estacionario a 1.
 
-### 5.3 Resultados
+### 5.3 Resultados ★
 
 | | $\alpha$ de la PWT | $\alpha = 1/3$ |
 |---|---|---|
@@ -382,7 +387,7 @@ $$
 | $\beta$ con $\theta = 2$ | 4.2% | 6.6% |
 | Vida media con $\theta = 2$ | 16.5 años | 10.5 años |
 
-### 5.4 Lectura
+### 5.4 Lectura ★
 
 - **El ahorro coincide con los datos.** El modelo pide $s^\ast = 0.213$ (21.3%), y la
   inversión observada es 19.2%. Ojo: $s^\ast = (\delta + n)K/Y$ es una

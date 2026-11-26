@@ -107,7 +107,7 @@ end
 md"""
 ## 2. Lagrange: el óptimo es una tangencia
 
-*En clase, después de la sección 3.4 de las notas.* La solución de Lagrange
+*Si alcanza (margen de la clase), después de la sección 3.4 de las notas.* La solución de Lagrange
 iguala los productos marginales: la curva de nivel (azul) toca la recta del
 presupuesto (naranja, sólida donde es factible).
 """
@@ -116,7 +116,7 @@ presupuesto (naranja, sólida donde es factible).
 md"""
 ## 3. El multiplicador como precio sombra
 
-*En clase.* Las gráficas muestran el valor óptimo ``V(B)`` y el
+*Si alcanza (margen de la clase).* Las gráficas muestran el valor óptimo ``V(B)`` y el
 multiplicador ``\lambda(B)`` para cada tamaño del fondo (notas, sección
 3.2). La línea punteada es el umbral ``\bar B``; la naranja, el ``B``
 elegido.
@@ -126,7 +126,7 @@ elegido.
 md"""
 ## 4. Kuhn-Tucker: soluciones de esquina
 
-*En clase, después de la sección 4.4 de las notas.* La tabla evalúa las
+*Si alcanza (margen de la clase), después de la sección 4.4 de las notas.* La tabla evalúa las
 condiciones de Kuhn-Tucker en la solución óptima: en cada renglón, el
 producto de la última columna debe ser cero (holgura complementaria).
 """
@@ -143,7 +143,7 @@ y el tamaño del fondo; el punto es la combinación de los deslizadores.
 md"""
 ## 5. Sin concavidad, las condiciones no bastan
 
-*En clase, antes de la sección 5 de las notas.* Con
+*Si alcanza (margen de la clase), con la sección 5 de las notas.* Con
 ``f_i = a_i x_i^\gamma``, la gráfica muestra el producto total a lo largo
 del presupuesto y marca el punto interior que cumple Kuhn-Tucker.
 

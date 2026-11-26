@@ -11,6 +11,9 @@
 > básica** y se evalúa; las demostraciones y los temas opcionales están al
 > final, en **Para profundizar**, y no se ven en clase.
 >
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
+>
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [E.B2](repaso/estadistica.md#eb2) (tasas de crecimiento con
 > datos), [D.I2](repaso/ecuaciones_diferenciales.md#di2) (lineales de
@@ -25,22 +28,24 @@
 > Lecturas: Alexiadis (2018), cap. 2. Consulta: Alexiadis (2018), cap. 3;
 > Rahman (1963); Intriligator (1964); Takayama (1967).
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+resolver hacia atrás el modelo de dos regiones y leer el tiempo de cambio
+con datos de México.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: ¿dónde invertir primero? | 0 |
-| 5–15 | Pizarra | El modelo: $\gamma_i = s_iv_i$, el reparto $\theta(t)$ y el objetivo de valor final con su transversalidad | 1 |
-| 15–30 | Pizarra | El Hamiltoniano, la función de cambio y los precios sombra; la suficiencia por Arrow | 2 |
-| 30–50 | Pizarra | Resolver hacia atrás: la última fase, el tiempo de cambio y la matriz de asignación | 3.1, 3.2 |
-| 50–58 | Cuaderno | El modelo con deslizadores: precios sombra, reparto y capital; tiempo de cambio analítico y numérico | Cuaderno, sección 1; notas, 3.3 |
-| 58–63 | | Pausa | |
-| 63–70 | Cuaderno | Los repartos fijos contra el óptimo | Cuaderno, sección 2 |
-| 70–92 | Cuaderno | Dos estados de México: productividades de los datos, ahorros supuestos y la sensibilidad del resultado | Cuaderno, sección 3; notas, 4 y 5 |
-| 92–105 | Cuaderno y discusión | Equidad frente a eficiencia: el costo de la equidad | Cuaderno, sección 4; notas, 6 (lectura previa) |
-| 105–115 | Parejas, en el cuaderno | Ejercicios de código 1 a 3 | Cuaderno, ejercicios |
-| 115–120 | Pizarra | Cierre: de Rahman a Bellman (Unidad IV) | 7 |
-| Después | Lectura | La estática comparativa en detalle (4), la advertencia sobre Alexiadis (3.1), el resumen (8), la sección [Avanzado] del cuaderno y Para profundizar | |
+| 0–15 | Pizarra | La pregunta: ¿dónde invertir primero?; el modelo: $\gamma_i = s_iv_i$, el reparto $\theta(t)$ y el objetivo de valor final con su transversalidad | 0, 1 |
+| 15–50 | Pizarra | El Hamiltoniano, la función de cambio y los precios sombra; la suficiencia por Arrow; resolver hacia atrás: la última fase, el tiempo de cambio y la matriz de asignación | 2, 3.1, 3.2 |
+| 50–55 | | Pausa | |
+| 55–65 | Cuaderno | El modelo con deslizadores: precios sombra, reparto y capital; tiempo de cambio analítico y numérico | Cuaderno, sección 1; notas, 3.3 |
+| 65–88 | Cuaderno | Dos estados de México: productividades de los datos, ahorros supuestos y la sensibilidad del resultado | Cuaderno, sección 3; notas, 4 y 5 |
+| 88–102 | Cuaderno y discusión | Equidad frente a eficiencia: el costo de la equidad | Cuaderno, sección 4; notas, 6 (lectura previa) |
+| 102–105 | Pizarra | Cierre: de Rahman a Bellman (Unidad IV) | 7 |
+| 105–120 | Margen | Si alcanza, en este orden: los repartos fijos contra el óptimo (cuaderno, sección 2); ejercicio de código 1, en parejas | |
+| Después | Lectura | Lo que no entró del margen; los ejercicios de código; la estática comparativa en detalle (4), la advertencia sobre Alexiadis (3.1), el resumen (8), la sección [Avanzado] del cuaderno y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -65,9 +70,9 @@ con Hamiltoniano lineal y solución bang-bang (sesión 13), transversalidad
 
 ---
 
-## 1. El modelo
+## 1. El modelo ★
 
-### 1.1 Producción, ahorro y reparto
+### 1.1 Producción, ahorro y reparto ★
 
 Cada región $i = 1, 2$ tiene capital $K_i$ y produce
 
@@ -100,7 +105,7 @@ Supuestos: economía cerrada, sin depreciación, sin progreso técnico, y el
 capital instalado en una región no se puede mover a la otra (por eso
 $\theta \ge 0$ y $1 - \theta \ge 0$).
 
-### 1.2 El objetivo
+### 1.2 El objetivo ★
 
 El gobierno maximiza el producto nacional al final del plan:
 
@@ -125,7 +130,7 @@ $$
 
 ---
 
-## 2. El Hamiltoniano y la función de cambio
+## 2. El Hamiltoniano y la función de cambio ★
 
 Con coestados $p_1$ y $p_2$ (los precios sombra del capital de cada
 región, en unidades de producto final). Son los $\lambda_1$ y $\lambda_2$ de
@@ -167,9 +172,9 @@ es lineal en $K$: por Arrow, la solución del principio del máximo es el
 
 ---
 
-## 3. La solución: dónde se invierte primero
+## 3. La solución: dónde se invierte primero ★
 
-### 3.1 Resolver hacia atrás
+### 3.1 Resolver hacia atrás ★
 
 Se sigue el procedimiento de la sesión 13. Sea $\tau = T - t$ el tiempo que
 falta.
@@ -218,7 +223,7 @@ correcto, pero conviene leer con cuidado dos pasos:
   lineales. No lo son en $(K, \theta)$: $\theta S$ es un producto de control y
   estado. La suficiencia sale del teorema de Arrow (sección 2).
 
-### 3.2 La matriz de asignación
+### 3.2 La matriz de asignación ★
 
 Con $v_2 > v_1$ (la región 2 produce más):
 
@@ -238,7 +243,7 @@ al final, donde el capital **produce más** ($v$ mayor), porque lo que
 cuenta es el producto al final. El cambio ocurre cuando faltan $\tau^\ast$
 años: cuanto más largo el plan, más dura la fase de crecimiento.
 
-### 3.3 Un ejemplo
+### 3.3 Un ejemplo ★
 
 Con $v_1 = 0.20$, $v_2 = 0.25$, $s_1 = 0.30$ y $s_2 = 0.20$:
 $\gamma_1 = 0.060 > \gamma_2 = 0.050$, y
@@ -248,7 +253,7 @@ en la región 2. Con un plan de 10 años, todo en la región 2.
 
 ---
 
-## 4. Estática comparativa del tiempo de cambio
+## 4. Estática comparativa del tiempo de cambio ★
 
 $\tau^\ast$ depende de los cuatro parámetros. Con $v_2 > v_1$ y
 $\gamma_1 > \gamma_2$ ([P.2](#pp2)):
@@ -268,9 +273,9 @@ productividad, y la fase en la región 1 desaparece. Cerca de ese umbral,
 
 ---
 
-## 5. Calibración con dos regiones de México
+## 5. Calibración con dos regiones de México ★
 
-### 5.1 Productividad del capital
+### 5.1 Productividad del capital ★
 
 No hay series de capital por entidad. El cuaderno aproxima $v_i$ con el
 PIB por trabajador (INEGI, sin la minería petrolera; empleo de la OCDE,
@@ -300,13 +305,13 @@ Con $\phi = 1$ es el supuesto de arriba; con $\phi = 0$, todos los estados
 tienen la misma $v_i$ y sólo el ahorro decide; con $\phi = 1/2$, las
 diferencias de $v_i$ son la raíz cuadrada de las de $y_i$.
 
-### 5.2 Ahorro
+### 5.2 Ahorro ★
 
 Las tasas de ahorro por entidad **no se publican**. El cuaderno las fija con
 supuestos explícitos alrededor de la tasa nacional (alrededor de 0.19,
 sesión 12) y mide cuánto cambia el resultado.
 
-### 5.3 Coahuila y Nuevo León
+### 5.3 Coahuila y Nuevo León ★
 
 Con los datos de 2023, $v_{\text{Coah}} = 0.400$ y $v_{\text{NL}} = 0.461$:
 Nuevo León produce 15% más por unidad de capital. Con $s_{\text{NL}} = 0.19$
@@ -338,7 +343,7 @@ y un plan de 20 años:
 
 ---
 
-## 6. Equidad frente a eficiencia
+## 6. Equidad frente a eficiencia ★
 
 *Lectura previa: esta sección se lee antes de clase y se discute en la
 última parte de la sesión, con la sección 4 del cuaderno.*

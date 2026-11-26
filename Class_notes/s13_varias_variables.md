@@ -1,14 +1,17 @@
 # Sesión 13: Varias variables de estado y de control
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
-> (`Code/s13_varias_variables.jl`) y qué queda para leer. En el pizarrón
-> van las ecuaciones y los resultados en recuadro; el texto que las rodea es
-> lo que se explica de palabra. Como todo está aquí, en clase no hace falta
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
+> (`Code/s13_varias_variables.jl`) y qué queda para leer. En el pizarrón van
+> las ecuaciones y los resultados en recuadro; el texto que las rodea es lo
+> que se explica de palabra. Como todo está aquí, en clase no hace falta
 > copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.I2](repaso/calculo.md#ci2) (concavidad) y
@@ -18,25 +21,27 @@
 >
 > Lecturas: Chiang (1992), secs. 8.3 y 8.4; Sethi (2021), secs. 2.3 y 2.4.
 
-**Plan de clase** (120 minutos). En esta sesión el pizarrón va de lo
-concreto a lo general: primero la función de cambio y la práctica
-(secciones 2 y 3), después varios estados (sección 1).
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: la
+regla bang-bang y la suficiencia de Arrow, las piezas que usa la sesión 14.
+En esta sesión el pizarrón va de lo concreto a lo general: primero la
+función de cambio y la práctica (secciones 2 y 3), después varios estados
+(sección 1).
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: las tres piezas que faltan para la sesión 14 | 0 |
-| 5–15 | Pizarra | Hamiltoniano lineal en el control, función de cambio y regla bang-bang | 2.1 |
+| 0–15 | Pizarra | La pregunta: las tres piezas que faltan para la sesión 14; Hamiltoniano lineal en el control, función de cambio y regla bang-bang | 0, 2.1 |
 | 15–40 | Pizarra | Invertir o consumir: los cinco pasos hasta $t^\ast = T - 1/v$; el plazo de recuperación | 3.1–3.3 (con el procedimiento de 2.2) |
-| 40–55 | Proyector | El bang-bang con deslizadores; las tasas fijas contra el óptimo | Cuaderno, secciones 1 y 2 |
-| 55–60 | | Pausa | |
-| 60–65 | Pizarra | Con descuento: el resultado y por qué la impaciencia adelanta el cambio | 3.3 |
-| 65–82 | Pizarra | Varios estados: el ejemplo de infraestructura y capital privado | 1.1, 1.2 |
-| 82–88 | Proyector | Coestados encadenados y gasto en infraestructura | Cuaderno, sección 3 |
-| 88–103 | Pizarra | Mangasarian y Arrow; por qué en la práctica sólo aplica Arrow | 4.1–4.3 |
-| 103–108 | Proyector | Prueba numérica: ningún control al azar supera al bang-bang | Cuaderno, sección 4 |
-| 108–118 | Parejas | Ejercicio F2 a mano | 7 |
-| 118–120 | Pizarra | Cierre: el caso de dos regiones (sesión 14) | 5 |
-| Después | Lectura | La tabla de 3.3, la suficiencia en horizonte infinito (final de 4.3), el resumen (6), la sección [Avanzado] del cuaderno y Para profundizar (Mangasarian y arcos singulares) | |
+| 40–50 | Proyector | El bang-bang con deslizadores; las tasas fijas contra el óptimo | Cuaderno, secciones 1 y 2 |
+| 50–55 | | Pausa | |
+| 55–75 | Pizarra | Varios estados: el ejemplo de infraestructura y capital privado | 1.1, 1.2 |
+| 75–88 | Pizarra | Arrow, y por qué en la práctica es la condición que se usa; Mangasarian, de palabra | 4.1–4.3 |
+| 88–102 | Parejas | Ejercicio F2 a mano | 7 |
+| 102–105 | Pizarra | Cierre: el caso de dos regiones (sesión 14) | 5 |
+| 105–120 | Margen | Si alcanza, en este orden: con descuento, por qué la impaciencia adelanta el cambio (3.3); coestados encadenados y gasto en infraestructura (cuaderno, sección 3); ningún control al azar supera al bang-bang (cuaderno, sección 4) | |
+| Después | Lectura | Lo que no entró del margen; la tabla de 3.3, la suficiencia en horizonte infinito (final de 4.3), el resumen (6), la sección [Avanzado] del cuaderno y Para profundizar (Mangasarian y arcos singulares) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Conviene invertir primero donde se ahorra más o
 donde se produce más?
@@ -62,9 +67,9 @@ producto entre consumir e invertir. ¿Hasta cuándo conviene invertir?
 
 ---
 
-## 1. Varios estados y varios controles
+## 1. Varios estados y varios controles ★
 
-### 1.1 El problema
+### 1.1 El problema ★
 
 Con $n$ estados $y = (y_1, \dots, y_n)$ y $m$ controles
 $u = (u_1, \dots, u_m)$:
@@ -99,7 +104,7 @@ $\sum_k \lambda_k\thinspace\partial f_k/\partial y_j$: si el estado $j$
 ayuda a crecer al estado $k$, el precio sombra de $j$ incluye el valor de
 esa ayuda, medido con el precio de $k$. Los precios sombra se encadenan.
 
-### 1.2 Ejemplo: infraestructura y capital privado
+### 1.2 Ejemplo: infraestructura y capital privado ★
 
 Un gobierno regional construye infraestructura $G$ con un gasto $u$ que
 cuesta $u^2/2$. La infraestructura atrae capital privado $K$, y el capital
@@ -130,9 +135,9 @@ otro estado; cerca del final ya no le da tiempo y su precio cae a cero.
 
 ---
 
-## 2. Control acotado y Hamiltoniano lineal
+## 2. Control acotado y Hamiltoniano lineal ★
 
-### 2.1 La función de cambio
+### 2.1 La función de cambio ★
 
 Si el control entra de forma **lineal** en $F$ y en $f$, el Hamiltoniano se
 escribe
@@ -159,7 +164,7 @@ los **tiempos de cambio**. La condición $\partial H/\partial u = 0$ no sirve
 aquí (no hay máximo interior); la de que $u$ maximice $H$, sí. Es el caso que la
 ecuación de Euler no podía resolver (sesión 10, sección 4.4).
 
-### 2.2 Cómo se resuelve
+### 2.2 Cómo se resuelve ★
 
 1. Escribir $H$ y $\sigma$, y la regla de bang-bang.
 2. Escribir la ecuación del coestado, que suele depender del control.
@@ -176,9 +181,9 @@ aislados, hay un **arco singular**; ver [Para profundizar, P.2](#pp2).
 
 ---
 
-## 3. Práctica: invertir o consumir
+## 3. Práctica: invertir o consumir ★
 
-### 3.1 El modelo
+### 3.1 El modelo ★
 
 Una región tiene capital $K$ y produce $Y = vK$, donde $v$ es la
 productividad del capital (el inverso de $K/Y$). Invierte una fracción
@@ -190,7 +195,7 @@ $$
 \qquad \text{sujeto a} \qquad K' = uvK, \quad K(0) = K_0, \quad K(T) \text{ libre}.
 $$
 
-### 3.2 La solución
+### 3.2 La solución ★
 
 **Paso 1.** $H = (1 - u)vK + \lambda uvK = vK + vK(\lambda - 1)\thinspace u$.
 La función de cambio es
@@ -224,7 +229,7 @@ capital crece, $K(t) = K_0e^{vt}$, hasta $t^\ast$, y después se queda
 constante y se consume todo lo que produce. Si $T < 1/v$, nunca conviene
 invertir: $t^\ast = 0$.
 
-### 3.3 Lectura: el plazo de recuperación
+### 3.3 Lectura: el plazo de recuperación ★
 
 $\lambda(t) = v(T - t)$ en la fase final es lo que una unidad de capital
 produce en el tiempo que queda. **Conviene invertir mientras una unidad de
@@ -287,7 +292,7 @@ Entonces $u^\ast$ es óptimo. Si $F$ es estrictamente cóncava, es el único.
 Es la versión dinámica de "condiciones de primer orden más concavidad dan
 un máximo global" de la sesión 2. La demostración está en [P.1](#pp1).
 
-### 4.2 Arrow
+### 4.2 Arrow ★
 
 **Teorema (Arrow).** Sea $H^0(t, y, \lambda) = \max_{u \in U} H(t, y, u, \lambda)$
 el **Hamiltoniano maximizado**. Si las condiciones del principio del máximo
@@ -299,7 +304,7 @@ es cóncavo en $(y, u)$, y entonces $H^0$ es cóncavo en $y$
 ([C.A4](repaso/calculo.md#ca4)): Arrow es más general (Chiang, sec. 8.3;
 Sethi, teorema 2.1).
 
-### 4.3 Aplicaciones
+### 4.3 Aplicaciones ★
 
 | Problema | Mangasarian | Arrow |
 |---|---|---|

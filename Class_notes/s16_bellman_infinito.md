@@ -1,14 +1,17 @@
 # Sesión 16: Ecuación de Bellman en horizonte infinito
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s16_bellman_infinito.jl`) y qué queda para leer. En el pizarrón van
 > las ecuaciones y los resultados en recuadro; el texto que las rodea es lo
 > que se explica de palabra. Como todo está aquí, en clase no hace falta
 > copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [A.B2–B3](repaso/analisis.md#ab2) (sucesiones, series
 > y descuento), [A.I4](repaso/analisis.md#ai4) (norma del supremo),
@@ -22,22 +25,24 @@
 > Lecturas: Sargent y Stachurski, Vol. I, secs. 1.2 y 1.3; QuantEcon,
 > *Cake Eating II*.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo: el
+operador de Bellman es una contracción, y por eso iterar la función valor
+converge.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
-| 0–5 | Pizarra | La pregunta: de una regla por periodo a una sola regla | 0 |
-| 5–20 | Pizarra | El problema sin final y la ecuación de Bellman estacionaria | 1 |
+| 0–20 | Pizarra | La pregunta: de una regla por periodo a una sola regla; el problema sin final y la ecuación de Bellman estacionaria | 0, 1 |
 | 20–40 | Pizarra | El operador de Bellman: punto fijo, contracción y regla de paro | 2 |
-| 40–55 | Pizarra | La torta exacta: conjetura y verificación | 3 |
-| 55–60 | | Pausa | |
-| 60–72 | Pizarra | Crecimiento óptimo de una región sin final | 4 |
-| 72–82 | Proyector | La iteración de la función valor contra la solución exacta | Cuaderno, sección 1 |
-| 82–100 | Pizarra | La iteración de política: evaluar y mejorar | 5 |
-| 100–110 | Proyector | Iteración de la función valor contra iteración de política | Cuaderno, sección 2 |
-| 110–118 | Parejas | Ejercicio F1 a mano | 8 |
-| 118–120 | Pizarra | Cierre: Laboratorio 2 y sesión 18 | 6 |
-| Después | Lectura | El resumen (7), la sección [Avanzado] del cuaderno y Para profundizar (la verificación con transversalidad y la mejora de la política) | |
+| 40–58 | Pizarra | La torta exacta: conjetura y verificación | 3 |
+| 58–63 | | Pausa | |
+| 63–85 | Pizarra y proyector | Crecimiento óptimo de una región sin final; la iteración de la función valor contra la solución exacta | 4; cuaderno, sección 1 |
+| 85–100 | Parejas | Ejercicio F1 a mano | 8 |
+| 100–105 | Pizarra | Cierre: la iteración de política, en una frase (evaluar y mejorar); Laboratorio 2 y sesión 18 | 5, 6 |
+| 105–120 | Margen | Si alcanza: la iteración de política, evaluar y mejorar (5.2, 5.3), y su comparación con la iteración de la función valor (cuaderno, sección 2) | |
+| Después | Lectura | Lo que no entró del margen; la iteración de política completa (5), el resumen (7), la sección [Avanzado] del cuaderno y Para profundizar (la verificación con transversalidad y la mejora de la política) | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** ¿Cómo debe crecer una región que decide cada año
 cuánto invertir?
@@ -59,7 +64,7 @@ dos métodos que se usan en el Laboratorio 2.
 
 ---
 
-## 1. El problema sin final
+## 1. El problema sin final ★
 
 Con estado inicial $x_0$, se eligen controles $u_0, u_1, \dots$ para
 
@@ -99,9 +104,9 @@ función. Las secciones 2, 3 y 5 dicen cómo resolverla.
 
 ---
 
-## 2. El operador de Bellman
+## 2. El operador de Bellman ★
 
-### 2.1 Un punto fijo
+### 2.1 Un punto fijo ★
 
 Para cualquier función $v$ (una conjetura de la función valor), sea $Tv$ la
 función que da el lado derecho de la ecuación de Bellman:
@@ -126,7 +131,7 @@ $v_{n+1} = Tv_n$. Con $v_0 = 0$, $v_n$ es la función valor de la sesión 15
 con $n$ periodos por delante y $S = 0$: **iterar $T$ es hacer la inducción
 hacia atrás sin detenerse**. La pregunta es si $v_n$ converge, y a qué.
 
-### 2.2 $T$ es una contracción
+### 2.2 $T$ es una contracción ★
 
 La distancia entre dos funciones es la mayor diferencia entre sus gráficas,
 la **norma del supremo** ([A.I4](repaso/analisis.md#ai4)):
@@ -164,7 +169,7 @@ y se toma el supremo sobre $x$. $\square$
 el factor $\beta$. La razón es económica: $v$ y $w$ sólo opinan sobre el
 **futuro**, y el futuro está descontado.
 
-### 2.3 Lo que se sigue
+### 2.3 Lo que se sigue ★
 
 Con la proposición y el teorema del punto fijo de Banach
 ([A.A2](repaso/analisis.md#aa2)):
@@ -198,7 +203,7 @@ $\lVert v_n - v_{n-1}\rVert \le \varepsilon(1 - \beta)/\beta$.
 
 ---
 
-## 3. La torta exacta: conjetura y verificación
+## 3. La torta exacta: conjetura y verificación ★
 
 Un fondo $x$ se gasta sin final: $x_{t+1} = x_t - c_t$, $r = \ln c$. La
 recompensa no es acotada, así que la sección 2.3 no se aplica tal cual
@@ -266,7 +271,7 @@ prueba de un código.
 
 ---
 
-## 4. Crecimiento óptimo de una región sin final
+## 4. Crecimiento óptimo de una región sin final ★
 
 La región de la sesión 15, sin último periodo:
 

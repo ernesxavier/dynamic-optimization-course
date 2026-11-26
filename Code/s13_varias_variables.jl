@@ -57,7 +57,7 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. Invertir o consumir
 
-*En clase, minutos 40–55, después de la sección 3.2 de las notas.* La
+*En clase, minutos 40–50, después de la sección 3.2 de las notas.* La
 práctica de la sección 3 de las notas, con ``K(0) = 1``: el precio sombra
 del capital, la fracción invertida y el capital. El cuaderno resuelve hacia
 atrás desde ``\mu(T) = 0``.
@@ -73,7 +73,7 @@ Tasa de descuento, ``\rho``: $(@bind ρ Slider(0.0:0.01:0.10, default = 0.0, sho
 md"""
 ## 2. ¿Y si se invierte siempre la misma fracción?
 
-*En clase, minutos 40–55.* El bienestar de cada tasa fija de inversión
+*En clase, minutos 40–50.* El bienestar de cada tasa fija de inversión
 contra el del bang-bang (línea horizontal).
 """
 
@@ -81,7 +81,7 @@ contra el del bang-bang (línea horizontal).
 md"""
 ## 3. Varios estados: infraestructura y capital privado
 
-*En clase, minutos 82–88, después de la sección 1.2 de las notas.* Los dos
+*Si alcanza (margen de la clase), después de la sección 1.2 de las notas.* Los dos
 coestados, el gasto en infraestructura y los dos estados, con ``T = 10``.
 
 Cuánto capital privado atrae la infraestructura, ``a``: $(@bind a Slider(0.05:0.05:1.0, default = 0.2, show_value = true))
@@ -98,7 +98,7 @@ dos cosas?
 md"""
 ## 4. ¿Es de verdad el óptimo? Una prueba numérica
 
-*En clase, minutos 103–108, después de la sección 4.3 de las notas.* Dos
+*Si alcanza (margen de la clase), después de la sección 4.3 de las notas.* Dos
 familias de competidores contra el bang-bang de la sección 1: 400 controles
 al azar, constantes por tramos de un año (azul), y 400 bang-bang con un
 tiempo de cambio al azar (gris).

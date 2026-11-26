@@ -105,7 +105,7 @@ Consumo inicial, como fracción del de la rama estable: $(@bind c0_frac Slider(0
 md"""
 ## 3. La función de política: cuánto ahorra una región pobre
 
-*En clase* (notas, 3.5). La rama estable como función ``c = \sigma(k)``, y la
+*Si alcanza (margen de la clase)* (notas, 3.5). La rama estable como función ``c = \sigma(k)``, y la
 tasa de ahorro que implica, ``1 - \sigma(k)/k^\alpha``.
 """
 
@@ -120,7 +120,7 @@ de largo plazo respecto de la regla de oro (línea punteada)? **Mueve**
 md"""
 ## 4. Un cambio inesperado en la paciencia
 
-*En clase, con la sección 3.6 de las notas.* La economía está en su estado
+*Si alcanza (margen de la clase), con la sección 3.6 de las notas.* La economía está en su estado
 estacionario con ``\rho = 0.04`` y, en el año 10, la tasa de descuento cambia
 de manera permanente al valor ``\rho`` del deslizador de la sección 2.
 """

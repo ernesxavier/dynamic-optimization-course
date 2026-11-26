@@ -83,7 +83,7 @@ pregunta de la clase.
 md"""
 ## 1. Una región: la función implícita
 
-*En clase, después de la sección 2.3 de las notas.* En
+*Después de clase* (notas, 2.3): verificación. En
 ``\max_x a\ln(1 + x) - px``, el óptimo está donde el producto marginal
 (azul) cruza el precio (naranja). La curva punteada es el producto marginal
 con ``a`` un 20% mayor.
@@ -112,7 +112,7 @@ end
 md"""
 ## 2. Dos regiones: un sistema y la regla de Cramer
 
-*En clase, después de la sección 3.3 de las notas.* Symbolics.jl construye
+*Después de clase* (notas, 3.2 y 3.3): verificación. Symbolics.jl construye
 las dos matrices del sistema, ``D_zF`` y ``\partial F/\partial\alpha``, a
 partir de las condiciones de primer orden:
 """
@@ -143,7 +143,7 @@ md"""
 md"""
 ## 3. El teorema de la envolvente
 
-*En clase, después de la sección 4.3 de las notas.* En el problema de una
+*Si alcanza (margen de la clase), después de la sección 4.3 de las notas.* En el problema de una
 región, cada inversión fija ``\bar x`` da una recta en ``p`` (gris), de
 pendiente ``-\bar x``. ``V(p)`` (azul) es su envolvente superior, y la recta
 de la inversión óptima (naranja) la toca: ``V'(p) = -x^\ast(p)``.

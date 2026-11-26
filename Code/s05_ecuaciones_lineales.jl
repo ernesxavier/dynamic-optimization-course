@@ -71,7 +71,7 @@ logaritmo de su razón de ingresos.
 md"""
 ## 1. La exponencial: ``\dot y = ay``
 
-*Minutos 30–38, después de las secciones 1 y 2 de las notas.* Soluciones
+*Si alcanza (margen de la clase), después de las secciones 1 y 2 de las notas.* Soluciones
 desde varias condiciones iniciales.
 
 ``a``: $(@bind a_exp Slider(-0.5:0.05:0.5, default = -0.2, show_value = true))
@@ -87,7 +87,7 @@ las trayectorias y cuándo se alejan?
 md"""
 ## 2. ``\dot y + ay = b``: equilibrio y estabilidad
 
-*Minutos 30–38.* La curva azul es la solución exacta (notas, 2.2); los
+*Si alcanza (margen de la clase).* La curva azul es la solución exacta (notas, 2.2); los
 puntos naranjas, el método de Euler con paso ``\Delta t``.
 
 ``a``: $(@bind a Slider(-0.3:0.05:1.0, default = 0.5, show_value = true))
@@ -157,7 +157,7 @@ vida_media(a) = missing  # reemplaza missing
 md"""
 ## 3. Convergencia β con los datos de México
 
-*Minutos 55–80, después de las secciones 3.1 y 3.2 de las notas.* Si la
+*Minutos 45–75, después de las secciones 3.1 y 3.2 de las notas.* Si la
 brecha de cada entidad cumple ``\dot z = -\beta z``, su crecimiento promedio
 es una recta en ``\ln y_i(0)``: ``g_i = a + b\ln y_i(0)``. La celda siguiente
 la estima por mínimos cuadrados (E.B3) con su error estándar (E.I2).
@@ -179,7 +179,7 @@ Incluir el petróleo: $(@bind con_petroleo CheckBox(default = false))
 md"""
 ### Completa el código
 
-*Minutos 100–115, en parejas.*
+*Minutos 88–100, en parejas: ejercicio 3; el 4, después de clase.*
 
 **3.** Escribe `pendiente_mco(x, y)`, la pendiente de mínimos cuadrados de
 ``y`` sobre ``x``, con la fórmula ``\hat b = \mathrm{Cov}(x, y)/\mathrm{Var}(x)``.
@@ -203,7 +203,7 @@ beta_de_pendiente(b, T) = missing  # reemplaza missing
 md"""
 ## 4. Convergencia σ: ¿baja la dispersión?
 
-*Minutos 80–90* (notas, 3.4). La desviación estándar de ``\ln y_i`` entre
+*Si alcanza (margen de la clase)* (notas, 3.4). La desviación estándar de ``\ln y_i`` entre
 entidades, año por año, sin y con petróleo.
 """
 
@@ -350,7 +350,7 @@ end;
 md"""
 ## 0. La pregunta: ¿se acercan las entidades pobres a las ricas?
 
-*Minutos 0–8.* El logaritmo del PIB per cápita sin petróleo de las 32
+*Minutos 0–5.* El logaritmo del PIB per cápita sin petróleo de las 32
 entidades, 2003–2023 (INEGI y OCDE, `Data/entidades.csv`), con la Ciudad
 de México, Chiapas y una entidad a elegir.
 
@@ -451,7 +451,7 @@ end
 md"""
 ## 5. ¿Cuánto tardaría en cerrarse la brecha?
 
-*Minutos 90–100.* En 2023, el PIB per cápita sin petróleo de la Ciudad de
+*Minutos 75–88.* En 2023, el PIB per cápita sin petróleo de la Ciudad de
 México era $(round(RAZON_2023, digits = 1)) veces el de Chiapas. Si las dos
 fueran al mismo estado estacionario con velocidad ``\beta``, la razón sería
 ``e^{z_0e^{-\beta t}}``; la línea punteada marca una razón de 2.

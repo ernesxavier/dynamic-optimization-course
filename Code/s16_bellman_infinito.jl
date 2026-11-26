@@ -57,7 +57,7 @@ TableOfContents(title = "Contenido")
 md"""
 ## 1. La iteración de la función valor
 
-*En clase, minutos 72–82, después de la sección 4 de las notas.* El
+*En clase, minutos 75–85, después de la sección 4 de las notas.* El
 crecimiento de una región sin final, ``k' = k^\alpha - c`` con
 ``\alpha = 0.3`` y ``r = \ln c``, en una malla de 301 puntos entre 0.001 y
 0.5. Se empieza con ``v_0 = 0`` y se aplica el operador de Bellman una y otra
@@ -90,7 +90,7 @@ La solución exacta es la de la sección 4 de las notas:
 md"""
 ## 2. Función valor contra política
 
-*En clase, minutos 100–110, después de la sección 5 de las notas.* El mismo
+*Si alcanza (margen de la clase), después de la sección 5 de las notas.* El mismo
 crecimiento, ahora con ``\alpha`` también variable. La iteración de política
 evalúa cada política con un sistema lineal (notas, 5.2) y la mejora con el
 mismo operador de Bellman:

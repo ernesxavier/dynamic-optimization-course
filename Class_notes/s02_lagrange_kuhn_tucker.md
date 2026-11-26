@@ -1,14 +1,17 @@
 # Sesión 2: Lagrange, concavidad y Kuhn-Tucker
 
-> **Cómo usar estas notas.** La clase se da en el pizarrón y sigue estas
-> notas en su orden. El **plan de clase** de abajo dice qué secciones se
-> escriben en el pizarrón, cuándo se proyecta el cuaderno
+> **Cómo usar estas notas.** La clase se da en el pizarrón y cubre el núcleo
+> de estas notas, no todas. El **plan de clase** de abajo dice qué secciones
+> se escriben en el pizarrón, cuándo se proyecta el cuaderno
 > (`Code/s02_lagrange_kuhn_tucker.jl`) y qué queda para leer. En el pizarrón
 > van las ecuaciones y los resultados en recuadro; el texto que las rodea es
 > lo que se explica de palabra. Como todo está aquí, en clase no hace falta
 > copiar. El cuerpo de las notas es la **ruta básica** y se evalúa; las
 > demostraciones y los temas opcionales están al final, en **Para
 > profundizar**, y no se ven en clase.
+>
+> Las secciones marcadas con ★ son el **núcleo** que se ve en clase; las
+> demás se leen por cuenta propia y se evalúan igual.
 >
 > Repaso recomendado: [C.B2](repaso/calculo.md#cb2) (máximos en una
 > variable), [C.B5](repaso/calculo.md#cb5) (gradiente),
@@ -22,28 +25,32 @@
 >
 > Lecturas: Chiang y Wainwright (2006), caps. 11–13.
 
-**Plan de clase** (120 minutos)
+**Plan de clase** (120 minutos: 105 de núcleo y 15 de margen). El núcleo:
+las condiciones de Kuhn-Tucker y la holgura complementaria, resueltas en el
+problema de las dos regiones, con el multiplicador como precio sombra.
+Lagrange se ve rápido para dejar a Kuhn-Tucker su tiempo completo.
 
 | Minutos | Dónde | Qué | Secciones |
 |---|---|---|---|
 | 0–10 | Pizarra | La pregunta y el problema de las dos regiones; por qué importan la concavidad y $f_i'(0)$ | 1 |
-| 10–25 | Pizarra | Repaso rápido: primer y segundo orden, concavidad da un máximo global; el ejemplo de una región | 2.1–2.3 (enunciados; las demostraciones son lectura) |
-| 25–50 | Pizarra | Teorema de Lagrange y tangencia; $V'(c) = \lambda$; la condición de la hessiana orlada (enunciado); las dos regiones con el presupuesto agotado y la falla $x_2 < 0$ | 3.1–3.4 |
-| 50–58 | Proyector | Tangencia y precio sombra con deslizadores | Cuaderno, secciones 2 y 3 |
-| 58–63 | | Pausa | |
-| 63–90 | Pizarra | Condiciones de Kuhn-Tucker; la tabla de holgura complementaria, de palabra; el teorema de suficiencia (enunciado); solución por casos y el ejemplo numérico | 4.1–4.4 (sin la cuasiconcavidad) |
-| 90–97 | Proyector | La solución de esquina; rendimientos crecientes | Cuaderno, secciones 4 y 5 |
-| 97–105 | Pizarra | Rendimientos crecientes: $\varphi'' > 0$ y el punto de Kuhn-Tucker es un mínimo | 5 |
-| 105–118 | Parejas | Ejercicio F1 a mano | 8 |
-| 118–120 | Pizarra | Cierre: el multiplicador será el coestado | 6 |
-| Después | Lectura | El criterio general de la hessiana orlada (3.3), la cuasiconcavidad y el teorema de Arrow y Enthoven (4.3), la calificación de las restricciones (4.5), el resumen (7) y Para profundizar | |
+| 10–22 | Pizarra | Repaso rápido: condición de primer orden y concavidad da un máximo global (enunciados); el ejemplo de una región; el segundo orden, de palabra | 2.1, 2.3 (2.2, de palabra) |
+| 22–45 | Pizarra | Teorema de Lagrange y tangencia; el multiplicador como precio sombra, $V'(c) = \lambda$; las dos regiones con el presupuesto agotado y la falla $x_2 < 0$ | 3.1, 3.2, 3.4 |
+| 45–50 | | Pausa | |
+| 50–85 | Pizarra | Condiciones de Kuhn-Tucker; la tabla de holgura complementaria, de palabra; el teorema de suficiencia (enunciado); solución por casos y el ejemplo numérico | 4.1–4.4 (sin la cuasiconcavidad) |
+| 85–100 | Parejas | Ejercicio F1 a mano | 8 |
+| 100–105 | Pizarra | Cierre: el multiplicador será el coestado | 6 |
+| 105–120 | Margen | Si alcanza, en este orden: la solución de esquina en el cuaderno (sección 4); rendimientos crecientes, $\varphi'' > 0$ y el punto de Kuhn-Tucker es un mínimo (5; cuaderno, sección 5); tangencia y precio sombra con deslizadores (cuaderno, secciones 2 y 3) | |
+| Después | Lectura | Lo que no entró del margen; las condiciones de segundo orden (2.2), la hessiana orlada (3.3), la cuasiconcavidad y el teorema de Arrow y Enthoven (4.3), la calificación de las restricciones (4.5), el resumen (7) y Para profundizar | |
+
+Lo del **margen** se ve sólo si sobra tiempo, en el orden indicado; lo
+que no se vea pasa a la lectura y se evalúa igual.
 
 **Pregunta de la unidad.** Un gobierno tiene un fondo $B$ para invertir en dos
 regiones. ¿Cómo debe repartirlo? ¿Conviene siempre dar algo a cada región?
 
 ---
 
-## 1. El problema de las dos regiones
+## 1. El problema de las dos regiones ★
 
 Cada peso invertido en la región $i$ produce, con rendimientos decrecientes,
 
@@ -80,7 +87,7 @@ construyen las herramientas para encontrarlo; la sección 4.4 lo resuelve.
 Sea $f: U \to \mathbb{R}$ dos veces diferenciable, con $U \subset \mathbb{R}^n$
 abierto.
 
-### 2.1 Condición de primer orden
+### 2.1 Condición de primer orden ★
 
 **Proposición.** Si $x^\ast$ es un máximo local de $f$ en $U$, entonces
 $\nabla f(x^\ast) = 0$.
@@ -103,7 +110,7 @@ La idea está en el desarrollo de Taylor de segundo orden
 $f(x^\ast + h) - f(x^\ast) \approx \tfrac12 h^\top\nabla^2 f(x^\ast)\thinspace h$,
 y el signo lo decide la forma cuadrática ([L.I4](repaso/algebra_lineal.md#li4)).
 
-### 2.3 Concavidad: del óptimo local al global
+### 2.3 Concavidad: del óptimo local al global ★
 
 **Lema (desigualdad del gradiente).** Si $f$ es cóncava y diferenciable en
 un conjunto convexo abierto $U$, entonces para todo $x, y \in U$
@@ -135,7 +142,7 @@ $a > p$. Si $a \le p$, el óptimo con $x \ge 0$ es la esquina $x^\ast = 0$
 
 ## 3. Restricciones de igualdad: el método de Lagrange
 
-### 3.1 El teorema
+### 3.1 El teorema ★
 
 Considera $\max f(x)$ sujeto a $g_j(x) = c_j$, $j = 1, \dots, m$, con
 $m < n$. Sea $Dg(x)$ la matriz $m \times n$ de gradientes de las
@@ -164,7 +171,7 @@ La hipótesis de rango no se puede omitir: sin ella, un óptimo puede no
 cumplir la condición de Lagrange. Ver [Para profundizar, P.4](#pp4), con el
 caso análogo de las desigualdades.
 
-### 3.2 El multiplicador como precio sombra
+### 3.2 El multiplicador como precio sombra ★
 
 Sea $V(c)$ el valor máximo cuando la restricción es $g(x) = c$. Entonces
 
@@ -191,7 +198,7 @@ donde $\mathcal L_{ij}$ son las segundas derivadas del lagrangiano respecto
 de $x$. El criterio general, con $n$ variables y $m$ restricciones, está en
 [L.I5](repaso/algebra_lineal.md#li5).
 
-### 3.4 Ejemplo: las dos regiones con el presupuesto agotado
+### 3.4 Ejemplo: las dos regiones con el presupuesto agotado ★
 
 Si se exige $x_1 + x_2 = B$ y se ignoran las restricciones $x_i \ge 0$, el
 lagrangiano es
@@ -274,7 +281,7 @@ factible. Hacen falta las restricciones de desigualdad.
 
 ## 4. Restricciones de desigualdad: Kuhn-Tucker
 
-### 4.1 Las condiciones
+### 4.1 Las condiciones ★
 
 Considera
 
@@ -305,7 +312,7 @@ calificación de las restricciones (sección 4.5), existen
 $\lambda_1, \dots, \lambda_m$ tales que $(x^\ast, \lambda)$ cumple las
 condiciones de Kuhn-Tucker.
 
-### 4.2 Holgura complementaria: la lectura económica
+### 4.2 Holgura complementaria: la lectura económica ★
 
 Las igualdades $x_i\thinspace\partial\mathcal L/\partial x_i = 0$ y
 $\lambda_j(c_j - g_j) = 0$ se llaman de **holgura complementaria**. En cada
@@ -322,7 +329,7 @@ En la última fila está la respuesta a la pregunta de la unidad: una región no
 recibe nada si su producto marginal en cero no alcanza el valor de un peso
 del fondo.
 
-### 4.3 Suficiencia
+### 4.3 Suficiencia ★
 
 **Teorema.** Si $f$ es cóncava y cada $g_j$ es convexa, todo punto que cumple
 las condiciones de Kuhn-Tucker es un máximo global. Si $f$ es estrictamente
@@ -372,7 +379,7 @@ En la sección 5, con $\gamma > 1$, $f = a_1x_1^\gamma + a_2x_2^\gamma$ ni
 siquiera es cuasicóncava: sus conjuntos de nivel superior son el exterior de
 un conjunto convexo. Por eso el punto de Kuhn-Tucker interior es un mínimo.
 
-### 4.4 Solución del problema de las dos regiones
+### 4.4 Solución del problema de las dos regiones ★
 
 El lagrangiano es
 $\mathcal L = a_1\ln(1 + x_1) + a_2\ln(1 + x_2) + \lambda(B - x_1 - x_2)$, y

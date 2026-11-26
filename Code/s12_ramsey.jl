@@ -73,7 +73,7 @@ rama estable del punto de silla, todo derivado en el pizarrón.
 md"""
 ## 2. Los datos: México en la Penn World Table
 
-*Minutos 70–80* (notas, 5.1, lectura previa). Las series de
+*Minutos 65–70* (notas, 5.1, lectura previa). Las series de
 `Data/pwt_mexico.csv` (Penn World Table 11.0); la línea punteada de cada
 gráfica es el promedio del periodo que usa la calibración.
 
@@ -87,7 +87,7 @@ pwt = CSV.read(joinpath(@__DIR__, "..", "Data", "pwt_mexico.csv"), DataFrame)
 md"""
 ## 3. La calibración
 
-*Minutos 80–95* (notas, 5.2–5.4). ``\delta`` y ``n`` salen de los datos;
+*Minutos 70–82* (notas, 5.2–5.4). ``\delta`` y ``n`` salen de los datos;
 ``\alpha``, de la participación del trabajo o del valor convencional;
 ``\rho``, de reproducir el ``K/Y`` de los datos; ``\theta`` se supone; ``A``
 normaliza el producto de estado estacionario a 1.
@@ -101,7 +101,7 @@ Aversión a la variación del consumo, ``\theta``: $(@bind θ Slider(0.5:0.5:5.0
 md"""
 ## 4. Diagrama de fase y transición
 
-*Minutos 95–108.* El diagrama de fase calibrado: la isoclina ``k' = 0``
+*Minutos 82–92.* El diagrama de fase calibrado: la isoclina ``k' = 0``
 (azul), la recta ``c' = 0`` (punteada) y la rama estable (naranja), en
 múltiplos del producto de estado estacionario. La economía empieza con una
 fracción de ``k^\ast`` y consume lo que indica la rama estable.
@@ -121,7 +121,7 @@ md"""
 md"""
 ## 5. La transversalidad elige la rama
 
-*Minutos 95–108* (notas, 4.5). Desde el mismo capital inicial, tres
+*Si alcanza (margen de la clase)* (notas, 4.5). Desde el mismo capital inicial, tres
 consumos iniciales: el de la rama estable, uno 2% mayor y otro 2% menor. A
 la derecha, el valor descontado del capital,
 ``e^{-(\rho - n)t}\mu(t)k(t)``, en escala logarítmica.
@@ -137,7 +137,7 @@ md"""
 md"""
 ## Ejercicios
 
-*Minutos 108–118, en parejas: ejercicios 1 a 3.* Los ejercicios con
+*Minutos 92–102, en parejas: ejercicio 1; el 2 y el 3, si alcanza.* Los ejercicios con
 demostraciones están en las notas (sección 8).
 
 ### Completa el código
